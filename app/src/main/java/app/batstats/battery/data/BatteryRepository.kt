@@ -26,6 +26,9 @@ class BatteryRepository(
     private val _realtime = MutableStateFlow(Realtime(null))
     val realtime: StateFlow<Realtime> = _realtime.asStateFlow()
 
+    private val _isSampling = MutableStateFlow(false)
+    val isSampling: StateFlow<Boolean> = _isSampling.asStateFlow()
+
     data class Realtime(
         val sample: BatterySample?
     ) {
@@ -45,18 +48,29 @@ class BatteryRepository(
     fun startSampling() {
         if (sampleJob?.isActive == true) return
         sampleJob = appScope.launch(Dispatchers.Default) {
-            settingsRepo.flow.collectLatest { settings ->
-                while (currentCoroutineContext().isActive) {
-                    val s = captureSample()
-                    _realtime.value = Realtime(s)
+            try {
+                _isSampling.value = true
+                settingsRepo.flow.collectLatest { settings ->
+                    while (currentCoroutineContext().isActive) {
+                        val s = captureSample()
+                        _realtime.value = Realtime(s)
 
-                    emitToDb(s)
-                    autoManageSession(settings, s)
-                    checkAlarms(settings, s)
+                        // If user wants monitoring while charging only, keep UI live but avoid heavy work.
+                        if (settings.monitorWhileChargingOnly && s.plugged == 0) {
+                            delay(settings.sampleIntervalSec.coerceIn(5, 60) * 1000L)
+                            continue
+                        }
 
-                    val interval = settings.sampleIntervalSec.coerceIn(5, 60)
-                    delay(interval * 1000L)
+                        emitToDb(s)
+                        autoManageSession(settings, s)
+                        checkAlarms(settings, s)
+
+                        val interval = settings.sampleIntervalSec.coerceIn(5, 60)
+                        delay(interval * 1000L)
+                    }
                 }
+            } finally {
+                _isSampling.value = false
             }
         }
     }
@@ -64,6 +78,7 @@ class BatteryRepository(
     fun stopSampling() {
         sampleJob?.cancel()
         sampleJob = null
+        _isSampling.value = false
     }
 
     private suspend fun emitToDb(s: BatterySample) {

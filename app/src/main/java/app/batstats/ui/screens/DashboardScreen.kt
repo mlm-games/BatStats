@@ -24,8 +24,10 @@ import androidx.compose.ui.unit.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.ChargeSession
+import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
 import app.batstats.viewmodel.DashboardViewModel
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -42,6 +44,7 @@ fun DashboardScreen(
 ) {
     val rt by vm.realtime.collectAsState()
     val session by vm.activeSession.collectAsState()
+    val isMonitoring by vm.isMonitoring.collectAsState()
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -56,9 +59,9 @@ fun DashboardScreen(
                         AnimatedVisibility(rt.sample != null) {
                             Text(
                                 "Updated ${
-                                    SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(
-                                        Date()
-                                    )}",
+                                    SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                                        .format(Date(rt.sample?.timestamp ?: System.currentTimeMillis()))
+                                }",
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -96,10 +99,10 @@ fun DashboardScreen(
             // Control Center
             ControlCenter(
                 session = session,
-                onStartMonitor = { vm.startOrBindService() },
-                onStopMonitor = { vm.stopService() },
-                onStartSession = { vm.startManualSession() },
-                onEndSession = { vm.endSession() }
+                isMonitoring = isMonitoring,
+                onToggleMonitor = { vm.toggleMonitoring() },
+                onStartSession = { vm.startManualSession(it) },
+                onEndSession = { vm.endSession() },
             )
 
             // Stats Grid
@@ -118,7 +121,7 @@ private fun HeroBatteryCard(
     rt: BatteryRepository.Realtime,
     session: ChargeSession?
 ) {
-    Card(
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -271,12 +274,22 @@ private fun CircularBatteryIndicator(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "$level",
-                style = MaterialTheme.typography.displayLarge,
+                style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold
             )
+//            Text(
+//                text = "%",
+//                style = MaterialTheme.typography.displaySmall,
+//                color = MaterialTheme.colorScheme.onSurfaceVariant
+//            )
+            val statusText = when {
+                isCharging && level >= 100 -> "Full"
+                isCharging -> "Charging"
+                else -> "Discharging"
+            }
             Text(
-                text = "%",
-                style = MaterialTheme.typography.titleLarge,
+                text = statusText,
+                style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
@@ -328,12 +341,12 @@ private fun CircularBatteryIndicator(
 @Composable
 private fun ControlCenter(
     session: ChargeSession?,
-    onStartMonitor: () -> Unit,
-    onStopMonitor: () -> Unit,
-    onStartSession: () -> Unit,
-    onEndSession: () -> Unit
+    isMonitoring: Boolean,
+    onToggleMonitor: () -> Unit,
+    onStartSession: (SessionType) -> Unit,
+    onEndSession: () -> Unit,
 ) {
-    Card(
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -353,44 +366,43 @@ private fun ControlCenter(
                         "Monitoring",
                         style = MaterialTheme.typography.titleMedium
                     )
-                    AnimatedContent(
-                        targetState = session,
-                        label = "session"
-                    ) { s ->
-                        Text(
-                            if (s == null) "No active session" else "${s.type} session active",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+                    Text(
+                        if (isMonitoring) "Running (foreground)" else "Stopped",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (isMonitoring) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
 
-//                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-//                    FilledTonalButton(
-//                        onClick = onStartMonitor,
-//                        colors = ButtonDefaults.filledTonalButtonColors(
-//                            containerColor = MaterialTheme.colorScheme.primaryContainer
-//                        )
-//                    ) {
-//                        Icon(Icons.Default.PlayArrow, null, Modifier.size(18.dp))
-//                        Spacer(Modifier.width(4.dp))
-//                        Text("Start")
-//                    }
-//
-//                    OutlinedButton(onClick = onStopMonitor) {
-//                        Icon(Icons.Default.Stop, null, Modifier.size(18.dp))
-//                        Spacer(Modifier.width(4.dp))
-//                        Text("Stop")
-//                    }
-//                }
+                // Single toggle button that reflects state
+                val busy = remember { mutableStateOf(false) }
+                FilledTonalButton(
+                    enabled = !busy.value,
+                    onClick = {
+//                        busy.value = true
+                        onToggleMonitor()
+//                        busy.value = false
+                              },
+                    colors = if (isMonitoring)
+                        ButtonDefaults.filledTonalButtonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer)
+                    else
+                        ButtonDefaults.filledTonalButtonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                ) {
+                    Icon(if (isMonitoring) Icons.Default.Stop else Icons.Default.PlayArrow, null, Modifier.size(18.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text(if (isMonitoring) "Stop" else "Start")
+                }
             }
 
-            AnimatedVisibility(visible = true) {
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    color = MaterialTheme.colorScheme.outlineVariant
-                )
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 12.dp),
+                color = MaterialTheme.colorScheme.outlineVariant
+            )
 
+            // Session controls
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -403,18 +415,40 @@ private fun ControlCenter(
                     )
 
                     if (session == null) {
-                        TextButton(onClick = onStartSession) {
-                            Icon(Icons.Default.Add, null, Modifier.size(18.dp))
-                            Spacer(Modifier.width(4.dp))
-                            Text("Start")
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            AssistChip(
+                                onClick = { onStartSession(SessionType.CHARGE) },
+                                label = { Text("Charge") },
+                                leadingIcon = {
+                                    Icon(Icons.Default.BatteryChargingFull, null, Modifier.size(16.dp))
+                                }
+                            )
+                            AssistChip(
+                                onClick = { onStartSession(SessionType.DISCHARGE) },
+                                label = { Text("Discharge") },
+                                leadingIcon = {
+                                    Icon(Icons.Default.Battery0Bar, null, Modifier.size(16.dp))
+                                }
+                            )
                         }
                     } else {
                         TextButton(onClick = onEndSession) {
                             Icon(Icons.Default.CheckCircle, null, Modifier.size(18.dp))
-                            Spacer(Modifier.width(4.dp))
+                            Spacer(Modifier.width(6.dp))
                             Text("End")
                         }
                     }
+                }
+
+                if (session != null) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "${session.type} session active • started ${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                            Date(session.startTime)
+                        )}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
         }
@@ -461,7 +495,7 @@ private fun StatCard(
     value: String,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    ElevatedCard(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -511,7 +545,7 @@ private fun StatCard(
 private fun LiveChartCard(vm: DashboardViewModel) {
     val samples by vm.recentSamples.collectAsState(listOf())
 
-    Card(
+    ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),

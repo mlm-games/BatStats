@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class DashboardViewModel(private val app: Application) : AndroidViewModel(app) {
     val realtime = BatteryGraph.repo.realtime
+    val isMonitoring = BatteryGraph.repo.isSampling
     val activeSession: StateFlow<ChargeSession?> =
         BatteryGraph.db.sessionDao().activeFlow()
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -26,20 +27,27 @@ class DashboardViewModel(private val app: Application) : AndroidViewModel(app) {
             System.currentTimeMillis()
         ).map { it }
 
+
     fun startOrBindService() {
-        app.startForegroundService(Intent(app, BatteryMonitorService::class.java))
+        val ctx = getApplication<Application>()
+        ctx.startForegroundService(Intent(ctx, BatteryMonitorService::class.java))
     }
 
     fun stopService() {
-        app.stopService(Intent(app, BatteryMonitorService::class.java))
+        val ctx = getApplication<Application>()
+        ctx.stopService(Intent(ctx, BatteryMonitorService::class.java))
     }
 
-    fun startManualSession() = viewModelScope.launch {
-        BatteryGraph.repo.startSessionIfNone(SessionType.DISCHARGE)
+    fun toggleMonitoring() {
+        if (isMonitoring.value) stopService() else startOrBindService()
     }
 
-    fun endSession() = viewModelScope.launch {
-        BatteryGraph.repo.completeActiveSession()
+    fun startManualSession(type: SessionType) {
+        viewModelScope.launch { BatteryGraph.repo.startSessionIfNone(type) }
+    }
+
+    fun endSession() {
+        viewModelScope.launch { BatteryGraph.repo.completeActiveSession() }
     }
 
     companion object {
@@ -52,9 +60,3 @@ class DashboardViewModel(private val app: Application) : AndroidViewModel(app) {
         }
     }
 }
-
-// Helper extension to expose active session as LiveData
-private fun SessionDao.sessionDaoActiveAsLive() =
-    liveData {
-        emit(this@sessionDaoActiveAsLive.active())
-    }

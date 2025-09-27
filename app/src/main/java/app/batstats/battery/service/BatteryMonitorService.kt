@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.util.Notifier
+import app.batstats.battery.widget.WidgetUpdater
 import kotlinx.coroutines.*
 
 class BatteryMonitorService : Service() {
@@ -21,6 +22,7 @@ class BatteryMonitorService : Service() {
                     "Level ${rt.level}% • ${rt.currentMa} mA • ${rt.voltageMv} mV"
                 val notif = Notifier.monitoringNotification(this@BatteryMonitorService, text)
                 startForeground(Notifier.NOTIF_ID, notif)
+                rt.sample?.let { WidgetUpdater.push(this@BatteryMonitorService, it) }
             }
         }
     }
@@ -32,9 +34,4 @@ class BatteryMonitorService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
-
-    companion object {
-        const val ACTION_START = "app.batstats.battery.START"
-        const val ACTION_STOP = "app.batstats.battery.STOP"
-    }
 }

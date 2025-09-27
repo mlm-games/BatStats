@@ -170,7 +170,6 @@ dependencies {
 
     implementation(libs.androidx.runtime)
 
-
     //Material dependencies
     implementation(libs.material)
     implementation(libs.material3.android)
@@ -196,8 +195,6 @@ dependencies {
     implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.media3.ui.compose)
     implementation(libs.androidx.media3.exoplayer.dash)
-
-
 
     implementation(libs.zip4j)
     implementation(libs.commons.compress)

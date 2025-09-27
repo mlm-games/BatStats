@@ -10,12 +10,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.navigation.compose.rememberNavController
 import app.batstats.battery.ui.NavGraph
+import app.batstats.helper.DeviceUtils
+import app.batstats.ui.TvShell
 import app.batstats.ui.theme.MainTheme
+
 
 class BatteryMainActivity : ComponentActivity() {
     private val notifPerm = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { /* ignore result; gracefully degrade */ }
+    ) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,11 @@ class BatteryMainActivity : ComponentActivity() {
         setContent {
             MainTheme(darkTheme = true, useAuroraTheme = true) {
                 val nav = rememberNavController()
-                NavGraph(nav = nav)
+                if (DeviceUtils.isTV(this)) {
+                    TvShell(nav = nav)
+                } else {
+                    NavGraph(nav = nav)
+                }
             }
         }
     }

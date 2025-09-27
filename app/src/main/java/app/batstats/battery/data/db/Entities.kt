@@ -1,12 +1,13 @@
 package app.batstats.battery.data.db
 
 import androidx.room.*
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-
+@Serializable
 @Entity(tableName = "battery_samples",
     indices = [Index("timestamp"), Index("status")])
 data class BatterySample(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @field:PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long,
     val levelPercent: Int,                  // 0..100
     val status: Int,                        // BatteryManager status
@@ -19,10 +20,12 @@ data class BatterySample(
     val screenOn: Boolean
 )
 
+@Serializable
 @Entity(tableName = "charge_sessions",
     indices = [Index("startTime"), Index("type")])
 data class ChargeSession(
-    @PrimaryKey val sessionId: String,
+    @Contextual
+    @field:PrimaryKey val sessionId: String,
     val type: SessionType,
     val startTime: Long,
     val endTime: Long?,             // null while active

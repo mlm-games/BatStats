@@ -1,23 +1,23 @@
-package app.batstats.battery.ui.screens
+package app.batstats.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import app.batstats.battery.data.BatterySettingsRepository
 import app.batstats.battery.BatteryGraph
-import app.batstats.ui.components.AppTopBar
-import app.batstats.ui.components.SettingsSection
-import app.batstats.ui.components.SettingsToggle
+import app.batstats.battery.data.BatterySettings
 import app.batstats.ui.components.SettingsItem
+import app.batstats.ui.components.SettingsToggle
 import app.batstats.ui.dialogs.SliderSettingDialog
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmsScreen(onBack: () -> Unit) {
     val settingsFlow = BatteryGraph.settings.flow
-    val settings by settingsFlow.collectAsState(initial = app.batstats.battery.data.BatterySettings())
+    val settings by settingsFlow.collectAsState(initial = BatterySettings())
     val scope = rememberCoroutineScope()
 
     var showLimit by remember { mutableStateOf(false) }
@@ -25,12 +25,13 @@ fun AlarmsScreen(onBack: () -> Unit) {
     var showDisch by remember { mutableStateOf(false) }
 
     Scaffold(topBar = {
-        AppTopBar(title = { Text("Alarms") }, navigationIcon = {
-            TextButton(onClick = onBack) { Text("Back") }
-        })
+        LargeTopAppBar(
+            title = { Text("Alarms") },
+            navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }
+        )
     }) { pv ->
         Column(Modifier.padding(pv).fillMaxSize()) {
-            SettingsSection("Charging") {
+            SectionCard(title = "Charging") {
                 SettingsToggle(
                     title = "Charge limit reminder",
                     isChecked = settings.chargeLimitPercent > 0,
@@ -48,19 +49,33 @@ fun AlarmsScreen(onBack: () -> Unit) {
                     subtitle = "${settings.chargeLimitPercent}%",
                     onClick = { showLimit = true }
                 )
+                LinearProgressIndicator(
+                    progress = { settings.chargeLimitPercent / 100f },
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                )
             }
-            SettingsSection("Thermals") {
+
+            SectionCard(title = "Thermals") {
                 SettingsItem(
                     title = "High temperature alert",
                     subtitle = "${settings.tempHighC} °C",
                     onClick = { showTemp = true }
                 )
+                LinearProgressIndicator(
+                    progress = { (settings.tempHighC - 20).coerceIn(0, 40) / 40f },
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                )
             }
-            SettingsSection("Discharge") {
+
+            SectionCard(title = "Discharge") {
                 SettingsItem(
                     title = "High discharge alert",
                     subtitle = "${settings.dischargeHighMa} mA",
                     onClick = { showDisch = true }
+                )
+                LinearProgressIndicator(
+                    progress = { (settings.dischargeHighMa / 2000f).coerceIn(0f, 1f) },
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
             }
         }
@@ -86,4 +101,18 @@ fun AlarmsScreen(onBack: () -> Unit) {
         onDismiss = { showDisch = false },
         onValueSelected = { v -> scope.launch { BatteryGraph.settings.update { it.copy(dischargeHighMa = v.toInt()) } } }
     )
+}
+
+@Composable
+private fun SectionCard(title: String, content: @Composable ColumnScope.() -> Unit) {
+    ElevatedCard(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface)
+    ) {
+        Column(Modifier.padding(16.dp), content = {
+            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Medium)
+            Spacer(Modifier.height(8.dp))
+            content()
+        })
+    }
 }

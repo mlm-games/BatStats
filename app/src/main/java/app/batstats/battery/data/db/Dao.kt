@@ -26,6 +26,9 @@ interface SessionDao {
     @Query("SELECT * FROM charge_sessions WHERE endTime IS NULL LIMIT 1")
     suspend fun active(): ChargeSession?
 
+    @Query("SELECT * FROM charge_sessions WHERE endTime IS NULL LIMIT 1")
+    fun activeFlow(): Flow<ChargeSession?>
+
     @Query("SELECT * FROM charge_sessions ORDER BY startTime DESC LIMIT :limit OFFSET :offset")
     fun sessionsPaged(limit: Int, offset: Int): Flow<List<ChargeSession>>
 

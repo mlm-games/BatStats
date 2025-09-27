@@ -1,1 +1,1 @@
-An IR remote app inspired by the now archived IR-Remote (by divested group)
+Battery stats viewer with charge alarm rules

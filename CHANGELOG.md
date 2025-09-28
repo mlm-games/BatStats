@@ -1,3 +1,11 @@
+## v4.1.1
+
+- Bump build.gradle.kts
+- Fix session card data only displaying 0% -> 0%
+- Misc fixes
+- Fix graph (not sessions yet)
+
+
 ## v4.0.1
 
 - Fix monitoring button

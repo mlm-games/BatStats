@@ -1,0 +1,4 @@
+- Bump build.gradle.kts
+- Fix session card data only displaying 0% -> 0%
+- Misc fixes
+- Fix graph (not sessions yet)

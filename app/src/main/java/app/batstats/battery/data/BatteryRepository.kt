@@ -55,15 +55,14 @@ class BatteryRepository(
                         val s = captureSample()
                         _realtime.value = Realtime(s)
 
-                        // If user wants monitoring while charging only, keep UI live but avoid heavy work.
-                        if (settings.monitorWhileChargingOnly && s.plugged == 0) {
-                            delay(settings.sampleIntervalSec.coerceIn(5, 60) * 1000L)
-                            continue
+                        // Persist if charging OR if a session is active; otherwise obey charging-only throttle
+                        val hasActive = sessionDao.active() != null
+                        val chargingOnlyGate = settings.monitorWhileChargingOnly && s.plugged == 0 && !hasActive
+                        if (!chargingOnlyGate) {
+                            emitToDb(s, settings.keepHistoryDays)
+                            autoManageSession(settings, s)
+                            checkAlarms(settings, s)
                         }
-
-                        emitToDb(s, settings.keepHistoryDays)
-                        autoManageSession(settings, s)
-                        checkAlarms(settings, s)
 
                         val interval = settings.sampleIntervalSec.coerceIn(5, 60)
                         delay(interval * 1000L)
@@ -88,8 +87,13 @@ class BatteryRepository(
 
     suspend fun startSessionIfNone(type: SessionType, now: Long = System.currentTimeMillis()) {
         if (sessionDao.active() != null) return
-        val last = sampleDao.lastSample()
-        val startLvl = last?.levelPercent ?: 0
+        // Prefer last persisted sample; if none, capture one now and persist it
+        val last = sampleDao.lastSample() ?: run {
+            val snap = captureSample()
+            sampleDao.insertSample(snap)
+            snap
+        }
+        val startLvl = last.levelPercent.coerceIn(0, 100)
         sessionDao.upsert(
             ChargeSession(
                 sessionId = UUID.randomUUID().toString(),
@@ -107,12 +111,15 @@ class BatteryRepository(
 
     suspend fun completeActiveSession(now: Long = System.currentTimeMillis()) {
         val active = sessionDao.active() ?: return
-        val endSample = sampleDao.lastSample() ?: return
+        val fresh = captureSample()
+        sampleDao.insertSample(fresh)
+
+        val endSample = sampleDao.lastSample()
         val (deltaUah, avgUa, estMah) = estimateSession(active)
         sessionDao.complete(
             id = active.sessionId,
             end = now,
-            endLevel = endSample.levelPercent,
+            endLevel = endSample?.levelPercent?.coerceIn(0, 100) ?: active.startLevel,
             delta = deltaUah,
             avg = avgUa,
             cap = estMah

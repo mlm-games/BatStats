@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -84,6 +85,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.BatteryRepository
@@ -189,7 +191,7 @@ private fun HeroBatteryCard(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(280.dp)
+                .height(300.dp) // a bit taller to give ETA breathing room
         ) {
             // Animated gradient background
             val infiniteTransition = rememberInfiniteTransition()
@@ -227,7 +229,6 @@ private fun HeroBatteryCard(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // Circular battery indicator
                 CircularBatteryIndicator(
                     level = rt.level,
                     isCharging = rt.plugged != 0,
@@ -235,26 +236,30 @@ private fun HeroBatteryCard(
                     modifier = Modifier.size(180.dp)
                 )
 
-                Spacer(Modifier.height(10.dp))
+                Spacer(Modifier.height(14.dp))
 
-                // ETA with animation
+                val eta = TimeEstimator.etaString(rt.sample)
                 AnimatedContent(
-                    targetState = TimeEstimator.etaString(rt.sample),
+                    targetState = eta,
                     transitionSpec = {
                         fadeIn() + slideInVertically() togetherWith fadeOut() + slideOutVertically()
                     },
                     label = "eta"
-                ) { eta ->
-                    if (eta != null) {
+                ) { value ->
+                    if (value != null) {
                         Surface(
                             shape = RoundedCornerShape(12.dp),
                             color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
                         ) {
                             Text(
-                                text = eta,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontWeight = FontWeight.Medium
+                                text = value,
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                                    .widthIn(min = 0.dp, max = 260.dp), // constrain width
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Medium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }

@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SessionCard(
@@ -43,7 +44,7 @@ fun SessionCard(
 ) {
     val df = remember { SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()) }
     val isActive = session.endTime == null
-    val duration = session.endTime?.let { it - session.startTime }
+    val durationMs = (session.endTime ?: System.currentTimeMillis()) - session.startTime
 
     Card(
         modifier = modifier,
@@ -131,7 +132,6 @@ fun SessionCard(
 
                 Spacer(Modifier.height(4.dp))
 
-                // Level change indicator
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -151,24 +151,23 @@ fun SessionCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    duration?.let {
-                        StatChip(
-                            icon = Icons.Default.Schedule,
-                            text = formatDuration(it)
-                        )
-                    }
+                    StatChip(
+                        icon = Icons.Default.Schedule,
+                        text = formatDuration(durationMs)
+                    )
 
                     session.estCapacityMah?.let {
                         StatChip(
                             icon = Icons.Default.Battery0Bar,
-                            text = "$it mAh"
+                            text = "~${it} mAh"
                         )
                     }
 
                     session.avgCurrentUa?.let {
+                        val maAbs = kotlin.math.abs(it / 1000)
                         StatChip(
                             icon = Icons.Default.ElectricBolt,
-                            text = "${it / 1000} mA"
+                            text = "$maAbs mA avg"
                         )
                     }
                 }

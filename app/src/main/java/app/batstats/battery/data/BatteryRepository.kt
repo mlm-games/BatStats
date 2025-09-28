@@ -1,7 +1,6 @@
 package app.batstats.battery.data
 
 import android.app.Application
-import android.content.*
 import android.os.BatteryManager
 import android.os.Build
 import android.os.PowerManager
@@ -165,12 +164,27 @@ class BatteryRepository(
         return Triple(estUah, avgUa, estCapacityMah)
     }
 
+    private var unpluggedStreak = 0
+
     private suspend fun autoManageSession(settings: BatterySettings, s: BatterySample) {
-        if (settings.autoStartSessionOnPlug && s.plugged != 0) {
+        val active = sessionDao.active()
+
+        if (settings.autoStartSessionOnPlug && s.plugged != 0 && active == null) {
             startSessionIfNone(SessionType.CHARGE)
         }
-        if (settings.autoStopSessionOnUnplug && s.plugged == 0) {
+
+        // Debounce unplug events to avoid accidental ends (e.g., cable wiggle)
+        if (s.plugged == 0) unpluggedStreak++ else unpluggedStreak = 0
+
+        // Only auto-stop CHARGE sessions on unplug, never DISCHARGE sessions
+        if (
+            settings.autoStopSessionOnUnplug &&
+            s.plugged == 0 &&
+            unpluggedStreak >= 2 &&            // requires two consecutive samples (≈ 30s with 15s interval)
+            active?.type == SessionType.CHARGE // do not end DISCHARGE sessions
+        ) {
             completeActiveSession()
+            unpluggedStreak = 0
         }
     }
 

@@ -1,6 +1,7 @@
 package app.batstats.battery
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,7 +26,7 @@ class BatteryMainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= 33) {
             val granted = ContextCompat.checkSelfPermission(
                 this, Manifest.permission.POST_NOTIFICATIONS
-            ) == PermissionChecker.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
             if (!granted) notifPerm.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 

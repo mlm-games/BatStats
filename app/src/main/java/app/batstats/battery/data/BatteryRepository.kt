@@ -61,7 +61,7 @@ class BatteryRepository(
                             continue
                         }
 
-                        emitToDb(s)
+                        emitToDb(s, settings.keepHistoryDays)
                         autoManageSession(settings, s)
                         checkAlarms(settings, s)
 
@@ -81,10 +81,9 @@ class BatteryRepository(
         _isSampling.value = false
     }
 
-    private suspend fun emitToDb(s: BatterySample) {
+    private suspend fun emitToDb(s: BatterySample, keepDays: Int) {
         sampleDao.insertSample(s)
-        val keepMs = settingsRepo.flow.first().keepHistoryDays.daysInMs()
-        sampleDao.purge(System.currentTimeMillis() - keepMs)
+        sampleDao.purge(System.currentTimeMillis() - keepDays.daysInMs())
     }
 
     suspend fun startSessionIfNone(type: SessionType, now: Long = System.currentTimeMillis()) {
@@ -168,23 +167,6 @@ class BatteryRepository(
         }
     }
 
-    private suspend fun checkAlarms(settings: BatterySettings, s: BatterySample) {
-        // Charge limit
-        if (s.plugged != 0 && s.levelPercent >= settings.chargeLimitPercent) {
-            Notifier.notifyChargeLimit(app, settings.chargeLimitPercent)
-        }
-        // High temp
-        val temp = (s.temperatureDeciC ?: 0) / 10
-        if (temp >= settings.tempHighC) {
-            Notifier.notifyTempHigh(app, temp)
-        }
-        // High discharge
-        val ma = ((s.currentNowUa ?: 0L) / 1000).toInt()
-        if (s.plugged == 0 && ma < 0 && abs(ma) >= settings.dischargeHighMa) {
-            Notifier.notifyDischargeHigh(app, abs(ma))
-        }
-    }
-
     private fun captureSample(): BatterySample {
         val now = System.currentTimeMillis()
         val sticky = app.registerReceiver(null, batteryIntentFilter())
@@ -221,4 +203,48 @@ class BatteryRepository(
         val v = if (Build.VERSION.SDK_INT >= 21) getLongProperty(id) else Long.MIN_VALUE
         if (v == Long.MIN_VALUE || v == 0L) null else v
     } catch (_: Throwable) { null }
+
+
+    private data class AlarmState(
+        var limitNotified: Boolean = false,
+        var tempNotified: Boolean = false,
+        var dischargeNotified: Boolean = false
+    )
+    private val alarmState = AlarmState()
+
+    private suspend fun checkAlarms(settings: BatterySettings, s: BatterySample) {
+        // Charge limit
+        if (s.plugged != 0 && s.levelPercent >= settings.chargeLimitPercent) {
+            if (!alarmState.limitNotified) {
+                Notifier.notifyChargeLimit(app, settings.chargeLimitPercent)
+                alarmState.limitNotified = true
+            }
+        } else {
+            alarmState.limitNotified = false
+        }
+
+        // High temp
+        val temp = (s.temperatureDeciC ?: 0) / 10
+        if (temp >= settings.tempHighC) {
+            if (!alarmState.tempNotified) {
+                Notifier.notifyTempHigh(app, temp)
+                alarmState.tempNotified = true
+            }
+        } else {
+            alarmState.tempNotified = false
+        }
+
+        // High discharge
+        val ma = ((s.currentNowUa ?: 0L) / 1000).toInt()
+        if (s.plugged == 0 && ma < 0 && abs(ma) >= settings.dischargeHighMa) {
+            if (!alarmState.dischargeNotified) {
+                Notifier.notifyDischargeHigh(app, abs(ma))
+                alarmState.dischargeNotified = true
+            }
+        } else {
+            alarmState.dischargeNotified = false
+        }
+    }
 }
+
+

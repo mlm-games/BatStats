@@ -30,27 +30,43 @@ fun DataScreen(onBack: () -> Unit) {
     var info by remember { mutableStateOf<String?>(null) }
     val snackbarHost = remember { SnackbarHostState() }
 
-    val createJson = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri: Uri? ->
+    val createJson = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri: Uri? ->
         if (uri != null) scope.launch {
             busy = true
-            val ok = ExportImport.exportJson(uri, from, to, includeSamples, includeSessions)
+            val ok = ExportImport.exportJson(
+                dest = uri,
+                from = from,
+                to = to,
+                includeSamples = includeSamples,
+                includeSessions = includeSessions
+            )
             busy = false
             info = if (ok) "JSON exported" else "Export failed"
             snackbarHost.showSnackbar(info!!)
         }
     }
 
-    val folderCsv = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { tree ->
+    val folderCsv = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocumentTree()
+    ) { tree ->
         if (tree != null) scope.launch {
             busy = true
-            val ok = ExportImport.exportCsvToFolder(tree, from, to)
+            val ok = ExportImport.exportCsvToFolder(
+                tree = tree,
+                from = from,
+                to = to
+            )
             busy = false
             info = if (ok) "CSV exported" else "Export failed"
             snackbarHost.showSnackbar(info!!)
         }
     }
 
-    val openJson = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+    val openJson = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
         if (uri != null) scope.launch {
             busy = true
             val ok = ExportImport.importJson(uri)
@@ -60,7 +76,9 @@ fun DataScreen(onBack: () -> Unit) {
         }
     }
 
-    val openCsv = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+    val openCsv = rememberLauncherForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
         if (uri != null) scope.launch {
             busy = true
             val ok = ExportImport.importCsv(uri)
@@ -79,14 +97,28 @@ fun DataScreen(onBack: () -> Unit) {
         },
         snackbarHost = { SnackbarHost(snackbarHost) }
     ) { pv ->
-        Column(Modifier.padding(pv).fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(
+            Modifier
+                .padding(pv)
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
             ElevatedCard {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Date range", style = MaterialTheme.typography.titleMedium)
                     DateRangeRow(from = from, to = to, onFrom = { from = it }, onTo = { to = it })
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        FilterChip(selected = includeSamples, onClick = { includeSamples = !includeSamples }, label = { Text("Samples") })
-                        FilterChip(selected = includeSessions, onClick = { includeSessions = !includeSessions }, label = { Text("Sessions") })
+                        FilterChip(
+                            selected = includeSamples,
+                            onClick = { includeSamples = !includeSamples },
+                            label = { Text("Samples") }
+                        )
+                        FilterChip(
+                            selected = includeSessions,
+                            onClick = { includeSessions = !includeSessions },
+                            label = { Text("Sessions") }
+                        )
                     }
                 }
             }
@@ -102,8 +134,12 @@ fun DataScreen(onBack: () -> Unit) {
                         Icon(Icons.Outlined.Download, null)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { createJson.launch("BatteryExport.json") }, enabled = !busy) { Text("Export JSON") }
-                        OutlinedButton(onClick = { folderCsv.launch(null) }, enabled = !busy) { Text("Export CSV (folder)") }
+                        Button(onClick = { createJson.launch("BatteryExport.json") }, enabled = !busy) {
+                            Text("Export JSON")
+                        }
+                        OutlinedButton(onClick = { folderCsv.launch(null) }, enabled = !busy) {
+                            Text("Export CSV (folder)")
+                        }
                     }
                     AnimatedVisibility(visible = busy) {
                         LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -122,10 +158,19 @@ fun DataScreen(onBack: () -> Unit) {
                         Icon(Icons.Outlined.Upload, null)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { openJson.launch(arrayOf("application/json")) }, enabled = !busy) { Text("Import JSON") }
-                        OutlinedButton(onClick = { openCsv.launch(arrayOf("text/*","application/octet-stream")) }, enabled = !busy) { Text("Import CSV") }
+                        Button(
+                            onClick = { openJson.launch(arrayOf("application/json")) },
+                            enabled = !busy
+                        ) { Text("Import JSON") }
+                        OutlinedButton(
+                            onClick = { openCsv.launch(arrayOf("text/*", "application/octet-stream")) },
+                            enabled = !busy
+                        ) { Text("Import CSV") }
                     }
-                    Text("CSV import accepts battery_samples.csv and charge_sessions.csv.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        "CSV import: open either battery_samples.csv or charge_sessions.csv",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
         }

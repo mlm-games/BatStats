@@ -3,6 +3,7 @@ package app.batstats.battery.data.db
 import android.content.Context
 import androidx.room.*
 
+@TypeConverters(EnumConverters::class)
 @Database(
     entities = [BatterySample::class, ChargeSession::class, AlarmRule::class],
     version = 1,
@@ -27,4 +28,12 @@ abstract class BatteryDatabase : RoomDatabase() {
                 .build().also { INSTANCE = it }
             }
     }
+}
+
+class EnumConverters {
+    @TypeConverter fun fromSessionType(t: SessionType?): String? = t?.name
+    @TypeConverter fun toSessionType(s: String?): SessionType? = s?.let { enumValueOf<SessionType>(it) }
+
+    @TypeConverter fun fromAlarmType(t: AlarmType?): String? = t?.name
+    @TypeConverter fun toAlarmType(s: String?): AlarmType? = s?.let { enumValueOf<AlarmType>(it) }
 }

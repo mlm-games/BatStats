@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import app.batstats.battery.BatteryMainActivity
-//import app.batstats.battery.R // If you don't have icons, switch to system icon
 
 object Notifier {
     private const val CH_ID = "battery_monitor"
@@ -14,9 +13,15 @@ object Notifier {
     fun ensureChannel(ctx: Context) {
         val mgr = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (mgr.getNotificationChannel(CH_ID) == null) {
-            val ch = NotificationChannel(CH_ID, "Battery Monitor", NotificationManager.IMPORTANCE_LOW).apply {
-                enableLights(false); enableVibration(false)
+            val ch = NotificationChannel(
+                CH_ID,
+                "Battery Monitor",
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
+                enableLights(false)
+                enableVibration(false)
                 lightColor = Color.GREEN
+                setShowBadge(false)
             }
             mgr.createNotificationChannel(ch)
         }
@@ -34,6 +39,7 @@ object Notifier {
             .setSmallIcon(android.R.drawable.ic_lock_idle_charging)
             .setContentIntent(pi)
             .setOngoing(true)
+            .setOnlyAlertOnce(true)
             .build()
     }
 
@@ -44,6 +50,7 @@ object Notifier {
             .setContentText("Battery at $limit% — consider unplugging.")
             .setSmallIcon(android.R.drawable.stat_sys_warning)
             .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
             .build()
         (ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
             .notify(1001, n)
@@ -55,6 +62,7 @@ object Notifier {
             .setContentTitle("High temperature")
             .setContentText("$tempC °C — cool down the device.")
             .setSmallIcon(android.R.drawable.stat_sys_warning)
+            .setOnlyAlertOnce(true)
             .build()
         (ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
             .notify(1002, n)
@@ -66,6 +74,7 @@ object Notifier {
             .setContentTitle("High discharge")
             .setContentText("$ma mA — heavy drain detected.")
             .setSmallIcon(android.R.drawable.stat_sys_warning)
+            .setOnlyAlertOnce(true)
             .build()
         (ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
             .notify(1003, n)

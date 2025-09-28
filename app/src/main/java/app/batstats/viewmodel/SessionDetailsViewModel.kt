@@ -29,14 +29,19 @@ class SessionDetailsViewModel(private val app: Application, private val sessionI
             ) { session, _ -> session }.filterNotNull().collect { s ->
                 val end = s.endTime ?: System.currentTimeMillis()
                 val samples = BatteryGraph.repo.samplesBetween(s.startTime, end).first()
+
+                val startPct = (s.startLevel).coerceIn(0, 100)
+                val endPct = (s.endLevel ?: samples.lastOrNull()?.levelPercent ?: startPct).coerceIn(0, 100)
+
                 val points = aggregatePerMinute(samples)
                 val cap = s.estCapacityMah
                 val avg = s.avgCurrentUa
+
                 _ui.value = Ui(
                     type = s.type.name,
                     start = s.startTime,
                     end = s.endTime,
-                    levelRange = "${samples.firstOrNull()?.levelPercent ?: 0}% → ${samples.lastOrNull()?.levelPercent ?: 0}%",
+                    levelRange = "$startPct% → $endPct%",
                     capacityMah = cap,
                     avgCurrent = avg,
                     points = points

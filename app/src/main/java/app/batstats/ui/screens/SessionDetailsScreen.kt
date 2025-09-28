@@ -116,22 +116,27 @@ private fun ChartCard(
 
 private fun DrawScope.drawSeries(values: List<Float>, color: Color) {
     if (values.isEmpty()) return
+    val count = values.size
     val min = values.minOrNull() ?: 0f
     val max = values.maxOrNull() ?: 1f
-    val range = (max - min).takeIf { abs(it) > 1e-6 } ?: 1f
-    val stepX = size.width / (values.size - 1).coerceAtLeast(1)
+    val hasRange = kotlin.math.abs(max - min) > 1e-6f
+    val range = if (hasRange) (max - min) else 1f
+    val stepX = if (count > 1) size.width / (count - 1) else 0f
+
+    fun mapY(v: Float) = if (hasRange) {
+        size.height - ((v - min) / range) * size.height
+    } else size.height * 0.5f
+
     var prev: Offset? = null
     values.forEachIndexed { i, v ->
-        val x = i * stepX
-        val y = size.height - ((v - min) / range) * size.height
-        val p = Offset(x, y)
+        val x = if (count > 1) i * stepX else size.width * 0.5f
+        val p = Offset(x, mapY(v))
         prev?.let {
-            drawLine(
-                color = color,
-                start = it,
-                end = p,
-                strokeWidth = 3f
-            )
+            drawLine(color = color, start = it, end = p, strokeWidth = 3f)
+        } ?: if (count == 1) {
+            drawCircle(color = color, radius = 4.dp.toPx(), center = p)
+        } else {
+
         }
         prev = p
     }

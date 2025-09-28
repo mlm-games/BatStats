@@ -1,37 +1,100 @@
 package app.batstats.ui.screens
 
-import androidx.compose.animation.*
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.draw.*
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Battery0Bar
+import androidx.compose.material.icons.filled.BatteryChargingFull
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.OfflineBolt
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.outlined.Battery0Bar
+import androidx.compose.material.icons.outlined.CloudDownload
+import androidx.compose.material.icons.outlined.ElectricBolt
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.SettingsPower
+import androidx.compose.material.icons.outlined.Thermostat
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
-import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.drawscope.*
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
 import app.batstats.viewmodel.DashboardViewModel
-import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import kotlin.math.*
+import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,31 +150,24 @@ fun DashboardScreen(
         },
         containerColor = MaterialTheme.colorScheme.surface
     ) { pv ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(pv)
-                .verticalScroll(scrollState)
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = pv,
+            verticalArrangement = Arrangement.spacedBy(0.dp)
         ) {
-            // Hero Battery Status Card
-            HeroBatteryCard(rt, session)
-
-            // Control Center
-            ControlCenter(
-                session = session,
-                isMonitoring = isMonitoring,
-                onToggleMonitor = { vm.toggleMonitoring() },
-                onStartSession = { vm.startManualSession(it) },
-                onEndSession = { vm.endSession() },
-            )
-
-            // Stats Grid
-            StatsGrid(rt)
-
-            // Live Chart
-            LiveChartCard(vm)
-
-            Spacer(Modifier.height(16.dp))
+            item { HeroBatteryCard(rt, session) }
+            item {
+                ControlCenter(
+                    session = session,
+                    isMonitoring = isMonitoring,
+                    onToggleMonitor = { vm.toggleMonitoring() },
+                    onStartSession = { vm.startManualSession(it) },
+                    onEndSession = { vm.endSession() },
+                )
+            }
+            item { StatsGrid(rt) }
+            item { LiveChartCard(vm) }
+            item { Spacer(Modifier.height(16.dp)) }
         }
     }
 }
@@ -179,7 +235,7 @@ private fun HeroBatteryCard(
                     modifier = Modifier.size(180.dp)
                 )
 
-                Spacer(Modifier.height(20.dp))
+                Spacer(Modifier.height(10.dp))
 
                 // ETA with animation
                 AnimatedContent(
@@ -455,6 +511,7 @@ private fun ControlCenter(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun StatsGrid(rt: BatteryRepository.Realtime) {
     val stats = listOf(
@@ -543,7 +600,12 @@ private fun StatCard(
 
 @Composable
 private fun LiveChartCard(vm: DashboardViewModel) {
-    val samples by vm.recentSamples.collectAsState(listOf())
+    val samples by vm.recentSamples.collectAsState(initial = emptyList())
+    val live by vm.liveCurrent.collectAsState(initial = emptyList())
+
+    val chartValues: List<Float> =
+        if (samples.isNotEmpty()) samples.map { (it.currentNowUa ?: 0L).toFloat() / 1000f }
+        else live
 
     ElevatedCard(
         modifier = Modifier
@@ -589,7 +651,7 @@ private fun LiveChartCard(vm: DashboardViewModel) {
             Spacer(Modifier.height(16.dp))
 
             AnimatedLineChart(
-                values = samples.map { (it.currentNowUa ?: 0L).toFloat() / 1000f },
+                values = chartValues,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(160.dp)
@@ -609,73 +671,67 @@ private fun AnimatedLineChart(
     Canvas(modifier = modifier) {
         if (values.isEmpty()) return@Canvas
 
+        val count = values.size
         val min = values.minOrNull() ?: 0f
         val max = values.maxOrNull() ?: 1f
-        val range = (max - min).takeIf { abs(it) > 1e-6 } ?: 1f
-        val stepX = size.width / (values.size - 1).coerceAtLeast(1)
+        val hasRange = abs(max - min) > 1e-6f
+        val range = if (hasRange) (max - min) else 1f
+        val stepX = if (count > 1) size.width / (count - 1) else 0f
 
-        // Draw gradient fill
-        val path = Path()
-        values.forEachIndexed { i, v ->
-            val x = i * stepX
-            val y = size.height - ((v - min) / range) * size.height
+        fun mapY(v: Float): Float =
+            if (hasRange) size.height - ((v - min) / range) * size.height
+            else size.height * 0.5f
 
-            if (i == 0) {
-                path.moveTo(x, y)
-            } else {
-                path.lineTo(x, y)
+        // Gradient fill only when we have a path
+        if (count >= 2) {
+            val path = Path().apply {
+                values.forEachIndexed { i, v ->
+                    val x = i * stepX
+                    val y = mapY(v)
+                    if (i == 0) moveTo(x, y) else lineTo(x, y)
+                }
+                lineTo(size.width, size.height)
+                lineTo(0f, size.height)
+                close()
             }
-        }
-
-        // Complete the path for fill
-        path.lineTo(size.width, size.height)
-        path.lineTo(0f, size.height)
-        path.close()
-
-        drawPath(
-            path = path,
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    primaryContainer.copy(alpha = 0.3f),
-                    Color.Transparent
+            drawPath(
+                path = path,
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        primaryContainer.copy(alpha = 0.35f),
+                        Color.Transparent
+                    )
                 )
             )
-        )
+        }
 
-        // Draw the line
-        var prevPoint: Offset? = null
+        // Stroke + marker rendering
+        var prev: Offset? = null
         values.forEachIndexed { i, v ->
-            val x = i * stepX
-            val y = size.height - ((v - min) / range) * size.height
-            val currentPoint = Offset(x, y)
+            val x = if (count > 1) i * stepX else size.width * 0.5f
+            val y = mapY(v)
+            val p = Offset(x, y)
 
-            prevPoint?.let { prev ->
+            prev?.let { pr ->
                 drawLine(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(primary, primaryContainer)
-                    ),
-                    start = prev,
-                    end = currentPoint,
+                    brush = Brush.horizontalGradient(listOf(primary, primaryContainer)),
+                    start = pr,
+                    end = p,
                     strokeWidth = 3.dp.toPx(),
                     cap = StrokeCap.Round
                 )
+            } ?: if (count == 1) {
+                drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
+            } else {
+                // nothing
             }
 
-            // Draw point
-            if (i == values.lastIndex) {
-                drawCircle(
-                    color = primary,
-                    radius = 4.dp.toPx(),
-                    center = currentPoint
-                )
-                drawCircle(
-                    color = primary.copy(alpha = 0.3f),
-                    radius = 8.dp.toPx(),
-                    center = currentPoint
-                )
+            if (i == values.lastIndex && count > 1) {
+                drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
             }
-
-            prevPoint = currentPoint
+            prev = p
         }
     }
 }

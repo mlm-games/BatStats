@@ -1,3 +1,8 @@
+## v4.1.2
+
+- Only auto stop charge sessions
+
+
 ## v4.1.1
 
 - Bump build.gradle.kts

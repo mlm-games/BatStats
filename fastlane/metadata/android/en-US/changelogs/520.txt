@@ -1,0 +1,1 @@
+- Only auto stop charge sessions

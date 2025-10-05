@@ -1,3 +1,8 @@
+## v4.1.3
+
+- Fix crash on A15+ when using "Autostart with boot" and restarting
+
+
 ## v4.1.2
 
 - Only auto stop charge sessions

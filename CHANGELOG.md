@@ -1,3 +1,8 @@
+## v4.1.4
+
+- add the test monochrome icon
+
+
 ## v4.1.3
 
 - Fix crash on A15+ when using "Autostart with boot" and restarting

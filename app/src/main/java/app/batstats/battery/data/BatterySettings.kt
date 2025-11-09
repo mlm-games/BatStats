@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.first
 
 private val Context.batteryDs by preferencesDataStore("battery.settings")
 
+enum class DrainMode { HEURISTIC, SHIZUKU }
+
 data class BatterySettings(
     val monitorOnBoot: Boolean = true,
     val monitorWhileChargingOnly: Boolean = true,
@@ -18,7 +20,8 @@ data class BatterySettings(
     val tempHighC: Int = 45,
     val dischargeHighMa: Int = 600,       // alert when |current| > threshold
     val autoStartSessionOnPlug: Boolean = true,
-    val autoStopSessionOnUnplug: Boolean = true
+    val autoStopSessionOnUnplug: Boolean = true,
+    val drainMode: DrainMode = DrainMode.HEURISTIC
 )
 
 class BatterySettingsRepository(private val context: Context) {
@@ -32,6 +35,7 @@ class BatterySettingsRepository(private val context: Context) {
         val DISCH = intPreferencesKey("discharge_ma")
         val AUTO_START = booleanPreferencesKey("auto_start_session")
         val AUTO_STOP = booleanPreferencesKey("auto_stop_session")
+        val DRAIN_MODE = stringPreferencesKey("drain_mode") // HEURISTIC or SHIZUKU
     }
 
     val flow = context.batteryDs.data.map { p ->
@@ -44,7 +48,8 @@ class BatterySettingsRepository(private val context: Context) {
             tempHighC = p[Keys.TEMP] ?: 45,
             dischargeHighMa = p[Keys.DISCH] ?: 600,
             autoStartSessionOnPlug = p[Keys.AUTO_START] ?: true,
-            autoStopSessionOnUnplug = p[Keys.AUTO_STOP] ?: true
+            autoStopSessionOnUnplug = p[Keys.AUTO_STOP] ?: true,
+            drainMode = p[Keys.DRAIN_MODE]?.let { runCatching { DrainMode.valueOf(it) }.getOrNull() } ?: DrainMode.HEURISTIC
         )
     }.distinctUntilChanged()
 
@@ -61,6 +66,7 @@ class BatterySettingsRepository(private val context: Context) {
             p[Keys.DISCH] = upd.dischargeHighMa
             p[Keys.AUTO_START] = upd.autoStartSessionOnPlug
             p[Keys.AUTO_STOP] = upd.autoStopSessionOnUnplug
+            p[Keys.DRAIN_MODE] = upd.drainMode.name
         }
     }
 }

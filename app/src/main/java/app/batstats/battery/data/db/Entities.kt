@@ -3,9 +3,12 @@ package app.batstats.battery.data.db
 import androidx.room.*
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+
 @Serializable
-@Entity(tableName = "battery_samples",
-    indices = [Index("timestamp"), Index("status")])
+@Entity(
+    tableName = "battery_samples",
+    indices = [Index("timestamp"), Index("status")]
+)
 data class BatterySample(
     @field:PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long,
@@ -21,8 +24,10 @@ data class BatterySample(
 )
 
 @Serializable
-@Entity(tableName = "charge_sessions",
-    indices = [Index("startTime"), Index("type")])
+@Entity(
+    tableName = "charge_sessions",
+    indices = [Index("startTime"), Index("type")]
+)
 data class ChargeSession(
     @Contextual
     @field:PrimaryKey val sessionId: String,
@@ -49,3 +54,26 @@ data class AlarmRule(
 )
 
 enum class AlarmType { CHARGE_LIMIT, TEMP_HIGH, DISCHARGE_HIGH }
+
+/**
+ * Aggregated per‑app energy estimates (heuristic mode).
+ * Stores hour buckets to keep data light...
+ */
+@Entity(
+    tableName = "app_energy_stats",
+    primaryKeys = ["bucketStart", "packageName", "mode"],
+    indices = [Index("bucketStart"), Index("packageName")]
+)
+data class AppEnergyStat(
+    val bucketStart: Long,          // start of the hour (ms)
+    val packageName: String,
+    val mode: String = "HEURISTIC", // HEURISTIC / SHIZUKU / ROOT (future)
+    val energyMah: Double,          // accumulated mAh in this bucket
+    val samples: Int                // number of samples contributed
+)
+
+data class AppDrainAggregate(
+    val packageName: String,
+    val energyMah: Double,
+    val samples: Int
+)

@@ -5,14 +5,15 @@ import androidx.room.*
 
 @TypeConverters(EnumConverters::class)
 @Database(
-    entities = [BatterySample::class, ChargeSession::class, AlarmRule::class],
-    version = 1,
+    entities = [BatterySample::class, ChargeSession::class, AlarmRule::class, AppEnergyStat::class],
+    version = 2,
     exportSchema = true
 )
 abstract class BatteryDatabase : RoomDatabase() {
     abstract fun batteryDao(): BatteryDao
     abstract fun sessionDao(): SessionDao
     abstract fun alarmDao(): AlarmDao
+    abstract fun appEnergyDao(): AppEnergyDao
 
     companion object {
         @Volatile private var INSTANCE: BatteryDatabase? = null
@@ -24,8 +25,9 @@ abstract class BatteryDatabase : RoomDatabase() {
                     BatteryDatabase::class.java,
                     "battery.db"
                 )
-                .fallbackToDestructiveMigration()
-                .build().also { INSTANCE = it }
+                    // For dev speed; consider real migrations when schema stabilizes
+                    .fallbackToDestructiveMigration(true)
+                    .build().also { INSTANCE = it }
             }
     }
 }

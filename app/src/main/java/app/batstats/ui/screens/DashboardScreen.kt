@@ -1,5 +1,6 @@
 package app.batstats.ui.screens
 
+import ShizukuBridge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -62,15 +63,22 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -93,11 +101,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import app.batstats.battery.BatteryGraph
 import app.batstats.battery.data.BatteryRepository
+import app.batstats.battery.data.DrainMode
+import app.batstats.battery.data.db.AppDrainAggregate
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
+import app.batstats.insights.ForegroundDrainTracker
 import app.batstats.viewmodel.DashboardViewModel
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -131,7 +146,7 @@ fun DashboardScreen(
                 title = {
                     Column {
                         Text(
-                            "Battery Monitor",
+                            "BatStats",
                             style = MaterialTheme.typography.headlineMedium
                         )
                         AnimatedVisibility(visible = rt.sample != null) {
@@ -183,6 +198,7 @@ fun DashboardScreen(
                     onEndSession = { vm.endSession() }
                 )
             }
+            item { TopDrainersCard() }
             item { StatsGrid(rt) }
             item { LiveChartCard(vm) }
             item { Spacer(Modifier.height(16.dp)) }
@@ -736,6 +752,141 @@ private fun AnimatedLineChart(
         }
     ) { /* drawing handled in cache */ }
 }
+
+@Composable
+private fun TopDrainersCard() {
+    val scope = rememberCoroutineScope()
+    val settings by BatteryGraph.settings.flow.collectAsState(initial = app.batstats.battery.data.BatterySettings())
+    val mode = settings.drainMode
+
+    val now = remember { System.currentTimeMillis() }
+    val last24h = remember { now - 24L * 3600_000L }
+    val top by remember {
+        BatteryGraph.db.appEnergyDao()
+            .topDrainers(from = last24h, to = now, mode = if (mode == DrainMode.SHIZUKU) "SHIZUKU" else "HEURISTIC", limit = 5)
+            .map { it }
+    }.collectAsState(initial = emptyList())
+
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(20.dp)
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Top (24h)", style = MaterialTheme.typography.titleMedium)
+
+                SingleChoiceSegmentedButtonRow {
+                    SegmentedButton(
+                        selected = mode == DrainMode.HEURISTIC,
+                        onClick = {
+                            scope.launch { BatteryGraph.settings.update { it.copy(drainMode = DrainMode.HEURISTIC) } }
+                        },
+                        shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2)
+                    ) { Text("Heuristic") }
+
+                    SegmentedButton(
+                        selected = mode == DrainMode.SHIZUKU,
+                        onClick = {
+                            scope.launch { BatteryGraph.settings.update { it.copy(drainMode = DrainMode.SHIZUKU) } }
+                        },
+                        shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
+                    ) { Text("Enhanced") }
+                }
+            }
+
+            Spacer(Modifier.height(8.dp))
+
+            val shizuku: ShizukuBridge = koinInject()
+            var hasShizukuAccess by rememberSaveable { mutableStateOf(false) }
+
+            LaunchedEffect(mode) {
+                if (mode == DrainMode.SHIZUKU) {
+                    hasShizukuAccess = shizuku.ping() && shizuku.hasPermission()
+                }
+            }
+
+            val usage : ForegroundDrainTracker = koinInject()
+            var hasUsageAccess by remember { mutableStateOf(false) }
+
+            LaunchedEffect(mode) {
+                if (mode == DrainMode.HEURISTIC) {
+                    hasUsageAccess = hasUsageAccess && usage.hasUsageAccess()
+                }
+            }
+
+            if (mode == DrainMode.SHIZUKU && !hasShizukuAccess) {
+                AssistChip(
+                    onClick = { shizuku.requestPermission() },
+                    label = { Text("Grant Shizuku access") }
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    "Enhanced mode requires Shizuku to be running and permission granted.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            } else if (mode == DrainMode.HEURISTIC && !hasUsageAccess) {
+                AssistChip(
+                    onClick = { usage.openUsageAccessSettings() },
+                    label = { Text("Grant Usage access") }
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    "Heuristic mode requires Usage Access permission to be granted.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
+            else if (top.isEmpty()) {
+                Text(
+                    "No data yet. Let monitoring run for a while.",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    top.forEachIndexed { index, item ->
+                        AppDrainRow(index + 1, item)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppDrainRow(rank: Int, row: AppDrainAggregate) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Surface(
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            ) {
+                Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+                    Text("$rank", style = MaterialTheme.typography.labelMedium)
+                }
+            }
+            Column {
+                Text(row.packageName, style = MaterialTheme.typography.bodyLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(String.format(Locale.getDefault(), "%.2f mAh", row.energyMah), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        // Optional: samples count
+        Text("${row.samples} samples", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall)
+    }
+}
+
 
 private fun getHealthString(health: Int?): String = when(health) {
     2 -> "Good"

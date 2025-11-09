@@ -1,17 +1,27 @@
 package app.batstats.battery.service
 
+import ShizukuBridge
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import app.batstats.battery.BatteryGraph
+import app.batstats.battery.data.DrainMode
 import app.batstats.battery.util.Notifier
 import app.batstats.battery.widget.WidgetUpdater
+import app.batstats.insights.ForegroundDrainTracker
+import app.batstats.enhanced.EnhancedBstatsCollector
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
+import org.koin.android.ext.android.inject
 
 class BatteryMonitorService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    private val drainTracker: ForegroundDrainTracker by inject()
+    private val shizukuBridge: ShizukuBridge by inject()
+    private val enhancedCollector: EnhancedBstatsCollector by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +35,7 @@ class BatteryMonitorService : Service() {
                 startForeground(
                     Notifier.NOTIF_ID,
                     notif,
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC // match manifest
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
                 )
             } else {
                 startForeground(Notifier.NOTIF_ID, notif)
@@ -36,7 +46,28 @@ class BatteryMonitorService : Service() {
         }
 
         serviceScope.launch {
+            // Start sampling (idempotent)
             BatteryGraph.repo.startSampling()
+
+            // Start the selected drain mode
+            val mode = BatteryGraph.settings.flow.first().drainMode
+            when (mode) {
+                DrainMode.HEURISTIC -> {
+                    if (!drainTracker.isRunning()) drainTracker.start()
+                    enhancedCollector.stop()
+                }
+                DrainMode.SHIZUKU -> {
+                    drainTracker.stop()
+                    if (shizukuBridge.ping() && shizukuBridge.hasPermission()) {
+                        if (!enhancedCollector.isRunning()) enhancedCollector.start()
+                    } else {
+                        // can't start; stay idle until user grants
+                        enhancedCollector.stop()
+                    }
+                }
+            }
+
+            // Keep notification and widgets in sync
             BatteryGraph.repo.realtime.collect { rt ->
                 val text = if (rt.sample == null)
                     "Waiting for battery data…" else
@@ -52,7 +83,7 @@ class BatteryMonitorService : Service() {
                     } else {
                         startForeground(Notifier.NOTIF_ID, running)
                     }
-                } catch (_: Throwable) { /* keep previous notif */ }
+                } catch (_: Throwable) { }
                 rt.sample?.let { WidgetUpdater.push(this@BatteryMonitorService, it) }
             }
         }
@@ -69,6 +100,8 @@ class BatteryMonitorService : Service() {
 
     override fun onDestroy() {
         BatteryGraph.repo.stopSampling()
+        drainTracker.stop()
+        enhancedCollector.stop()
         serviceScope.cancel()
         super.onDestroy()
     }

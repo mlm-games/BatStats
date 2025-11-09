@@ -16,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import app.batstats.battery.data.ExportImport
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -179,15 +182,20 @@ fun DataScreen(onBack: () -> Unit) {
 
 @Composable
 private fun DateRangeRow(from: Long, to: Long, onFrom: (Long) -> Unit, onTo: (Long) -> Unit) {
-    val df = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+    val df = remember(Locale.getDefault()) {
+        DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+    }
+    fun format(ms: Long): String = Instant.ofEpochMilli(ms)
+        .atZone(ZoneId.systemDefault())
+        .format(df)
+
     Column(verticalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth()) {
-        Text("From: ${if (from == 0L) "Beginning" else df.format(Date(from))}")
-        Text("To: ${df.format(Date(to))}")
+        Text("From: ${if (from == 0L) "Beginning" else format(from)}")
+        Text("To: ${format(to)}")
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = { onFrom(0L) }) { Text("All") }
-            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 7L*24*3600000) }) { Text("Last 7 days") }
-            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 30L*24*3600000) }) { Text("Last 30 days") }
-//            OutlinedButton(onClick = { onTo(System.currentTimeMillis()) }) { Text("Now") }
+            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 7L * 24 * 3600000) }) { Text("Last 7 days") }
+            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 30L * 24 * 3600000) }) { Text("Last 30 days") }
         }
     }
 }

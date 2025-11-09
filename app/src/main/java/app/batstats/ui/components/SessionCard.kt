@@ -32,6 +32,9 @@ import androidx.compose.ui.unit.dp
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -42,7 +45,14 @@ fun SessionCard(
     session: ChargeSession,
     modifier: Modifier = Modifier
 ) {
-    val df = remember { SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()) }
+    val timeFormatter = remember(Locale.getDefault()) {
+        DateTimeFormatter.ofPattern("MMM dd, HH:mm", Locale.getDefault())
+    }
+    val startText = remember(session.startTime) {
+        Instant.ofEpochMilli(session.startTime)
+            .atZone(ZoneId.systemDefault())
+            .format(timeFormatter)
+    }
     val isActive = session.endTime == null
     val durationMs = (session.endTime ?: System.currentTimeMillis()) - session.startTime
 
@@ -108,7 +118,7 @@ fun SessionCard(
                         )
 
                         Text(
-                            text = df.format(Date(session.startTime)),
+                            text = startText,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -175,6 +185,7 @@ fun SessionCard(
         }
     }
 }
+
 
 @Composable
 private fun BatteryLevelChip(level: Int) {

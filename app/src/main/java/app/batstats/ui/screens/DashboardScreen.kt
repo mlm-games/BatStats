@@ -31,7 +31,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -75,6 +74,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
@@ -84,6 +84,11 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -93,10 +98,10 @@ import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
 import app.batstats.viewmodel.DashboardViewModel
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Locale
-import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,9 +115,17 @@ fun DashboardScreen(
     val rt by vm.realtime.collectAsState()
     val session by vm.activeSession.collectAsState()
     val isMonitoring by vm.isMonitoring.collectAsState()
-    val scrollState = rememberScrollState()
+
+    // Hoist the app bar behavior and connect nested scroll
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+    // Use java.time with remember for formatting
+    val timeFormatter = remember(Locale.getDefault()) {
+        DateTimeFormatter.ofPattern("HH:mm:ss", Locale.getDefault())
+    }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -121,12 +134,15 @@ fun DashboardScreen(
                             "Battery Monitor",
                             style = MaterialTheme.typography.headlineMedium
                         )
-                        AnimatedVisibility(rt.sample != null) {
+                        AnimatedVisibility(visible = rt.sample != null) {
+                            val ts = rt.sample?.timestamp ?: System.currentTimeMillis()
+                            val formatted = remember(ts) {
+                                Instant.ofEpochMilli(ts)
+                                    .atZone(ZoneId.systemDefault())
+                                    .format(timeFormatter)
+                            }
                             Text(
-                                "Updated ${
-                                    SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                                        .format(Date(rt.sample?.timestamp ?: System.currentTimeMillis()))
-                                }",
+                                "Updated $formatted",
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -147,7 +163,7 @@ fun DashboardScreen(
                         Icon(Icons.Outlined.Settings, "Settings")
                     }
                 },
-                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+                scrollBehavior = scrollBehavior
             )
         },
         containerColor = MaterialTheme.colorScheme.surface
@@ -164,7 +180,7 @@ fun DashboardScreen(
                     isMonitoring = isMonitoring,
                     onToggleMonitor = { vm.toggleMonitoring() },
                     onStartSession = { vm.startManualSession(it) },
-                    onEndSession = { vm.endSession() },
+                    onEndSession = { vm.endSession() }
                 )
             }
             item { StatsGrid(rt) }
@@ -188,40 +204,36 @@ private fun HeroBatteryCard(
         ),
         shape = RoundedCornerShape(24.dp)
     ) {
+        // Animated gradient background with drawWithCache
+        val infinite = rememberInfiniteTransition(label = "hero_gradient")
+        val animatedOffset by infinite.animateFloat(
+            initialValue = 0f,
+            targetValue = 1f,
+            animationSpec = infiniteRepeatable(animation = tween(10_000, easing = LinearEasing)),
+            label = "gradient_offset"
+        )
+
+        val primary = MaterialTheme.colorScheme.primary
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp) // a bit taller to give ETA breathing room
+                .height(300.dp)
+                .drawWithCache {
+                    onDrawBehind {
+                        drawRect(
+                            brush = Brush.radialGradient(
+                                colors = listOf(primary.copy(alpha = 0.1f), Color.Transparent),
+                                center = Offset(
+                                    size.width * (0.3f + animatedOffset * 0.4f),
+                                    size.height * 0.5f
+                                ),
+                                radius = size.width * 0.8f
+                            )
+                        )
+                    }
+                }
         ) {
-            // Animated gradient background
-            val infiniteTransition = rememberInfiniteTransition()
-            val animatedOffset by infiniteTransition.animateFloat(
-                initialValue = 0f,
-                targetValue = 1f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(10000, easing = LinearEasing)
-                ),
-                label = "gradient"
-            )
-
-            val primaryColor = MaterialTheme.colorScheme.primary
-
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawRect(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            primaryColor.copy(alpha = 0.1f),
-                            Color.Transparent
-                        ),
-                        center = Offset(
-                            size.width * (0.3f + animatedOffset * 0.4f),
-                            size.height * 0.5f
-                        ),
-                        radius = size.width * 0.8f
-                    )
-                )
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -255,7 +267,7 @@ private fun HeroBatteryCard(
                                 text = value,
                                 modifier = Modifier
                                     .padding(horizontal = 16.dp, vertical = 8.dp)
-                                    .widthIn(min = 0.dp, max = 260.dp), // constrain width
+                                    .widthIn(max = 260.dp),
                                 style = MaterialTheme.typography.bodyMedium,
                                 fontWeight = FontWeight.Medium,
                                 maxLines = 1,
@@ -276,53 +288,42 @@ private fun CircularBatteryIndicator(
     current: Int,
     modifier: Modifier = Modifier
 ) {
-    val animatedLevel by animateFloatAsState(
+    val progress by animateFloatAsState(
         targetValue = level / 100f,
         animationSpec = tween(1000, easing = FastOutSlowInEasing),
-        label = "level"
+        label = "battery_progress"
     )
+    val colors = MaterialTheme.colorScheme
 
-    val surfaceVariantColor = MaterialTheme.colorScheme.surfaceVariant
-    val primaryColor = MaterialTheme.colorScheme.primary
-    val tertiaryColor = MaterialTheme.colorScheme.tertiary
-    val primaryContainerColor = MaterialTheme.colorScheme.primaryContainer
-    val errorColor = MaterialTheme.colorScheme.error
-    val errorContainerColor = MaterialTheme.colorScheme.errorContainer
-
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+    Box(
+        modifier = modifier.semantics {
+            progressBarRangeInfo = ProgressBarRangeInfo(progress, 0f..1f, 0)
+            stateDescription = if (isCharging) "Charging $level%" else "Discharging $level%"
+        },
+        contentAlignment = Alignment.Center
+    ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             val strokeWidth = 16.dp.toPx()
             val radius = (size.minDimension - strokeWidth) / 2
             val center = size.center
 
-            // Background circle
+            // Background ring
             drawCircle(
-                color = surfaceVariantColor,
+                color = colors.surfaceVariant,
                 radius = radius,
                 center = center,
                 style = Stroke(strokeWidth, cap = StrokeCap.Round)
             )
 
-            // Battery level arc
-            val sweepAngle = animatedLevel * 360f
+            // Progress arc
+            val sweepAngle = progress * 360f
+            val arcColors = when {
+                isCharging -> listOf(colors.primary, colors.tertiary)
+                level < 20 -> listOf(colors.error, colors.errorContainer)
+                else -> listOf(colors.primary, colors.primaryContainer)
+            }
             drawArc(
-                brush = Brush.sweepGradient(
-                    colors = when {
-                        isCharging -> listOf(
-                            primaryColor,
-                            tertiaryColor
-                        )
-                        level < 20 -> listOf(
-                            errorColor,
-                            errorContainerColor
-                        )
-                        else -> listOf(
-                            primaryColor,
-                            primaryContainerColor
-                        )
-                    },
-                    center = center
-                ),
+                brush = Brush.sweepGradient(arcColors, center = center),
                 startAngle = -90f,
                 sweepAngle = sweepAngle,
                 useCenter = false,
@@ -338,11 +339,6 @@ private fun CircularBatteryIndicator(
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold
             )
-//            Text(
-//                text = "%",
-//                style = MaterialTheme.typography.displaySmall,
-//                color = MaterialTheme.colorScheme.onSurfaceVariant
-//            )
             val statusText = when {
                 isCharging && level >= 100 -> "Full"
                 isCharging -> "Charging"
@@ -354,7 +350,7 @@ private fun CircularBatteryIndicator(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            AnimatedVisibility(current != 0) {
+            AnimatedVisibility(visible = current != 0) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(top = 4.dp)
@@ -363,27 +359,26 @@ private fun CircularBatteryIndicator(
                         imageVector = if (current > 0) Icons.Default.ArrowUpward else Icons.Default.ArrowDownward,
                         contentDescription = null,
                         modifier = Modifier.size(16.dp),
-                        tint = if (current > 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                        tint = if (current > 0) colors.primary else colors.error
                     )
                     Text(
-                        text = "${abs(current)} mA",
+                        text = "${kotlin.math.abs(current)} mA",
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
             }
         }
 
-        // Charging animation
         if (isCharging) {
-            val infiniteTransition = rememberInfiniteTransition()
-            val animatedAlpha by infiniteTransition.animateFloat(
+            val infinite = rememberInfiniteTransition(label = "charging_pulse")
+            val animatedAlpha by infinite.animateFloat(
                 initialValue = 0.3f,
                 targetValue = 0.7f,
                 animationSpec = infiniteRepeatable(
                     animation = tween(1000),
                     repeatMode = RepeatMode.Reverse
                 ),
-                label = "charging"
+                label = "charging_alpha"
             )
 
             Icon(
@@ -393,7 +388,7 @@ private fun CircularBatteryIndicator(
                     .size(32.dp)
                     .align(Alignment.TopEnd)
                     .alpha(animatedAlpha),
-                tint = MaterialTheme.colorScheme.primary
+                tint = colors.primary
             )
         }
     }
@@ -423,10 +418,7 @@ private fun ControlCenter(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text(
-                        "Monitoring",
-                        style = MaterialTheme.typography.titleMedium
-                    )
+                    Text("Monitoring", style = MaterialTheme.typography.titleMedium)
                     Text(
                         if (isMonitoring) "Running (foreground)" else "Stopped",
                         style = MaterialTheme.typography.bodySmall,
@@ -435,21 +427,20 @@ private fun ControlCenter(
                     )
                 }
 
-                // Single toggle button that reflects state
                 val busy = remember { mutableStateOf(false) }
                 FilledTonalButton(
                     enabled = !busy.value,
-                    onClick = {
-//                        busy.value = true
-                        onToggleMonitor()
-//                        busy.value = false
-                              },
+                    onClick = { onToggleMonitor() },
                     colors = if (isMonitoring)
                         ButtonDefaults.filledTonalButtonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer)
                     else
                         ButtonDefaults.filledTonalButtonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                 ) {
-                    Icon(if (isMonitoring) Icons.Default.Stop else Icons.Default.PlayArrow, null, Modifier.size(18.dp))
+                    Icon(
+                        if (isMonitoring) Icons.Default.Stop else Icons.Default.PlayArrow,
+                        null,
+                        Modifier.size(18.dp)
+                    )
                     Spacer(Modifier.width(6.dp))
                     Text(if (isMonitoring) "Stop" else "Start")
                 }
@@ -460,10 +451,7 @@ private fun ControlCenter(
                 color = MaterialTheme.colorScheme.outlineVariant
             )
 
-            // Session controls
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -502,11 +490,18 @@ private fun ControlCenter(
                 }
 
                 if (session != null) {
+                    val shortTime = remember(Locale.getDefault()) {
+                        DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
+                    }
+                    val startedAt = remember(session.startTime) {
+                        Instant.ofEpochMilli(session.startTime)
+                            .atZone(ZoneId.systemDefault())
+                            .format(shortTime)
+                    }
+
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "${session.type} session active • started ${SimpleDateFormat("HH:mm", Locale.getDefault()).format(
-                            Date(session.startTime)
-                        )}",
+                        text = "${session.type} session active • started $startedAt",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -519,10 +514,11 @@ private fun ControlCenter(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun StatsGrid(rt: BatteryRepository.Realtime) {
+    val locale = remember { Locale.getDefault() }
     val stats = listOf(
         Triple(Icons.Outlined.ElectricBolt, "Voltage", "${rt.voltageMv} mV"),
-        Triple(Icons.Outlined.SettingsPower, "Power", "%.1f mW".format(rt.powerMw)),
-        Triple(Icons.Outlined.Thermostat, "Temperature", "%.1f°C".format(rt.temperatureC)),
+        Triple(Icons.Outlined.SettingsPower, "Power", String.format(locale, "%.1f mW", rt.powerMw)),
+        Triple(Icons.Outlined.Thermostat, "Temperature", String.format(locale, "%.1f°C", rt.temperatureC)),
         Triple(Icons.Outlined.Battery0Bar, "Health", getHealthString(rt.sample?.health))
     )
 
@@ -673,25 +669,27 @@ private fun AnimatedLineChart(
     val primary = MaterialTheme.colorScheme.primary
     val primaryContainer = MaterialTheme.colorScheme.primaryContainer
 
-    Canvas(modifier = modifier) {
-        if (values.isEmpty()) return@Canvas
+    Canvas(
+        modifier = modifier.drawWithCache {
+            if (values.isEmpty()) {
+                onDrawBehind { /* nothing */ }
 
-        val count = values.size
-        val min = values.minOrNull() ?: 0f
-        val max = values.maxOrNull() ?: 1f
-        val hasRange = abs(max - min) > 1e-6f
-        val range = if (hasRange) (max - min) else 1f
-        val stepX = if (count > 1) size.width / (count - 1) else 0f
+            }
 
-        fun mapY(v: Float): Float =
-            if (hasRange) size.height - ((v - min) / range) * size.height
-            else size.height * 0.5f
+            val count = values.size
+            val min = values.minOrNull() ?: 0f
+            val max = values.maxOrNull() ?: 1f
+            val hasRange = kotlin.math.abs(max - min) > 1e-6f
+            val range = if (hasRange) (max - min) else 1f
+            val stepX = if (count > 1) size.width / (count - 1) else 0f
 
-        // Gradient fill only when we have a path
-        if (count >= 2) {
-            val path = Path().apply {
+            fun mapY(v: Float): Float =
+                if (hasRange) size.height - ((v - min) / range) * size.height
+                else size.height * 0.5f
+
+            val fillPath = Path().apply {
                 values.forEachIndexed { i, v ->
-                    val x = i * stepX
+                    val x = if (count > 1) i * stepX else size.width * 0.5f
                     val y = mapY(v)
                     if (i == 0) moveTo(x, y) else lineTo(x, y)
                 }
@@ -699,46 +697,44 @@ private fun AnimatedLineChart(
                 lineTo(0f, size.height)
                 close()
             }
-            drawPath(
-                path = path,
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        primaryContainer.copy(alpha = 0.35f),
-                        Color.Transparent
-                    )
-                )
+
+            val strokeGradient = Brush.horizontalGradient(listOf(primary, primaryContainer))
+            val fillGradient = Brush.verticalGradient(
+                colors = listOf(primaryContainer.copy(alpha = 0.35f), Color.Transparent)
             )
-        }
 
-        // Stroke + marker rendering
-        var prev: Offset? = null
-        values.forEachIndexed { i, v ->
-            val x = if (count > 1) i * stepX else size.width * 0.5f
-            val y = mapY(v)
-            val p = Offset(x, y)
+            onDrawBehind {
+                if (count >= 2) drawPath(fillPath, brush = fillGradient)
 
-            prev?.let { pr ->
-                drawLine(
-                    brush = Brush.horizontalGradient(listOf(primary, primaryContainer)),
-                    start = pr,
-                    end = p,
-                    strokeWidth = 3.dp.toPx(),
-                    cap = StrokeCap.Round
-                )
-            } ?: if (count == 1) {
-                drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
-                drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
-            } else {
-                // nothing
+                var prev: Offset? = null
+                values.forEachIndexed { i, v ->
+                    val x = if (count > 1) i * stepX else size.width * 0.5f
+                    val p = Offset(x, mapY(v))
+
+                    prev?.let { pr ->
+                        drawLine(
+                            brush = strokeGradient,
+                            start = pr,
+                            end = p,
+                            strokeWidth = 3.dp.toPx(),
+                            cap = StrokeCap.Round
+                        )
+                    } ?: if (count == 1) {
+                        drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                        drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
+                    } else {
+
+                    }
+
+                    if (i == values.lastIndex && count > 1) {
+                        drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                        drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
+                    }
+                    prev = p
+                }
             }
-
-            if (i == values.lastIndex && count > 1) {
-                drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
-                drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
-            }
-            prev = p
         }
-    }
+    ) { /* drawing handled in cache */ }
 }
 
 private fun getHealthString(health: Int?): String = when(health) {

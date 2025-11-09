@@ -21,6 +21,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.viewmodel.SessionDetailsViewModel
 import kotlin.math.abs
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,11 +50,27 @@ fun SessionDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             val df = remember { SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()) }
+            val dateTimeFormatter = remember(Locale.getDefault()) {
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault())
+            }
+            val startStr = remember(ui.start) {
+                Instant.ofEpochMilli(ui.start)
+                    .atZone(ZoneId.systemDefault())
+                    .format(dateTimeFormatter)
+            }
+            val endStr = remember(ui.end) {
+                ui.end?.let {
+                    Instant.ofEpochMilli(it)
+                        .atZone(ZoneId.systemDefault())
+                        .format(dateTimeFormatter)
+                } ?: "Active"
+            }
+
             ElevatedCard {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("${ui.type} • ${ui.levelRange}", style = MaterialTheme.typography.titleMedium)
-                    Text("Start: ${df.format(Date(ui.start))}", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("End: ${ui.end?.let { df.format(Date(it)) } ?: "Active"}", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Start: $startStr", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("End: $endStr", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         ui.capacityMah?.let {
                             AssistChip(onClick = {}, label = { Text("~${it} mAh") })

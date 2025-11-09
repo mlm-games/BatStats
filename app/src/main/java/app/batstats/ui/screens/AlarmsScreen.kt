@@ -1,11 +1,15 @@
 package app.batstats.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.data.BatterySettings
 import app.batstats.ui.components.SettingsItem
@@ -16,20 +20,30 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmsScreen(onBack: () -> Unit) {
-    val settingsFlow = BatteryGraph.settings.flow
-    val settings by settingsFlow.collectAsState(initial = BatterySettings())
+    val settings by BatteryGraph.settings.flow
+        .collectAsStateWithLifecycle(initialValue = BatterySettings())
+
     val scope = rememberCoroutineScope()
 
-    var showLimit by remember { mutableStateOf(false) }
-    var showTemp by remember { mutableStateOf(false) }
-    var showDisch by remember { mutableStateOf(false) }
+    var showLimit by rememberSaveable { mutableStateOf(false) }
+    var showTemp by rememberSaveable { mutableStateOf(false) }
+    var showDisch by rememberSaveable { mutableStateOf(false) }
 
-    Scaffold(topBar = {
-        LargeTopAppBar(
-            title = { Text("Alarms") },
-            navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }
-        )
-    }) { pv ->
+    Scaffold(
+        topBar = {
+            LargeTopAppBar(
+                title = { Text("Alarms") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) { pv ->
         Column(Modifier.padding(pv).fillMaxSize()) {
             SectionCard(title = "Charging") {
                 SettingsToggle(
@@ -38,7 +52,10 @@ fun AlarmsScreen(onBack: () -> Unit) {
                     onCheckedChange = { ch ->
                         scope.launch {
                             BatteryGraph.settings.update {
-                                it.copy(chargeLimitPercent = if (ch) it.chargeLimitPercent.coerceAtLeast(60) else 0)
+                                it.copy(
+                                    chargeLimitPercent = if (ch)
+                                        it.chargeLimitPercent.coerceAtLeast(60) else 0
+                                )
                             }
                         }
                     },
@@ -49,8 +66,9 @@ fun AlarmsScreen(onBack: () -> Unit) {
                     subtitle = "${settings.chargeLimitPercent}%",
                     onClick = { showLimit = true }
                 )
+                val pct = (settings.chargeLimitPercent.coerceIn(0, 100)) / 100f
                 LinearProgressIndicator(
-                    progress = { settings.chargeLimitPercent / 100f },
+                    progress = { pct },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
             }
@@ -61,8 +79,9 @@ fun AlarmsScreen(onBack: () -> Unit) {
                     subtitle = "${settings.tempHighC} °C",
                     onClick = { showTemp = true }
                 )
+                val tempProg = ((settings.tempHighC - 20).coerceIn(0, 40)) / 40f
                 LinearProgressIndicator(
-                    progress = { (settings.tempHighC - 20).coerceIn(0, 40) / 40f },
+                    progress = { tempProg },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
             }
@@ -73,35 +92,55 @@ fun AlarmsScreen(onBack: () -> Unit) {
                     subtitle = "${settings.dischargeHighMa} mA",
                     onClick = { showDisch = true }
                 )
+                val dischProg = (settings.dischargeHighMa.toFloat() / 2000f).coerceIn(0f, 1f)
                 LinearProgressIndicator(
-                    progress = { (settings.dischargeHighMa / 2000f).coerceIn(0f, 1f) },
+                    progress = { dischProg },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
             }
         }
     }
 
-    if (showLimit) SliderSettingDialog(
-        title = "Charge limit (%)",
-        currentValue = settings.chargeLimitPercent.toFloat(), min = 50f, max = 100f, step = 1f,
-        onDismiss = { showLimit = false },
-        onValueSelected = { v -> scope.launch { BatteryGraph.settings.update { it.copy(chargeLimitPercent = v.toInt()) } } }
-    )
+    if (showLimit) {
+        SliderSettingDialog(
+            title = "Charge limit (%)",
+            currentValue = settings.chargeLimitPercent.toFloat(),
+            min = 50f, max = 100f, step = 1f,
+            onDismiss = { showLimit = false },
+            onValueSelected = { v ->
+                scope.launch { BatteryGraph.settings.update { it.copy(chargeLimitPercent = v.toInt()) } }
+                showLimit = false
+            }
+        )
+    }
 
-    if (showTemp) SliderSettingDialog(
-        title = "High temperature (°C)",
-        currentValue = settings.tempHighC.toFloat(), min = 35f, max = 55f, step = 1f,
-        onDismiss = { showTemp = false },
-        onValueSelected = { v -> scope.launch { BatteryGraph.settings.update { it.copy(tempHighC = v.toInt()) } } }
-    )
+    if (showTemp) {
+        SliderSettingDialog(
+            title = "High temperature (°C)",
+            currentValue = settings.tempHighC.toFloat(),
+            min = 35f, max = 55f, step = 1f,
+            onDismiss = { showTemp = false },
+            onValueSelected = { v ->
+                scope.launch { BatteryGraph.settings.update { it.copy(tempHighC = v.toInt()) } }
+                showTemp = false
+            }
+        )
+    }
 
-    if (showDisch) SliderSettingDialog(
-        title = "High discharge (mA)",
-        currentValue = settings.dischargeHighMa.toFloat(), min = 200f, max = 2000f, step = 50f,
-        onDismiss = { showDisch = false },
-        onValueSelected = { v -> scope.launch { BatteryGraph.settings.update { it.copy(dischargeHighMa = v.toInt()) } } }
-    )
+    if (showDisch) {
+        SliderSettingDialog(
+            title = "High discharge (mA)",
+            currentValue = settings.dischargeHighMa.toFloat(),
+            min = 200f, max = 2000f, step = 50f,
+            onDismiss = { showDisch = false },
+            onValueSelected = { v ->
+                scope.launch { BatteryGraph.settings.update { it.copy(dischargeHighMa = v.toInt()) } }
+                showDisch = false
+            }
+        )
+    }
 }
+
 
 @Composable
 private fun SectionCard(title: String, content: @Composable ColumnScope.() -> Unit) {

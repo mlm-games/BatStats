@@ -2,11 +2,14 @@ package app.batstats.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.data.BatterySettings
 import app.batstats.ui.components.SettingsItem
@@ -16,13 +19,18 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BatterySettingsScreen(onBack: () -> Unit) {
-    val settings by BatteryGraph.settings.flow.collectAsState(initial = BatterySettings())
+    val settings by BatteryGraph.settings.flow
+        .collectAsStateWithLifecycle(initialValue = BatterySettings())
     val scope = rememberCoroutineScope()
 
     Scaffold(topBar = {
         LargeTopAppBar(
             title = { Text("Settings") },
-            navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }
+            navigationIcon = {
+                IconButton(onClick = onBack) {
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                }
+            }
         )
     }) { pv ->
         LazyColumn(

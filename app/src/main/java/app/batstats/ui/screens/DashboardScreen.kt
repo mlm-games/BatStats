@@ -100,6 +100,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.data.BatteryRepository
@@ -127,9 +128,9 @@ fun DashboardScreen(
     onOpenData: () -> Unit,
     vm: DashboardViewModel = viewModel(factory = DashboardViewModel.factory())
 ) {
-    val rt by vm.realtime.collectAsState()
-    val session by vm.activeSession.collectAsState()
-    val isMonitoring by vm.isMonitoring.collectAsState()
+    val rt by vm.realtime.collectAsStateWithLifecycle()
+    val session by vm.activeSession.collectAsStateWithLifecycle()
+    val isMonitoring by vm.isMonitoring.collectAsStateWithLifecycle()
 
     // Hoist the app bar behavior and connect nested scroll
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -812,11 +813,11 @@ private fun TopDrainersCard() {
             }
 
             val usage : ForegroundDrainTracker = koinInject()
-            var hasUsageAccess by remember { mutableStateOf(false) }
+            var hasUsageAccess by rememberSaveable { mutableStateOf(false) }
 
             LaunchedEffect(mode) {
                 if (mode == DrainMode.HEURISTIC) {
-                    hasUsageAccess = hasUsageAccess && usage.hasUsageAccess()
+                    hasUsageAccess = hasUsageAccess || usage.hasUsageAccess()
                 }
             }
 

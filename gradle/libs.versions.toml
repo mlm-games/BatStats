@@ -42,6 +42,7 @@ zip4j = "2.11.5"
 zstdJni = "1.5.7-4"
 animation = "1.9.0"
 shizuku = "13.1.5"
+lifecycleRuntimeCompose = "2.9.4"
 
 
 [libraries]
@@ -103,6 +104,7 @@ xz = { module = "org.tukaani:xz", version.ref = "xz" }
 zip4j = { module = "net.lingala.zip4j:zip4j", version.ref = "zip4j" }
 zstd-jni = { module = "com.github.luben:zstd-jni", version.ref = "zstdJni" }
 androidx-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "animation" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

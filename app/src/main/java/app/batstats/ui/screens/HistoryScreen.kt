@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.FilterAlt
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Search
@@ -39,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.viewmodel.HistoryViewModel
@@ -51,7 +53,7 @@ fun HistoryScreen(
     onOpenSession: (String) -> Unit,
     vm: HistoryViewModel = viewModel(factory = HistoryViewModel.factory())
 ) {
-    val allSessions by vm.sessions.collectAsState(emptyList())
+    val allSessions by vm.sessions.collectAsStateWithLifecycle(initialValue = emptyList())
     var filter by remember { mutableStateOf<SessionType?>(null) }
     var query by remember { mutableStateOf("") }
     val sessions = remember(allSessions, filter, query) {
@@ -70,7 +72,12 @@ fun HistoryScreen(
             LargeTopAppBar(
                 title = { Text("History") },
                 navigationIcon = {
-                    IconButton(onClick = onBack) { Icon(Icons.Outlined.History, contentDescription = "Back") }
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 },
                 actions = {
                     IconButton(onClick = { /* could open search field modal; kept inline below */ }) {

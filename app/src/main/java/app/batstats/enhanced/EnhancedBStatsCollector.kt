@@ -1,6 +1,5 @@
 package app.batstats.enhanced
 
-import ShizukuBridge
 import app.batstats.battery.data.db.AppEnergyDao
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicBoolean

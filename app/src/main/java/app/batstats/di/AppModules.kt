@@ -1,6 +1,6 @@
 package app.batstats.di
 
-import ShizukuBridge
+import app.batstats.enhanced.ShizukuBridge
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.BatterySettingsRepository

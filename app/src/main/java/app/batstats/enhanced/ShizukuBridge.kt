@@ -1,10 +1,11 @@
+package app.batstats.enhanced
+
 import android.content.ComponentName
 import android.content.Context
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.IBinder
 import android.os.Parcel
-import app.batstats.enhanced.ShellUserService
 import rikka.shizuku.Shizuku
 import rikka.shizuku.Shizuku.UserServiceArgs
 import kotlinx.coroutines.CompletableDeferred

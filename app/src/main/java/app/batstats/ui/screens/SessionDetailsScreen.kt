@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.viewmodel.SessionDetailsViewModel
 import kotlin.math.abs
-import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -49,7 +48,6 @@ fun SessionDetailsScreen(
             Modifier.padding(pv).fillMaxSize().padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            val df = remember { SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()) }
             val dateTimeFormatter = remember(Locale.getDefault()) {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.getDefault())
             }
@@ -138,7 +136,7 @@ private fun DrawScope.drawSeries(values: List<Float>, color: Color) {
     val count = values.size
     val min = values.minOrNull() ?: 0f
     val max = values.maxOrNull() ?: 1f
-    val hasRange = kotlin.math.abs(max - min) > 1e-6f
+    val hasRange = abs(max - min) > 1e-6f
     val range = if (hasRange) (max - min) else 1f
     val stepX = if (count > 1) size.width / (count - 1) else 0f
 

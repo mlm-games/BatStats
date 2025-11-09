@@ -1,6 +1,6 @@
 package app.batstats.battery.service
 
-import ShizukuBridge
+import app.batstats.enhanced.ShizukuBridge
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo

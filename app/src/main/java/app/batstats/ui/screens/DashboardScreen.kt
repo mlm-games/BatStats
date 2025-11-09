@@ -1,6 +1,6 @@
 package app.batstats.ui.screens
 
-import ShizukuBridge
+import app.batstats.enhanced.ShizukuBridge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing

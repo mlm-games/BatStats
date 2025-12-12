@@ -74,3 +74,5 @@
 -keep class ** extends androidx.work.ListenableWorker
 -keep class app.batstats.work.** { *; }
 -keepnames class app.batstats.work.**
+
+ -keepclassmembers class rikka.shizuku.Shizuku { *; }

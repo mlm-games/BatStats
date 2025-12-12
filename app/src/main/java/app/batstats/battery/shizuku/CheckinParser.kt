@@ -1,4 +1,4 @@
-package app.batstats.enhanced
+package app.batstats.battery.shizuku
 
 /**
  * Small parser for "dumpsys batterystats --checkin".

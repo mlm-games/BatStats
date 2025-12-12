@@ -1,4 +1,4 @@
-package app.batstats.enhanced
+package app.batstats.battery.shizuku
 
 import android.os.Binder
 import android.os.Parcel

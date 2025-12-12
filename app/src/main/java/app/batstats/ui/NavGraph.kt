@@ -1,4 +1,4 @@
-package app.batstats.battery.ui
+package app.batstats.ui
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -10,6 +10,7 @@ import app.batstats.ui.screens.AlarmsScreen
 import app.batstats.ui.screens.BatterySettingsScreen
 import app.batstats.ui.screens.DashboardScreen
 import app.batstats.ui.screens.DataScreen
+import app.batstats.ui.screens.DetailedStatsScreen
 import app.batstats.ui.screens.HistoryScreen
 import app.batstats.ui.screens.SessionDetailsScreen
 
@@ -21,7 +22,8 @@ fun NavGraph(nav: NavHostController) {
                 onOpenHistory = { nav.navigate("history") },
                 onOpenAlarms = { nav.navigate("alarms") },
                 onOpenSettings = { nav.navigate("settings") },
-                onOpenData = { nav.navigate("data") }
+                onOpenData = { nav.navigate("data") },
+                onOpenDetailedStats = { nav.navigate("detailed_stats") }
             )
         }
         composable("history") {
@@ -39,5 +41,8 @@ fun NavGraph(nav: NavHostController) {
         composable("alarms") { AlarmsScreen(onBack = { nav.popBackStack() }) }
         composable("data") { DataScreen(onBack = { nav.popBackStack() }) }
         composable("settings") { BatterySettingsScreen(onBack = { nav.popBackStack() }) }
+        composable("detailed_stats") {
+            DetailedStatsScreen(onBack = { nav.popBackStack() })
+        }
     }
 }

@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.ui.unit.dp
-import app.batstats.battery.ui.NavGraph
 import app.batstats.ui.components.TvNavItem
 import app.batstats.ui.components.TvNavigationRail
 

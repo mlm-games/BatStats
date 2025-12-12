@@ -1,4 +1,4 @@
-package app.batstats.enhanced
+package app.batstats.battery.shizuku
 
 import android.content.ComponentName
 import android.content.Context

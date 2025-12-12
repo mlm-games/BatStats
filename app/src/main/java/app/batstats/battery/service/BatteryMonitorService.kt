@@ -1,6 +1,6 @@
 package app.batstats.battery.service
 
-import app.batstats.enhanced.ShizukuBridge
+import app.batstats.battery.shizuku.ShizukuBridge
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -11,7 +11,7 @@ import app.batstats.battery.data.DrainMode
 import app.batstats.battery.util.Notifier
 import app.batstats.battery.widget.WidgetUpdater
 import app.batstats.insights.ForegroundDrainTracker
-import app.batstats.enhanced.EnhancedBstatsCollector
+import app.batstats.battery.shizuku.BstatsCollector
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
 import org.koin.android.ext.android.inject
@@ -21,7 +21,7 @@ class BatteryMonitorService : Service() {
 
     private val drainTracker: ForegroundDrainTracker by inject()
     private val shizukuBridge: ShizukuBridge by inject()
-    private val enhancedCollector: EnhancedBstatsCollector by inject()
+    private val enhancedCollector: BstatsCollector by inject()
 
     override fun onCreate() {
         super.onCreate()

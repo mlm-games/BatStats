@@ -1,11 +1,11 @@
-package app.batstats.enhanced
+package app.batstats.battery.shizuku
 
 import app.batstats.battery.data.db.AppEnergyDao
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.max
 
-class EnhancedBstatsCollector(
+class BstatsCollector(
     private val dao: AppEnergyDao,
     private val shizuku: ShizukuBridge
 ) {

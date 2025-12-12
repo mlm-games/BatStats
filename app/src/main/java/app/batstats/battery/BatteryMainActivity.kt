@@ -8,9 +8,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.navigation.compose.rememberNavController
-import app.batstats.battery.ui.NavGraph
+import app.batstats.ui.NavGraph
 import app.batstats.helper.DeviceUtils
 import app.batstats.ui.TvShell
 import app.batstats.ui.theme.MainTheme

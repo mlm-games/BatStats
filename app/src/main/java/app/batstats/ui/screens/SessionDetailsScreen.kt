@@ -39,8 +39,8 @@ fun SessionDetailsScreen(
             title = { Text("Session details") },
             navigationIcon = { TextButton(onClick = onBack) { Text("Back") } },
             actions = {
-                IconButton(onClick = { /* share later */ }) { Icon(Icons.Outlined.Share, null) }
-                IconButton(onClick = { /* export later */ }) { Icon(Icons.Outlined.Download, null) }
+//                IconButton(onClick = { /* share later */ }) { Icon(Icons.Outlined.Share, null) }
+//                IconButton(onClick = { /* export later */ }) { Icon(Icons.Outlined.Download, null) }
             }
         )
     }) { pv ->

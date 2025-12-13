@@ -76,3 +76,4 @@
 -keepnames class app.batstats.work.**
 
 -keepclassmembers class rikka.shizuku.Shizuku { *; }
+-keep class app.batstats.battery.shizuku.ShellUserService { *; }

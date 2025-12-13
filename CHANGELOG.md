@@ -1,3 +1,8 @@
+## v4.3.4
+
+- Update proguard-rules.pro
+
+
 ## v4.3.3
 
 - add shizuku rule

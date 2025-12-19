@@ -1,11 +1,16 @@
 package app.batstats.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import android.content.Intent
+import android.os.Build
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.BatterySample
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
+import app.batstats.battery.service.BatteryMonitorService
+import app.batstats.battery.util.Notifier
 import app.batstats.settings.AppSettings
 import app.batstats.settings.AppSettingsSchema
 import app.batstats.settings.chartTimeRangeMs
@@ -23,9 +28,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DashboardViewModel(
+    private val app: Application,
     private val repo: BatteryRepository,
     settingsRepository: SettingsRepository<AppSettings>
-) : ViewModel() {
+) : AndroidViewModel(app) {
 
     private val settings: StateFlow<AppSettings> = settingsRepository.flow
         .stateIn(
@@ -44,19 +50,16 @@ class DashboardViewModel(
             initialValue = null
         )
 
-    // Recent samples based on settings chart time range
     @OptIn(ExperimentalCoroutinesApi::class)
     val recentSamples: Flow<List<BatterySample>> = settings
         .flatMapLatest { s ->
             repo.recentSamplesFlow(s.chartTimeRangeMs)
         }
 
-    // Rolling buffer for the live chart (last 100 points)
     private val _liveCurrent = MutableStateFlow<List<Float>>(emptyList())
     val liveCurrent: StateFlow<List<Float>> = _liveCurrent.asStateFlow()
 
     init {
-        // Collect realtime data to update the live chart
         viewModelScope.launch {
             realtime.collectLatest { rt ->
                 val current = rt.currentMa.toFloat()
@@ -69,9 +72,18 @@ class DashboardViewModel(
 
     fun toggleMonitoring() {
         if (isMonitoring.value) {
-            repo.stopSampling()
+            val intent = Intent(app, BatteryMonitorService::class.java)
+            app.stopService(intent)
+            // Repo update happens in Service.onDestroy
         } else {
-            repo.startSampling()
+            Notifier.ensureChannel(app)
+            val intent = Intent(app, BatteryMonitorService::class.java)
+            if (Build.VERSION.SDK_INT >= 26) {
+                app.startForegroundService(intent)
+            } else {
+                app.startService(intent)
+            }
+            // Repo update happens in Service.onStartCommand
         }
     }
 

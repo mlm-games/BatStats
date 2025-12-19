@@ -1,5 +1,8 @@
 package app.batstats.ui.screens
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,26 +18,8 @@ import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.RestartAlt
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -49,7 +34,6 @@ import app.batstats.settings.Notifications
 import app.batstats.viewmodel.SettingsViewModel
 import io.github.mlmgames.settings.core.SettingField
 import io.github.mlmgames.settings.core.SettingMeta
-import io.github.mlmgames.settings.core.backup.ExportResult
 import io.github.mlmgames.settings.core.backup.ImportResult
 import io.github.mlmgames.settings.core.resources.StringResourceProvider
 import io.github.mlmgames.settings.core.types.Dropdown
@@ -71,6 +55,7 @@ import java.util.Locale
 @Composable
 fun BatterySettingsScreen(
     onBack: () -> Unit,
+    onExportData: () -> Unit,
     vm: SettingsViewModel = koinViewModel(),
     stringProvider: StringResourceProvider = koinInject()
 ) {
@@ -80,7 +65,6 @@ fun BatterySettingsScreen(
     val snackbarHost = remember { SnackbarHostState() }
 
     var showResetDialog by remember { mutableStateOf(false) }
-    var showExportDialog by remember { mutableStateOf(false) }
     var showImportDialog by remember { mutableStateOf(false) }
     var showClearDataDialog by remember { mutableStateOf(false) }
 
@@ -90,6 +74,18 @@ fun BatterySettingsScreen(
 
     val schema = AppSettingsSchema
     val grouped = remember { schema.groupedByCategory() }
+
+    // Launcher for exporting settings (backup)
+    val createSettingsBackup = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri: Uri? ->
+        if (uri != null) {
+            scope.launch {
+                val message = vm.exportToFile(uri)
+                snackbarHost.showSnackbar(message)
+            }
+        }
+    }
 
     val categoryOrder = listOf(
         General::class to "General",
@@ -118,7 +114,7 @@ fun BatterySettingsScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { showExportDialog = true }) {
+                    IconButton(onClick = { createSettingsBackup.launch("BatStats_Settings_Backup.json") }) {
                         Icon(Icons.Outlined.Backup, contentDescription = "Export settings")
                     }
                     IconButton(onClick = { showImportDialog = true }) {
@@ -176,18 +172,12 @@ fun BatterySettingsScreen(
                                 )
                             }
 
-                            // Add action buttons for Data category
                             if (categoryClass == Data::class) {
                                 SettingsAction(
                                     title = "Export Battery Data",
                                     description = "Export battery history to file",
-                                    buttonText = "Export",
-                                    onClick = {
-                                        // TODO: Link to the export screen or remove (can directly navigate there...)
-                                        scope.launch {
-                                            snackbarHost.showSnackbar("Export not implemented yet")
-                                        }
-                                    }
+                                    buttonText = "Open",
+                                    onClick = onExportData
                                 )
 
                                 SettingsAction(
@@ -212,8 +202,7 @@ fun BatterySettingsScreen(
         val anyField = cf as SettingField<AppSettings, Any?>
         val value = anyField.get(settings)
 
-        // Handle both Int and Enum Dropdowns safely
-        val index = when(value) {
+        val index = when (value) {
             is Int -> value
             is Enum<*> -> value.ordinal
             else -> 0
@@ -226,8 +215,6 @@ fun BatterySettingsScreen(
                 selectedIndex = index,
                 onDismiss = { showDropdown = false },
                 onOptionSelected = { idx ->
-                    // For Enum fields, we need to handle mapping if we were supporting them generically
-                    // Since AppSettings mostly uses indices (Int), we pass Int directly.
                     vm.updateSetting(cf.name, idx)
                     showDropdown = false
                 }
@@ -237,14 +224,13 @@ fun BatterySettingsScreen(
         }
     }
 
-    // Slider Dialog - Fixed Type Safety
+    // Slider Dialog
     if (showSlider && cf?.meta != null) {
         val meta = cf.meta!!
         @Suppress("UNCHECKED_CAST")
         val anyField = cf as SettingField<AppSettings, Any?>
         val value = anyField.get(settings)
 
-        // Robustly handle both Float and Int types without unchecked casting crashes
         val currentVal = when (value) {
             is Float -> value
             is Int -> value.toFloat()
@@ -261,7 +247,6 @@ fun BatterySettingsScreen(
             step = meta.step,
             onDismiss = { showSlider = false },
             onValueSelected = { v ->
-                // Convert back to the original type expected by the field
                 when (value) {
                     is Float -> vm.updateSetting(cf.name, v)
                     is Int -> vm.updateSetting(cf.name, v.toInt())
@@ -295,9 +280,7 @@ fun BatterySettingsScreen(
                             snackbarHost.showSnackbar("UI settings reset")
                             showResetDialog = false
                         }
-                    }) {
-                        Text("Reset UI")
-                    }
+                    }) { Text("Reset UI") }
                     Spacer(Modifier.width(8.dp))
                     TextButton(
                         onClick = {
@@ -308,48 +291,10 @@ fun BatterySettingsScreen(
                             }
                         },
                         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                    ) {
-                        Text("Reset All")
-                    }
+                    ) { Text("Reset All") }
                 }
             },
-            dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) {
-                    Text("Cancel")
-                }
-            }
-        )
-    }
-
-    // Export Dialog
-    if (showExportDialog) {
-        AlertDialog(
-            onDismissRequest = { showExportDialog = false },
-            title = { Text("Export Settings") },
-            text = { Text("Export all settings to JSON for backup or transfer.") },
-            confirmButton = {
-                TextButton(onClick = {
-                    scope.launch {
-                        when (val result = vm.export()) {
-                            is ExportResult.Success -> {
-                                // TODO: Share or save the JSON
-                                snackbarHost.showSnackbar("Exported ${result.json.length} bytes")
-                            }
-                            is ExportResult.Error -> {
-                                snackbarHost.showSnackbar("Export failed: ${result.message}")
-                            }
-                        }
-                        showExportDialog = false
-                    }
-                }) {
-                    Text("Export")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showExportDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            dismissButton = { TextButton(onClick = { showResetDialog = false }) { Text("Cancel") } }
         )
     }
 
@@ -376,26 +321,16 @@ fun BatterySettingsScreen(
                     onClick = {
                         scope.launch {
                             when (val result = vm.import(jsonInput)) {
-                                is ImportResult.Success -> {
-                                    snackbarHost.showSnackbar("Imported ${result.appliedCount} settings")
-                                }
-                                is ImportResult.Error -> {
-                                    snackbarHost.showSnackbar("Import failed: ${result.error}")
-                                }
+                                is ImportResult.Success -> snackbarHost.showSnackbar("Imported ${result.appliedCount} settings")
+                                is ImportResult.Error -> snackbarHost.showSnackbar("Import failed: ${result.error}")
                             }
                             showImportDialog = false
                         }
                     },
                     enabled = jsonInput.isNotBlank()
-                ) {
-                    Text("Import")
-                }
+                ) { Text("Import") }
             },
-            dismissButton = {
-                TextButton(onClick = { showImportDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            dismissButton = { TextButton(onClick = { showImportDialog = false }) { Text("Cancel") } }
         )
     }
 
@@ -416,15 +351,9 @@ fun BatterySettingsScreen(
                         }
                     },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) {
-                    Text("Delete All")
-                }
+                ) { Text("Delete All") }
             },
-            dismissButton = {
-                TextButton(onClick = { showClearDataDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            dismissButton = { TextButton(onClick = { showClearDataDialog = false }) { Text("Cancel") } }
         )
     }
 }
@@ -453,19 +382,11 @@ private fun RenderSettingField(
                 )
             }
         }
-
         Dropdown::class -> {
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
             val value = anyField.get(settings)
-
-            // Handle Int (Index) or Enum safely
-            val index = when (value) {
-                is Int -> value
-                is Enum<*> -> value.ordinal
-                else -> 0
-            }
-
+            val index = when (value) { is Int -> value; is Enum<*> -> value.ordinal; else -> 0 }
             if (meta.options.isNotEmpty()) {
                 SettingsItem(
                     title = meta.title,
@@ -476,22 +397,15 @@ private fun RenderSettingField(
                 )
             }
         }
-
         Slider::class -> {
-            // Safer way to access value despite type erasure
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
             val value = anyField.get(settings)
-
-            // Ensure String.format gets a float if checking for float format, or handle Int explicitly
             val subtitle = when (value) {
-                is Float -> String.format(Locale.getDefault(), "%.1f", value)
-                is Double -> String.format(Locale.getDefault(), "%.1f", value)
-                is Int -> value.toString()
-                is Long -> value.toString()
+                is Float, is Double -> String.format(Locale.getDefault(), "%.1f", (value as Number).toDouble())
+                is Int, is Long -> value.toString()
                 else -> ""
             }
-
             SettingsItem(
                 title = meta.title,
                 subtitle = subtitle,

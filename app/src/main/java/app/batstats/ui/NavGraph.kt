@@ -39,7 +39,6 @@ fun NavGraph(nav: NavHostController) {
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { back ->
             val id = back.arguments?.getString("id")!!
-            // Inject with parameter
             SessionDetailsScreen(
                 sessionId = id,
                 onBack = { nav.popBackStack() },
@@ -53,7 +52,10 @@ fun NavGraph(nav: NavHostController) {
             DataScreen(onBack = { nav.popBackStack() })
         }
         composable("settings") {
-            BatterySettingsScreen(onBack = { nav.popBackStack() })
+            BatterySettingsScreen(
+                onBack = { nav.popBackStack() },
+                onExportData = { nav.navigate("data") }
+            )
         }
         composable("detailed_stats") {
             DetailedStatsScreen(onBack = { nav.popBackStack() })

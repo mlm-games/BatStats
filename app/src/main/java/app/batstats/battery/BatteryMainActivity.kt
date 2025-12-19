@@ -8,20 +8,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.navigation.compose.rememberNavController
-import app.batstats.ui.NavGraph
-import app.batstats.helper.DeviceUtils
-import app.batstats.ui.TvShell
+import app.batstats.ui.screens.MainScreen
 import app.batstats.ui.theme.MainTheme
-
 
 class BatteryMainActivity : ComponentActivity() {
     private val notifPerm = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { }
+    ) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (Build.VERSION.SDK_INT >= 33) {
             val granted = ContextCompat.checkSelfPermission(
                 this, Manifest.permission.POST_NOTIFICATIONS
@@ -31,12 +28,7 @@ class BatteryMainActivity : ComponentActivity() {
 
         setContent {
             MainTheme(darkTheme = true, useAuroraTheme = true) {
-                val nav = rememberNavController()
-                if (DeviceUtils.isTV(this)) {
-                    TvShell(nav = nav)
-                } else {
-                    NavGraph(nav = nav)
-                }
+                MainScreen()
             }
         }
     }

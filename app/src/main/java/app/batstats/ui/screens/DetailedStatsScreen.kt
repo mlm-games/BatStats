@@ -1102,9 +1102,6 @@ private fun SystemTab(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
-                                // =====================================
-// FILE: ui/screens/DetailedStatsScreen.kt (continued)
-// =====================================
 
                                 Text(
                                     sensor.sensorName,

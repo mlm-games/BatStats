@@ -13,10 +13,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import app.batstats.ui.dialogs.SliderSettingDialog
 import app.batstats.viewmodel.SettingsViewModel
 import io.github.mlmgames.settings.ui.components.SettingsItem
 import io.github.mlmgames.settings.ui.components.SettingsToggle
+import io.github.mlmgames.settings.ui.dialogs.SliderSettingDialog
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +28,6 @@ fun AlarmsScreen(
     val settings by vm.settings.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
-    // 1. Define scroll behavior for the LargeTopAppBar
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     var showLimit by rememberSaveable { mutableStateOf(false) }
@@ -36,7 +35,6 @@ fun AlarmsScreen(
     var showDisch by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
-        // 2. Attach nested scroll connection to Scaffold
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
@@ -46,7 +44,6 @@ fun AlarmsScreen(
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
-                // 3. Attach behavior to TopBar
                 scrollBehavior = scrollBehavior
             )
         }
@@ -55,7 +52,6 @@ fun AlarmsScreen(
             Modifier
                 .padding(pv)
                 .fillMaxSize()
-                // 4. Make the column scrollable
                 .verticalScroll(rememberScrollState())
         ) {
             // Charging Section

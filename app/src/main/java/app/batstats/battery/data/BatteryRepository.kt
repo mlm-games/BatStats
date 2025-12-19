@@ -82,17 +82,16 @@ class BatteryRepository(
         if (_isMonitoring.value) return
         _isMonitoring.value = true
 
-        // 1. Register Receiver for system broadcasts (plug/unplug, % change)
+        // Register Receiver for system broadcasts (plug/unplug, % change)
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         context.registerReceiver(batteryReceiver, filter)
 
-        // 2. Start Polling Coroutine for current/voltage fluctuations
+        // Start Polling Coroutine for current/voltage fluctuations
         // Android's ACTION_BATTERY_CHANGED is "sticky" but doesn't fire often enough
         // to show live current changes. We poll BatteryManager properties.
         samplingJob = scope.launch {
             settingsRepository.flow.collectLatest { settings ->
                 while (isActive) {
-                    // Grab the sticky intent to get current voltage/temp
                     val intent = context.registerReceiver(null, filter)
                     if (intent != null) {
                         processBatteryState(intent, persist = true)
@@ -112,7 +111,7 @@ class BatteryRepository(
 
         try {
             context.unregisterReceiver(batteryReceiver)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             // Ignore if already unregistered
         }
     }

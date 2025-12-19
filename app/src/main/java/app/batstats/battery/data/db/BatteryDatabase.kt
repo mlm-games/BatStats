@@ -25,7 +25,6 @@ abstract class BatteryDatabase : RoomDatabase() {
                     BatteryDatabase::class.java,
                     "battery.db"
                 )
-                    // For dev speed; consider real migrations when schema stabilizes
                     .fallbackToDestructiveMigration(true)
                     .build().also { INSTANCE = it }
             }

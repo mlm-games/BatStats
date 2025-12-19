@@ -6,7 +6,6 @@ import androidx.navigation3.runtime.NavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import app.batstats.ui.util.Screen
 import app.batstats.ui.screens.AlarmsScreen
 import app.batstats.ui.screens.BatterySettingsScreen
 import app.batstats.ui.screens.DashboardScreen
@@ -14,6 +13,7 @@ import app.batstats.ui.screens.DataScreen
 import app.batstats.ui.screens.DetailedStatsScreen
 import app.batstats.ui.screens.HistoryScreen
 import app.batstats.ui.screens.SessionDetailsScreen
+import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -81,4 +81,31 @@ fun NavGraph(
             }
         }
     )
+}
+
+/**
+ * Navigation 3 Keys.
+ */
+@Serializable
+sealed interface Screen: NavKey {
+    @Serializable
+    data object Dashboard : Screen
+
+    @Serializable
+    data object History : Screen
+
+    @Serializable
+    data class SessionDetails(val sessionId: String) : Screen
+
+    @Serializable
+    data object Alarms : Screen
+
+    @Serializable
+    data object Data : Screen
+
+    @Serializable
+    data object Settings : Screen
+
+    @Serializable
+    data object DetailedStats : Screen
 }

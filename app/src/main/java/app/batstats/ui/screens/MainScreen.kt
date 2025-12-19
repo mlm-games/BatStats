@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDe
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import app.batstats.ui.NavGraph
-import app.batstats.ui.util.Screen
+import app.batstats.ui.Screen
 
 @Composable
 fun MainScreen() {

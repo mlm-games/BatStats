@@ -1,32 +1,29 @@
 package app.batstats.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import app.batstats.battery.BatteryGraph
-import app.batstats.battery.util.BatteryStatsParser
+import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.DetailedStatsCollector
 import app.batstats.battery.util.RootStatsCollector
-import app.batstats.battery.shizuku.ShizukuBridge
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import rikka.shizuku.Shizuku
 
 class DetailedStatsViewModel(
-    private val app: Application,
     private val collector: DetailedStatsCollector,
-    private val shizuku: ShizukuBridge
-) : AndroidViewModel(app) {
+    private val shizukuBridge: ShizukuBridge
+) : ViewModel() {
 
-    val snapshot: StateFlow<BatteryStatsParser.FullSnapshot?> = collector.snapshot
-    val deviceIdle: StateFlow<BatteryStatsParser.DeviceIdleInfo?> = collector.deviceIdle
-    val powerManager: StateFlow<BatteryStatsParser.PowerManagerInfo?> = collector.powerManager
-    val lastRefresh: StateFlow<Long> = collector.lastRefresh
-    val isRefreshing: StateFlow<Boolean> = collector.isRefreshing
-    val error: StateFlow<String?> = collector.error
+    // Forward flows from collector
+    val snapshot = collector.snapshot
+    val deviceIdle = collector.deviceIdle
+    val powerManager = collector.powerManager
+    val lastRefresh = collector.lastRefresh
+    val isRefreshing = collector.isRefreshing
+    val error = collector.error
 
     private val _hasShizuku = MutableStateFlow(false)
     val hasShizuku: StateFlow<Boolean> = _hasShizuku.asStateFlow()
@@ -37,36 +34,57 @@ class DetailedStatsViewModel(
     private val _kernelBattery = MutableStateFlow<RootStatsCollector.KernelBatteryInfo?>(null)
     val kernelBattery: StateFlow<RootStatsCollector.KernelBatteryInfo?> = _kernelBattery.asStateFlow()
 
-    init {
-        checkPermissions()
-    }
-
-    private fun checkPermissions() {
-        viewModelScope.launch {
-            _hasShizuku.value = shizuku.ping() && shizuku.hasPermission()
-            _hasRoot.value = RootStatsCollector.isRootAvailable()
-            
-            if (_hasRoot.value) {
-                _kernelBattery.value = RootStatsCollector.getKernelBatteryInfo()
+    // Listener for Shizuku permission results
+    private val permissionListener = Shizuku.OnRequestPermissionResultListener { requestCode, grantResult ->
+        if (requestCode == 1001) {
+            val granted = grantResult == PackageManager.PERMISSION_GRANTED
+            _hasShizuku.value = granted
+            if (granted) {
+                refresh()
             }
         }
     }
 
-    suspend fun refresh(): Boolean {
-        checkPermissions()
-        val result = collector.refresh()
-        if (_hasRoot.value) {
-            _kernelBattery.value = RootStatsCollector.getKernelBatteryInfo()
+    init {
+        // Register listener for permission results
+        try {
+            Shizuku.addRequestPermissionResultListener(permissionListener)
+        } catch (_: Throwable) {
+            // Shizuku might not be available
         }
-        return result
+        checkPermissions()
     }
 
-    suspend fun resetStats(): Boolean {
-        return collector.resetStats()
+    override fun onCleared() {
+        super.onCleared()
+        try {
+            Shizuku.removeRequestPermissionResultListener(permissionListener)
+        } catch (_: Throwable) {}
+    }
+
+    private fun checkPermissions() {
+        viewModelScope.launch {
+            _hasShizuku.value = shizukuBridge.hasPermission()
+            _hasRoot.value = RootStatsCollector.isRootAvailable()
+
+            if (_hasShizuku.value) refresh()
+            if (_hasRoot.value) refreshRootStats()
+        }
     }
 
     fun requestShizukuPermission() {
-        shizuku.requestPermission()
+        shizukuBridge.requestPermission(1001)
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            if (_hasShizuku.value) {
+                collector.refresh()
+            }
+            if (_hasRoot.value) {
+                refreshRootStats()
+            }
+        }
     }
 
     fun refreshRootStats() {
@@ -77,15 +95,15 @@ class DetailedStatsViewModel(
         }
     }
 
-    companion object {
-        fun factory() = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val app = BatteryGraph.app
-                val shizuku = ShizukuBridge(app)
-                val collector = DetailedStatsCollector(shizuku, BatteryGraph.db)
-                @Suppress("UNCHECKED_CAST")
-                return DetailedStatsViewModel(app, collector, shizuku) as T
+    suspend fun resetStats(): Boolean {
+        return try {
+            when {
+                _hasShizuku.value -> collector.resetStats()
+                _hasRoot.value -> RootStatsCollector.resetBatteryStats()
+                else -> false
             }
+        } catch (e: Exception) {
+            false
         }
     }
 }

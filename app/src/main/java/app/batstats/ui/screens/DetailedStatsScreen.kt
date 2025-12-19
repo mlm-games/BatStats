@@ -28,6 +28,7 @@ import app.batstats.battery.util.BatteryStatsParser
 import app.batstats.battery.util.RootStatsCollector
 import app.batstats.viewmodel.DetailedStatsViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -37,7 +38,7 @@ import java.util.*
 @Composable
 fun DetailedStatsScreen(
     onBack: () -> Unit,
-    vm: DetailedStatsViewModel = viewModel(factory = DetailedStatsViewModel.factory())
+    vm: DetailedStatsViewModel = koinViewModel()
 ) {
     val snapshot by vm.snapshot.collectAsStateWithLifecycle()
     val deviceIdle by vm.deviceIdle.collectAsStateWithLifecycle()

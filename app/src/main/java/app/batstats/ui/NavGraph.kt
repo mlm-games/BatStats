@@ -2,9 +2,9 @@ package app.batstats.ui
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import app.batstats.ui.screens.AlarmsScreen
 import app.batstats.ui.screens.BatterySettingsScreen
@@ -13,6 +13,8 @@ import app.batstats.ui.screens.DataScreen
 import app.batstats.ui.screens.DetailedStatsScreen
 import app.batstats.ui.screens.HistoryScreen
 import app.batstats.ui.screens.SessionDetailsScreen
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun NavGraph(nav: NavHostController) {
@@ -27,20 +29,32 @@ fun NavGraph(nav: NavHostController) {
             )
         }
         composable("history") {
-            HistoryScreen(onBack = { nav.popBackStack() }, onOpenSession = { id ->
-                nav.navigate("session/$id")
-            })
+            HistoryScreen(
+                onBack = { nav.popBackStack() },
+                onOpenSession = { id -> nav.navigate("session/$id") }
+            )
         }
         composable(
             "session/{id}",
             arguments = listOf(navArgument("id") { type = NavType.StringType })
         ) { back ->
             val id = back.arguments?.getString("id")!!
-            SessionDetailsScreen(sessionId = id, onBack = { nav.popBackStack() })
+            // Inject with parameter
+            SessionDetailsScreen(
+                sessionId = id,
+                onBack = { nav.popBackStack() },
+                vm = koinViewModel(parameters = { parametersOf(id) })
+            )
         }
-        composable("alarms") { AlarmsScreen(onBack = { nav.popBackStack() }) }
-        composable("data") { DataScreen(onBack = { nav.popBackStack() }) }
-        composable("settings") { BatterySettingsScreen(onBack = { nav.popBackStack() }) }
+        composable("alarms") {
+            AlarmsScreen(onBack = { nav.popBackStack() })
+        }
+        composable("data") {
+            DataScreen(onBack = { nav.popBackStack() })
+        }
+        composable("settings") {
+            BatterySettingsScreen(onBack = { nav.popBackStack() })
+        }
         composable("detailed_stats") {
             DetailedStatsScreen(onBack = { nav.popBackStack() })
         }

@@ -30,7 +30,7 @@ import java.util.*
 fun SessionDetailsScreen(
     sessionId: String,
     onBack: () -> Unit,
-    vm: SessionDetailsViewModel = viewModel(factory = SessionDetailsViewModel.factory(sessionId))
+    vm: SessionDetailsViewModel
 ) {
     val ui by vm.ui.collectAsState()
 

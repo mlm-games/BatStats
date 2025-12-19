@@ -13,8 +13,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import app.batstats.battery.data.ExportImport
-import kotlinx.coroutines.launch
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.viewmodel.DataViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -22,72 +23,48 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataScreen(onBack: () -> Unit) {
-    val scope = rememberCoroutineScope()
+fun DataScreen(
+    onBack: () -> Unit,
+    vm: DataViewModel = koinViewModel()
+) {
+    val isBusy by vm.isBusy.collectAsStateWithLifecycle()
+    val message by vm.message.collectAsStateWithLifecycle()
+    val snackbarHost = remember { SnackbarHostState() }
+
     var from by remember { mutableLongStateOf(0L) }
     var to by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var includeSamples by remember { mutableStateOf(true) }
     var includeSessions by remember { mutableStateOf(true) }
-    var busy by remember { mutableStateOf(false) }
-    var info by remember { mutableStateOf<String?>(null) }
-    val snackbarHost = remember { SnackbarHostState() }
+
+    LaunchedEffect(message) {
+        message?.let {
+            snackbarHost.showSnackbar(it)
+            vm.clearMessage()
+        }
+    }
 
     val createJson = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument("application/json")
     ) { uri: Uri? ->
-        if (uri != null) scope.launch {
-            busy = true
-            val ok = ExportImport.exportJson(
-                dest = uri,
-                from = from,
-                to = to,
-                includeSamples = includeSamples,
-                includeSessions = includeSessions
-            )
-            busy = false
-            info = if (ok) "JSON exported" else "Export failed"
-            snackbarHost.showSnackbar(info!!)
-        }
+        if (uri != null) vm.exportJson(uri, from, to, includeSamples, includeSessions)
     }
 
     val folderCsv = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocumentTree()
-    ) { tree ->
-        if (tree != null) scope.launch {
-            busy = true
-            val ok = ExportImport.exportCsvToFolder(
-                tree = tree,
-                from = from,
-                to = to
-            )
-            busy = false
-            info = if (ok) "CSV exported" else "Export failed"
-            snackbarHost.showSnackbar(info!!)
-        }
+    ) { tree: Uri? ->
+        if (tree != null) vm.exportCsv(tree, from, to)
     }
 
     val openJson = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
-    ) { uri ->
-        if (uri != null) scope.launch {
-            busy = true
-            val ok = ExportImport.importJson(uri)
-            busy = false
-            info = if (ok) "JSON imported" else "Import failed"
-            snackbarHost.showSnackbar(info!!)
-        }
+    ) { uri: Uri? ->
+        if (uri != null) vm.importJson(uri)
     }
 
     val openCsv = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument()
-    ) { uri ->
-        if (uri != null) scope.launch {
-            busy = true
-            val ok = ExportImport.importCsv(uri)
-            busy = false
-            info = if (ok) "CSV imported" else "Import failed"
-            snackbarHost.showSnackbar(info!!)
-        }
+    ) { uri: Uri? ->
+        if (uri != null) vm.importCsv(uri)
     }
 
     Scaffold(
@@ -136,14 +113,14 @@ fun DataScreen(onBack: () -> Unit) {
                         Icon(Icons.Outlined.Download, null)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { createJson.launch("BatteryExport.json") }, enabled = !busy) {
+                        Button(onClick = { createJson.launch("BatteryExport.json") }, enabled = !isBusy) {
                             Text("Export JSON")
                         }
-                        OutlinedButton(onClick = { folderCsv.launch(null) }, enabled = !busy) {
+                        OutlinedButton(onClick = { folderCsv.launch(null) }, enabled = !isBusy) {
                             Text("Export CSV (folder)")
                         }
                     }
-                    AnimatedVisibility(visible = busy) {
+                    AnimatedVisibility(visible = isBusy) {
                         LinearProgressIndicator(Modifier.fillMaxWidth())
                     }
                 }
@@ -162,11 +139,11 @@ fun DataScreen(onBack: () -> Unit) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(
                             onClick = { openJson.launch(arrayOf("application/json")) },
-                            enabled = !busy
+                            enabled = !isBusy
                         ) { Text("Import JSON") }
                         OutlinedButton(
                             onClick = { openCsv.launch(arrayOf("text/*", "application/octet-stream")) },
-                            enabled = !busy
+                            enabled = !isBusy
                         ) { Text("Import CSV") }
                     }
                     Text(

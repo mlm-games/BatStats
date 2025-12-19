@@ -41,15 +41,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.db.SessionType
-import app.batstats.battery.viewmodel.HistoryViewModel
+import app.batstats.viewmodel.HistoryViewModel
 import app.batstats.ui.components.SessionCard
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
     onBack: () -> Unit,
     onOpenSession: (String) -> Unit,
-    vm: HistoryViewModel = viewModel(factory = HistoryViewModel.factory())
+    vm: HistoryViewModel = koinViewModel()
 ) {
     val allSessions by vm.sessions.collectAsStateWithLifecycle(initialValue = emptyList())
     var filter by remember { mutableStateOf<SessionType?>(null) }
@@ -75,14 +76,6 @@ fun HistoryScreen(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /* could open search field modal; kept inline below */ }) {
-                        Icon(Icons.Outlined.Search, null)
-                    }
-                    IconButton(onClick = { /* filter popover handled inline */ }) {
-                        Icon(Icons.Outlined.FilterAlt, null)
                     }
                 },
                 scrollBehavior = behavior

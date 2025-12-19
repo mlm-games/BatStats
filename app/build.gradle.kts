@@ -152,6 +152,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.animation)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.documentfile)
     ksp(libs.androidx.room.compiler)
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(libs.kotlin.stdlib)
@@ -165,10 +166,13 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.gson)
     implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.androidx.runtime)
+
+    implementation(libs.kmp.settings.core)
+    implementation(libs.kmp.settings.ui.compose)
+    ksp(libs.kmp.settings.ksp)
 
     //Material dependencies
     implementation(libs.material)
@@ -181,25 +185,11 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.compose)
     implementation(libs.constraintlayout.compose.android)
-    implementation(libs.kotlin.reflect)
     implementation(libs.androidbrowserhelper)
     implementation(libs.androidx.datastore.preferences.core)
 
     implementation(libs.androidx.tv.material)
     implementation(libs.androidx.tv.foundation)
-    implementation(libs.coil.compose)
-    implementation(libs.coil.svg)
-
-    implementation(libs.androidx.documentfile)
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.ui)
-    implementation(libs.androidx.media3.ui.compose)
-    implementation(libs.androidx.media3.exoplayer.dash)
-
-    implementation(libs.zip4j)
-    implementation(libs.commons.compress)
-    implementation(libs.xz)
-    implementation(libs.zstd.jni)
 
     // Shizuku
     implementation(libs.api)

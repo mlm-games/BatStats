@@ -1,14 +1,22 @@
 package app.batstats.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import app.batstats.battery.BatteryGraph
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import app.batstats.battery.data.BatteryRepository
+import app.batstats.battery.data.db.BatteryDatabase
 import app.batstats.battery.data.db.BatterySample
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class SessionDetailsViewModel(private val app: Application, private val sessionId: String) : AndroidViewModel(app) {
+class SessionDetailsViewModel(
+    app: Application,
+    private val repo: BatteryRepository,
+    private val db: BatteryDatabase,
+    private val sessionId: String
+) : AndroidViewModel(app) {
+
     data class Point(val currentMa: Int?, val voltageMv: Int?, val tempC: Double?)
     data class Ui(
         val type: String = "",
@@ -24,26 +32,23 @@ class SessionDetailsViewModel(private val app: Application, private val sessionI
 
     init {
         viewModelScope.launch {
-            BatteryGraph.db.sessionDao().session(sessionId).combine(
-                BatteryGraph.repo.realtime
+            db.sessionDao().session(sessionId).combine(
+                repo.realtimeFlow
             ) { session, _ -> session }.filterNotNull().collect { s ->
                 val end = s.endTime ?: System.currentTimeMillis()
-                val samples = BatteryGraph.repo.samplesBetween(s.startTime, end).first()
+                val samples = repo.samplesBetween(s.startTime, end).first()
 
                 val startPct = (s.startLevel).coerceIn(0, 100)
                 val endPct = (s.endLevel ?: samples.lastOrNull()?.levelPercent ?: startPct).coerceIn(0, 100)
 
                 val points = aggregatePerMinute(samples)
-                val cap = s.estCapacityMah
-                val avg = s.avgCurrentUa
-
                 _ui.value = Ui(
                     type = s.type.name,
                     start = s.startTime,
                     end = s.endTime,
                     levelRange = "$startPct% → $endPct%",
-                    capacityMah = cap,
-                    avgCurrent = avg,
+                    capacityMah = s.estCapacityMah,
+                    avgCurrent = s.avgCurrentUa,
                     points = points
                 )
             }
@@ -58,15 +63,6 @@ class SessionDetailsViewModel(private val app: Application, private val sessionI
             val volt = minute.mapNotNull { it.voltageMv }.average().takeIf { !it.isNaN() }?.roundToInt()
             val tempC = minute.mapNotNull { it.temperatureDeciC }.average().takeIf { !it.isNaN() }?.div(10.0)
             Point(cur, volt, tempC)
-        }
-    }
-
-    companion object {
-        fun factory(id: String) = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return SessionDetailsViewModel(BatteryGraph.app, id) as T
-            }
         }
     }
 }

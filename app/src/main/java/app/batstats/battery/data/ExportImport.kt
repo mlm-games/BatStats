@@ -1,8 +1,9 @@
 package app.batstats.battery.data
 
+import android.content.Context
 import android.net.Uri
 import androidx.documentfile.provider.DocumentFile
-import app.batstats.battery.BatteryGraph
+import app.batstats.battery.data.db.BatteryDatabase
 import app.batstats.battery.data.db.BatterySample
 import app.batstats.battery.data.db.ChargeSession
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,10 @@ data class BatteryExport(
     val sessions: List<ChargeSession> = emptyList()
 )
 
-object ExportImport {
+class ExportImportManager(
+    private val context: Context,
+    private val db: BatteryDatabase
+) {
     private val json = Json { prettyPrint = true; ignoreUnknownKeys = true }
 
     suspend fun exportJson(
@@ -31,15 +35,17 @@ object ExportImport {
         includeSessions: Boolean
     ): Boolean = withContext(Dispatchers.IO) {
         runCatching {
-            val ctx = BatteryGraph.app
-            val out = ctx.contentResolver.openOutputStream(dest) ?: return@withContext false
+            val out = context.contentResolver.openOutputStream(dest) ?: return@withContext false
             val toBound = if (to == 0L) Long.MAX_VALUE else to
-            val samples = if (includeSamples) BatteryGraph.db.batteryDao()
-                .samplesBetween(if (from == 0L) 0L else from, toBound).first()
-            else emptyList()
-            val sessions = if (includeSessions) BatteryGraph.db.sessionDao()
-                .sessionsPaged(10_000, 0).first()
-            else emptyList()
+
+            val samples = if (includeSamples) {
+                db.batteryDao().samplesBetween(if (from == 0L) 0L else from, toBound).first()
+            } else emptyList()
+
+            val sessions = if (includeSessions) {
+                db.sessionDao().sessionsPaged(10_000, 0).first()
+            } else emptyList()
+
             out.use {
                 it.write(
                     json.encodeToString(
@@ -55,16 +61,15 @@ object ExportImport {
     suspend fun exportCsvToFolder(tree: Uri, from: Long, to: Long): Boolean =
         withContext(Dispatchers.IO) {
             runCatching {
-                val ctx = BatteryGraph.app
-                val dir = DocumentFile.fromTreeUri(ctx, tree) ?: return@withContext false
-                val cr = ctx.contentResolver
+                val dir = DocumentFile.fromTreeUri(context, tree) ?: return@withContext false
+                val cr = context.contentResolver
                 val toBound = if (to == 0L) Long.MAX_VALUE else to
 
                 // Samples
                 val f1 = dir.createFile("text/csv", "battery_samples.csv") ?: return@withContext false
                 cr.openOutputStream(f1.uri)?.bufferedWriter()?.use { w ->
                     w.appendLine("timestamp,levelPercent,status,plugged,currentNowUa,chargeCounterUah,voltageMv,temperatureDeciC,health,screenOn")
-                    BatteryGraph.db.batteryDao()
+                    db.batteryDao()
                         .samplesBetween(if (from == 0L) 0L else from, toBound).first()
                         .forEach { s ->
                             w.appendLine("${s.timestamp},${s.levelPercent},${s.status},${s.plugged},${s.currentNowUa ?: ""},${s.chargeCounterUah ?: ""},${s.voltageMv ?: ""},${s.temperatureDeciC ?: ""},${s.health ?: ""},${s.screenOn}")
@@ -75,7 +80,7 @@ object ExportImport {
                 val f2 = dir.createFile("text/csv", "charge_sessions.csv") ?: return@withContext false
                 cr.openOutputStream(f2.uri)?.bufferedWriter()?.use { w ->
                     w.appendLine("sessionId,type,startTime,endTime,startLevel,endLevel,deltaUah,avgCurrentUa,estCapacityMah")
-                    BatteryGraph.db.sessionDao().sessionsPaged(10_000, 0).first().forEach { s ->
+                    db.sessionDao().sessionsPaged(10_000, 0).first().forEach { s ->
                         w.appendLine("${s.sessionId},${s.type},${s.startTime},${s.endTime ?: ""},${s.startLevel},${s.endLevel ?: ""},${s.deltaUah ?: ""},${s.avgCurrentUa ?: ""},${s.estCapacityMah ?: ""}")
                     }
                 } ?: return@withContext false
@@ -85,12 +90,12 @@ object ExportImport {
 
     suspend fun importJson(src: Uri): Boolean = withContext(Dispatchers.IO) {
         runCatching {
-            val ctx = BatteryGraph.app
-            val input = ctx.contentResolver.openInputStream(src) ?: return@withContext false
+            val input = context.contentResolver.openInputStream(src) ?: return@withContext false
             val payload = input.use { json.decodeFromString(BatteryExport.serializer(), it.readBytes().toString(Charsets.UTF_8)) }
-            // Insert
-            val bd = BatteryGraph.db.batteryDao()
-            val sd = BatteryGraph.db.sessionDao()
+
+            val bd = db.batteryDao()
+            val sd = db.sessionDao()
+
             payload.samples.forEach { bd.insertSample(it.copy(id = 0)) }
             payload.sessions.forEach { sd.upsert(it) }
             true
@@ -99,12 +104,12 @@ object ExportImport {
 
     suspend fun importCsv(src: Uri): Boolean = withContext(Dispatchers.IO) {
         runCatching {
-            val ctx = BatteryGraph.app
-            ctx.contentResolver.openInputStream(src)?.use { ins ->
+            context.contentResolver.openInputStream(src)?.use { ins ->
                 val reader = BufferedReader(InputStreamReader(ins, StandardCharsets.UTF_8))
                 val header = reader.readLine() ?: return@use
+
                 if (header.contains("timestamp,levelPercent")) {
-                    val bd = BatteryGraph.db.batteryDao()
+                    val bd = db.batteryDao()
                     reader.lineSequence().forEach { line ->
                         if (line.isBlank()) return@forEach
                         val p = line.split(',')
@@ -123,7 +128,7 @@ object ExportImport {
                         bd.insertSample(s)
                     }
                 } else if (header.contains("sessionId,type")) {
-                    val sd = BatteryGraph.db.sessionDao()
+                    val sd = db.sessionDao()
                     reader.lineSequence().forEach { line ->
                         if (line.isBlank()) return@forEach
                         val p = line.split(',')

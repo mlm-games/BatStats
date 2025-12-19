@@ -1,271 +1,219 @@
 package app.batstats.battery.data
 
-import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.BatteryManager
-import android.os.Build
-import android.os.PowerManager
-import androidx.core.content.getSystemService
-import app.batstats.battery.data.db.*
-import app.batstats.battery.util.*
-import kotlinx.coroutines.*
+import app.batstats.battery.data.db.BatteryDatabase
+import app.batstats.battery.data.db.BatterySample
+import app.batstats.battery.data.db.ChargeSession
+import app.batstats.battery.data.db.SessionType
+import app.batstats.settings.AppSettings
+import app.batstats.settings.chartTimeRangeMs
+import app.batstats.settings.monitoringIntervalMs
+import io.github.mlmgames.settings.core.SettingsRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import java.util.*
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlin.math.abs
-import kotlin.math.roundToInt
 
 class BatteryRepository(
-    private val app: Application,
+    private val context: Context,
     private val db: BatteryDatabase,
-    private val settingsRepo: BatterySettingsRepository,
-    private val appScope: CoroutineScope
+    private val settingsRepository: SettingsRepository<AppSettings>,
+    private val scope: CoroutineScope
 ) {
-    private val battery = app.getSystemService<BatteryManager>()!!
-    private val power = app.getSystemService<PowerManager>()!!
+    private val batteryDao = db.batteryDao()
+    val sessionDao = db.sessionDao()
+    private val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
 
-    private val _realtime = MutableStateFlow(Realtime(null))
-    val realtime: StateFlow<Realtime> = _realtime.asStateFlow()
+    // Settings flows
+    val monitoringInterval: Flow<Long> = settingsRepository.flow.map { it.monitoringIntervalMs }
+    val showNotification: Flow<Boolean> = settingsRepository.flow.map { it.showNotification }
+    val lowBatteryThreshold: Flow<Int> = settingsRepository.flow.map { it.lowBatteryThreshold }
+    val highBatteryThreshold: Flow<Int> = settingsRepository.flow.map { it.highBatteryThreshold }
+    val temperatureThreshold: Flow<Float> = settingsRepository.flow.map { it.temperatureThreshold }
 
-    private val _isSampling = MutableStateFlow(false)
-    val isSampling: StateFlow<Boolean> = _isSampling.asStateFlow()
+    // Realtime state
+    private val _realtime = MutableStateFlow(Realtime())
+    val realtimeFlow: StateFlow<Realtime> = _realtime.asStateFlow()
 
-    data class Realtime(
-        val sample: BatterySample?
-    ) {
-        val level get() = sample?.levelPercent ?: 0
-        val status get() = sample?.status ?: 0
-        val plugged get() = sample?.plugged ?: 0
-        val currentMa get() = ((sample?.currentNowUa ?: 0L) / 1000.0).roundToInt()
-        val voltageMv get() = sample?.voltageMv ?: 0
-        val temperatureC get() = (sample?.temperatureDeciC ?: 0) / 10.0
-        val powerMw get() = (currentMa * voltageMv / 1000.0)
+    // Monitoring state
+    private val _isMonitoring = MutableStateFlow(false)
+    val isMonitoringFlow: StateFlow<Boolean> = _isMonitoring.asStateFlow()
+
+    private var samplingJob: Job? = null
+
+    // Broadcast receiver for immediate system updates
+    private val batteryReceiver = object : BroadcastReceiver() {
+        override fun onReceive(ctx: Context, intent: Intent) {
+            processBatteryState(intent)
+        }
     }
 
-    private val sessionDao = db.sessionDao()
-    private val sampleDao = db.batteryDao()
-    private var sampleJob: Job? = null
+    // Active session
+    val activeSessionFlow: Flow<ChargeSession?> = sessionDao.activeFlow()
+
+    // Recent samples based on settings
+    fun recentSamplesFlow(durationMs: Long): Flow<List<BatterySample>> {
+        val since = System.currentTimeMillis() - durationMs
+        return batteryDao.samplesBetween(since, Long.MAX_VALUE)
+    }
+
+    fun samplesBetween(start: Long, end: Long): Flow<List<BatterySample>> {
+        return batteryDao.samplesBetween(start, end)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val recentSamplesFromSettings: Flow<List<BatterySample>> = settingsRepository.flow
+        .flatMapLatest { settings ->
+            val since = System.currentTimeMillis() - settings.chartTimeRangeMs
+            batteryDao.samplesBetween(since, Long.MAX_VALUE)
+        }
+
+    suspend fun getSettings(): AppSettings = settingsRepository.flow.first()
 
     fun startSampling() {
-        if (sampleJob?.isActive == true) return
-        sampleJob = appScope.launch(Dispatchers.Default) {
-            try {
-                _isSampling.value = true
-                settingsRepo.flow.collectLatest { settings ->
-                    while (currentCoroutineContext().isActive) {
-                        val s = captureSample()
-                        _realtime.value = Realtime(s)
+        if (_isMonitoring.value) return
+        _isMonitoring.value = true
 
-                        // Persist if charging OR if a session is active; otherwise obey charging-only throttle
-                        val hasActive = sessionDao.active() != null
-                        val chargingOnlyGate = settings.monitorWhileChargingOnly && s.plugged == 0 && !hasActive
-                        if (!chargingOnlyGate) {
-                            emitToDb(s, settings.keepHistoryDays)
-                            autoManageSession(settings, s)
-                            checkAlarms(settings, s)
-                        }
+        // 1. Register Receiver for system broadcasts (plug/unplug, % change)
+        val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        context.registerReceiver(batteryReceiver, filter)
 
-                        val interval = settings.sampleIntervalSec.coerceIn(5, 60)
-                        delay(interval * 1000L)
+        // 2. Start Polling Coroutine for current/voltage fluctuations
+        // Android's ACTION_BATTERY_CHANGED is "sticky" but doesn't fire often enough
+        // to show live current changes. We poll BatteryManager properties.
+        samplingJob = scope.launch {
+            settingsRepository.flow.collectLatest { settings ->
+                while (isActive) {
+                    // Grab the sticky intent to get current voltage/temp
+                    val intent = context.registerReceiver(null, filter)
+                    if (intent != null) {
+                        processBatteryState(intent, persist = true)
                     }
+                    delay(settings.monitoringIntervalMs)
                 }
-            } finally {
-                _isSampling.value = false
             }
         }
     }
 
     fun stopSampling() {
-        sampleJob?.cancel()
-        sampleJob = null
-        _isSampling.value = false
-    }
+        if (!_isMonitoring.value) return
+        _isMonitoring.value = false
 
-    private suspend fun emitToDb(s: BatterySample, keepDays: Int) {
-        sampleDao.insertSample(s)
-        sampleDao.purge(System.currentTimeMillis() - keepDays.daysInMs())
-    }
+        samplingJob?.cancel()
+        samplingJob = null
 
-    suspend fun startSessionIfNone(type: SessionType, now: Long = System.currentTimeMillis()) {
-        if (sessionDao.active() != null) return
-        // Prefer last persisted sample; if none, capture one now and persist it
-        val last = sampleDao.lastSample() ?: run {
-            val snap = captureSample()
-            sampleDao.insertSample(snap)
-            snap
+        try {
+            context.unregisterReceiver(batteryReceiver)
+        } catch (e: Exception) {
+            // Ignore if already unregistered
         }
-        val startLvl = last.levelPercent.coerceIn(0, 100)
-        sessionDao.upsert(
-            ChargeSession(
-                sessionId = UUID.randomUUID().toString(),
-                type = type,
-                startTime = now,
-                endTime = null,
-                startLevel = startLvl,
-                endLevel = null,
-                deltaUah = null,
-                avgCurrentUa = null,
-                estCapacityMah = null
-            )
-        )
     }
 
-    suspend fun completeActiveSession(now: Long = System.currentTimeMillis()) {
-        val active = sessionDao.active() ?: return
-        val fresh = captureSample()
-        sampleDao.insertSample(fresh)
-
-        val endSample = sampleDao.lastSample()
-        val (deltaUah, avgUa, estMah) = estimateSession(active)
-        sessionDao.complete(
-            id = active.sessionId,
-            end = now,
-            endLevel = endSample?.levelPercent?.coerceIn(0, 100) ?: active.startLevel,
-            delta = deltaUah,
-            avg = avgUa,
-            cap = estMah
+    suspend fun startSession(type: SessionType) {
+        val session = ChargeSession(
+            sessionId = java.util.UUID.randomUUID().toString(),
+            type = type,
+            startTime = System.currentTimeMillis(),
+            startLevel = _realtime.value.level,
+            endTime = null, endLevel = null, deltaUah = null, avgCurrentUa = null, estCapacityMah = null
         )
+        sessionDao.upsert(session)
     }
 
-    fun sessionsPaged(limit: Int, offset: Int) = sessionDao.sessionsPaged(limit, offset)
-
-    fun samplesBetween(from: Long, to: Long) = sampleDao.samplesBetween(from, to)
-
-    private suspend fun estimateSession(s: ChargeSession): Triple<Long?, Long?, Int?> {
-        // Estimate by integrating delta chargeCounter over timestamps between start..end
-        // If chargeCounter not available, fallback to avg(|currentNow|) * duration
+    suspend fun endCurrentSession() {
+        val current = sessionDao.active() ?: return
         val end = System.currentTimeMillis()
-        val data = samplesBetween(s.startTime, end).first()
-        if (data.isEmpty()) return Triple(null, null, null)
+        val endLevel = _realtime.value.level
 
-        val hasChargeCounter = data.any { it.chargeCounterUah != null }
-        val deltaUah = if (hasChargeCounter) {
-            val first = data.firstOrNull { it.chargeCounterUah != null }?.chargeCounterUah
-            val last = data.lastOrNull { it.chargeCounterUah != null }?.chargeCounterUah
-            if (first != null && last != null) abs(last - first) else null
+        // Calculate average current for the session if possible
+        val samples = batteryDao.samplesBetween(current.startTime, end).first()
+        val avgCurrent = if (samples.isNotEmpty()) {
+            samples.mapNotNull { it.currentNowUa }.average().toLong()
         } else null
 
-        val avgUa = run {
-            val currents = data.mapNotNull { it.currentNowUa }
-            if (currents.isEmpty()) null else currents.average().roundToInt().toLong()
-        }
-
-        val durationH = (data.last().timestamp - data.first().timestamp) / 3600000.0
-        val estUah = when {
-            deltaUah != null -> deltaUah
-            avgUa != null -> (abs(avgUa) * durationH).roundToInt().toLong()
-            else -> null
-        }
-
-        val deltaPct = abs((data.last().levelPercent - data.first().levelPercent).toDouble())
-        val estCapacityMah = if (estUah != null && deltaPct > 1.0) {
-            // capacity ≈ (ΔQ in mAh) * (100 / Δ%)
-            ((estUah / 1000.0) * (100.0 / deltaPct)).roundToInt()
-        } else null
-
-        return Triple(estUah, avgUa, estCapacityMah)
+        sessionDao.complete(current.sessionId, end, endLevel, null, avgCurrent, null)
     }
 
-    private var unpluggedStreak = 0
+    private fun processBatteryState(intent: Intent, persist: Boolean = false) {
+        val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+        val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+        val levelPercent = if (level >= 0 && scale > 0) (level * 100) / scale else 0
 
-    private suspend fun autoManageSession(settings: BatterySettings, s: BatterySample) {
-        val active = sessionDao.active()
+        val pluggedState = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)
+        val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_UNKNOWN)
+        val voltage = intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0) // mV
+        val temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) // tenths of a degree C
+        val health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, BatteryManager.BATTERY_HEALTH_UNKNOWN)
 
-        if (settings.autoStartSessionOnPlug && s.plugged != 0 && active == null) {
-            startSessionIfNone(SessionType.CHARGE)
+        // Get Instantaneous Current (MicroAmperes)
+        // This property is not in the intent, must be queried from manager
+        var currentNow = batteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
+
+        // Some devices report average instead of instantaneous
+        if (currentNow == 0L || currentNow == Long.MIN_VALUE) {
+            currentNow = batteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE)
         }
 
-        // Debounce unplug events to avoid accidental ends (e.g., cable wiggle)
-        if (s.plugged == 0) unpluggedStreak++ else unpluggedStreak = 0
+        // Calculate Power (mW) = (uA * mV) / 1,000,000
+        val powerMw = (abs(currentNow) * voltage) / 1_000_000f
 
-        // Only auto-stop CHARGE sessions on unplug, never DISCHARGE sessions
-        if (
-            settings.autoStopSessionOnUnplug &&
-            s.plugged == 0 &&
-            unpluggedStreak >= 2 &&            // requires two consecutive samples (≈ 30s with 15s interval)
-            active?.type == SessionType.CHARGE // do not end DISCHARGE sessions
-        ) {
-            completeActiveSession()
-            unpluggedStreak = 0
-        }
-    }
-
-    private fun captureSample(): BatterySample {
-        val now = System.currentTimeMillis()
-        val sticky = app.registerReceiver(null, batteryIntentFilter())
-        val level = sticky?.getIntExtra("level", -1) ?: -1
-        val scale = sticky?.getIntExtra("scale", -1) ?: 100
-        val pct = (level * 100f / scale).toInt().coerceIn(0, 100)
-
-        val status = sticky?.getIntExtra("status", 0) ?: 0
-        val plugged = sticky?.getIntExtra("plugged", 0) ?: 0
-        val health = sticky?.getIntExtra("health", 0)
-        val voltage = sticky?.getIntExtra("voltage", 0) // mV
-        val tempDeci = sticky?.getIntExtra("temperature", 0) // 1/10 °C
-
-        val currentNowUa = battery.getLongPropertySafe(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW)
-        val chargeCounterUah = battery.getLongPropertySafe(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER)
-
-        val screenOn = power.isInteractive
-
-        return BatterySample(
-            timestamp = now,
-            levelPercent = pct,
+        val sample = BatterySample(
+            timestamp = System.currentTimeMillis(),
+            levelPercent = levelPercent,
             status = status,
-            plugged = plugged,
-            currentNowUa = currentNowUa,
-            chargeCounterUah = chargeCounterUah,
+            plugged = pluggedState,
+            currentNowUa = currentNow,
+            chargeCounterUah = batteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER),
             voltageMv = voltage,
-            temperatureDeciC = tempDeci,
+            temperatureDeciC = temperature,
             health = health,
-            screenOn = screenOn
+            screenOn = isScreenOn()
         )
+
+        // Update StateFlow for UI
+        _realtime.value = Realtime(
+            level = levelPercent,
+            plugged = pluggedState,
+            currentMa = (currentNow / 1000).toInt(),
+            voltageMv = voltage,
+            powerMw = powerMw,
+            temperatureC = temperature / 10f,
+            sample = sample
+        )
+
+        // Persist to DB
+        if (persist) {
+            scope.launch {
+                batteryDao.insertSample(sample)
+                settingsRepository.update {
+                    it.copy(totalSamplesCollected = it.totalSamplesCollected + 1)
+                }
+
+                // Auto-session logic could go here (e.g. if plugged != lastPlugged -> start/stop session)
+            }
+        }
     }
 
-    private fun BatteryManager.getLongPropertySafe(id: Int): Long? = try {
-        val v = if (Build.VERSION.SDK_INT >= 21) getLongProperty(id) else Long.MIN_VALUE
-        if (v == Long.MIN_VALUE || v == 0L) null else v
-    } catch (_: Throwable) { null }
+    private fun isScreenOn(): Boolean {
+        val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+        return pm.isInteractive
+    }
 
-
-    private data class AlarmState(
-        var limitNotified: Boolean = false,
-        var tempNotified: Boolean = false,
-        var dischargeNotified: Boolean = false
+    data class Realtime(
+        val level: Int = 0,
+        val plugged: Int = 0,
+        val currentMa: Int = 0,
+        val voltageMv: Int = 0,
+        val powerMw: Float = 0f,
+        val temperatureC: Float = 0f,
+        val sample: BatterySample? = null
     )
-    private val alarmState = AlarmState()
-
-    private suspend fun checkAlarms(settings: BatterySettings, s: BatterySample) {
-        // Charge limit
-        if (s.plugged != 0 && s.levelPercent >= settings.chargeLimitPercent) {
-            if (!alarmState.limitNotified) {
-                Notifier.notifyChargeLimit(app, settings.chargeLimitPercent)
-                alarmState.limitNotified = true
-            }
-        } else {
-            alarmState.limitNotified = false
-        }
-
-        // High temp
-        val temp = (s.temperatureDeciC ?: 0) / 10
-        if (temp >= settings.tempHighC) {
-            if (!alarmState.tempNotified) {
-                Notifier.notifyTempHigh(app, temp)
-                alarmState.tempNotified = true
-            }
-        } else {
-            alarmState.tempNotified = false
-        }
-
-        // High discharge
-        val ma = ((s.currentNowUa ?: 0L) / 1000).toInt()
-        if (s.plugged == 0 && ma < 0 && abs(ma) >= settings.dischargeHighMa) {
-            if (!alarmState.dischargeNotified) {
-                Notifier.notifyDischargeHigh(app, abs(ma))
-                alarmState.dischargeNotified = true
-            }
-        } else {
-            alarmState.dischargeNotified = false
-        }
-    }
 }
-
-

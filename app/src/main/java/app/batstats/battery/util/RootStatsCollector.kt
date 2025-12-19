@@ -72,6 +72,17 @@ object RootStatsCollector {
         }
     }
 
+    suspend fun resetBatteryStats(): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "dumpsys batterystats --reset"))
+            val result = process.inputStream.bufferedReader().readText()
+            process.waitFor()
+            result.contains("Battery stats reset") || result.isBlank()
+        } catch (_: Exception) {
+            false
+        }
+    }
+
     suspend fun getKernelBatteryInfo(): KernelBatteryInfo? = withContext(Dispatchers.IO) {
         try {
             val batteryPath = "/sys/class/power_supply/battery"
@@ -110,7 +121,6 @@ object RootStatsCollector {
     suspend fun getKernelWakelocks(): List<KernelWakelockInfo> = withContext(Dispatchers.IO) {
         val result = mutableListOf<KernelWakelockInfo>()
         try {
-            // Try new path first
             val wakelockPath = when {
                 File("/sys/kernel/wakelock_stats").exists() -> "/sys/kernel/wakelock_stats"
                 File("/proc/wakelocks").exists() -> "/proc/wakelocks"
@@ -151,7 +161,6 @@ object RootStatsCollector {
                 ?.sortedBy { it.name.removePrefix("cpu").toIntOrNull() ?: 0 }
                 ?: return@withContext result
 
-            // Group by policy (cluster)
             val clusters = mutableMapOf<Int, MutableList<Int>>()
             cpuDirs.forEach { cpu ->
                 val cpuNum = cpu.name.removePrefix("cpu").toIntOrNull() ?: return@forEach

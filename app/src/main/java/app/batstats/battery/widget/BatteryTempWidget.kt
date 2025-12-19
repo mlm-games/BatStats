@@ -8,12 +8,12 @@ import app.batstats.battery.BatteryGraph
 
 class BatteryTempWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        BatteryGraph.repo.realtime.value.sample?.let { WidgetUpdater.push(context, it) }
+        BatteryGraph.repo.realtimeFlow.value.sample?.let { WidgetUpdater.push(context, it) }
     }
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         if (intent.action == WidgetUpdater.ACTION_REFRESH) {
-            BatteryGraph.repo.realtime.value.sample?.let { WidgetUpdater.push(context, it) }
+            BatteryGraph.repo.realtimeFlow.value.sample?.let { WidgetUpdater.push(context, it) }
         }
     }
 }

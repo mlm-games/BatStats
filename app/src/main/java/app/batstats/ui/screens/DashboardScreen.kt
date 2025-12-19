@@ -100,6 +100,7 @@ import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
 import app.batstats.viewmodel.DashboardViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -113,16 +114,14 @@ fun DashboardScreen(
     onOpenSettings: () -> Unit,
     onOpenData: () -> Unit,
     onOpenDetailedStats: () -> Unit,
-    vm: DashboardViewModel = viewModel(factory = DashboardViewModel.factory())
+    vm: DashboardViewModel = koinViewModel()
 ) {
     val rt by vm.realtime.collectAsStateWithLifecycle()
     val session by vm.activeSession.collectAsStateWithLifecycle()
     val isMonitoring by vm.isMonitoring.collectAsStateWithLifecycle()
 
-    // Hoist the app bar behavior and connect nested scroll
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    // Use java.time with remember for formatting
     val timeFormatter = remember(Locale.getDefault()) {
         DateTimeFormatter.ofPattern("HH:mm:ss", Locale.getDefault())
     }

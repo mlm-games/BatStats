@@ -34,7 +34,7 @@ class ForegroundDrainTracker(
             var lastPkg: String? = null
 
             batteryRepo.startSampling() // ensure sampling is on (idempotent)
-            batteryRepo.realtime.collect { rt ->
+            batteryRepo.realtimeFlow.collect { rt ->
                 val now = rt.sample?.timestamp ?: System.currentTimeMillis()
                 val dtHours = max(0.0, (now - lastTs) / 3_600_000.0)
 
@@ -76,7 +76,6 @@ class ForegroundDrainTracker(
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-
     fun openUsageAccessSettings() {
         context.startActivity(
             android.content.Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS)
@@ -116,7 +115,6 @@ class ForegroundDrainTracker(
         return lastPkg
     }
 
-    // evolve to an EWMA model later?
     private fun baselineMilliAmps(screenOn: Boolean): Double =
         if (screenOn) 80.0 else 20.0
 }

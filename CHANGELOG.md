@@ -1,3 +1,15 @@
+## v5.0.2
+
+- update lib ver
+- Remove old rules
+- Rm nav bar related, and other leftovers
+- Navigation 3 impl, and remove unused dialogs
+- Implement settings export
+- Update to my kmp-settings module, and use koin everywhere... (Settings Export, next commit)
+- Update README.md
+- Bump actions/upload-artifact from 5 to 6 in /.github/workflows
+
+
 ## v5.0.1
 
 - update lib ver

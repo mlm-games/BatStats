@@ -33,8 +33,8 @@ android {
         applicationId = "app.batstats"
         minSdk = 26
         targetSdk = 36
-        versionCode = 590
-        versionName = "5.0.1"
+        versionCode = 600
+        versionName = "5.0.2"
 
         androidResources {
             localeFilters += setOf("en", "ar", "de", "es-rES", "es-rUS", "fr", "hr", "hu", "in", "it", "ja", "pl", "pt-rBR", "ru-rRU", "sv", "tr", "uk", "zh")

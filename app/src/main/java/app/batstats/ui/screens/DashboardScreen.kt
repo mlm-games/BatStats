@@ -20,7 +20,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +33,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ShowChart
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Battery0Bar
@@ -94,7 +94,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
@@ -114,6 +113,7 @@ fun DashboardScreen(
     onOpenSettings: () -> Unit,
     onOpenData: () -> Unit,
     onOpenDetailedStats: () -> Unit,
+    onOpenDrainStats: () -> Unit,
     vm: DashboardViewModel = koinViewModel()
 ) {
     val rt by vm.realtime.collectAsStateWithLifecycle()
@@ -160,6 +160,9 @@ fun DashboardScreen(
                     }
                     IconButton(onClick = onOpenData) {
                         Icon(Icons.Outlined.CloudDownload, "Data")
+                    }
+                    IconButton(onClick = onOpenDrainStats) {
+                        Icon(Icons.AutoMirrored.Outlined.ShowChart, "Drain Stats")
                     }
                     IconButton(onClick = onOpenDetailedStats) {
                         Icon(Icons.Outlined.Analytics, "Detailed Stats")
@@ -209,7 +212,6 @@ private fun HeroBatteryCard(
         ),
         shape = RoundedCornerShape(24.dp)
     ) {
-        // Animated gradient background with drawWithCache
         val infinite = rememberInfiniteTransition(label = "hero_gradient")
         val animatedOffset by infinite.animateFloat(
             initialValue = 0f,
@@ -312,7 +314,6 @@ private fun CircularBatteryIndicator(
             val radius = (size.minDimension - strokeWidth) / 2
             val center = size.center
 
-            // Background ring
             drawCircle(
                 color = colors.surfaceVariant,
                 radius = radius,
@@ -320,7 +321,6 @@ private fun CircularBatteryIndicator(
                 style = Stroke(strokeWidth, cap = StrokeCap.Round)
             )
 
-            // Progress arc
             val sweepAngle = progress * 360f
             val arcColors = when {
                 isCharging -> listOf(colors.primary, colors.tertiary)
@@ -516,7 +516,6 @@ private fun ControlCenter(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun StatsGrid(rt: BatteryRepository.Realtime) {
     val locale = remember { Locale.getDefault() }
@@ -677,69 +676,68 @@ private fun AnimatedLineChart(
     Canvas(
         modifier = modifier.drawWithCache {
             if (values.isEmpty()) {
-                onDrawBehind { /* nothing */ }
+                onDrawBehind { }
+            } else {
+                val count = values.size
+                val min = values.minOrNull() ?: 0f
+                val max = values.maxOrNull() ?: 1f
+                val hasRange = kotlin.math.abs(max - min) > 1e-6f
+                val range = if (hasRange) (max - min) else 1f
+                val stepX = if (count > 1) size.width / (count - 1) else 0f
 
-            }
+                fun mapY(v: Float): Float =
+                    if (hasRange) size.height - ((v - min) / range) * size.height
+                    else size.height * 0.5f
 
-            val count = values.size
-            val min = values.minOrNull() ?: 0f
-            val max = values.maxOrNull() ?: 1f
-            val hasRange = kotlin.math.abs(max - min) > 1e-6f
-            val range = if (hasRange) (max - min) else 1f
-            val stepX = if (count > 1) size.width / (count - 1) else 0f
-
-            fun mapY(v: Float): Float =
-                if (hasRange) size.height - ((v - min) / range) * size.height
-                else size.height * 0.5f
-
-            val fillPath = Path().apply {
-                values.forEachIndexed { i, v ->
-                    val x = if (count > 1) i * stepX else size.width * 0.5f
-                    val y = mapY(v)
-                    if (i == 0) moveTo(x, y) else lineTo(x, y)
+                val fillPath = Path().apply {
+                    values.forEachIndexed { i, v ->
+                        val x = if (count > 1) i * stepX else size.width * 0.5f
+                        val y = mapY(v)
+                        if (i == 0) moveTo(x, y) else lineTo(x, y)
+                    }
+                    lineTo(size.width, size.height)
+                    lineTo(0f, size.height)
+                    close()
                 }
-                lineTo(size.width, size.height)
-                lineTo(0f, size.height)
-                close()
-            }
 
-            val strokeGradient = Brush.horizontalGradient(listOf(primary, primaryContainer))
-            val fillGradient = Brush.verticalGradient(
-                colors = listOf(primaryContainer.copy(alpha = 0.35f), Color.Transparent)
-            )
+                val strokeGradient = Brush.horizontalGradient(listOf(primary, primaryContainer))
+                val fillGradient = Brush.verticalGradient(
+                    colors = listOf(primaryContainer.copy(alpha = 0.35f), Color.Transparent)
+                )
 
-            onDrawBehind {
-                if (count >= 2) drawPath(fillPath, brush = fillGradient)
+                onDrawBehind {
+                    if (count >= 2) drawPath(fillPath, brush = fillGradient)
 
-                var prev: Offset? = null
-                values.forEachIndexed { i, v ->
-                    val x = if (count > 1) i * stepX else size.width * 0.5f
-                    val p = Offset(x, mapY(v))
+                    var prev: Offset? = null
+                    values.forEachIndexed { i, v ->
+                        val x = if (count > 1) i * stepX else size.width * 0.5f
+                        val p = Offset(x, mapY(v))
 
-                    prev?.let { pr ->
-                        drawLine(
-                            brush = strokeGradient,
-                            start = pr,
-                            end = p,
-                            strokeWidth = 3.dp.toPx(),
-                            cap = StrokeCap.Round
-                        )
-                    } ?: if (count == 1) {
-                        drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
-                        drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
-                    } else {
+                        prev?.let { pr ->
+                            drawLine(
+                                brush = strokeGradient,
+                                start = pr,
+                                end = p,
+                                strokeWidth = 3.dp.toPx(),
+                                cap = StrokeCap.Round
+                            )
+                        } ?: if (count == 1) {
+                            drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                            drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
+                        } else {
 
+                        }
+
+                        if (i == values.lastIndex && count > 1) {
+                            drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
+                            drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
+                        }
+                        prev = p
                     }
-
-                    if (i == values.lastIndex && count > 1) {
-                        drawCircle(color = primary, radius = 4.dp.toPx(), center = p)
-                        drawCircle(color = primary.copy(alpha = 0.3f), radius = 8.dp.toPx(), center = p)
-                    }
-                    prev = p
                 }
             }
         }
-    ) { /* drawing handled in cache */ }
+    ) { }
 }
 
 private fun getHealthString(health: Int?): String = when(health) {

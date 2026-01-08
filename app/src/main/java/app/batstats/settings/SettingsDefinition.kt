@@ -8,11 +8,10 @@ import io.github.mlmgames.settings.core.types.Dropdown
 import io.github.mlmgames.settings.core.types.Slider
 import io.github.mlmgames.settings.core.types.Toggle
 import kotlinx.serialization.Serializable
-import java.util.Locale
 
 @Serializable
 data class AppSettings(
-    // --- GENERAL ---
+    // GENERAL
     @Setting(
         title = "Auto-start Monitoring",
         category = General::class,
@@ -39,6 +38,15 @@ data class AppSettings(
     val showNotification: Boolean = true,
 
     @Setting(
+        title = "Show Drain Stats Notification",
+        description = "Show detailed drain statistics in notification (requires Shizuku)",
+        category = General::class,
+        type = Toggle::class,
+        key = "show_drain_notification"
+    )
+    val showDrainNotification: Boolean = false,
+
+    @Setting(
         title = "Notification Style",
         category = General::class,
         type = Dropdown::class,
@@ -56,7 +64,7 @@ data class AppSettings(
     )
     val trackForegroundApps: Boolean = true,
 
-    // --- NOTIFICATIONS & ALARMS ---
+    // NOTIFICATIONS & ALARMS
     @Setting(
         title = "Low Battery Alert",
         category = Notifications::class,
@@ -156,7 +164,7 @@ data class AppSettings(
     )
     val alertVibrationEnabled: Boolean = true,
 
-    // --- DISPLAY ---
+    // DISPLAY
     @Setting(
         title = "Theme",
         category = Display::class,
@@ -208,7 +216,7 @@ data class AppSettings(
     )
     val compactStatsView: Boolean = false,
 
-    // --- DATA ---
+    // DATA
     @Setting(
         title = "Data Retention",
         category = Data::class,
@@ -243,7 +251,7 @@ data class AppSettings(
     )
     val exportIncludeRawSamples: Boolean = false,
 
-    // --- PERSISTED STATE ---
+    // PERSISTED STATE
     @Persisted(key = "last_data_cleanup") val lastDataCleanup: Long = 0L,
     @Persisted(key = "last_export_time") val lastExportTime: Long = 0L,
     @Persisted(key = "total_samples_collected") val totalSamplesCollected: Long = 0L,

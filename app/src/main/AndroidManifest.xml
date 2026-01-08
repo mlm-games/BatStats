@@ -85,5 +85,13 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_battery_time"/>
         </receiver>
+
+        <receiver
+            android:name=".battery.drain.DrainNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="app.batstats.battery.drain.ACTION_RESET" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

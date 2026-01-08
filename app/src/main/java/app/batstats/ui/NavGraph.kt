@@ -11,6 +11,7 @@ import app.batstats.ui.screens.BatterySettingsScreen
 import app.batstats.ui.screens.DashboardScreen
 import app.batstats.ui.screens.DataScreen
 import app.batstats.ui.screens.DetailedStatsScreen
+import app.batstats.ui.screens.DrainStatsScreen
 import app.batstats.ui.screens.HistoryScreen
 import app.batstats.ui.screens.SessionDetailsScreen
 import kotlinx.serialization.Serializable
@@ -35,11 +36,11 @@ fun NavGraph(
                     onOpenAlarms = { backStack.add(Screen.Alarms) },
                     onOpenSettings = { backStack.add(Screen.Settings) },
                     onOpenData = { backStack.add(Screen.Data) },
-                    onOpenDetailedStats = { backStack.add(Screen.DetailedStats) }
+                    onOpenDetailedStats = { backStack.add(Screen.DetailedStats) },
+                    onOpenDrainStats = { backStack.add(Screen.DrainStats) }
                 )
             }
 
-            // History
             entry<Screen.History> {
                 HistoryScreen(
                     onBack = { backStack.removeAt(backStack.lastIndex) },
@@ -47,27 +48,22 @@ fun NavGraph(
                 )
             }
 
-            // Session Details (With Arguments)
             entry<Screen.SessionDetails> { args ->
                 SessionDetailsScreen(
                     sessionId = args.sessionId,
                     onBack = { backStack.removeAt(backStack.lastIndex) },
-                    // Inject VM with parameters
                     vm = koinViewModel(parameters = { parametersOf(args.sessionId) })
                 )
             }
 
-            // Alarms
             entry<Screen.Alarms> {
                 AlarmsScreen(onBack = { backStack.removeAt(backStack.lastIndex) })
             }
 
-            // Data (Import/Export)
             entry<Screen.Data> {
                 DataScreen(onBack = { backStack.removeAt(backStack.lastIndex) })
             }
 
-            // Settings
             entry<Screen.Settings> {
                 BatterySettingsScreen(
                     onBack = { backStack.removeAt(backStack.lastIndex) },
@@ -75,9 +71,12 @@ fun NavGraph(
                 )
             }
 
-            // Detailed Stats
             entry<Screen.DetailedStats> {
                 DetailedStatsScreen(onBack = { backStack.removeAt(backStack.lastIndex) })
+            }
+
+            entry<Screen.DrainStats> {
+                DrainStatsScreen(onBack = { backStack.removeAt(backStack.lastIndex) })
             }
         }
     )
@@ -108,4 +107,7 @@ sealed interface Screen: NavKey {
 
     @Serializable
     data object DetailedStats : Screen
+
+    @Serializable
+    data object DrainStats : Screen
 }

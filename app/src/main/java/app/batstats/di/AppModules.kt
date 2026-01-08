@@ -4,6 +4,8 @@ import android.os.Build
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.ExportImportManager
 import app.batstats.battery.data.db.BatteryDatabase
+import app.batstats.battery.drain.AdvancedDrainTracker
+import app.batstats.battery.drain.DrainNotificationManager
 import app.batstats.battery.shizuku.BstatsCollector
 import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.DetailedStatsCollector
@@ -13,6 +15,7 @@ import app.batstats.settings.AppSettingsSchema
 import app.batstats.viewmodel.DashboardViewModel
 import app.batstats.viewmodel.DataViewModel
 import app.batstats.viewmodel.DetailedStatsViewModel
+import app.batstats.viewmodel.DrainStatsViewModel
 import app.batstats.viewmodel.HistoryViewModel
 import app.batstats.viewmodel.SessionDetailsViewModel
 import app.batstats.viewmodel.SettingsViewModel
@@ -70,11 +73,15 @@ val appModule = module {
     single { BatteryRepository(androidContext(), get(), get(), get()) }
     single { ForegroundDrainTracker(androidContext(), get(), get<BatteryDatabase>().appEnergyDao()) }
 
+    single { AdvancedDrainTracker(androidContext(), get(), get(), get()) }
+    single { DrainNotificationManager(androidContext(), get()) }
+
     viewModel { DashboardViewModel(androidApplication(), get(), get()) }
     viewModel { SettingsViewModel(androidContext(), get(), get(), get()) }
     viewModel { DetailedStatsViewModel(get(), get()) }
     viewModel { HistoryViewModel(get()) }
     viewModel { DataViewModel(get()) }
+    viewModel { DrainStatsViewModel(get()) }
 
     viewModel { (sessionId: String) -> SessionDetailsViewModel(androidApplication(), get(), get(), sessionId) }
 }

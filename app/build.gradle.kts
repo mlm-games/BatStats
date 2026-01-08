@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.apk.dist)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 kotlin {
@@ -21,7 +22,7 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = 600
-        versionName = "5.0.2"
+        versionName = "6.0.0"
 
         androidResources {
             localeFilters += setOf("en", "ar", "de", "es-rES", "es-rUS", "fr", "hr", "hu", "in", "it", "ja", "pl", "pt-rBR", "ru-rRU", "sv", "tr", "uk", "zh")

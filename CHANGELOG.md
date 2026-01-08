@@ -1,3 +1,10 @@
+## v6.0.1
+
+- bump major ver
+- remove unneeded tasks
+- Add detailed drain stats notification (requires shizuku) (fix #5)
+
+
 ## v5.0.2
 
 - update lib ver

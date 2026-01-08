@@ -4,7 +4,7 @@ coreKtx = "1.17.0"
 datastorePreferences = "1.2.0"
 androidGradlePlugin = "8.13.2"
 desugar_jdk_libs = "2.1.5"
-kmpSettingsCore = "0.2.1"
+kmpSettingsCore = "0.4.2"
 koinBom = "4.1.1"
 kotlinStdlib = "2.3.0"
 kotlinxCoroutinesAndroid = "1.10.2"
@@ -20,13 +20,14 @@ tvFoundation = "1.0.0-alpha12"
 tvMaterial = "1.0.1"
 workRuntimeKtx = "2.11.0"
 kotlin = "2.3.0"
-kotlin-ksp = "2.3.0"
+kotlin-ksp = "2.3.4"
 constraintlayoutComposeAndroid = "1.1.1"
 androidbrowserhelper = "2.6.2"
 datastorePreferencesCore = "1.2.0"
 animation = "1.10.0"
 shizuku = "13.1.5"
 documentfile = "1.1.0"
+apkDist = "0.5.2"
 
 [libraries]
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -81,3 +82,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+apk-dist = { id = "io.github.mlm-games.apk-dist", version.ref = "apkDist" }

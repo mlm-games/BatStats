@@ -12,6 +12,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import androidx.compose.material3.SecondaryScrollableTabRow
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -106,9 +107,8 @@ fun DetailedStatsScreen(
                 },
                 actions = {
                     if (isRefreshing) {
-                        CircularProgressIndicator(
+                        CircularWavyProgressIndicator(
                             modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp
                         )
                     } else {
                         IconButton(onClick = { scope.launch { vm.refresh() } }) {
@@ -144,7 +144,7 @@ fun DetailedStatsScreen(
                 )
             } else {
                 // Tab row
-                ScrollableTabRow(
+                SecondaryScrollableTabRow(
                     selectedTabIndex = pagerState.currentPage,
                     edgePadding = 16.dp,
                     containerColor = MaterialTheme.colorScheme.surface,
@@ -351,7 +351,7 @@ private fun ScreenTimeCard(snapshot: BatteryStatsParser.FullSnapshot?) {
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text("Screen On", style = MaterialTheme.typography.labelMedium)
-                    LinearProgressIndicator(
+                    LinearWavyProgressIndicator(
                         progress = { screenOnPercent / 100f },
                         modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
                         color = MaterialTheme.colorScheme.primary,
@@ -407,7 +407,7 @@ private fun SignalQualityCard(snapshot: BatteryStatsParser.FullSnapshot?) {
                         modifier = Modifier.width(80.dp),
                         style = MaterialTheme.typography.bodySmall
                     )
-                    LinearProgressIndicator(
+                    LinearWavyProgressIndicator(
                         progress = { stat.percentOfTotal },
                         modifier = Modifier.weight(1f).height(12.dp).clip(RoundedCornerShape(6.dp)),
                         color = colors.getOrNull(index) ?: MaterialTheme.colorScheme.primary,
@@ -437,7 +437,7 @@ private fun SignalQualityCard(snapshot: BatteryStatsParser.FullSnapshot?) {
                             modifier = Modifier.width(80.dp),
                             style = MaterialTheme.typography.bodySmall
                         )
-                        LinearProgressIndicator(
+                        LinearWavyProgressIndicator(
                             progress = { stat.percentOfTotal },
                             modifier = Modifier.weight(1f).height(12.dp).clip(RoundedCornerShape(6.dp)),
                             color = colors.getOrNull(index) ?: MaterialTheme.colorScheme.primary,
@@ -943,7 +943,7 @@ private fun AlarmsJobsTab(
     var selected by remember { mutableIntStateOf(0) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = selected) {
+        SecondaryTabRow(selectedTabIndex = selected) {
             Tab(
                 selected = selected == 0,
                 onClick = { selected = 0 },
@@ -1311,7 +1311,7 @@ private fun RootTab(
                         enabled = !isLoading
                     ) {
                         if (isLoading) {
-                            CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                            CircularWavyProgressIndicator(modifier = Modifier.size(20.dp))
                         } else {
                             Icon(Icons.Outlined.Refresh, "Refresh")
                         }
@@ -1377,10 +1377,9 @@ private fun BatteryHealthCard(battery: RootStatsCollector.KernelBatteryInfo?) {
                         cycles < 800 -> 60
                         else -> 40
                     }
-                    CircularProgressIndicator(
+                    CircularWavyProgressIndicator(
                         progress = { healthPercent / 100f },
                         modifier = Modifier.size(48.dp),
-                        strokeWidth = 4.dp,
                         trackColor = MaterialTheme.colorScheme.surfaceVariant
                     )
                 }
@@ -1424,7 +1423,7 @@ private fun BatteryHealthCard(battery: RootStatsCollector.KernelBatteryInfo?) {
                 }
 
                 Spacer(Modifier.height(8.dp))
-                LinearProgressIndicator(
+                LinearWavyProgressIndicator(
                     progress = { (healthPct / 100f).toFloat().coerceIn(0f, 1f) },
                     modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
                     color = when {
@@ -1517,7 +1516,7 @@ private fun CpuFrequencyCard(cpuInfo: List<RootStatsCollector.CpuInfo>) {
                                     modifier = Modifier.width(80.dp),
                                     style = MaterialTheme.typography.labelSmall
                                 )
-                                LinearProgressIndicator(
+                                LinearWavyProgressIndicator(
                                     progress = { percent },
                                     modifier = Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)),
                                 )

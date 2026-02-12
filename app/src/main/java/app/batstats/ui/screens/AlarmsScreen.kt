@@ -70,7 +70,7 @@ fun AlarmsScreen(
                     enabled = settings.highBatteryAlertEnabled
                 )
                 val pct = settings.highBatteryThreshold.coerceIn(0, 100) / 100f
-                LinearProgressIndicator(
+                LinearWavyProgressIndicator(
                     progress = { pct },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
@@ -90,7 +90,7 @@ fun AlarmsScreen(
                     enabled = settings.temperatureWarningEnabled
                 )
                 val tempProg = ((settings.temperatureThreshold - 20).coerceIn(0f, 40f)) / 40f
-                LinearProgressIndicator(
+                LinearWavyProgressIndicator(
                     progress = { tempProg },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )
@@ -110,7 +110,7 @@ fun AlarmsScreen(
                     enabled = settings.dischargeAlertEnabled
                 )
                 val dischProg = (settings.dischargeCurrentThreshold.toFloat() / 2000f).coerceIn(0f, 1f)
-                LinearProgressIndicator(
+                LinearWavyProgressIndicator(
                     progress = { dischProg },
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
                 )

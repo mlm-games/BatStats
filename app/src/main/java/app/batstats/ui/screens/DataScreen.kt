@@ -126,7 +126,7 @@ fun DataScreen(
                         }
                     }
                     AnimatedVisibility(visible = isBusy) {
-                        LinearProgressIndicator(Modifier.fillMaxWidth())
+                        LinearWavyProgressIndicator(Modifier.fillMaxWidth())
                     }
                 }
             }

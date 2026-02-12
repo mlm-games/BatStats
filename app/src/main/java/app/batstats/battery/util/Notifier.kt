@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import app.batstats.R
 import app.batstats.battery.BatteryMainActivity
 import app.batstats.battery.service.BatteryMonitorService
 
@@ -45,11 +46,11 @@ object Notifier {
             )
         }
         val n = NotificationCompat.Builder(ctx, CH_ID)
-            .setContentTitle("Monitoring ready")
-            .setContentText("Tap to start battery monitoring")
+            .setContentTitle(ctx.getString(R.string.monitoring_ready))
+            .setContentText(ctx.getString(R.string.tap_to_start))
             .setSmallIcon(android.R.drawable.ic_lock_idle_charging)
             .setAutoCancel(true)
-            .addAction(android.R.drawable.ic_media_play, "Start monitoring", pi)
+            .addAction(android.R.drawable.ic_media_play, ctx.getString(R.string.start_monitoring), pi)
             .build()
         (ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
             .notify(1000, n)
@@ -62,7 +63,7 @@ object Notifier {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
         return NotificationCompat.Builder(ctx, CH_ID)
-            .setContentTitle("Monitoring battery")
+            .setContentTitle(ctx.getString(R.string.monitoring_battery))
             .setContentText(text)
             .setSmallIcon(android.R.drawable.ic_lock_idle_charging)
             .setContentIntent(pi)
@@ -74,8 +75,8 @@ object Notifier {
     fun notifyChargeLimit(ctx: Context, limit: Int) {
         ensureChannel(ctx)
         val n = NotificationCompat.Builder(ctx, CH_ID)
-            .setContentTitle("Charge limit reached")
-            .setContentText("Battery at $limit% — consider unplugging.")
+            .setContentTitle(ctx.getString(R.string.charge_limit_reached))
+            .setContentText(ctx.getString(R.string.battery_at_percent, limit))
             .setSmallIcon(android.R.drawable.stat_sys_warning)
             .setAutoCancel(true)
             .setOnlyAlertOnce(true)
@@ -87,8 +88,8 @@ object Notifier {
     fun notifyTempHigh(ctx: Context, tempC: Int) {
         ensureChannel(ctx)
         val n = NotificationCompat.Builder(ctx, CH_ID)
-            .setContentTitle("High temperature")
-            .setContentText("$tempC °C — cool down the device.")
+            .setContentTitle(ctx.getString(R.string.high_temperature))
+            .setContentText(ctx.getString(R.string.temperature_high, tempC))
             .setSmallIcon(android.R.drawable.stat_sys_warning)
             .setOnlyAlertOnce(true)
             .build()
@@ -99,8 +100,8 @@ object Notifier {
     fun notifyDischargeHigh(ctx: Context, ma: Int) {
         ensureChannel(ctx)
         val n = NotificationCompat.Builder(ctx, CH_ID)
-            .setContentTitle("High discharge")
-            .setContentText("$ma mA — heavy drain detected.")
+            .setContentTitle(ctx.getString(R.string.high_discharge))
+            .setContentText(ctx.getString(R.string.heavy_drain, ma))
             .setSmallIcon(android.R.drawable.stat_sys_warning)
             .setOnlyAlertOnce(true)
             .build()

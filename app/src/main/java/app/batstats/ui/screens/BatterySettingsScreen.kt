@@ -22,8 +22,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.R
 import app.batstats.battery.BatteryGraph
 import app.batstats.settings.AppSettings
 import app.batstats.settings.AppSettingsSchema
@@ -100,9 +102,9 @@ fun BatterySettingsScreen(
             LargeTopAppBar(
                 title = {
                     Column {
-                        Text("Settings")
+                        Text(stringResource(R.string.batstats))
                         Text(
-                            "Customize app behavior",
+                            stringResource(R.string.customize_behavior),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -115,13 +117,13 @@ fun BatterySettingsScreen(
                 },
                 actions = {
                     IconButton(onClick = { createSettingsBackup.launch("BatStats_Settings_Backup.json") }) {
-                        Icon(Icons.Outlined.Backup, contentDescription = "Export settings")
+                        Icon(Icons.Outlined.Backup, contentDescription = stringResource(R.string.export_settings))
                     }
                     IconButton(onClick = { showImportDialog = true }) {
-                        Icon(Icons.Outlined.Restore, contentDescription = "Import settings")
+                        Icon(Icons.Outlined.Restore, contentDescription = stringResource(R.string.import_settings_desc))
                     }
                     IconButton(onClick = { showResetDialog = true }) {
-                        Icon(Icons.Outlined.RestartAlt, contentDescription = "Reset settings")
+                        Icon(Icons.Outlined.RestartAlt, contentDescription = stringResource(R.string.reset_settings_desc))
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -260,16 +262,18 @@ fun BatterySettingsScreen(
 
     // Reset Dialog
     if (showResetDialog) {
+        val uiSettingsResetMsg = stringResource(R.string.ui_settings_reset)
+        val allSettingsResetMsg = stringResource(R.string.all_settings_reset)
         AlertDialog(
             onDismissRequest = { showResetDialog = false },
-            title = { Text("Reset Settings") },
+            title = { Text(stringResource(R.string.reset_settings)) },
             text = {
                 Column {
-                    Text("Choose what to reset:")
+                    Text(stringResource(R.string.choose_reset))
                     Spacer(Modifier.height(16.dp))
-                    Text("• Reset UI Settings: Resets visible settings only", style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.reset_ui_settings), style = MaterialTheme.typography.bodySmall)
                     Spacer(Modifier.height(8.dp))
-                    Text("• Reset All: Resets everything", style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.reset_all_settings), style = MaterialTheme.typography.bodySmall)
                 }
             },
             confirmButton = {
@@ -277,42 +281,44 @@ fun BatterySettingsScreen(
                     TextButton(onClick = {
                         scope.launch {
                             vm.resetUISettings()
-                            snackbarHost.showSnackbar("UI settings reset")
+                            snackbarHost.showSnackbar(uiSettingsResetMsg)
                             showResetDialog = false
                         }
-                    }) { Text("Reset UI") }
+                    }) { Text(stringResource(R.string.reset_ui)) }
                     Spacer(Modifier.width(8.dp))
                     TextButton(
                         onClick = {
                             scope.launch {
                                 vm.resetAll()
-                                snackbarHost.showSnackbar("All settings reset")
+                                snackbarHost.showSnackbar(allSettingsResetMsg)
                                 showResetDialog = false
                             }
                         },
                         colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                    ) { Text("Reset All") }
+                    ) { Text(stringResource(R.string.reset_all)) }
                 }
             },
-            dismissButton = { TextButton(onClick = { showResetDialog = false }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { showResetDialog = false }) { Text(stringResource(R.string.cancel)) } }
         )
     }
 
     // Import Dialog
     if (showImportDialog) {
         var jsonInput by remember { mutableStateOf("") }
+        val settingsImportedMsg = stringResource(R.string.settings_imported)
+        val importFailedMsg = stringResource(R.string.import_failed)
         AlertDialog(
             onDismissRequest = { showImportDialog = false },
-            title = { Text("Import Settings") },
+            title = { Text(stringResource(R.string.import_settings)) },
             text = {
                 Column {
-                    Text("Paste exported settings JSON:")
+                    Text(stringResource(R.string.paste_json))
                     Spacer(Modifier.height(12.dp))
                     OutlinedTextField(
                         value = jsonInput,
                         onValueChange = { jsonInput = it },
                         modifier = Modifier.fillMaxWidth().height(200.dp),
-                        placeholder = { Text("Paste JSON here...") }
+                        placeholder = { Text(stringResource(R.string.paste_json_hint)) }
                     )
                 }
             },
@@ -321,39 +327,40 @@ fun BatterySettingsScreen(
                     onClick = {
                         scope.launch {
                             when (val result = vm.import(jsonInput)) {
-                                is ImportResult.Success -> snackbarHost.showSnackbar("Imported ${result.appliedCount} settings")
-                                is ImportResult.Error -> snackbarHost.showSnackbar("Import failed: ${result.error}")
+                                is ImportResult.Success -> snackbarHost.showSnackbar("${result.appliedCount} $settingsImportedMsg")
+                                is ImportResult.Error -> snackbarHost.showSnackbar("$importFailedMsg: ${result.error}")
                             }
                             showImportDialog = false
                         }
                     },
                     enabled = jsonInput.isNotBlank()
-                ) { Text("Import") }
+                ) { Text(stringResource(R.string.import_action)) }
             },
-            dismissButton = { TextButton(onClick = { showImportDialog = false }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { showImportDialog = false }) { Text(stringResource(R.string.cancel)) } }
         )
     }
 
     // Clear Data Dialog
     if (showClearDataDialog) {
+        val dataClearedMsg = stringResource(R.string.data_cleared)
         AlertDialog(
             onDismissRequest = { showClearDataDialog = false },
             icon = { Icon(Icons.Outlined.DeleteForever, null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text("Clear All Data?") },
-            text = { Text("This will permanently delete all battery history, sessions, and statistics. This cannot be undone.") },
+            title = { Text(stringResource(R.string.clear_all_data)) },
+            text = { Text(stringResource(R.string.clear_data_warning)) },
             confirmButton = {
                 TextButton(
                     onClick = {
                         scope.launch {
                             BatteryGraph.db.clearAllTables()
-                            snackbarHost.showSnackbar("All data cleared")
+                            snackbarHost.showSnackbar(dataClearedMsg)
                             showClearDataDialog = false
                         }
                     },
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
-                ) { Text("Delete All") }
+                ) { Text(stringResource(R.string.delete_all)) }
             },
-            dismissButton = { TextButton(onClick = { showClearDataDialog = false }) { Text("Cancel") } }
+            dismissButton = { TextButton(onClick = { showClearDataDialog = false }) { Text(stringResource(R.string.cancel)) } }
         )
     }
 }

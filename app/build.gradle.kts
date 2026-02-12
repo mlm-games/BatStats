@@ -2,7 +2,6 @@
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.kotlin.serialization)
@@ -11,7 +10,17 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
+    compilerOptions {
+        optIn.set(
+            listOf(
+                "androidx.compose.material3.ExperimentalMaterial3Api",
+                "androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+                "androidx.compose.foundation.ExperimentalFoundationApi",
+                "androidx.compose.foundation.layout.ExperimentalLayoutApi"
+            )
+        )
+    }
 }
 
 android {
@@ -87,10 +96,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "2.0.0"
-    }
-
     namespace = "app.batstats"
 
 
@@ -143,6 +148,8 @@ dependencies {
     implementation(libs.material3.android)
 
     // Compose dependencies
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.activity.compose)
@@ -151,9 +158,6 @@ dependencies {
     implementation(libs.constraintlayout.compose.android)
     implementation(libs.androidbrowserhelper)
     implementation(libs.androidx.datastore.preferences.core)
-
-    implementation(libs.androidx.tv.material)
-    implementation(libs.androidx.tv.foundation)
 
     // Shizuku
     implementation(libs.api)

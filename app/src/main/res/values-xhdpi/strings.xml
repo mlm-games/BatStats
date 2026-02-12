@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="charging">Charging</string>
+    <string name="notify_charging_reaches">Notify when the charge reaches</string>
+    <string name="high_temperature_alert">High temperature alert!</string>
+    <string name="notify_temp_exceeds">Notify when temperature exceeds</string>
+    <string name="high_battery_value">High Battery (%)</string>
+    <string name="notify_draining_above"><![CDATA[Notify when draining > %i mA]]></string>
+</resources>

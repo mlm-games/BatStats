@@ -10,9 +10,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.R
 import app.batstats.viewmodel.SettingsViewModel
 import io.github.mlmgames.settings.ui.components.SettingsItem
 import io.github.mlmgames.settings.ui.components.SettingsToggle
@@ -38,10 +40,10 @@ fun AlarmsScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text("Alarms") },
+                title = { Text(stringResource(R.string.alarms)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -54,16 +56,15 @@ fun AlarmsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            // Charging Section
-            SectionCard(title = "Charging") {
+            SectionCard(title = stringResource(R.string.charging)) {
                 SettingsToggle(
-                    title = "High Battery Alert",
+                    title = stringResource(R.string.high_battery_alert),
                     checked = settings.highBatteryAlertEnabled,
                     onCheckedChange = { vm.updateSetting("highBatteryAlertEnabled", it) },
-                    description = "Notify when charging reaches ${settings.highBatteryThreshold}%"
+                    description = stringResource(R.string.notify_charging_reaches, settings.highBatteryThreshold)
                 )
                 SettingsItem(
-                    title = "Threshold",
+                    title = stringResource(R.string.threshold),
                     subtitle = "${settings.highBatteryThreshold}%",
                     onClick = { showLimit = true },
                     enabled = settings.highBatteryAlertEnabled
@@ -75,16 +76,15 @@ fun AlarmsScreen(
                 )
             }
 
-            // Thermals Section
-            SectionCard(title = "Thermals") {
+            SectionCard(title = stringResource(R.string.thermals)) {
                 SettingsToggle(
-                    title = "High Temperature Alert",
+                    title = stringResource(R.string.high_temperature_alert),
                     checked = settings.temperatureWarningEnabled,
                     onCheckedChange = { vm.updateSetting("temperatureWarningEnabled", it) },
-                    description = "Notify when battery exceeds ${settings.temperatureThreshold}°C"
+                    description = stringResource(R.string.notify_temp_exceeds, settings.temperatureThreshold)
                 )
                 SettingsItem(
-                    title = "Threshold",
+                    title = stringResource(R.string.threshold),
                     subtitle = "${settings.temperatureThreshold}°C",
                     onClick = { showTemp = true },
                     enabled = settings.temperatureWarningEnabled
@@ -96,16 +96,15 @@ fun AlarmsScreen(
                 )
             }
 
-            // Discharge Section
-            SectionCard(title = "Discharge") {
+            SectionCard(title = stringResource(R.string.discharge)) {
                 SettingsToggle(
-                    title = "High Discharge Alert",
+                    title = stringResource(R.string.high_discharge_alert),
                     checked = settings.dischargeAlertEnabled,
                     onCheckedChange = { vm.updateSetting("dischargeAlertEnabled", it) },
-                    description = "Notify when draining > ${settings.dischargeCurrentThreshold}mA"
+                    description = stringResource(R.string.notify_draining_above, settings.dischargeCurrentThreshold)
                 )
                 SettingsItem(
-                    title = "Threshold",
+                    title = stringResource(R.string.threshold),
                     subtitle = "${settings.dischargeCurrentThreshold} mA",
                     onClick = { showDisch = true },
                     enabled = settings.dischargeAlertEnabled
@@ -117,14 +116,13 @@ fun AlarmsScreen(
                 )
             }
 
-            // Add spacer at bottom to ensure last card isn't cut off by gesture nav
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
 
     if (showLimit) {
         SliderSettingDialog(
-            title = "High Battery (%)",
+            title = stringResource(R.string.high_battery_value),
             currentValue = settings.highBatteryThreshold.toFloat(),
             min = 50f, max = 100f, step = 1f,
             onDismiss = { showLimit = false },
@@ -137,7 +135,7 @@ fun AlarmsScreen(
 
     if (showTemp) {
         SliderSettingDialog(
-            title = "High Temperature (°C)",
+            title = stringResource(R.string.high_temperature_value, "°C"),
             currentValue = settings.temperatureThreshold,
             min = 35f, max = 55f, step = 1f,
             onDismiss = { showTemp = false },
@@ -150,7 +148,7 @@ fun AlarmsScreen(
 
     if (showDisch) {
         SliderSettingDialog(
-            title = "High Discharge (mA)",
+            title = stringResource(R.string.high_discharge_value, "mA"),
             currentValue = settings.dischargeCurrentThreshold.toFloat(),
             min = 200f, max = 2000f, step = 50f,
             onDismiss = { showDisch = false },

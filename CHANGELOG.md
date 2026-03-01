@@ -1,3 +1,9 @@
+## v6.0.2
+
+- Use m3e components
+- bump agp to 9, jvm to 21
+
+
 ## v6.0.1
 
 - bump major ver

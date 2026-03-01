@@ -202,9 +202,7 @@ fun BatterySettingsScreen(
         val meta = cf.meta!!
         @Suppress("UNCHECKED_CAST")
         val anyField = cf as SettingField<AppSettings, Any?>
-        val value = anyField.get(settings)
-
-        val index = when (value) {
+        val index = when (val value = anyField.get(settings)) {
             is Int -> value
             is Enum<*> -> value.ordinal
             else -> 0
@@ -392,8 +390,7 @@ private fun RenderSettingField(
         Dropdown::class -> {
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
-            val value = anyField.get(settings)
-            val index = when (value) { is Int -> value; is Enum<*> -> value.ordinal; else -> 0 }
+            val index = when (val value = anyField.get(settings)) { is Int -> value; is Enum<*> -> value.ordinal; else -> 0 }
             if (meta.options.isNotEmpty()) {
                 SettingsItem(
                     title = meta.title,
@@ -407,8 +404,7 @@ private fun RenderSettingField(
         Slider::class -> {
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
-            val value = anyField.get(settings)
-            val subtitle = when (value) {
+            val subtitle = when (val value = anyField.get(settings)) {
                 is Float, is Double -> String.format(Locale.getDefault(), "%.1f", (value as Number).toDouble())
                 is Int, is Long -> value.toString()
                 else -> ""

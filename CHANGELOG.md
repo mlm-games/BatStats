@@ -1,3 +1,14 @@
+## v6.0.3
+
+- Bump softprops/action-gh-release from 2 to 3 in /.github/workflows
+- Bump dependabot/fetch-metadata from 2 to 3 in /.github/workflows
+- Bump gradle/actions from 5 to 6 in /.github/workflows
+- Bump actions/upload-artifact from 6 to 7 in /.github/workflows
+- fix build, and bump dep versions
+- Use m3e components
+- bump agp to 9, jvm to 21
+
+
 ## v6.0.2
 
 - Use m3e components

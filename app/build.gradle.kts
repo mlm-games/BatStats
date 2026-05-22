@@ -24,14 +24,14 @@ kotlin {
 }
 
 android {
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "app.batstats"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 630
-        versionName = "6.0.3"
+        versionName = "6.1.0"
 
         androidResources {
             localeFilters += setOf("en", "ar", "de", "es-rES", "es-rUS", "fr", "hr", "hu", "in", "it", "ja", "pl", "pt-rBR", "ru-rRU", "sv", "tr", "uk", "zh")
@@ -83,7 +83,6 @@ android {
             isShrinkResources = true
         }
         getByName("debug") {
-            isShrinkResources = false
             isDebuggable = true
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"

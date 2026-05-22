@@ -178,14 +178,14 @@ fun BatterySettingsScreen(
                                 SettingsAction(
                                     title = "Export Battery Data",
                                     description = "Export battery history to file",
-                                    buttonText = "Open",
+//                                    buttonText = "Open",
                                     onClick = onExportData
                                 )
 
                                 SettingsAction(
                                     title = "Clear All Data",
                                     description = "Delete all stored battery data",
-                                    buttonText = "Clear",
+//                                    buttonText = "Clear",
                                     onClick = { showClearDataDialog = true }
                                 )
                             }

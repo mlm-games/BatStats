@@ -1,3 +1,16 @@
+## v6.1.1
+
+- Bump actions/checkout from 6 to 7 in /.github/workflows
+- Update compile-sdk to 37, and bump all libs...
+- Bump softprops/action-gh-release from 2 to 3 in /.github/workflows
+- Bump dependabot/fetch-metadata from 2 to 3 in /.github/workflows
+- Bump gradle/actions from 5 to 6 in /.github/workflows
+- Bump actions/upload-artifact from 6 to 7 in /.github/workflows
+- fix build, and bump dep versions
+- Use m3e components
+- bump agp to 9, jvm to 21
+
+
 ## v6.0.3
 
 - Bump softprops/action-gh-release from 2 to 3 in /.github/workflows

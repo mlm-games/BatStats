@@ -2,7 +2,7 @@
 activityCompose = "1.13.0"
 coreKtx = "1.19.0"
 datastorePreferences = "1.2.1"
-androidGradlePlugin = "9.2.1"
+androidGradlePlugin = "9.3.0"
 desugar_jdk_libs = "2.1.5"
 kmpSettingsCore = "0.8.1"
 koinBom = "4.2.2"

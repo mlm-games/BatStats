@@ -16,6 +16,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -122,8 +123,9 @@ fun DashboardScreen(
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    val timeFormatter = remember(Locale.getDefault()) {
-        DateTimeFormatter.ofPattern("HH:mm:ss", Locale.getDefault())
+    val currentLocale = LocalConfiguration.current.locales[0]
+    val timeFormatter = remember(currentLocale) {
+        DateTimeFormatter.ofPattern("HH:mm:ss", currentLocale)
     }
 
     Scaffold(
@@ -495,8 +497,9 @@ private fun ControlCenter(
                 }
 
                 if (session != null) {
-                    val shortTime = remember(Locale.getDefault()) {
-                        DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
+                    val shortLocale = LocalConfiguration.current.locales[0]
+                    val shortTime = remember(shortLocale) {
+                        DateTimeFormatter.ofPattern("HH:mm", shortLocale)
                     }
                     val startedAt = remember(session.startTime) {
                         Instant.ofEpochMilli(session.startTime)

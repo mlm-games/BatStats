@@ -22,6 +22,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -51,7 +52,6 @@ import io.github.mlmgames.settings.ui.dialogs.SliderSettingDialog
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -402,10 +402,11 @@ private fun RenderSettingField(
             }
         }
         Slider::class -> {
+            val currentLocale = LocalConfiguration.current.locales[0]
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
             val subtitle = when (val value = anyField.get(settings)) {
-                is Float, is Double -> String.format(Locale.getDefault(), "%.1f", (value as Number).toDouble())
+                is Float, is Double -> String.format(currentLocale, "%.1f", (value as Number).toDouble())
                 is Int, is Long -> value.toString()
                 else -> ""
             }

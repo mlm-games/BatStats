@@ -12,6 +12,7 @@ import android.util.Log
 import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.BatteryStatsParser
 import app.batstats.settings.AppSettings
+import app.batstats.settings.detailedStatsIntervalMs
 import io.github.mlmgames.settings.core.SettingsRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -32,6 +33,7 @@ class AdvancedDrainTracker(
         private const val TAG = "AdvancedDrainTracker"
         private const val POLL_INTERVAL_MS = 60_000L
         private const val DEEP_SLEEP_THRESHOLD_MS = 30_000L
+        private const val SETTINGS_REFRESH_INTERVAL_MS = 60_000L
     }
 
     private val running = AtomicBoolean(false)
@@ -53,6 +55,11 @@ class AdvancedDrainTracker(
     private var lastScreenState: Boolean = true
     private var lastScreenChangeTime: Long = System.currentTimeMillis()
     private var estimatedCapacityMah: Double = 4000.0
+
+    private var detailedStatsIntervalMs: Long = 300_000L
+    private var lastDumpsysTime: Long = 0L
+    private var cachedAwakeTime: Long = 0L
+    private var cachedDeepSleepTime: Long = 0L
     
     // Cumulative tracking
     private var cumulativeScreenOnTime: Long = 0L
@@ -91,14 +98,17 @@ class AdvancedDrainTracker(
         registerReceivers()
         
         trackingJob = scope.launch {
-            updateCapacityEstimate()
-            
             takeSnapshot()?.let { snapshot ->
                 lastSnapshot = snapshot
             }
             
             while (isActive && running.get()) {
                 try {
+                    if (System.currentTimeMillis() - lastDumpsysTime >= SETTINGS_REFRESH_INTERVAL_MS) {
+                        val settings = settingsRepository.flow.first()
+                        detailedStatsIntervalMs = settings.detailedStatsIntervalMs
+                    }
+
                     takeSnapshot()?.let { currentSnapshot ->
                         processSnapshot(currentSnapshot)
                         lastSnapshot = currentSnapshot
@@ -331,6 +341,11 @@ class AdvancedDrainTracker(
     }
     
     private suspend fun getDeepSleepInfo(): Pair<Long, Long> {
+        val now = System.currentTimeMillis()
+        if (now - lastDumpsysTime < detailedStatsIntervalMs) {
+            return Pair(cachedAwakeTime, cachedDeepSleepTime)
+        }
+
         if (shizukuBridge.ping() && shizukuBridge.hasPermission()) {
             try {
                 when (val result = shizukuBridge.run("dumpsys batterystats --checkin")) {
@@ -338,6 +353,12 @@ class AdvancedDrainTracker(
                         val snapshot = BatteryStatsParser.parseCheckin(result.output)
                         val awakeTime = snapshot.batteryRealtimeMs - (snapshot.doze?.deepIdleTimeMs ?: 0L)
                         val sleepTime = snapshot.doze?.deepIdleTimeMs ?: 0L
+                        cachedAwakeTime = awakeTime
+                        cachedDeepSleepTime = sleepTime
+                        if (snapshot.estimatedCapacityMah > 0) {
+                            estimatedCapacityMah = snapshot.estimatedCapacityMah.toDouble()
+                        }
+                        lastDumpsysTime = System.currentTimeMillis()
                         return Pair(awakeTime, sleepTime)
                     }
                     is ShizukuBridge.RunResult.Error -> {}
@@ -349,24 +370,11 @@ class AdvancedDrainTracker(
         
         val uptime = SystemClock.uptimeMillis()
         val elapsedRealtime = SystemClock.elapsedRealtime()
+        cachedAwakeTime = uptime
+        cachedDeepSleepTime = elapsedRealtime - uptime
+        lastDumpsysTime = System.currentTimeMillis()
         return Pair(uptime, elapsedRealtime - uptime)
     }
     
-    private suspend fun updateCapacityEstimate() {
-        if (shizukuBridge.ping() && shizukuBridge.hasPermission()) {
-            try {
-                when (val result = shizukuBridge.run("dumpsys batterystats --checkin")) {
-                    is ShizukuBridge.RunResult.Success -> {
-                        val snapshot = BatteryStatsParser.parseCheckin(result.output)
-                        if (snapshot.estimatedCapacityMah > 0) {
-                            estimatedCapacityMah = snapshot.estimatedCapacityMah.toDouble()
-                        }
-                    }
-                    is ShizukuBridge.RunResult.Error -> {}
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error updating capacity", e)
-            }
-        }
-    }
+
 }

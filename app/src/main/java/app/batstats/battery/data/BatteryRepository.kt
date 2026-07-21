@@ -48,6 +48,7 @@ class BatteryRepository(
     val isMonitoringFlow: StateFlow<Boolean> = _isMonitoring.asStateFlow()
 
     private var samplingJob: Job? = null
+    private var pendingSampleCount: Long = 0L
 
     // Broadcast receiver for immediate system updates
     private val batteryReceiver = object : BroadcastReceiver() {
@@ -90,15 +91,18 @@ class BatteryRepository(
         // Android's ACTION_BATTERY_CHANGED is "sticky" but doesn't fire often enough
         // to show live current changes. We poll BatteryManager properties.
         samplingJob = scope.launch {
-            settingsRepository.flow.collectLatest { settings ->
-                while (isActive) {
-                    val intent = context.registerReceiver(null, filter)
-                    if (intent != null) {
-                        processBatteryState(intent, persist = true)
+            settingsRepository.flow
+                .map { it.monitoringIntervalMs }
+                .distinctUntilChanged()
+                .collectLatest { intervalMs ->
+                    while (isActive) {
+                        val intent = context.registerReceiver(null, filter)
+                        if (intent != null) {
+                            processBatteryState(intent, persist = true)
+                        }
+                        delay(intervalMs)
                     }
-                    delay(settings.monitoringIntervalMs)
                 }
-            }
         }
     }
 
@@ -108,6 +112,15 @@ class BatteryRepository(
 
         samplingJob?.cancel()
         samplingJob = null
+
+        if (pendingSampleCount > 0) {
+            scope.launch {
+                settingsRepository.update {
+                    it.copy(totalSamplesCollected = it.totalSamplesCollected + pendingSampleCount)
+                }
+                pendingSampleCount = 0
+            }
+        }
 
         try {
             context.unregisterReceiver(batteryReceiver)
@@ -192,8 +205,12 @@ class BatteryRepository(
         if (persist) {
             scope.launch {
                 batteryDao.insertSample(sample)
-                settingsRepository.update {
-                    it.copy(totalSamplesCollected = it.totalSamplesCollected + 1)
+                pendingSampleCount++
+                if (pendingSampleCount >= 10) {
+                    settingsRepository.update {
+                        it.copy(totalSamplesCollected = it.totalSamplesCollected + pendingSampleCount)
+                    }
+                    pendingSampleCount = 0
                 }
 
                 // Auto-session logic could go here (e.g. if plugged != lastPlugged -> start/stop session)

@@ -64,6 +64,16 @@ data class AppSettings(
     )
     val trackForegroundApps: Boolean = true,
 
+    @Setting(
+        title = "Detailed Stats Interval",
+        description = "How often to collect detailed battery stats via Shizuku.",
+        category = General::class,
+        type = Dropdown::class, // Timepicker might be better later (but does not store in secs)
+        options = ["1 minute", "5 minutes", "15 minutes", "30 minutes"],
+        key = "detailed_stats_interval_index"
+    )
+    val detailedStatsIntervalIndex: Int = 1,
+
     // NOTIFICATIONS & ALARMS
     @Setting(
         title = "Low Battery Alert",
@@ -271,6 +281,11 @@ val AppSettings.chartTimeRangeMs: Long
     }
 
 val AppSettings.useFahrenheit: Boolean get() = temperatureUnitIndex == 1
+
+val AppSettings.detailedStatsIntervalMs: Long
+    get() = when (detailedStatsIntervalIndex) {
+        0 -> 60_000L; 1 -> 300_000L; 2 -> 900_000L; 3 -> 1_800_000L; else -> 300_000L
+    }
 
 
 @CategoryDefinition(order = 0)

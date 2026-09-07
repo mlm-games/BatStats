@@ -1,15 +1,35 @@
 package app.batstats.battery.util
 
+import android.os.SystemClock
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.File
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Collects root-only battery statistics.
  * These require actual root access, not just Shizuku/ADB.
  */
 object RootStatsCollector {
+
+    private const val TAG = "RootStatsCollector"
+    private const val ROOT_PROBE_TIMEOUT_MS = 4_000L
+    private const val CMD_TIMEOUT_MS = 20_000L
+
+    private const val NEGATIVE_CACHE_MS = 60_000L
+
+    private val rootProbeLock = Mutex()
+
+    @Volatile
+    private var cachedRoot: Boolean? = null
+
+    @Volatile
+    private var cachedRootAt = 0L
 
     data class KernelBatteryInfo(
         val technology: String?,
@@ -61,26 +81,33 @@ object RootStatsCollector {
         val tempMilliC: Int
     )
 
-    suspend fun isRootAvailable(): Boolean = withContext(Dispatchers.IO) {
-        try {
-            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "id"))
-            val result = process.inputStream.bufferedReader().readText()
-            process.waitFor()
-            result.contains("uid=0")
-        } catch (_: Exception) {
-            false
+    suspend fun isRootAvailable(): Boolean {
+        cachedRoot?.let { cached ->
+            if (cached || SystemClock.elapsedRealtime() - cachedRootAt < NEGATIVE_CACHE_MS) return cached
+        }
+        return rootProbeLock.withLock {
+            cachedRoot?.let { cached ->
+                if (cached || SystemClock.elapsedRealtime() - cachedRootAt < NEGATIVE_CACHE_MS) {
+                    return@withLock cached
+                }
+            }
+            val available = withContext(Dispatchers.IO) {
+                exec("id", ROOT_PROBE_TIMEOUT_MS)?.contains("uid=0") == true
+            }
+            cachedRoot = available
+            cachedRootAt = SystemClock.elapsedRealtime()
+            available
         }
     }
 
+    fun invalidateRootCache() {
+        cachedRoot = null
+        cachedRootAt = 0L
+    }
+
     suspend fun resetBatteryStats(): Boolean = withContext(Dispatchers.IO) {
-        try {
-            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "dumpsys batterystats --reset"))
-            val result = process.inputStream.bufferedReader().readText()
-            process.waitFor()
-            result.contains("Battery stats reset") || result.isBlank()
-        } catch (_: Exception) {
-            false
-        }
+        val result = exec("dumpsys batterystats --reset", CMD_TIMEOUT_MS) ?: return@withContext false
+        result.contains("Battery stats reset") || result.isBlank()
     }
 
     suspend fun getKernelBatteryInfo(): KernelBatteryInfo? = withContext(Dispatchers.IO) {
@@ -243,13 +270,42 @@ object RootStatsCollector {
     }
 
     suspend fun runAsRoot(command: String): String? = withContext(Dispatchers.IO) {
-        try {
-            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
-            val result = process.inputStream.bufferedReader().use(BufferedReader::readText)
-            process.waitFor()
-            result
-        } catch (_: Exception) {
+        exec(command, CMD_TIMEOUT_MS)
+    }
+
+    private fun exec(command: String, timeoutMs: Long): String? {
+        var process: Process? = null
+        var watchdog: Thread? = null
+        val timedOut = AtomicBoolean(false)
+        return try {
+            val p = ProcessBuilder("su", "-c", command)
+                .redirectErrorStream(true)
+                .start()
+            process = p
+            runCatching { p.outputStream.close() }
+
+            watchdog = Thread {
+                try {
+                    if (!p.waitFor(timeoutMs, TimeUnit.MILLISECONDS)) {
+                        timedOut.set(true)
+                        Log.w(TAG, "su timed out after $timeoutMs ms: $command")
+                        p.destroyForcibly()
+                    }
+                } catch (_: InterruptedException) {
+                }
+            }.apply {
+                isDaemon = true
+                start()
+            }
+
+            val out = p.inputStream.bufferedReader().use(BufferedReader::readText)
+            if (timedOut.get()) null else out
+        } catch (e: Exception) {
+            Log.d(TAG, "su failed for '$command': ${e.message}")
             null
+        } finally {
+            watchdog?.interrupt()
+            runCatching { process?.destroy() }
         }
     }
 }

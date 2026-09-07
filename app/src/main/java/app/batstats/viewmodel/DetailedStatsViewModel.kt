@@ -1,7 +1,6 @@
 package app.batstats.viewmodel
 
 import android.content.Context
-import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.batstats.battery.shizuku.ShizukuBridge
@@ -12,8 +11,8 @@ import app.batstats.battery.util.ShellRunner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import rikka.shizuku.Shizuku
 
 class DetailedStatsViewModel(
     private val collector: DetailedStatsCollector,
@@ -33,6 +32,12 @@ class DetailedStatsViewModel(
     private val _hasShizuku = MutableStateFlow(false)
     val hasShizuku: StateFlow<Boolean> = _hasShizuku.asStateFlow()
 
+    private val _shizukuRunning = MutableStateFlow(false)
+    val shizukuRunning: StateFlow<Boolean> = _shizukuRunning.asStateFlow()
+
+    private val _shizukuDenied = MutableStateFlow(false)
+    val shizukuDenied: StateFlow<Boolean> = _shizukuDenied.asStateFlow()
+
     private val _hasRoot = MutableStateFlow(false)
     val hasRoot: StateFlow<Boolean> = _hasRoot.asStateFlow()
 
@@ -48,69 +53,52 @@ class DetailedStatsViewModel(
     private val _kernelBattery = MutableStateFlow<RootStatsCollector.KernelBatteryInfo?>(null)
     val kernelBattery: StateFlow<RootStatsCollector.KernelBatteryInfo?> = _kernelBattery.asStateFlow()
 
-    // Listener for Shizuku permission results
-    private val permissionListener = Shizuku.OnRequestPermissionResultListener { requestCode, grantResult ->
-        if (requestCode == 1001) {
-            val granted = grantResult == PackageManager.PERMISSION_GRANTED
-            _hasShizuku.value = granted
-            if (granted) {
-                refresh()
+    init {
+        viewModelScope.launch {
+            shizukuBridge.granted.collectLatest { granted ->
+                if (granted && !_hasShizuku.value) {
+                    shellRunner.invalidateMode()
+                    refresh()
+                }
+                _hasShizuku.value = granted
             }
         }
-    }
-
-    init {
-        // Register listener for permission results
-        try {
-            Shizuku.addRequestPermissionResultListener(permissionListener)
-        } catch (_: Throwable) {
-            // Shizuku might not be available
-        }
-        checkPermissions()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        try {
-            Shizuku.removeRequestPermissionResultListener(permissionListener)
-        } catch (_: Throwable) {}
-    }
-
-    private fun checkPermissions() {
         viewModelScope.launch {
-            _hasShizuku.value = try { shizukuBridge.hasPermission() } catch (_: Exception) { false }
-            _hasRoot.value = RootStatsCollector.isRootAvailable()
-            _hasAdb.value = PrivilegeChecker.hasAdvancedViaAdb(context)
-            _hasAdvanced.value = _hasShizuku.value || _hasRoot.value || _hasAdb.value
-            _advMode.value = shellRunner.detectMode()
-
-            if (_hasAdvanced.value) refresh()
-            if (_hasRoot.value) refreshRootStats()
+            shizukuBridge.running.collectLatest { _shizukuRunning.value = it }
         }
+        refresh(forceRefresh = true)
     }
 
     fun recheck() {
-        checkPermissions()
+        refresh(forceRefresh = true)
     }
 
     fun requestShizukuPermission() {
-        shizukuBridge.requestPermission(1001)
+        shizukuBridge.requestPermission()
     }
 
-    fun refresh() {
+    fun clearError() = collector.clearError()
+
+    fun refresh(forceRefresh: Boolean = false) {
         viewModelScope.launch {
-            // Recheck ADB grants (they can be granted while app is alive)
+            if (forceRefresh) shellRunner.invalidateMode()
+
             _hasAdb.value = PrivilegeChecker.hasAdvancedViaAdb(context)
-            _hasShizuku.value = try { shizukuBridge.hasPermission() } catch (_: Exception) { false }
+            _hasShizuku.value = shizukuBridge.hasPermissionResilient()
+            _shizukuRunning.value = shizukuBridge.ping()
+            _shizukuDenied.value = shizukuBridge.isPermanentlyDenied()
             _hasRoot.value = RootStatsCollector.isRootAvailable()
-            _hasAdvanced.value = _hasShizuku.value || _hasRoot.value || _hasAdb.value
-            _advMode.value = shellRunner.detectMode()
+
+            val mode = shellRunner.detectMode(forceRefresh)
+            _advMode.value = mode
+            _hasAdvanced.value = mode != ShellRunner.Mode.NONE ||
+                _hasShizuku.value || _hasRoot.value || _hasAdb.value
 
             if (_hasAdvanced.value) {
                 collector.refresh()
             }
             if (_hasRoot.value) {
-                refreshRootStats()
+                _kernelBattery.value = RootStatsCollector.getKernelBatteryInfo()
             }
         }
     }
@@ -125,12 +113,8 @@ class DetailedStatsViewModel(
 
     suspend fun resetStats(): Boolean {
         return try {
-            when {
-                _hasAdvanced.value -> collector.resetStats()
-                _hasRoot.value -> RootStatsCollector.resetBatteryStats()
-                else -> false
-            }
-        } catch (e: Exception) {
+            if (_hasAdvanced.value) collector.resetStats() else false
+        } catch (_: Exception) {
             false
         }
     }

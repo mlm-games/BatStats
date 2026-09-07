@@ -36,6 +36,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.platform.LocalContext
 import app.batstats.battery.util.BatteryStatsParser
 import app.batstats.battery.util.RootStatsCollector
+import app.batstats.battery.util.ShellRunner
 import app.batstats.viewmodel.DetailedStatsViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -57,6 +58,8 @@ fun DetailedStatsScreen(
     val lastRefresh by vm.lastRefresh.collectAsStateWithLifecycle()
     val error by vm.error.collectAsStateWithLifecycle()
     val hasShizuku by vm.hasShizuku.collectAsStateWithLifecycle()
+    val shizukuRunning by vm.shizukuRunning.collectAsStateWithLifecycle()
+    val shizukuDenied by vm.shizukuDenied.collectAsStateWithLifecycle()
     val hasRoot by vm.hasRoot.collectAsStateWithLifecycle()
     val hasAdb by vm.hasAdb.collectAsStateWithLifecycle()
     val hasAdvanced by vm.hasAdvanced.collectAsStateWithLifecycle()
@@ -84,10 +87,6 @@ fun DetailedStatsScreen(
         vm.refresh()
     }
 
-    LaunchedEffect(error) {
-        error?.let { snackbarHost.showSnackbar(it) }
-    }
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -104,8 +103,12 @@ fun DetailedStatsScreen(
                                     .atZone(ZoneId.systemDefault())
                                     .format(timeFormatter)
                             }
+                            val via = when (advMode) {
+                                ShellRunner.Mode.NONE -> ""
+                                else -> " • via ${advMode.name.lowercase()}"
+                            }
                             Text(
-                                "Updated $formatted",
+                                "Updated $formatted$via",
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -155,6 +158,8 @@ fun DetailedStatsScreen(
                     hasShizuku = hasShizuku,
                     hasAdb = hasAdb,
                     hasRoot = hasRoot,
+                    shizukuRunning = shizukuRunning,
+                    shizukuDenied = shizukuDenied,
                     onRequestShizuku = { vm.requestShizukuPermission() },
                     onRecheck = { vm.recheck() }
                 )
@@ -196,6 +201,7 @@ fun DetailedStatsScreen(
             }
 
             AnimatedVisibility(visible = error != null) {
+                val message = remember(error) { error }
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -205,7 +211,7 @@ fun DetailedStatsScreen(
                     )
                 ) {
                     Row(
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -215,9 +221,18 @@ fun DetailedStatsScreen(
                         )
                         Spacer(Modifier.width(12.dp))
                         Text(
-                            error ?: "",
+                            message.orEmpty(),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
+                        IconButton(onClick = { vm.clearError() }) {
+                            Icon(
+                                Icons.Outlined.Close,
+                                "Dismiss",
+                                tint = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        }
                     }
                 }
             }
@@ -232,12 +247,12 @@ private fun PrivilegeRequiredCard(
     hasShizuku: Boolean,
     hasAdb: Boolean,
     hasRoot: Boolean,
+    shizukuRunning: Boolean,
+    shizukuDenied: Boolean,
     onRequestShizuku: () -> Unit,
     onRecheck: () -> Unit
 ) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val snackbarHost = remember { SnackbarHostState() }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
@@ -265,8 +280,26 @@ private fun PrivilegeRequiredCard(
                         StatusChip("ADB DUMP", hasAdb)
                         StatusChip("Root", hasRoot)
                     }
+                    val shizukuHint = when {
+                        hasShizuku -> null
+                        !shizukuRunning ->
+                            "Shizuku is not running. Start the Shizuku app (and its service) first, then tap Recheck."
+                        shizukuDenied ->
+                            "Shizuku denied this app. Open Shizuku and re-authorise BatStats under Authorised applications."
+                        else -> "Shizuku is running - tap Request Shizuku and approve the prompt."
+                    }
+                    if (shizukuHint != null) {
+                        Text(
+                            shizukuHint,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = onRequestShizuku) { Text("Request Shizuku") }
+                        Button(
+                            onClick = onRequestShizuku,
+                            enabled = shizukuRunning && !hasShizuku
+                        ) { Text("Request Shizuku") }
                         OutlinedButton(onClick = onRecheck) { Text("Recheck") }
                     }
                 }

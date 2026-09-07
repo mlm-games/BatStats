@@ -1,5 +1,7 @@
 package app.batstats.battery.shizuku
 
+import app.batstats.battery.util.BatteryStatsParser
+
 /**
  * Small parser for "dumpsys batterystats --checkin".
  * reads "l,pwi,uid,<mAh>..." rows and the earlier "i,uid,<uid>,<package>" map.
@@ -14,7 +16,7 @@ object CheckinParser {
         val energyByPkg = mutableMapOf<String, Double>()
 
         lines.forEach { line ->
-            val p = line.split(',') // checkin is comma-separated
+            val p = BatteryStatsParser.splitCheckinLine(line)
             if (p.size < 4) return@forEach
 
             // uid map: 9,0,i,uid,1000,android

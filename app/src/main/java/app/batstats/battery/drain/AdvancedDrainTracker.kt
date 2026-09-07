@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.PowerManager
 import android.os.SystemClock
 import android.util.Log
+import androidx.core.content.ContextCompat
 import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.BatteryStatsParser
 import app.batstats.battery.util.ShellRunner
@@ -54,8 +55,9 @@ class AdvancedDrainTracker(
     val isTracking: StateFlow<Boolean> = _isTracking.asStateFlow()
     
     private var lastSnapshot: DrainSnapshot? = null
-    private var lastScreenState: Boolean = true
+    private var lastScreenState: Boolean = powerManager.isInteractive
     private var lastScreenChangeTime: Long = System.currentTimeMillis()
+    private var receiverRegistered = false
     private var estimatedCapacityMah: Double = 4000.0
 
     private var detailedStatsIntervalMs: Long = 300_000L
@@ -152,6 +154,7 @@ class AdvancedDrainTracker(
         cumulativeActiveDrain = 0.0
         cumulativeIdleDrain = 0.0
         
+        lastScreenState = powerManager.isInteractive
         lastScreenChangeTime = System.currentTimeMillis()
         _snapshots.value = emptyList()
         _drainState.value = DrainState(sessionStartTime = sessionStartTime)
@@ -160,18 +163,27 @@ class AdvancedDrainTracker(
     }
     
     private fun registerReceivers() {
+        if (receiverRegistered) return
         try {
             val screenFilter = IntentFilter().apply {
                 addAction(Intent.ACTION_SCREEN_ON)
                 addAction(Intent.ACTION_SCREEN_OFF)
             }
-            context.registerReceiver(screenReceiver, screenFilter)
+            ContextCompat.registerReceiver(
+                context,
+                screenReceiver,
+                screenFilter,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
+            receiverRegistered = true
         } catch (e: Exception) {
             Log.e(TAG, "Failed to register receivers", e)
         }
     }
-    
+
     private fun unregisterReceivers() {
+        if (!receiverRegistered) return
+        receiverRegistered = false
         try {
             context.unregisterReceiver(screenReceiver)
         } catch (e: Exception) {
@@ -267,11 +279,15 @@ class AdvancedDrainTracker(
     
     private fun updateDrainState() {
         val now = System.currentTimeMillis()
-        
+
+        val pending = (now - lastScreenChangeTime).coerceAtLeast(0L)
+        val screenOnTimeTotal = cumulativeScreenOnTime + if (lastScreenState) pending else 0L
+        val screenOffTimeTotal = cumulativeScreenOffTime + if (!lastScreenState) pending else 0L
+
         fun calculateRate(drainMah: Double, timeMs: Long): Double {
             return if (timeMs > 0) drainMah / (timeMs / 3600000.0) else 0.0
         }
-        
+
         _drainState.value = DrainState(
             timestamp = now,
             batteryLevel = getBatteryLevel(),
@@ -288,15 +304,15 @@ class AdvancedDrainTracker(
             deepSleepDrainMah = cumulativeDeepSleepDrain,
             awakeDrainMah = cumulativeAwakeDrain,
             
-            screenOnTimeMs = cumulativeScreenOnTime,
-            screenOffTimeMs = cumulativeScreenOffTime,
+            screenOnTimeMs = screenOnTimeTotal,
+            screenOffTimeMs = screenOffTimeTotal,
             activeTimeMs = cumulativeActiveTime,
             idleTimeMs = cumulativeIdleTime,
             deepSleepTimeMs = cumulativeDeepSleepTime,
             awakeTimeMs = cumulativeAwakeTime,
-            
-            screenOnDrainRate = calculateRate(cumulativeScreenOnDrain, cumulativeScreenOnTime),
-            screenOffDrainRate = calculateRate(cumulativeScreenOffDrain, cumulativeScreenOffTime),
+
+            screenOnDrainRate = calculateRate(cumulativeScreenOnDrain, screenOnTimeTotal),
+            screenOffDrainRate = calculateRate(cumulativeScreenOffDrain, screenOffTimeTotal),
             activeDrainRate = calculateRate(cumulativeActiveDrain, cumulativeActiveTime),
             idleDrainRate = calculateRate(cumulativeIdleDrain, cumulativeIdleTime),
             deepSleepDrainRate = calculateRate(cumulativeDeepSleepDrain, cumulativeDeepSleepTime),
@@ -308,9 +324,15 @@ class AdvancedDrainTracker(
     }
     
     private fun getBatteryLevel(): Int {
-        return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        val level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        if (level in 0..100) return level
+
+        val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val raw = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+        return if (raw >= 0 && scale > 0) (raw * 100 / scale) else 0
     }
-    
+
     private fun getCurrentBatteryMah(): Double {
         val chargeCounter = batteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER)
         return if (chargeCounter > 0) {

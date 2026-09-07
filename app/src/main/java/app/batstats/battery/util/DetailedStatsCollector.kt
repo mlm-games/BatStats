@@ -4,7 +4,12 @@ import android.content.Context
 import android.util.Log
 import app.batstats.battery.data.db.BatteryDatabase
 import app.batstats.battery.shizuku.ShizukuBridge
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,6 +30,9 @@ class DetailedStatsCollector(
 ) {
     companion object {
         private const val TAG = "DetailedStatsCollector"
+
+        const val NO_ACCESS_MESSAGE =
+            "Need Shizuku, root, or ADB-granted DUMP/BATTERY_STATS. See Settings > Advanced Stats."
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -48,6 +56,13 @@ class DetailedStatsCollector(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error.asStateFlow()
 
+    private val _mode = MutableStateFlow(ShellRunner.Mode.NONE)
+    val mode: StateFlow<ShellRunner.Mode> = _mode.asStateFlow()
+
+    fun clearError() {
+        _error.value = null
+    }
+
     suspend fun refresh(): Boolean {
         if (!refreshing.compareAndSet(false, true)) {
             Log.d(TAG, "Refresh already in progress")
@@ -55,67 +70,59 @@ class DetailedStatsCollector(
         }
 
         _isRefreshing.value = true
-        _error.value = null
         Log.d(TAG, "Starting refresh...")
 
         return try {
-            val mode = shellRunner.detectMode()
-            if (mode == ShellRunner.Mode.NONE) {
-                _error.value = "Need Shizuku, root, or ADB-granted DUMP/BATTERY_STATS. See Settings > Advanced Stats."
-                Log.e(TAG, "No privileged access available")
-                return false
-            }
-
             var hasData = false
+            var firstFailure: String? = null
 
-            // Fetch battery stats
-            Log.d(TAG, "Fetching batterystats via $mode...")
-            val statsResult = shellRunner.run("dumpsys batterystats --checkin")
-            if (statsResult != null) {
-                val statsRaw = statsResult.output
-                if (statsRaw.isNotBlank() && !statsRaw.startsWith("ERROR") && !statsRaw.contains("Permission Denial")) {
-                    Log.d(TAG, "Parsing batterystats (${statsRaw.length} chars, via ${statsResult.mode})...")
-                    val parsed = BatteryStatsParser.parseCheckin(statsRaw)
+            Log.d(TAG, "Fetching batterystats...")
+            when (val stats = shellRunner.exec("dumpsys batterystats --checkin")) {
+                is ShellRunner.Outcome.Success -> {
+                    _mode.value = stats.mode
+                    Log.d(TAG, "Parsing batterystats (${stats.output.length} chars, via ${stats.mode})...")
+                    val parsed = BatteryStatsParser.parseCheckin(stats.output)
                     _snapshot.value = parsed
                     hasData = true
                     Log.d(TAG, "Parsed ${parsed.apps.size} apps, ${parsed.wakelocks.size} wakelocks")
-                } else {
-                    Log.w(TAG, "Empty or error batterystats output: ${statsRaw.take(200)}")
-                    _error.value = "Failed to get battery stats: empty/error output"
                 }
-            } else {
-                Log.e(TAG, "batterystats command failed via all runners")
-                _error.value = "Failed to get battery stats. Grant DUMP via ADB or start Shizuku."
+
+                is ShellRunner.Outcome.Failure -> {
+                    _mode.value = stats.mode
+                    firstFailure = describe(stats)
+                    Log.e(TAG, "batterystats failed: ${stats.mode} / ${stats.message}")
+                }
             }
 
-            // Device idle info
-            Log.d(TAG, "Fetching deviceidle...")
-            val idleResult = shellRunner.run("dumpsys deviceidle")
-            if (idleResult != null && idleResult.output.isNotBlank()) {
-                _deviceIdle.value = BatteryStatsParser.parseDeviceIdle(idleResult.output)
-                hasData = true
-            } else {
-                Log.w(TAG, "deviceidle command failed or empty")
+            when (val idle = shellRunner.exec("dumpsys deviceidle")) {
+                is ShellRunner.Outcome.Success -> {
+                    _deviceIdle.value = BatteryStatsParser.parseDeviceIdle(idle.output)
+                    hasData = true
+                }
+
+                is ShellRunner.Outcome.Failure -> Log.w(TAG, "deviceidle failed: ${idle.message}")
             }
 
-            // Power manager info
-            Log.d(TAG, "Fetching power manager...")
-            val powerResult = shellRunner.run("dumpsys power")
-            if (powerResult != null && powerResult.output.isNotBlank()) {
-                _powerManager.value = BatteryStatsParser.parsePowerManager(powerResult.output)
-                hasData = true
-            } else {
-                Log.w(TAG, "power command failed or empty")
+            when (val power = shellRunner.exec("dumpsys power")) {
+                is ShellRunner.Outcome.Success -> {
+                    _powerManager.value = BatteryStatsParser.parsePowerManager(power.output)
+                    hasData = true
+                }
+
+                is ShellRunner.Outcome.Failure -> Log.w(TAG, "power failed: ${power.message}")
             }
 
             if (hasData) {
                 _lastRefresh.value = System.currentTimeMillis()
+                _error.value = null
                 Log.d(TAG, "Refresh completed successfully")
-            } else if (_error.value == null) {
-                _error.value = "No data received from any command"
+            } else {
+                _error.value = firstFailure ?: NO_ACCESS_MESSAGE
             }
 
             hasData
+        } catch (ce: CancellationException) {
+            throw ce
         } catch (e: Exception) {
             Log.e(TAG, "Refresh failed with exception", e)
             _error.value = "Error: ${e.message}"
@@ -126,9 +133,19 @@ class DetailedStatsCollector(
         }
     }
 
+    private fun describe(failure: ShellRunner.Outcome.Failure): String = when (failure.mode) {
+        ShellRunner.Mode.NONE -> NO_ACCESS_MESSAGE
+        ShellRunner.Mode.SHIZUKU ->
+            "Shizuku is connected but the dump failed: ${failure.message}. Try again, or restart Shizuku."
+        ShellRunner.Mode.ROOT ->
+            "Root is available but the dump failed: ${failure.message}."
+        ShellRunner.Mode.ADB ->
+            "DUMP/BATTERY_STATS is granted but the dump failed: ${failure.message}."
+    }
+
     suspend fun resetStats(): Boolean {
-        val result = shellRunner.run("dumpsys batterystats --reset") ?: return false
-        return result.output.contains("Battery stats reset") || result.output.isBlank()
+        val outcome = shellRunner.exec("dumpsys batterystats --reset", allowEmpty = true)
+        return outcome is ShellRunner.Outcome.Success
     }
 
     fun startAutoRefresh(intervalMs: Long = 60_000L): Job {

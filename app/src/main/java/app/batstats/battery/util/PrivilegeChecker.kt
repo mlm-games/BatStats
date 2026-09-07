@@ -42,7 +42,7 @@ object PrivilegeChecker {
     }
 
     suspend fun hasShizuku(shizuku: ShizukuBridge): Boolean = withContext(Dispatchers.IO) {
-        try { shizuku.ping() && shizuku.hasPermission() } catch (_: Exception) { false }
+        try { shizuku.hasPermissionResilient() } catch (_: Exception) { false }
     }
 
     suspend fun hasAdvancedAccess(context: Context, shizuku: ShizukuBridge): Boolean {

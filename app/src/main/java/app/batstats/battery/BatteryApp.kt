@@ -3,6 +3,7 @@ package app.batstats.battery
 import android.app.Application
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.BatteryDatabase
+import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.di.appModule
 import app.batstats.insights.ForegroundDrainTracker
 import app.batstats.settings.AppSettings
@@ -20,6 +21,7 @@ class BatteryApp : Application() {
 
     private val appScope: CoroutineScope by inject()
     private val migrationManager: MigrationManager by inject()
+    private val shizukuBridge: ShizukuBridge by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -28,6 +30,8 @@ class BatteryApp : Application() {
             androidContext(this@BatteryApp)
             modules(appModule)
         }
+
+        shizukuBridge.warmUp()
 
         // Run migrations
         appScope.launch {

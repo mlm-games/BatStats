@@ -8,8 +8,10 @@ import android.os.IBinder
 import app.batstats.battery.BatteryGraph
 import app.batstats.battery.drain.AdvancedDrainTracker
 import app.batstats.battery.drain.DrainNotificationManager
+import android.app.Notification
+import android.app.NotificationManager
+import android.util.Log
 import app.batstats.battery.shizuku.BstatsCollector
-import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.Notifier
 import app.batstats.battery.util.ShellRunner
 import app.batstats.battery.widget.WidgetUpdater
@@ -21,18 +23,24 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import java.util.concurrent.atomic.AtomicBoolean
 
 class BatteryMonitorService : Service() {
+    companion object {
+        private const val TAG = "BatteryMonitorService"
+    }
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private val drainTracker: ForegroundDrainTracker by inject()
     private val advancedDrainTracker: AdvancedDrainTracker by inject()
     private val drainNotificationManager: DrainNotificationManager by inject()
-    private val shizukuBridge: ShizukuBridge by inject()
     private val shellRunner: ShellRunner by inject()
     private val enhancedCollector: BstatsCollector by inject()
 
     private var useAdvancedNotification = false
+
+    private val started = AtomicBoolean(false)
 
     override fun onCreate() {
         super.onCreate()
@@ -40,38 +48,18 @@ class BatteryMonitorService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (!goForeground(Notifier.NOTIF_ID, Notifier.monitoringNotification(this, "Starting…"))) {
+            stopSelf()
+            return START_NOT_STICKY
+        }
+
+        if (!started.compareAndSet(false, true)) return START_STICKY
+
         serviceScope.launch {
             val settings = BatteryGraph.settings.flow.first()
             useAdvancedNotification = settings.showDrainNotification
 
             val hasAdvanced = shellRunner.hasAnyPrivilegedAccess()
-
-            val notif = if (useAdvancedNotification && hasAdvanced) {
-                drainNotificationManager.getNotification()
-            } else {
-                Notifier.monitoringNotification(this@BatteryMonitorService, "Starting…")
-            }
-
-            val notifId = if (useAdvancedNotification && hasAdvanced) {
-                DrainNotificationManager.NOTIFICATION_ID
-            } else {
-                Notifier.NOTIF_ID
-            }
-
-            try {
-                if (Build.VERSION.SDK_INT >= 34) {
-                    startForeground(
-                        notifId,
-                        notif,
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-                    )
-                } else {
-                    startForeground(notifId, notif)
-                }
-            } catch (_: Throwable) {
-                stopSelf()
-                return@launch
-            }
 
             // Start sampling
             BatteryGraph.repo.startSampling()
@@ -82,6 +70,16 @@ class BatteryMonitorService : Service() {
                 advancedDrainTracker.start()
 
                 if (useAdvancedNotification) {
+                    if (goForeground(
+                            DrainNotificationManager.NOTIFICATION_ID,
+                            drainNotificationManager.getNotification()
+                        )
+                    ) {
+                        runCatching {
+                            getSystemService(NotificationManager::class.java)
+                                ?.cancel(Notifier.NOTIF_ID)
+                        }
+                    }
                     drainNotificationManager.startNotification()
                 }
 
@@ -122,6 +120,18 @@ class BatteryMonitorService : Service() {
         return START_STICKY
     }
 
+    private fun goForeground(id: Int, notification: Notification): Boolean = try {
+        if (Build.VERSION.SDK_INT >= 34) {
+            startForeground(id, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+            startForeground(id, notification)
+        }
+        true
+    } catch (t: Throwable) {
+        Log.e(TAG, "startForeground failed", t)
+        false
+    }
+
     override fun onTimeout(startId: Int, fgsType: Int) {
         if (Build.VERSION.SDK_INT >= 35 &&
             (fgsType and ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC) != 0
@@ -131,6 +141,7 @@ class BatteryMonitorService : Service() {
     }
 
     override fun onDestroy() {
+        started.set(false)
         BatteryGraph.repo.stopSampling()
         drainTracker.stop()
         advancedDrainTracker.stop()

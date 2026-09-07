@@ -226,7 +226,7 @@ object BatteryStatsParser {
         var estCapacity = 0
 
         lines.forEach { line ->
-            val parts = line.split(',')
+            val parts = splitCheckinLine(line)
             if (parts.size < 4) return@forEach
 
             try {
@@ -282,8 +282,7 @@ object BatteryStatsParser {
                         parseSignalStrength(parts, signalStrength)
                     }
 
-                    // WiFi signal: 9,0,l,wsg,<time0>,<time1>,<time2>,<time3>,<time4>
-                    parts.getOrNull(2) == "l" && parts.getOrNull(3) == "wsg" -> {
+                    parts.getOrNull(2) == "l" && parts.getOrNull(3) == "wsgt" -> {
                         parseWifiSignal(parts, wifiSignal)
                     }
 
@@ -292,12 +291,9 @@ object BatteryStatsParser {
                         bluetooth = parseBluetooth(parts)
                     }
 
-                    // Discharge step: screen on/off discharge
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "dc" -> {
-                        val so = parts.getOrNull(5)?.toFloatOrNull()
-                        val sof = parts.getOrNull(6)?.toFloatOrNull()
-                        if (so != null) screenOnDischarge = so
-                        if (sof != null) screenOffDischarge = sof
+                        parts.getOrNull(6)?.toFloatOrNull()?.let { screenOnDischarge = it }
+                        parts.getOrNull(7)?.toFloatOrNull()?.let { screenOffDischarge = it }
                     }
 
                     // Battery core: 9,0,l,bt,startCount,battRealtime,battUptime,...
@@ -305,19 +301,14 @@ object BatteryStatsParser {
                         batteryRealtimeMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
                     }
 
-                    // Misc: 9,0,l,m,screenOnTime,phoneOnTime,...
                     parts[2] == "l" && parts[3] == "m" -> {
                         screenOnTimeMs = parts.getOrNull(4)?.toLongOrNull() ?: 0L
+                        doze = parseDoze(parts) ?: doze
                     }
 
                     // Power summary: 9,0,l,pws,capacity,computed,minDrained,maxDrained
                     parts[2] == "l" && parts[3] == "pws" -> {
-                        estCapacity = parts.getOrNull(4)?.toIntOrNull() ?: 0
-                    }
-
-                    // Doze/idle: 9,0,l,di,<count>,<idletime>,<maintcount>,<mainttime>
-                    parts.getOrNull(2) == "l" && parts.getOrNull(3) == "di" -> {
-                        doze = parseDoze(parts)
+                        estCapacity = parts.getOrNull(4)?.toDoubleOrNull()?.roundToLong()?.toInt() ?: 0
                     }
 
                     // Process stats: 9,<uid>,l,pr,<process>,<user>,<sys>,<fg>,<starts>
@@ -337,21 +328,88 @@ object BatteryStatsParser {
             screenOffDischargePercent = screenOffDischarge,
             screenOnDischargePercent = screenOnDischarge,
             estimatedCapacityMah = estCapacity,
-            apps = appStats.values.toList().sortedByDescending { it.powerMah },
-            wakelocks = wakelocks.sortedByDescending { it.totalTimeMs },
-            kernelWakelocks = kernelWakelocks.sortedByDescending { it.totalTimeMs },
-            alarms = alarms.sortedByDescending { it.count },
-            jobs = jobs.sortedByDescending { it.totalTimeMs },
-            syncs = syncs.sortedByDescending { it.totalTimeMs },
-            network = network.sortedByDescending { it.mobileRxBytes + it.mobileTxBytes + it.wifiRxBytes + it.wifiTxBytes },
-            sensors = sensors.sortedByDescending { it.totalTimeMs },
+            apps = appStats.values.sortedByDescending { it.powerMah },
+            wakelocks = wakelocks
+                .mergeBy({ it.uid to it.tag }) { a, b ->
+                    a.copy(
+                        count = a.count + b.count,
+                        totalTimeMs = a.totalTimeMs + b.totalTimeMs,
+                        maxTimeMs = maxOf(a.maxTimeMs, b.maxTimeMs),
+                        backgroundTimeMs = a.backgroundTimeMs + b.backgroundTimeMs,
+                        backgroundCount = a.backgroundCount + b.backgroundCount
+                    )
+                }
+                .sortedByDescending { it.totalTimeMs },
+            kernelWakelocks = kernelWakelocks
+                .mergeBy({ it.name }) { a, b ->
+                    a.copy(count = a.count + b.count, totalTimeMs = a.totalTimeMs + b.totalTimeMs)
+                }
+                .sortedByDescending { it.totalTimeMs },
+            alarms = alarms
+                .mergeBy({ it.uid to it.tag }) { a, b ->
+                    a.copy(
+                        count = a.count + b.count,
+                        wakeups = a.wakeups + b.wakeups,
+                        totalTimeMs = a.totalTimeMs + b.totalTimeMs
+                    )
+                }
+                .sortedByDescending { it.count },
+            jobs = jobs
+                .mergeBy({ it.uid to it.jobName }) { a, b ->
+                    a.copy(count = a.count + b.count, totalTimeMs = a.totalTimeMs + b.totalTimeMs)
+                }
+                .sortedByDescending { it.totalTimeMs },
+            syncs = syncs
+                .mergeBy({ it.uid to it.authority }) { a, b ->
+                    a.copy(count = a.count + b.count, totalTimeMs = a.totalTimeMs + b.totalTimeMs)
+                }
+                .sortedByDescending { it.totalTimeMs },
+            network = network
+                .mergeBy({ it.uid }) { a, b ->
+                    a.copy(
+                        mobileRxBytes = a.mobileRxBytes + b.mobileRxBytes,
+                        mobileTxBytes = a.mobileTxBytes + b.mobileTxBytes,
+                        wifiRxBytes = a.wifiRxBytes + b.wifiRxBytes,
+                        wifiTxBytes = a.wifiTxBytes + b.wifiTxBytes,
+                        mobileActiveTimeMs = a.mobileActiveTimeMs + b.mobileActiveTimeMs,
+                        mobileActiveCount = a.mobileActiveCount + b.mobileActiveCount
+                    )
+                }
+                .sortedByDescending {
+                    it.mobileRxBytes + it.mobileTxBytes + it.wifiRxBytes + it.wifiTxBytes
+                },
+            sensors = sensors
+                .mergeBy({ it.uid to it.sensorHandle }) { a, b ->
+                    a.copy(count = a.count + b.count, totalTimeMs = a.totalTimeMs + b.totalTimeMs)
+                }
+                .sortedByDescending { it.totalTimeMs },
             signalStrength = signalStrength,
             wifiSignal = wifiSignal,
             bluetooth = bluetooth,
             doze = doze,
             cpuFrequency = cpuFreq,
-            processStats = processStats.sortedByDescending { it.userTimeMs + it.systemTimeMs }
+            processStats = processStats
+                .mergeBy({ it.uid to it.processName }) { a, b ->
+                    a.copy(
+                        userTimeMs = a.userTimeMs + b.userTimeMs,
+                        systemTimeMs = a.systemTimeMs + b.systemTimeMs,
+                        foregroundTimeMs = a.foregroundTimeMs + b.foregroundTimeMs,
+                        starts = a.starts + b.starts
+                    )
+                }
+                .sortedByDescending { it.userTimeMs + it.systemTimeMs }
         )
+    }
+
+    private inline fun <T, K> List<T>.mergeBy(key: (T) -> K, combine: (T, T) -> T): List<T> {
+        if (size < 2) return this
+        val merged = LinkedHashMap<K, T>(size)
+        for (item in this) {
+            val k = key(item)
+            val existing = merged[k]
+            merged[k] = if (existing == null) item else combine(existing, item)
+        }
+        return merged.values.toList()
     }
 
     private fun parsePowerUseItem(
@@ -379,9 +437,8 @@ object BatteryStatsParser {
         val pkg = uidToPkg[uid] ?: "uid:$uid"
         val tag = parts.getOrNull(4) ?: return
 
-        // Find partial and background-partial blocks in a version‑independent way
-        val pIndex = parts.indexOfFirst { it == "p" }
-        val bpIndex = parts.indexOfFirst { it == "bp" }
+        val pIndex = parts.indexOfFrom(6) { it == "p" }
+        val bpIndex = parts.indexOfFrom(6) { it == "bp" }
 
         val partialTimeMs = if (pIndex > 0) {
             parts.getOrNull(pIndex - 1)?.toLongOrNull() ?: 0L
@@ -598,12 +655,17 @@ object BatteryStatsParser {
     }
 
     private fun parseDoze(parts: List<String>): DozeStats? {
-        val deepCount = parts.getOrNull(4)?.toIntOrNull() ?: return null
-        val deepTime = parts.getOrNull(5)?.toLongOrNull() ?: 0L
-        val lightCount = parts.getOrNull(6)?.toIntOrNull() ?: 0
-        val lightTime = parts.getOrNull(7)?.toLongOrNull() ?: 0L
-        val maintCount = parts.getOrNull(8)?.toIntOrNull() ?: 0
-        val maintTime = parts.getOrNull(9)?.toLongOrNull() ?: 0L
+        if (parts.size <= 20) return null
+
+        val deepTime = parts.getOrNull(13)?.toLongOrNull() ?: return null
+        val deepCount = parts.getOrNull(14)?.toIntOrNull() ?: 0
+        val maintTime = parts.getOrNull(15)?.toLongOrNull() ?: 0L
+        val maintCount = parts.getOrNull(16)?.toIntOrNull() ?: 0
+        val lightTime = parts.getOrNull(19)?.toLongOrNull() ?: 0L
+        val lightCount = parts.getOrNull(20)?.toIntOrNull() ?: 0
+
+        if (deepTime == 0L && lightTime == 0L && deepCount == 0 && lightCount == 0) return null
+
         return DozeStats(
             idleModeTimeMs = deepTime + lightTime,
             idleModeCount = deepCount + lightCount,
@@ -614,6 +676,33 @@ object BatteryStatsParser {
             maintenanceTimeMs = maintTime,
             maintenanceCount = maintCount
         )
+    }
+
+    internal fun splitCheckinLine(line: String): List<String> {
+        if ('"' !in line) return line.split(',')
+
+        val fields = ArrayList<String>(16)
+        val field = StringBuilder()
+        var inQuotes = false
+        var i = 0
+        while (i < line.length) {
+            val c = line[i]
+            when {
+                c == '"' && inQuotes && i + 1 < line.length && line[i + 1] == '"' -> {
+                    field.append('"')
+                    i++
+                }
+                c == '"' -> inQuotes = !inQuotes
+                c == ',' && !inQuotes -> {
+                    fields.add(field.toString())
+                    field.setLength(0)
+                }
+                else -> field.append(c)
+            }
+            i++
+        }
+        fields.add(field.toString())
+        return fields
     }
 
     private fun parseProcess(
@@ -645,6 +734,11 @@ object BatteryStatsParser {
     private fun getSensorName(handle: Int): String = when (handle) {
         -10000 -> "GPS"
         else -> "Sensor #$handle"
+    }
+
+    private inline fun List<String>.indexOfFrom(start: Int, predicate: (String) -> Boolean): Int {
+        for (i in start until size) if (predicate(this[i])) return i
+        return -1
     }
 
     data class DeviceIdleInfo(
@@ -680,13 +774,17 @@ object BatteryStatsParser {
                 trimmed.startsWith("mLightEnabled=") -> lightEnabled = trimmed.contains("true")
                 trimmed.startsWith("mScreenOnTime=") -> screenOnTime = trimmed.removePrefix("mScreenOnTime=").toLongOrNull() ?: 0L
                 trimmed.startsWith("mScreenOffTime=") -> screenOffTime = trimmed.removePrefix("mScreenOffTime=").toLongOrNull() ?: 0L
-                trimmed == "Whitelist system apps:" || trimmed == "Whitelist apps:" -> {
+                trimmed.startsWith("Whitelist") && trimmed.endsWith("apps:") -> {
                     inWhitelist = true
                     inTempWhitelist = false
                 }
-                trimmed.startsWith("Temp whitelist:") -> {
+                trimmed.startsWith("Temp whitelist") -> {
                     inWhitelist = false
                     inTempWhitelist = true
+                }
+                trimmed.endsWith(":") && !trimmed.contains("=") -> {
+                    inWhitelist = false
+                    inTempWhitelist = false
                 }
                 trimmed.isEmpty() -> {
                     inWhitelist = false
@@ -740,7 +838,11 @@ object BatteryStatsParser {
                     brightness = trimmed.substringAfter("=").toIntOrNull() ?: 0
                 }
                 trimmed.startsWith("Display Power: state=") -> {
-                    screenOn = trimmed.contains("ON")
+                    screenOn = trimmed.substringAfter("=").startsWith("ON")
+                }
+                // Fallback for dumps that do not include the Display Power line.
+                trimmed.startsWith("mWakefulness=") -> {
+                    screenOn = trimmed.substringAfter("=").equals("Awake", ignoreCase = true)
                 }
                 trimmed.startsWith("mBatteryLevel=") -> {
                     batteryLevel = trimmed.substringAfter("=").toIntOrNull() ?: 0
@@ -748,17 +850,25 @@ object BatteryStatsParser {
                 trimmed.startsWith("mBatteryStatus=") -> {
                     batteryStatus = trimmed.substringAfter("=")
                 }
-                trimmed.startsWith("mLowPowerModeEnabled=") -> {
+                // dumpsys power reports the plug state rather than a status string.
+                trimmed.startsWith("mIsPowered=") -> {
+                    if (batteryStatus == "UNKNOWN") {
+                        batteryStatus = if (trimmed.contains("true")) "Charging" else "Discharging"
+                    }
+                }
+                trimmed.startsWith("mLowPowerModeEnabled=") ||
+                    trimmed.startsWith("mBatterySaverEnabled=") -> {
                     lowPowerMode = trimmed.contains("true")
                 }
                 trimmed.startsWith("mDeviceIdleMode=") -> {
                     deviceIdleMode = trimmed.substringAfter("=")
                 }
-                trimmed == "Wake Locks:" -> {
+                // Headings carry a size suffix: "Wake Locks: size=3".
+                trimmed.startsWith("Wake Locks:") -> {
                     inWakeLocks = true
                     inBlockers = false
                 }
-                trimmed == "Suspend Blockers:" -> {
+                trimmed.startsWith("Suspend Blockers:") -> {
                     inWakeLocks = false
                     inBlockers = true
                 }

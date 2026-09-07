@@ -6,192 +6,385 @@ import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.IBinder
 import android.os.Parcel
+import android.os.ParcelFileDescriptor
+import android.os.SystemClock
 import android.util.Log
+import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import rikka.shizuku.Shizuku
 import rikka.shizuku.Shizuku.UserServiceArgs
+import rikka.shizuku.ShizukuProvider
+import java.io.ByteArrayOutputStream
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
 class ShizukuBridge(private val context: Context) {
 
     companion object {
         private const val TAG = "ShizukuBridge"
-        private const val TRANSACTION_RUN = 1
+
+        const val PERMISSION_REQUEST_CODE = 1001
+
+        private const val SERVICE_VERSION = 2
+
+        private const val BIND_TIMEOUT_MS = 10_000L
+        private const val DEFAULT_CMD_TIMEOUT_MS = 25_000L
+
+        private const val READ_GRACE_MS = 5_000L
+
+        private const val MAX_OUTPUT_BYTES = 12 * 1024 * 1024
+        private const val COPY_BUFFER_BYTES = 64 * 1024
+
+        private const val PING_RETRIES = 4
+        private const val PING_RETRY_DELAY_MS = 120L
     }
 
-    private val binderRef = AtomicReference<IBinder?>()
-    private var bindingInProgress = false
+    enum class Failure { NOT_RUNNING, NO_PERMISSION, BIND_FAILED, TRANSPORT }
+
+    sealed class RunResult {
+        data class Success(val output: String) : RunResult()
+        data class Error(val message: String, val reason: Failure) : RunResult()
+    }
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val binderRef = AtomicReference<IBinder?>(null)
+    private val bindMutex = Mutex()
+    private val listenersRegistered = AtomicBoolean(false)
+
+    @Volatile
+    private var everSeen = false
+
+    private val _running = MutableStateFlow(false)
+    val running: StateFlow<Boolean> = _running.asStateFlow()
+
+    private val _granted = MutableStateFlow(false)
+    val granted: StateFlow<Boolean> = _granted.asStateFlow()
 
     private val args by lazy {
-        UserServiceArgs(
-            ComponentName(context.packageName, ShellUserService::class.java.name)
-        )
+        UserServiceArgs(ComponentName(context.packageName, ShellUserService::class.java.name))
             .daemon(false)
             .processNameSuffix("shz")
             .tag("ShellSvc")
-            .version(1)
+            .version(SERVICE_VERSION)
     }
 
-    private val conn = object : ServiceConnection {
+    private val pendingBind = AtomicReference<CompletableDeferred<IBinder?>?>(null)
+
+    private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            Log.d(TAG, "UserService connected: ${service != null}")
+            Log.d(TAG, "UserService connected (alive=${service?.isBinderAlive})")
             binderRef.set(service)
-            bindingInProgress = false
+            pendingBind.getAndSet(null)?.complete(service)
         }
+
         override fun onServiceDisconnected(name: ComponentName?) {
             Log.d(TAG, "UserService disconnected")
             binderRef.set(null)
-            bindingInProgress = false
+            pendingBind.getAndSet(null)?.complete(null)
+        }
+    }
+
+    private val binderReceivedListener = Shizuku.OnBinderReceivedListener {
+        Log.d(TAG, "Shizuku binder received")
+        everSeen = true
+        _running.value = true
+        binderRef.set(null)
+        _granted.value = checkPermissionNow()
+    }
+
+    private val binderDeadListener = Shizuku.OnBinderDeadListener {
+        Log.w(TAG, "Shizuku binder died")
+        _running.value = false
+        _granted.value = false
+        binderRef.set(null)
+    }
+
+    private val permissionResultListener =
+        Shizuku.OnRequestPermissionResultListener { requestCode, grantResult ->
+            if (requestCode == PERMISSION_REQUEST_CODE) {
+                _granted.value = grantResult == PackageManager.PERMISSION_GRANTED
+                Log.d(TAG, "Permission result: ${_granted.value}")
+            }
+        }
+
+    fun warmUp() {
+        if (!listenersRegistered.compareAndSet(false, true)) return
+        try {
+            Shizuku.addBinderReceivedListenerSticky(binderReceivedListener)
+            Shizuku.addBinderDeadListener(binderDeadListener)
+            Shizuku.addRequestPermissionResultListener(permissionResultListener)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Could not register Shizuku listeners: ${t.message}")
+            listenersRegistered.set(false)
         }
     }
 
     fun ping(): Boolean {
-        val result = try {
+        val alive = try {
             Shizuku.pingBinder()
-        } catch (e: Exception) {
-            Log.d(TAG, "ping failed: ${e.message}")
+        } catch (t: Throwable) {
+            Log.d(TAG, "pingBinder threw: ${t.message}")
             false
         }
-        Log.d(TAG, "ping: $result")
-        return result
+        if (alive) {
+            everSeen = true
+            _running.value = true
+        }
+        return alive
+    }
+
+    suspend fun isRunning(): Boolean {
+        if (ping()) return true
+        if (!everSeen) return false
+        repeat(PING_RETRIES) {
+            delay(PING_RETRY_DELAY_MS)
+            if (ping()) return true
+        }
+        Log.w(TAG, "Shizuku stopped responding")
+        _running.value = false
+        return false
+    }
+
+    private fun checkPermissionNow(): Boolean = try {
+        if (Shizuku.isPreV11()) {
+            ContextCompat.checkSelfPermission(context, ShizukuProvider.PERMISSION) ==
+                PackageManager.PERMISSION_GRANTED
+        } else {
+            Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
+        }
+    } catch (t: Throwable) {
+        Log.d(TAG, "checkSelfPermission failed: ${t.message}")
+        false
     }
 
     fun hasPermission(): Boolean {
-        if (!ping()) {
-            Log.d(TAG, "hasPermission: false (Shizuku not running)")
-            return false
-        }
-        val result = try {
-            Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
-        } catch (e: Exception) {
-            Log.d(TAG, "hasPermission check failed: ${e.message}")
-            false
-        }
-        Log.d(TAG, "hasPermission: $result")
-        return result
+        if (!ping()) return false
+        return checkPermissionNow().also { _granted.value = it }
     }
 
-    fun requestPermission(requestCode: Int = 1001) {
+    suspend fun hasPermissionResilient(): Boolean {
+        if (!isRunning()) return false
+        return checkPermissionNow().also { _granted.value = it }
+    }
+
+    fun isPermanentlyDenied(): Boolean = try {
+        ping() && !Shizuku.isPreV11() &&
+            Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED &&
+            !Shizuku.shouldShowRequestPermissionRationale()
+    } catch (_: Throwable) {
+        false
+    }
+
+    fun requestPermission(requestCode: Int = PERMISSION_REQUEST_CODE) {
         if (!ping()) {
             Log.w(TAG, "requestPermission: Shizuku not running, ignoring")
             return
         }
         try {
             Shizuku.requestPermission(requestCode)
-        } catch (e: Exception) {
-            Log.w(TAG, "requestPermission failed: ${e.message}")
+        } catch (t: Throwable) {
+            Log.w(TAG, "requestPermission failed: ${t.message}")
         }
     }
 
-    sealed class RunResult {
-        data class Success(val output: String) : RunResult()
-        data class Error(val message: String) : RunResult()
-    }
-
-    private suspend fun ensureBound(): Boolean = withContext(Dispatchers.Main) {
-        Log.d(TAG, "ensureBound called")
-
-        if (!ping()) {
-            Log.e(TAG, "Shizuku not running")
-            return@withContext false
-        }
-        if (!hasPermission()) {
-            Log.e(TAG, "Shizuku permission not granted")
-            return@withContext false
-        }
-
-        // Already bound and alive
-        if (binderRef.get()?.isBinderAlive == true) {
-            Log.d(TAG, "Already bound")
-            return@withContext true
-        }
-
-        // Avoid duplicate binding attempts
-        if (bindingInProgress) {
-            Log.d(TAG, "Binding already in progress, waiting...")
-            repeat(30) {
-                delay(50)
-                if (binderRef.get()?.isBinderAlive == true) return@withContext true
+    suspend fun run(cmd: String, timeoutMs: Long = DEFAULT_CMD_TIMEOUT_MS): RunResult =
+        withContext(Dispatchers.IO) {
+            if (!isRunning()) {
+                return@withContext RunResult.Error("Shizuku is not running", Failure.NOT_RUNNING)
             }
-            return@withContext binderRef.get()?.isBinderAlive == true
-        }
-
-        Log.d(TAG, "Binding UserService...")
-        bindingInProgress = true
-
-        try {
-            Shizuku.bindUserService(args, conn)
-        } catch (e: Exception) {
-            Log.e(TAG, "bindUserService failed", e)
-            bindingInProgress = false
-            return@withContext false
-        }
-
-        // Wait for connection
-        repeat(40) { // 2 seconds
-            delay(50)
-            if (binderRef.get()?.isBinderAlive == true) {
-                Log.d(TAG, "UserService bound successfully")
-                return@withContext true
+            if (!hasPermissionResilient()) {
+                return@withContext RunResult.Error(
+                    "Shizuku permission not granted",
+                    Failure.NO_PERMISSION
+                )
             }
+
+            val binder = ensureBound()
+                ?: return@withContext RunResult.Error(
+                    "Could not start the Shizuku helper service",
+                    Failure.BIND_FAILED
+                )
+
+            val first = execute(binder, cmd, timeoutMs)
+            if (first !is RunResult.Error || first.reason != Failure.TRANSPORT) {
+                return@withContext first
+            }
+
+            Log.d(TAG, "Retrying after transport failure: ${first.message}")
+            binderRef.set(null)
+            val fresh = ensureBound() ?: return@withContext first
+            execute(fresh, cmd, timeoutMs)
         }
 
-        Log.e(TAG, "UserService bind timeout")
-        bindingInProgress = false
-        false
+    suspend fun runOrNull(cmd: String): String? =
+        (run(cmd) as? RunResult.Success)?.output
+
+    private suspend fun execute(binder: IBinder, cmd: String, timeoutMs: Long): RunResult {
+        if (!binder.isBinderAlive) {
+            return RunResult.Error("Helper service is no longer alive", Failure.TRANSPORT)
+        }
+        return try {
+            val piped = runViaPipe(binder, cmd, timeoutMs)
+            when {
+                piped != null -> RunResult.Success(piped)
+                else -> runInline(binder, cmd)
+            }
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (t: Throwable) {
+            Log.w(TAG, "Command transport failed: ${t.message}")
+            RunResult.Error(t.message ?: t.javaClass.simpleName, Failure.TRANSPORT)
+        }
     }
 
-    suspend fun run(cmd: String): RunResult = withContext(Dispatchers.IO) {
-        Log.d(TAG, "run: $cmd")
+    private suspend fun runViaPipe(binder: IBinder, cmd: String, timeoutMs: Long): String? {
+        val pipe = ParcelFileDescriptor.createPipe()
+        val readSide = pipe[0]
+        val writeSide = pipe[1]
 
-        if (!ensureBound()) {
-            return@withContext RunResult.Error("Failed to bind UserService")
+        val accepted = try {
+            val data = Parcel.obtain()
+            val reply = Parcel.obtain()
+            try {
+                data.writeString(cmd)
+                data.writeLong(timeoutMs)
+                writeSide.writeToParcel(data, 0)
+                if (!binder.transact(ShellUserService.TRANSACTION_RUN_PIPE, data, reply, 0)) {
+                    false
+                } else {
+                    reply.readInt() == 1
+                }
+            } finally {
+                data.recycle()
+                reply.recycle()
+            }
+        } catch (t: Throwable) {
+            runCatching { readSide.close() }
+            throw t
+        } finally {
+            runCatching { writeSide.close() }
         }
 
-        val binder = binderRef.get()
-        if (binder == null || !binder.isBinderAlive) {
-            return@withContext RunResult.Error("UserService binder not available")
+        if (!accepted) {
+            runCatching { readSide.close() }
+            return null
         }
 
+        val watchdog = scope.launch {
+            delay(timeoutMs + READ_GRACE_MS)
+            Log.w(TAG, "Pipe read timed out for: $cmd")
+            runCatching { readSide.close() }
+        }
+        return try {
+            readAll(readSide)
+        } finally {
+            watchdog.cancel()
+        }
+    }
+
+    private fun readAll(pfd: ParcelFileDescriptor): String {
+        ParcelFileDescriptor.AutoCloseInputStream(pfd).use { input ->
+            val sink = ByteArrayOutputStream(COPY_BUFFER_BYTES)
+            val buffer = ByteArray(COPY_BUFFER_BYTES)
+            var total = 0
+            while (true) {
+                val read = input.read(buffer)
+                if (read < 0) break
+                if (total + read >= MAX_OUTPUT_BYTES) {
+                    sink.write(buffer, 0, MAX_OUTPUT_BYTES - total)
+                    Log.w(TAG, "Output truncated at $MAX_OUTPUT_BYTES bytes")
+                    break
+                }
+                sink.write(buffer, 0, read)
+                total += read
+            }
+            return sink.toString(Charsets.UTF_8.name())
+        }
+    }
+
+    private fun runInline(binder: IBinder, cmd: String): RunResult {
         val data = Parcel.obtain()
         val reply = Parcel.obtain()
-        try {
+        return try {
             data.writeString(cmd)
-            val ok = binder.transact(TRANSACTION_RUN, data, reply, 0)
-            if (!ok) {
-                Log.e(TAG, "transact failed for: $cmd")
-                return@withContext RunResult.Error("Binder transact failed")
+            if (!binder.transact(ShellUserService.TRANSACTION_RUN, data, reply, 0)) {
+                RunResult.Error("Binder transaction rejected", Failure.TRANSPORT)
+            } else {
+                val out = reply.readString()
+                if (out == null) {
+                    RunResult.Error("Empty response from helper service", Failure.TRANSPORT)
+                } else {
+                    RunResult.Success(out)
+                }
             }
-            val result = reply.readString()
-                ?: return@withContext RunResult.Error("Null response from command")
-            Log.d(TAG, "Command output length: ${result.length}")
-            RunResult.Success(result)
-        } catch (e: Exception) {
-            Log.e(TAG, "run exception", e)
-            RunResult.Error("Exception: ${e.message}")
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (t: Throwable) {
+            RunResult.Error(t.message ?: t.javaClass.simpleName, Failure.TRANSPORT)
         } finally {
             data.recycle()
             reply.recycle()
         }
     }
 
-    // Legacy method for compatibility - returns String?
-    suspend fun runOrNull(cmd: String): String? {
-        return when (val result = run(cmd)) {
-            is RunResult.Success -> result.output
-            is RunResult.Error -> null
+    private suspend fun ensureBound(): IBinder? {
+        binderRef.get()?.takeIf { it.isBinderAlive }?.let { return it }
+
+        return bindMutex.withLock {
+            binderRef.get()?.takeIf { it.isBinderAlive }?.let { return@withLock it }
+
+            val deferred = CompletableDeferred<IBinder?>()
+            pendingBind.set(deferred)
+
+            val started = withContext(Dispatchers.Main) {
+                try {
+                    Shizuku.bindUserService(args, connection)
+                    true
+                } catch (t: Throwable) {
+                    Log.e(TAG, "bindUserService failed", t)
+                    false
+                }
+            }
+            if (!started) {
+                pendingBind.compareAndSet(deferred, null)
+                return@withLock null
+            }
+
+            val startedAt = SystemClock.elapsedRealtime()
+            val binder = withTimeoutOrNull(BIND_TIMEOUT_MS) { deferred.await() }
+            pendingBind.compareAndSet(deferred, null)
+
+            if (binder == null || !binder.isBinderAlive) {
+                Log.e(TAG, "UserService bind failed after ${SystemClock.elapsedRealtime() - startedAt} ms")
+                binderRef.set(null)
+                null
+            } else {
+                Log.d(TAG, "UserService bound in ${SystemClock.elapsedRealtime() - startedAt} ms")
+                binder
+            }
         }
     }
 
     fun unbind() {
         try {
-            Shizuku.unbindUserService(args, conn, true)
-        } catch (e: Exception) {
-            Log.e(TAG, "unbind failed", e)
+            Shizuku.unbindUserService(args, connection, true)
+        } catch (t: Throwable) {
+            Log.e(TAG, "unbind failed", t)
         }
         binderRef.set(null)
-        bindingInProgress = false
+        pendingBind.getAndSet(null)?.complete(null)
     }
 }

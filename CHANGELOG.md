@@ -1,3 +1,9 @@
+## v6.2.3
+
+- chore(deps): bump com.android.application
+- chore(deps): bump the gradle-dependencies group with 2 updates
+
+
 ## v6.2.2
 
 - fix a format error (crashes prev. on opening the alarm screen)

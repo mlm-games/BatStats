@@ -13,7 +13,7 @@ Root and shizuku do not require any commands (self-explantory). ADB requires pri
   ```sh
   for p in DUMP BATTERY_STATS PACKAGE_USAGE_STATS INTERACT_ACROSS_USERS; do adb shell pm grant org.mlm.batstats android.permission.$p; done
   ```
-  Then force-stop BatStats (or reboot) and re-open. Check **Settings → Advanced Stats** for grant status (can copy commands there too).
+  Then force-stop BatStats (or reboot) and re-open. Check Settings -> Advanced Stats for grant status (can copy commands there too).
 
 ## Contributing
 Issues and PRs are welcome. (Do try to make sure that the issue is not OS specific before submitting)

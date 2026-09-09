@@ -661,9 +661,7 @@ private fun AppsTab(apps: List<BatteryStatsParser.AppPowerStats>) {
 
     val filteredApps = remember(apps, sortBy, showSystemApps) {
         apps.filter { app ->
-            showSystemApps || !app.packageName.startsWith("com.android.") &&
-                    !app.packageName.startsWith("android") &&
-                    !app.packageName.startsWith("com.google.android")
+            if (showSystemApps) true else isUserApp(app)
         }.let { list ->
             when (sortBy) {
                 AppSortOption.POWER -> list.sortedByDescending { it.powerMah }
@@ -751,6 +749,21 @@ private enum class AppSortOption(val label: String) {
     FOREGROUND("Foreground")
 }
 
+private fun isUserApp(app: BatteryStatsParser.AppPowerStats): Boolean {
+    // Shared/system UIDs are system unless they contain a non-system package.
+    val names = if (app.packages.isNotEmpty()) app.packages else listOf(app.packageName)
+    if (app.packageName.startsWith("Shared UID") || app.packageName.startsWith("uid:")) {
+        return names.any { pkg ->
+            !pkg.startsWith("com.android.") && !pkg.startsWith("android") &&
+                !pkg.startsWith("com.google.android") && pkg != "android"
+        }
+    }
+    return names.none { pkg ->
+        pkg.startsWith("com.android.") || pkg.startsWith("android") ||
+            pkg.startsWith("com.google.android")
+    }
+}
+
 @Composable
 private fun AppStatsCard(rank: Int, app: BatteryStatsParser.AppPowerStats) {
     var expanded by remember { mutableStateOf(false) }
@@ -784,10 +797,17 @@ private fun AppStatsCard(rank: Int, app: BatteryStatsParser.AppPowerStats) {
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        String.format(Locale.getDefault(), "%.2f mAh", app.powerMah),
+                        "UID ${app.uid} • " + String.format(Locale.getDefault(), "%.2f mAh", app.powerMah),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary
                     )
+                    if (app.packages.size > 1) {
+                        Text(
+                            "${app.packages.size} packages share this UID",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
 
                 Icon(
@@ -804,6 +824,17 @@ private fun AppStatsCard(rank: Int, app: BatteryStatsParser.AppPowerStats) {
                 ) {
                     HorizontalDivider()
                     Spacer(Modifier.height(8.dp))
+
+                    if (app.packages.size > 1) {
+                        Text("Packages (shared UID ${app.uid})", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
+                        app.packages.take(20).forEach { pkg ->
+                            Text(pkg, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        if (app.packages.size > 20) {
+                            Text("+ ${app.packages.size - 20} more", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        Spacer(Modifier.height(8.dp))
+                    }
 
                     Text("Power Breakdown", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
                     StatRow("CPU", String.format(Locale.getDefault(), "%.2f mAh", app.cpuPowerMah))

@@ -83,6 +83,9 @@ interface AppEnergyDao {
 
     @Query("DELETE FROM app_energy_stats WHERE bucketStart < :olderThan")
     suspend fun purgeOlderThan(olderThan: Long)
+
+    @Query("DELETE FROM app_energy_stats")
+    suspend fun clearAll()
 }
 
 private fun hourBucketStart(ms: Long): Long {

@@ -8,6 +8,15 @@ import kotlin.math.roundToLong
  */
 object BatteryStatsParser {
 
+    fun displayNameFor(uid: Int, packages: List<String>): String = when {
+        packages.size == 1 -> packages.single()
+        packages.size > 1 -> "Shared UID $uid"
+        else -> "uid:$uid"
+    }
+
+    fun packagesFor(uid: Int, map: Map<Int, Collection<String>>): List<String> =
+        map[uid]?.toList().orEmpty()
+
     data class FullSnapshot(
         val capturedAt: Long = System.currentTimeMillis(),
         val statsSinceCharged: Boolean = true,
@@ -36,6 +45,7 @@ object BatteryStatsParser {
         val uid: Int,
         val packageName: String,
         val powerMah: Double,
+        val packages: List<String> = emptyList(),
         val cpuTimeMs: Long = 0L,
         val cpuPowerMah: Double = 0.0,
         val wakeLockTimeMs: Long = 0L,
@@ -77,6 +87,7 @@ object BatteryStatsParser {
     data class WakelockStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val tag: String,
         val type: WakelockType,
         val count: Int,
@@ -101,6 +112,7 @@ object BatteryStatsParser {
     data class AlarmStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val tag: String,
         val count: Int,
         val wakeups: Int,
@@ -112,6 +124,7 @@ object BatteryStatsParser {
     data class JobStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val jobName: String,
         val count: Int,
         val totalTimeMs: Long,
@@ -122,6 +135,7 @@ object BatteryStatsParser {
     data class SyncStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val authority: String,
         val count: Int,
         val totalTimeMs: Long,
@@ -132,6 +146,7 @@ object BatteryStatsParser {
     data class NetworkStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val mobileRxBytes: Long,
         val mobileTxBytes: Long,
         val wifiRxBytes: Long,
@@ -145,6 +160,7 @@ object BatteryStatsParser {
     data class SensorStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val sensorHandle: Int,
         val sensorName: String,
         val count: Int,
@@ -194,6 +210,7 @@ object BatteryStatsParser {
     data class ProcessStats(
         val uid: Int,
         val packageName: String,
+        val packages: List<String> = emptyList(),
         val processName: String,
         val userTimeMs: Long,
         val systemTimeMs: Long,
@@ -203,7 +220,7 @@ object BatteryStatsParser {
 
     fun parseCheckin(raw: String): FullSnapshot {
         val lines = raw.lineSequence()
-        val uidToPkg = mutableMapOf<Int, String>()
+        val uidToPackages = mutableMapOf<Int, LinkedHashSet<String>>()
         val appStats = mutableMapOf<Int, AppPowerStats>()
         val wakelocks = mutableListOf<WakelockStats>()
         val kernelWakelocks = mutableListOf<KernelWakelockStats>()
@@ -232,19 +249,20 @@ object BatteryStatsParser {
             try {
                 when {
                     // UID mapping: 9,0,i,uid,<uid>,<package>
+                    // One UID may map to many packages (shared UID) — keep them all.
                     parts.getOrNull(2) == "i" && parts.getOrNull(3) == "uid" && parts.size >= 6 -> {
                         val uid = parts[4].toIntOrNull() ?: return@forEach
-                        uidToPkg[uid] = parts[5]
+                        uidToPackages.getOrPut(uid) { linkedSetOf() }.add(parts[5])
                     }
 
                     // Power use item: 9,<uid>,l,pwi,<type>,<mAh>,...
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "pwi" -> {
-                        parsePowerUseItem(parts, uidToPkg, appStats)
+                        parsePowerUseItem(parts, uidToPackages, appStats)
                     }
 
                     // Wakelock: 9,<uid>,l,wl,<name>,<type>,<count>,<time>...
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "wl" -> {
-                        parseWakelock(parts, uidToPkg, wakelocks)
+                        parseWakelock(parts, uidToPackages, wakelocks)
                     }
 
                     // Kernel wakelock: 9,0,l,kwl,<name>,<count>,<time>...
@@ -254,27 +272,27 @@ object BatteryStatsParser {
 
                     // Alarm: 9,<uid>,l,wua,<tag>,<count>,<time>,<wakeups>
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "wua" -> {
-                        parseAlarm(parts, uidToPkg, alarms)
+                        parseAlarm(parts, uidToPackages, alarms)
                     }
 
                     // Job: 9,<uid>,l,jb,<job>,<count>,<time>
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "jb" -> {
-                        parseJob(parts, uidToPkg, jobs)
+                        parseJob(parts, uidToPackages, jobs)
                     }
 
                     // Sync: 9,<uid>,l,sy,<authority>,<count>,<time>
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "sy" -> {
-                        parseSync(parts, uidToPkg, syncs)
+                        parseSync(parts, uidToPackages, syncs)
                     }
 
                     // Network: 9,<uid>,l,nt,<rxB>,<txB>,...
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "nt" -> {
-                        parseNetwork(parts, uidToPkg, network)
+                        parseNetwork(parts, uidToPackages, network)
                     }
 
                     // Sensor: 9,<uid>,l,sr,<handle>,<count>,<time>
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "sr" -> {
-                        parseSensor(parts, uidToPkg, sensors)
+                        parseSensor(parts, uidToPackages, sensors)
                     }
 
                     // Signal strength: 9,0,l,sgt,<time0>,<time1>,<time2>,<time3>,<time4>
@@ -313,7 +331,7 @@ object BatteryStatsParser {
 
                     // Process stats: 9,<uid>,l,pr,<process>,<user>,<sys>,<fg>,<starts>
                     parts.getOrNull(2) == "l" && parts.getOrNull(3) == "pr" -> {
-                        parseProcess(parts, uidToPkg, processStats)
+                        parseProcess(parts, uidToPackages, processStats)
                     }
                 }
             } catch (_: Exception) {
@@ -414,7 +432,7 @@ object BatteryStatsParser {
 
     private fun parsePowerUseItem(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         appStats: MutableMap<Int, AppPowerStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
@@ -422,19 +440,25 @@ object BatteryStatsParser {
         val mah = parts.getOrNull(5)?.toDoubleOrNull() ?: 0.0
 
         if (type == "uid") {
-            val pkg = uidToPkg[uid] ?: "uid:$uid"
-            val existing = appStats[uid] ?: AppPowerStats(uid = uid, packageName = pkg, powerMah = 0.0)
-            appStats[uid] = existing.copy(powerMah = existing.powerMah + mah)
+            val pkgs = packagesFor(uid, uidToPackages)
+            val label = displayNameFor(uid, pkgs)
+            val existing = appStats[uid] ?: AppPowerStats(uid = uid, packageName = label, packages = pkgs, powerMah = 0.0)
+            appStats[uid] = existing.copy(
+                packageName = label,
+                packages = pkgs,
+                powerMah = existing.powerMah + mah
+            )
         }
     }
 
     private fun parseWakelock(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         wakelocks: MutableList<WakelockStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val tag = parts.getOrNull(4) ?: return
 
         val pIndex = parts.indexOfFrom(6) { it == "p" }
@@ -457,7 +481,8 @@ object BatteryStatsParser {
         wakelocks.add(
             WakelockStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 tag = tag,
                 type = WakelockType.PARTIAL,
                 count = partialCount,
@@ -487,11 +512,12 @@ object BatteryStatsParser {
 
     private fun parseAlarm(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         alarms: MutableList<AlarmStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val tag = parts.getOrNull(4) ?: return
         val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
         val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
@@ -500,7 +526,8 @@ object BatteryStatsParser {
         alarms.add(
             AlarmStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 tag = tag,
                 count = count,
                 totalTimeMs = timeMs,
@@ -511,11 +538,12 @@ object BatteryStatsParser {
 
     private fun parseJob(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         jobs: MutableList<JobStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val jobName = parts.getOrNull(4) ?: return
         val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
         val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
@@ -523,7 +551,8 @@ object BatteryStatsParser {
         jobs.add(
             JobStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 jobName = jobName,
                 count = count,
                 totalTimeMs = timeMs
@@ -533,11 +562,12 @@ object BatteryStatsParser {
 
     private fun parseSync(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         syncs: MutableList<SyncStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val authority = parts.getOrNull(4) ?: return
         val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
         val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
@@ -545,7 +575,8 @@ object BatteryStatsParser {
         syncs.add(
             SyncStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 authority = authority,
                 count = count,
                 totalTimeMs = timeMs
@@ -555,11 +586,12 @@ object BatteryStatsParser {
 
     private fun parseNetwork(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         network: MutableList<NetworkStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
 
         val mobileRx = parts.getOrNull(4)?.toLongOrNull() ?: 0L
         val mobileTx = parts.getOrNull(5)?.toLongOrNull() ?: 0L
@@ -571,7 +603,8 @@ object BatteryStatsParser {
         network.add(
             NetworkStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 mobileRxBytes = mobileRx,
                 mobileTxBytes = mobileTx,
                 wifiRxBytes = wifiRx,
@@ -584,11 +617,12 @@ object BatteryStatsParser {
 
     private fun parseSensor(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         sensors: MutableList<SensorStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val handle = parts.getOrNull(4)?.toIntOrNull() ?: return
         val timeMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
         val count = parts.getOrNull(6)?.toIntOrNull() ?: 0
@@ -596,7 +630,8 @@ object BatteryStatsParser {
         sensors.add(
             SensorStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 sensorHandle = handle,
                 sensorName = getSensorName(handle),
                 count = count,
@@ -707,11 +742,12 @@ object BatteryStatsParser {
 
     private fun parseProcess(
         parts: List<String>,
-        uidToPkg: Map<Int, String>,
+        uidToPackages: Map<Int, Collection<String>>,
         processStats: MutableList<ProcessStats>
     ) {
         val uid = parts[1].toIntOrNull() ?: return
-        val pkg = uidToPkg[uid] ?: "uid:$uid"
+        val pkgs = packagesFor(uid, uidToPackages)
+        val label = displayNameFor(uid, pkgs)
         val process = parts.getOrNull(4) ?: return
         val userMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
         val sysMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
@@ -721,7 +757,8 @@ object BatteryStatsParser {
         processStats.add(
             ProcessStats(
                 uid = uid,
-                packageName = pkg,
+                packageName = label,
+                packages = pkgs,
                 processName = process,
                 userTimeMs = userMs,
                 systemTimeMs = sysMs,

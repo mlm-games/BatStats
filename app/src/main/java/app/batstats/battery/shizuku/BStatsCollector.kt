@@ -10,8 +10,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.max
+import java.util.concurrent.atomic.AtomicBoolean
 
 class BstatsCollector(
     private val dao: AppEnergyDao,
@@ -26,7 +26,7 @@ class BstatsCollector(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val running = AtomicBoolean(false)
     private var job: Job? = null
-    private var last: Map<String, Double> = emptyMap()
+    private var last: Map<Int, Double> = emptyMap()
 
     fun isRunning(): Boolean = running.get()
 
@@ -46,12 +46,17 @@ class BstatsCollector(
                     val now = System.currentTimeMillis()
 
                     if (last.isNotEmpty()) {
-                        for ((pkg, cur) in snap.perPackageMah) {
-                            val prev = last[pkg] ?: 0.0
+                        for ((uid, cur) in snap.energyByUid) {
+                            val prev = last[uid] ?: 0.0
                             val delta = max(0.0, cur - prev)
                             if (delta > 0.0001) {
+                                // UID-level attribution: only use package name when unambiguous.
+                                // Shared/missing mappings stay under "uid:<uid>" so one package
+                                // never absorbs a whole shared UID (issue #36).
+                                val pkgs = snap.packagesByUid[uid].orEmpty()
+                                val key = pkgs.singleOrNull() ?: "uid:$uid"
                                 dao.incrementHour(
-                                    packageName = pkg,
+                                    packageName = key,
                                     atMillis = now,
                                     deltaMah = delta,
                                     addSamples = 1,
@@ -60,7 +65,7 @@ class BstatsCollector(
                             }
                         }
                     }
-                    last = snap.perPackageMah
+                    last = snap.energyByUid
                 } catch (e: Exception) {
                     Log.e(TAG, "Error in polling loop", e)
                 }

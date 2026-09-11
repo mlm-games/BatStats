@@ -750,18 +750,12 @@ private enum class AppSortOption(val label: String) {
 }
 
 private fun isUserApp(app: BatteryStatsParser.AppPowerStats): Boolean {
-    // Shared/system UIDs are system unless they contain a non-system package.
     val names = if (app.packages.isNotEmpty()) app.packages else listOf(app.packageName)
-    if (app.packageName.startsWith("Shared UID") || app.packageName.startsWith("uid:")) {
-        return names.any { pkg ->
-            !pkg.startsWith("com.android.") && !pkg.startsWith("android") &&
-                !pkg.startsWith("com.google.android") && pkg != "android"
-        }
+
+    if (names.isEmpty() || app.packageName.startsWith("uid:")) {
+        return BatteryStatsParser.isUserApp(app.uid, names)
     }
-    return names.none { pkg ->
-        pkg.startsWith("com.android.") || pkg.startsWith("android") ||
-            pkg.startsWith("com.google.android")
-    }
+    return BatteryStatsParser.isUserApp(app.uid, names)
 }
 
 @Composable

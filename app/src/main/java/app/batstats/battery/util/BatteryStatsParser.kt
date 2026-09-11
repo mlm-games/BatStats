@@ -8,10 +8,30 @@ import kotlin.math.roundToLong
  */
 object BatteryStatsParser {
 
+    const val PER_USER_RANGE = 100_000
+    const val FIRST_APPLICATION_UID = 10_000
+    const val SYSTEM_UID = 1000
+
+    fun appId(uid: Int): Int = uid % PER_USER_RANGE
+
+    fun isSystemUid(uid: Int): Boolean = appId(uid) < FIRST_APPLICATION_UID
+
     fun displayNameFor(uid: Int, packages: List<String>): String = when {
+        appId(uid) == SYSTEM_UID -> "System"
         packages.size == 1 -> packages.single()
         packages.size > 1 -> "Shared UID $uid"
         else -> "uid:$uid"
+    }
+
+    fun isUserApp(uid: Int, packages: List<String>): Boolean {
+        if (isSystemUid(uid)) return false
+        val names = if (packages.isNotEmpty()) packages else emptyList()
+        if (names.isEmpty()) return true
+        return names.none {
+            it == "android" ||
+                it.startsWith("com.android.") ||
+                it.startsWith("com.google.android")
+        }
     }
 
     fun packagesFor(uid: Int, map: Map<Int, Collection<String>>): List<String> =

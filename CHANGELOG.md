@@ -1,3 +1,10 @@
+## v6.2.5
+
+- Cleanup old data and show Shared UIDs as System
+- chore(deps): bump the gradle-dependencies group with 5 updates
+- Map process by UIDs now, for the stats
+
+
 ## v6.2.4
 
 - chore(deps): bump com.android.application

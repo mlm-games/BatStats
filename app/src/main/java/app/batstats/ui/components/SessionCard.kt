@@ -27,8 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.batstats.R
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import java.time.Instant
@@ -108,8 +110,8 @@ fun SessionCard(
                     Column {
                         Text(
                             text = when (session.type) {
-                                SessionType.CHARGE -> "Charging Session"
-                                SessionType.DISCHARGE -> "Discharge Session"
+                                SessionType.CHARGE -> stringResource(R.string.charging_session)
+                                SessionType.DISCHARGE -> stringResource(R.string.discharge_session)
                             },
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Medium
@@ -128,7 +130,7 @@ fun SessionCard(
                             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
                         ) {
                             Text(
-                                text = "ACTIVE",
+                                text = stringResource(R.string.session_state_active),
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.primary,
@@ -167,7 +169,7 @@ fun SessionCard(
                     session.estCapacityMah?.let {
                         StatChip(
                             icon = Icons.Default.Battery0Bar,
-                            text = "~${it} mAh"
+                            text = stringResource(R.string.mah_approx, it.toString())
                         )
                     }
 
@@ -175,7 +177,7 @@ fun SessionCard(
                         val maAbs = kotlin.math.abs(it / 1000)
                         StatChip(
                             icon = Icons.Default.ElectricBolt,
-                            text = "$maAbs mA avg"
+                            text = stringResource(R.string.average_current_ma, maAbs.toString())
                         )
                     }
                 }
@@ -196,7 +198,7 @@ private fun BatteryLevelChip(level: Int) {
         }
     ) {
         Text(
-            text = "$level%",
+            text = stringResource(R.string.battery_percent, level),
             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Medium

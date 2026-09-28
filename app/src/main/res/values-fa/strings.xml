@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">بازگشت</string>
+    <string name="cancel">لغو</string>
+    <string name="dismiss">بستن</string>
+    <string name="refresh">به‌روزرسانی</string>
+    <string name="copy">رونوشت</string>
+    <string name="copy_all">رونوشت همه</string>
+    <string name="app_info">اطلاعات برنامه</string>
+    <string name="unknown">نامشخص</string>
+    <string name="battery_icon_description">نمادک باتری</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="on">روشن</string>
+    <string name="off">خاموش</string>
+    <string name="live">زنده</string>
+    <string name="min">کمینه</string>
+    <string name="max">بیشینه</string>
+    <string name="time">زمان</string>
+    <string name="total">مجموع</string>
+    <string name="mobile">موبایل</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">تعداد</string>
+    <string name="active">فعال</string>
+    <string name="idle">بی‌کار</string>
+    <string name="awake">بیدار</string>
+    <string name="duration">مدت</string>
+    <string name="total_time">زمان کل</string>
+    <string name="network">شبکه</string>
+    <string name="bluetooth">بلوتوث</string>
+    <string name="start">شروع</string>
+    <string name="stop">توقف</string>
+    <string name="end">پایان</string>
+    <string name="pause">مکث</string>
+    <string name="reset">بازنشانی</string>
+    <string name="updated">به‌روزرسانی‌شده در %1$s</string>
+    <string name="theme">پوسته</string>
+    <string name="dynamic_colors">رنگ‌های پویا</string>
+    <string name="temperature_unit">واحد دما</string>
+    <string name="alarms">هشدارها</string>
+    <string name="history">تاریخچه</string>
+    <string name="settings">تنظیمات</string>
+    <string name="data">داده‌ها</string>
+    <string name="detailed_stats">آمار تفصیلی</string>
+    <string name="drain_statistics">آمار مصرف</string>
+    <string name="session_details">جزئیات نشست</string>
+    <string name="summary">خلاصه</string>
+    <string name="monitoring">پایش</string>
+    <string name="monitoring_ready">پایش آماده است</string>
+    <string name="start_monitoring">شروع پایش</string>
+    <string name="monitoring_battery">در حال پایش باتری</string>
+    <string name="tap_to_start">برای شروع پایش باتری ضربه بزنید</string>
+    <string name="running_foreground">در حال اجرا (پیش‌زمینه)</string>
+    <string name="stopped">متوقف</string>
+    <string name="charge">شارژ</string>
+    <string name="discharge">تخلیه</string>
+    <string name="charging">در حال شارژ</string>
+    <string name="discharging">در حال تخلیه</string>
+    <string name="full">پر</string>
+    <string name="battery_state_charging">در حال شارژ %1$d%%</string>
+    <string name="battery_state_discharging">در حال تخلیه %1$d%%</string>
+    <string name="battery_at_percent">باتری %1$d%% — بهتر است شارژر را جدا کنید.</string>
+    <string name="charge_limit_reached">به حد شارژ رسید</string>
+    <string name="temperature_high">%1$d °C — بگذارید دستگاه خنک شود.</string>
+    <string name="heavy_drain">%1$d mA — مصرف زیاد تشخیص داده شد.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">وضعیت</string>
+    <string name="health_good">خوب</string>
+    <string name="health_overheat">داغ‌شدگی</string>
+    <string name="health_dead">معیوب</string>
+    <string name="health_over_voltage">اضافه‌ولتاژ</string>
+    <string name="health_failed">ناموفق</string>
+    <string name="health_cold">سرد</string>
+    <string name="design">نامی</string>
+    <string name="capacity">ظرفیت</string>
+    <string name="cycle_count">تعداد چرخه</string>
+    <string name="current">جریان</string>
+    <string name="temperature">دما</string>
+    <string name="voltage">ولتاژ</string>
+    <string name="power">توان</string>
+    <string name="power_usage">مصرف انرژی</string>
+    <string name="cpu">پردازنده</string>
+    <string name="camera">دوربین</string>
+    <string name="mobile_radio">رادیوی موبایل</string>
+    <string name="wakelock">قفل بیداری</string>
+    <string name="uid_and_power">شناسه %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% از زمان کار با باتری</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">مصرف/ساعت (نمایش روشن)</string>
+    <string name="drain_hour_screen_off">مصرف/ساعت (نمایش خاموش)</string>
+    <string name="technology">فناوری</string>
+    <string name="health_status">وضعیت سلامت</string>
+    <string name="status">وضعیت</string>
+    <string name="current_kernel">جریان (هسته)</string>
+    <string name="voltage_kernel">ولتاژ (هسته)</string>
+    <string name="time_to_empty">زمان تا تخلیه</string>
+    <string name="time_to_full">زمان تا شارژ کامل</string>
+    <string name="current_mv">جریان (mA)</string>
+    <string name="voltage_mv">ولتاژ (mV)</string>
+    <string name="temperature_c">دما (°C)</string>
+    <string name="current_recent">جریان (۱۵ دقیقهٔ اخیر)</string>
+    <string name="sessions">نشست‌ها</string>
+    <string name="samples">نمونه‌ها</string>
+    <string name="session_tracking">پیگیری نشست</string>
+    <string name="session_active">نشست %1$s فعال است • آغازشده %2$s</string>
+    <string name="charging_session">نشست شارژ</string>
+    <string name="discharge_session">نشست تخلیه</string>
+    <string name="session_state_active">فعال</string>
+    <string name="session_state_ended">فعال</string>
+    <string name="search_session_id">جست‌وجو بر اساس شناسهٔ نشست…</string>
+    <string name="sort_by">مرتب‌سازی: %1$s</string>
+    <string name="sort_power">مصرف انرژی</string>
+    <string name="sort_cpu_time">زمان پردازنده</string>
+    <string name="sort_wakelock">قفل بیداری</string>
+    <string name="sort_network">شبکه</string>
+    <string name="sort_foreground">پیش‌زمینه</string>
+    <string name="start_time">شروع: %1$s</string>
+    <string name="end_time">پایان: %1$s</string>
+    <string name="no_sessions_yet">هنوز نشستی نیست</string>
+    <string name="no_sessions_yet_desc">برای دیدن تاریخچه اینجا، یک نشست شروع کنید یا پایش را آغاز کنید.</string>
+    <string name="no_data_points">هنوز هیچ نقطهٔ داده‌ای ثبت نشده است.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">~%1$s mA میانگین</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s ساعت</string>
+    <string name="data_export_import">برون‌ریزی/درون‌ریزی داده‌ها</string>
+    <string name="date_range">بازهٔ زمانی</string>
+    <string name="export">برون‌ریزی</string>
+    <string name="export_json">برون‌ریزی JSON</string>
+    <string name="export_csv_folder">برون‌ریزی CSV (پوشه)</string>
+    <string name="import_string">درون‌ریزی</string>
+    <string name="import_json">درون‌ریزی JSON</string>
+    <string name="import_csv">درون‌ریزی CSV</string>
+    <string name="csv_import_hint">درون‌ریزی CSV: فایل battery_samples.csv یا charge_sessions.csv را باز کنید</string>
+    <string name="from_beginning">از: ابتدا</string>
+    <string name="from_date">از: %1$s</string>
+    <string name="to_date">تا: %1$s</string>
+    <string name="all">همه</string>
+    <string name="last_7_days">۷ روز گذشته</string>
+    <string name="last_30_days">۳۰ روز گذشته</string>
+    <string name="export_battery_data">برون‌ریزی داده‌های باتری</string>
+    <string name="export_battery_data_desc">برون‌ریزی تاریخچهٔ باتری در یک پرونده</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">رفتار برنامه را سفارشی کنید</string>
+    <string name="category_general">عمومی</string>
+    <string name="category_notifications">اعلان‌ها</string>
+    <string name="category_display">نمایش</string>
+    <string name="category_data">داده‌ها و برون‌ریزی</string>
+    <string name="reset_settings">بازنشانی تنظیمات</string>
+    <string name="reset_ui">بازنشانی رابط کاربری</string>
+    <string name="reset_all">بازنشانی همه</string>
+    <string name="import_settings">درون‌ریزی تنظیمات</string>
+    <string name="paste_json">JSON تنظیمات برون‌ریزی‌شده را بچسبانید:</string>
+    <string name="paste_json_hint">JSON را اینجا بچسبانید…</string>
+    <string name="import_failed">درون‌ریزی ناموفق بود</string>
+    <string name="data_cleared">همهٔ داده‌ها پاک شد</string>
+    <string name="import_action">درون‌ریزی</string>
+    <string name="clear_all_data">همهٔ داده‌ها پاک شوند؟</string>
+    <string name="clear_data_warning">این کار تمام تاریخچهٔ باتری، نشست‌ها و آمار را برای همیشه حذف می‌کند و قابل بازگشت نیست.</string>
+    <string name="delete_all">حذف همه</string>
+    <string name="clear_all_data_action">پاک کردن همهٔ داده‌ها</string>
+    <string name="clear_all_data_action_desc">حذف همهٔ داده‌های ذخیره‌شدهٔ باتری</string>
+    <string name="export_settings">برون‌ریزی تنظیمات</string>
+    <string name="import_settings_desc">درون‌ریزی تنظیمات</string>
+    <string name="reset_settings_desc">بازنشانی تنظیمات</string>
+    <string name="choose_reset">انتخاب کنید چه چیزی بازنشانی شود:</string>
+    <string name="reset_ui_settings">بازنشانی تنظیمات رابط: فقط تنظیمات قابل‌مشاهده بازنشانی می‌شوند</string>
+    <string name="reset_all_settings">بازنشانی همه: همه‌چیز بازنشانی می‌شود</string>
+    <string name="ui_settings_reset">تنظیمات رابط بازنشانی شد</string>
+    <string name="all_settings_reset">همهٔ تنظیمات بازنشانی شد</string>
+    <string name="auto_start_monitoring">شروع خودکار پایش</string>
+    <string name="monitoring_interval">بازهٔ پایش</string>
+    <string name="show_persistent_notification">نمایش اعلان ماندگار</string>
+    <string name="show_drain_notification">نمایش اعلان مصرف</string>
+    <string name="show_drain_notification_desc">نمایش آمار تفصیلی مصرف در اعلان (نیازمند Shizuku، Root یا ADB)</string>
+    <string name="notification_style">سبک اعلان</string>
+    <string name="track_foreground_apps">ردیابی برنامه‌های پیش‌زمینه</string>
+    <string name="detailed_stats_interval">بازهٔ آمار تفصیلی</string>
+    <string name="detailed_stats_interval_desc">دفعات جمع‌آوری آمار تفصیلی باتری از طریق Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">هشدار باتری کم</string>
+    <string name="low_battery_threshold">آستانهٔ باتری کم</string>
+    <string name="high_battery_alert">هشدار باتری زیاد</string>
+    <string name="high_battery_alert_desc">اعلام هنگام رسیدن شارژ به آستانه</string>
+    <string name="high_battery_threshold">آستانهٔ باتری زیاد</string>
+    <string name="temperature_warning">هشدار دما</string>
+    <string name="temperature_threshold">آستانهٔ دما</string>
+    <string name="temperature_threshold_desc">دمای هشدار بر حسب سانتی‌گراد</string>
+    <string name="high_discharge_alert">هشدار تخلیهٔ زیاد</string>
+    <string name="discharge_threshold">آستانهٔ تخلیه</string>
+    <string name="discharge_threshold_desc">هنگامی هشدار بده که تخلیه از این مقدار بیشتر شود (mA)</string>
+    <string name="charging_complete_alert">هشدار تکمیل شارژ</string>
+    <string name="alert_sound">صدای هشدار</string>
+    <string name="alert_vibration">لرزش هشدار</string>
+    <string name="high_temperature">هشدار دمای بالا</string>
+    <string name="high_discharge">تخلیهٔ زیاد</string>
+    <string name="chart_time_range">بازهٔ زمانی نمودار</string>
+    <string name="show_current_ma">نمایش جریان بر حسب mA</string>
+    <string name="compact_stats_view">نمای فشردهٔ آمار</string>
+    <string name="pure_black_oled">سیاهی کامل (OLED)</string>
+    <string name="data_retention">نگهداری داده‌ها</string>
+    <string name="auto_cleanup">پاک‌سازی خودکار داده‌های قدیمی</string>
+    <string name="export_format">قالب برون‌ریزی</string>
+    <string name="include_raw_samples">شامل نمونه‌های خام</string>
+    <string name="screen_on">نمایش روشن</string>
+    <string name="screen_off">نمایش خاموش</string>
+    <string name="mobile_signal">سیگنال موبایل</string>
+    <string name="wifi_signal">سیگنال Wi-Fi</string>
+    <string name="no_signal_data">دادهٔ سیگنال در دسترس نیست</string>
+    <string name="signal_quality">کیفیت سیگنال</string>
+    <string name="signal_none">بدون سیگنال</string>
+    <string name="signal_poor">ضعیف</string>
+    <string name="signal_moderate">متوسط</string>
+    <string name="signal_good">خوب</string>
+    <string name="signal_great">عالی</string>
+    <string name="signal_level">سطح %1$d</string>
+    <string name="mobile_rx">دریافت موبایل</string>
+    <string name="mobile_tx">ارسال موبایل</string>
+    <string name="wifi_rx">دریافت Wi-Fi</string>
+    <string name="wifi_tx">ارسال Wi-Fi</string>
+    <string name="no_network_data">دادهٔ شبکه در دسترس نیست</string>
+    <string name="kernel_count">هسته (%1$d)</string>
+    <string name="wakelocks">قفل‌های بیداری</string>
+    <string name="kernel_wakelocks">قفل‌های بیداری هسته (بومی)</string>
+    <string name="no_app_wakelocks">قفل بیداری برنامه‌ای یافت نشد</string>
+    <string name="no_kernel_wakelocks">قفل بیداری هسته یافت نشد</string>
+    <string name="could_not_read_wakelocks">خواندن قفل‌های بیداری هسته ممکن نشد.</string>
+    <string name="count_active">تعداد: %1$d | فعال: %2$d</string>
+    <string name="doze_statistics">آمار Doze</string>
+    <string name="doze_whitelist">فهرست مجاز Doze</string>
+    <string name="no_whitelist">دادهٔ فهرست مجاز در دسترس نیست</string>
+    <string name="no_doze_data">دادهٔ Doze در دسترس نیست</string>
+    <string name="deep_doze_time">زمان در Doze عمیق</string>
+    <string name="deep_doze_count">تعداد Doze عمیق</string>
+    <string name="light_doze_time">زمان در Doze سبک</string>
+    <string name="light_doze_count">تعداد Doze سبک</string>
+    <string name="maintenance_windows">پنجره‌های نگهداری</string>
+    <string name="maintenance_time">زمان نگهداری</string>
+    <string name="current_state">وضعیت کنونی</string>
+    <string name="doze_state">وضعیت Doze</string>
+    <string name="light_state">وضعیت Doze سبک</string>
+    <string name="deep_doze_enabled">Doze عمیق فعال است</string>
+    <string name="light_doze_enabled">Doze سبک فعال است</string>
+    <string name="screen">نمایشگر</string>
+    <string name="battery_level_label">سطح باتری</string>
+    <string name="battery_status">وضعیت باتری</string>
+    <string name="low_power_mode">حالت کم‌مصرف</string>
+    <string name="device_idle_mode">حالت بی‌کاری دستگاه</string>
+    <string name="no_state_data">دادهٔ وضعیت در دسترس نیست</string>
+    <string name="whitelisted_apps">برنامه‌های فهرست مجاز: %1$d</string>
+    <string name="temporarily_whitelisted">موقتاً در فهرست مجاز: %1$d</string>
+    <string name="suspend_blockers">مسدودکننده‌های تعلیق</string>
+    <string name="no_suspend_blockers">مسدودکنندهٔ تعلیق فعالی وجود ندارد</string>
+    <string name="no_bluetooth_data">دادهٔ بلوتوث در دسترس نیست</string>
+    <string name="idle_time">زمان بی‌کاری</string>
+    <string name="rx_time">زمان دریافت</string>
+    <string name="tx_time">زمان ارسال</string>
+    <string name="scan_time">زمان اسکن</string>
+    <string name="system_apps">برنامه‌های سیستمی</string>
+    <string name="no_apps_found">برنامه‌ای یافت نشد</string>
+    <string name="packages_shared_uid">بسته‌ها (شناسهٔ مشترک %1$d)</string>
+    <string name="process_statistics">آمار فرایندها</string>
+    <string name="no_process_data">دادهٔ فرایند در دسترس نیست</string>
+    <string name="apps_tracked">برنامه‌های ردیابی‌شده</string>
+    <string name="power_breakdown">جزئیات مصرف انرژی</string>
+    <string name="time_usage">جزئیات زمان</string>
+    <string name="cpu_time">زمان پردازنده</string>
+    <string name="wakelock_time">زمان قفل بیداری</string>
+    <string name="foreground">پیش‌زمینه</string>
+    <string name="foreground_service">سرویس پیش‌زمینه</string>
+    <string name="top">پیش‌زمینه</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">حسگرها</string>
+    <string name="sensor_usage">مصرف حسگرها</string>
+    <string name="no_sensor_data">دادهٔ حسگر در دسترس نیست</string>
+    <string name="no_alarm_data">دادهٔ هشدار در دسترس نیست</string>
+    <string name="no_job_data">دادهٔ کار در دسترس نیست</string>
+    <string name="no_sync_data">دادهٔ همگام‌سازی در دسترس نیست</string>
+    <string name="wakeups">بیدار شدن‌ها</string>
+    <string name="screen_time_analysis">تحلیل زمان نمایشگر</string>
+    <string name="screen_time_breakdown">جزئیات زمان نمایشگر</string>
+    <string name="time_on_battery">زمان کار با باتری</string>
+    <string name="screen_on_time">زمان روشن بودن نمایشگر</string>
+    <string name="estimated_capacity">ظرفیت تخمینی</string>
+    <string name="discharge_breakdown">جزئیات تخلیه</string>
+    <string name="deep_sleep_share">از زمان خاموش بودن نمایشگر در خواب عمیق</string>
+    <string name="tracking_active">ردیابی فعال</string>
+    <string name="tracking_paused">ردیابی مکث شده</string>
+    <string name="reset_session">بازنشانی نشست</string>
+    <string name="drain_rates">نرخ‌های مصرف</string>
+    <string name="deep_sleep">خواب عمیق</string>
+    <string name="dozing">خواب سطحی</string>
+    <string name="drain_rate">نرخ مصرف</string>
+    <string name="total_drain">مصرف کل</string>
+    <string name="activity_breakdown">جزئیات بر اساس فعالیت</string>
+    <string name="session_summary">خلاصهٔ نشست</string>
+    <string name="avg_rate">نرخ میانگین</string>
+    <string name="drain_history">تاریخچهٔ مصرف</string>
+    <string name="collecting_data">در حال جمع‌آوری داده…</string>
+    <string name="session_duration">نشست: %1$s</string>
+    <string name="total_drain_value">مصرف کل: %1$s</string>
+    <string name="drain_notification_channel_desc">آمار مصرف باتری را به‌صورت بلادرنگ نشان می‌دهد</string>
+    <string name="drain_state_charging">⚡ در حال شارژ</string>
+    <string name="drain_state_deep_sleep">😴 خواب عمیق</string>
+    <string name="drain_state_dozing">💤 خواب سطحی</string>
+    <string name="drain_state_screen_on">📱 نمایشگر روشن</string>
+    <string name="drain_state_screen_off">🌙 نمایشگر خاموش</string>
+    <string name="drain_rates_section">━━━ نرخ‌های مصرف ━━━</string>
+    <string name="activity_section">━━━ فعالیت ━━━</string>
+    <string name="session_section">━━━ نشست ━━━</string>
+    <string name="drain_on_off_sleep">روشن: %1$s • خاموش: %2$s • خواب: %3$s</string>
+    <string name="drain_screen_on_line">📱 نمایشگر روشن: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 نمایشگر خاموش: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 خواب عمیق: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ بیدار: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 فعال: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 بی‌کار: %1$s (%2$s)</string>
+    <string name="drain_total_line">مجموع: %1$s در %2$s</string>
+    <string name="drain_average_line">میانگین: %1$s</string>
+    <string name="tab_overview">نمای کلی</string>
+    <string name="tab_apps">برنامه‌ها</string>
+    <string name="tab_wakelocks">قفل‌های بیداری</string>
+    <string name="tab_network">شبکه</string>
+    <string name="tab_system">سامانه</string>
+    <string name="tab_alarms">هشدارها</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • از طریق %1$s</string>
+    <string name="reset_stats">بازنشانی آمار</string>
+    <string name="stats_reset_success">آمار بازنشانی شد</string>
+    <string name="stats_reset_failed">بازنشانی آمار ناموفق بود</string>
+    <string name="no_data_available">داده‌ای در دسترس نیست</string>
+    <string name="advanced_stats_required">آمار پیشرفته لازم است</string>
+    <string name="advanced_stats_desc">آمار تفصیلی به یکی از این‌ها نیاز دارد: Shizuku، Root یا مجوزهای اعطاشده از طریق ADB (دائمی، بدون سرویس).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku در حال اجرا نیست. ابتدا برنامهٔ Shizuku (و سرویس آن) را اجرا کنید، سپس بررسی دوباره را بزنید.</string>
+    <string name="shizuku_denied">Shizuku این برنامه را رد کرد. Shizuku را باز کنید و BatStats را دوباره در «برنامه‌های مجاز» مجاز کنید.</string>
+    <string name="shizuku_running">Shizuku در حال اجرا است — درخواست Shizuku را بزنید و درخواست را تأیید کنید.</string>
+    <string name="request_shizuku">درخواست Shizuku</string>
+    <string name="recheck">بررسی دوباره</string>
+    <string name="troubleshooting">عیب‌یابی</string>
+    <string name="troubleshoot_1">– گزینه‌های توسعه‌دهنده و اشکال‌زدایی USB را فعال کنید.</string>
+    <string name="troubleshoot_2">– در Xiaomi/MIUI/HyperOS/OnePlus: اشکال‌زدایی USB (تنظیمات امنیتی) را نیز فعال کنید یا پایش مجوزها را غیرفعال کرده و سپس دستگاه را راه‌اندازی مجدد کنید.</string>
+    <string name="troubleshoot_3">– اجرا کنید: adb devices، درخواست را تأیید کنید، فرمان‌های اعطای مجوز را اجرا کنید، سپس BatStats را به‌زور متوقف یا دستگاه را راه‌اندازی مجدد کنید.</string>
+    <string name="troubleshoot_4">– اعطای مجوز با پیام «Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?» ناموفق است. تنظیمات امنیتی بالا را فعال کنید.</string>
+    <string name="troubleshoot_5">– مجوزها تا زمان حذف برنامه باقی می‌مانند. جایگزین: استفاده از pm grant از طریق root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">یک بار از طریق ADB اجرا کنید؛ مجوزها تا زمان حذف برنامه در راه‌اندازی مجددها و به‌روزرسانی‌ها باقی می‌مانند. نیازی به اجرای Shizuku نیست.</string>
+    <string name="root_only">قابلیت‌های فقط Root:</string>
+    <string name="root_access_required">دسترسی Root لازم است</string>
+    <string name="root_access_desc">این آمار برای خواندن اطلاعات باتری در سطح هسته، از جمله تعداد چرخه، ظرفیت واقعی، قفل‌های بیداری هسته و داده‌های حرارتی، به دسترسی Root نیاز دارد.</string>
+    <string name="root_feature_cycles">تعداد چرخه‌های باتری</string>
+    <string name="root_feature_capacity">ظرفیت واقعی (نامی در برابر کنونی)</string>
+    <string name="root_feature_health">درصد فرسودگی و سلامت باتری</string>
+    <string name="root_feature_wakelocks">قفل‌های بیداری هسته (بومی)</string>
+    <string name="root_feature_cpu">حالت‌های فرکانس پردازنده</string>
+    <string name="root_feature_thermal">پایش ناحیه‌های حرارتی</string>
+    <string name="root_feature_sysfs">دسترسی مستقیم به sysfs</string>
+    <string name="battery_health_kernel">سلامت باتری (هسته)</string>
+    <string name="no_battery_info">خواندن اطلاعات باتری از /sys ممکن نشد</string>
+    <string name="cycles_value">%1$d چرخه</string>
+    <string name="cpu_frequency">فرکانس پردازنده</string>
+    <string name="no_cpu_info">خواندن اطلاعات پردازنده ممکن نشد</string>
+    <string name="cluster_n">خوشهٔ %1$d</string>
+    <string name="time_in_state">زمان در هر حالت</string>
+    <string name="thermal_zones">ناحیه‌های حرارتی</string>
+    <string name="no_thermal_data">خواندن ناحیه‌های حرارتی ممکن نشد</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d مورد دیگر</item>
+        <item quantity="other">+ %1$d مورد دیگر</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">... و %1$d مورد دیگر</item>
+        <item quantity="other">... و %1$d مورد دیگر</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d قفل بیداری فعال</item>
+        <item quantity="other">%1$d قفل بیداری فعال</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">قفل بیداری برنامه (%1$d)</item>
+        <item quantity="other">قفل‌های بیداری برنامه‌ها (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">هشدار (%1$d)</item>
+        <item quantity="other">هشدار (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">کار (%1$d)</item>
+        <item quantity="other">کار (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">همگام‌سازی (%1$d)</item>
+        <item quantity="other">همگام‌سازی (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">مهم‌ترین قفل بیداری بر اساس زمان: %1$d</item>
+        <item quantity="other">مهم‌ترین %1$d قفل بیداری بر اساس زمان</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d بسته این شناسه را به اشتراک می‌گذارد</item>
+        <item quantity="other">%1$d بسته این شناسه را به اشتراک می‌گذارند</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">%1$d تنظیم درون‌ریزی شد</item>
+        <item quantity="other">%1$d تنظیم درون‌ریزی شد</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>۵ ثانیه</item>
+        <item>۱۰ ثانیه</item>
+        <item>۳۰ ثانیه</item>
+        <item>۱ دقیقه</item>
+        <item>۵ دقیقه</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>ساده</item>
+        <item>فشرده</item>
+        <item>تفصیلی</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>۱ دقیقه</item>
+        <item>۵ دقیقه</item>
+        <item>۱۵ دقیقه</item>
+        <item>۳۰ دقیقه</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>مطابق سیستم</item>
+        <item>روشن</item>
+        <item>تیره</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>۱۵ دقیقه</item>
+        <item>۱ ساعت</item>
+        <item>۶ ساعت</item>
+        <item>۲۴ ساعت</item>
+        <item>۷ روز</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>سانتی‌گراد</item>
+        <item>فارنهایت</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>۱ هفته</item>
+        <item>۱ ماه</item>
+        <item>۳ ماه</item>
+        <item>۶ ماه</item>
+        <item>۱ سال</item>
+        <item>برای همیشه</item>
+    </string-array>
+</resources>
+    

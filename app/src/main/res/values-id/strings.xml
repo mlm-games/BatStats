@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Kembali</string>
+    <string name="cancel">Batal</string>
+    <string name="dismiss">Tutup</string>
+    <string name="refresh">Segarkan</string>
+    <string name="copy">Salin</string>
+    <string name="copy_all">Salin semua</string>
+    <string name="app_info">Info aplikasi</string>
+    <string name="unknown">Tidak diketahui</string>
+    <string name="battery_icon_description">Ikon baterai</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="on">Aktif</string>
+    <string name="off">Nonaktif</string>
+    <string name="live">Langsung</string>
+    <string name="min">Min</string>
+    <string name="max">Maks</string>
+    <string name="time">Waktu</string>
+    <string name="total">Total</string>
+    <string name="mobile">Seluler</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">Jumlah</string>
+    <string name="active">Aktif</string>
+    <string name="idle">Menganggur</string>
+    <string name="awake">Terbangun</string>
+    <string name="duration">Durasi</string>
+    <string name="total_time">Total waktu</string>
+    <string name="network">Jaringan</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Mulai</string>
+    <string name="stop">Berhenti</string>
+    <string name="end">Selesai</string>
+    <string name="pause">Jeda</string>
+    <string name="reset">Atur ulang</string>
+    <string name="updated">Diperbarui %1$s</string>
+    <string name="theme">Tema</string>
+    <string name="dynamic_colors">Warna dinamis</string>
+    <string name="temperature_unit">Satuan suhu</string>
+    <string name="alarms">Alarm</string>
+    <string name="history">Riwayat</string>
+    <string name="settings">Pengaturan</string>
+    <string name="data">Data</string>
+    <string name="detailed_stats">Statistik terperinci</string>
+    <string name="drain_statistics">Statistik konsumsi</string>
+    <string name="session_details">Detail sesi</string>
+    <string name="summary">Ringkasan</string>
+    <string name="monitoring">Pemantauan</string>
+    <string name="monitoring_ready">Pemantauan siap</string>
+    <string name="start_monitoring">Mulai pemantauan</string>
+    <string name="monitoring_battery">Memantau baterai</string>
+    <string name="tap_to_start">Ketuk untuk mulai memantau baterai</string>
+    <string name="running_foreground">Berjalan (latar depan)</string>
+    <string name="stopped">Dihentikan</string>
+    <string name="charge">Pengisian</string>
+    <string name="discharge">Pengosongan</string>
+    <string name="charging">Mengisi daya</string>
+    <string name="discharging">Mengosongkan daya</string>
+    <string name="full">Penuh</string>
+    <string name="battery_state_charging">Mengisi daya %1$d%%</string>
+    <string name="battery_state_discharging">Mengosongkan daya %1$d%%</string>
+    <string name="battery_at_percent">Baterai %1$d%% — pertimbangkan untuk melepas charger.</string>
+    <string name="charge_limit_reached">Batas pengisian tercapai</string>
+    <string name="temperature_high">%1$d °C — biarkan perangkat mendingin.</string>
+    <string name="heavy_drain">%1$d mA — konsumsi tinggi terdeteksi.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Kondisi</string>
+    <string name="health_good">Baik</string>
+    <string name="health_overheat">Panas berlebih</string>
+    <string name="health_dead">Rusak</string>
+    <string name="health_over_voltage">Overvoltase</string>
+    <string name="health_failed">Gagal</string>
+    <string name="health_cold">Dingin</string>
+    <string name="design">Nominal</string>
+    <string name="capacity">Kapasitas</string>
+    <string name="cycle_count">Jumlah siklus</string>
+    <string name="current">Arus</string>
+    <string name="temperature">Suhu</string>
+    <string name="voltage">Tegangan</string>
+    <string name="power">Daya</string>
+    <string name="power_usage">Konsumsi daya</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Kamera</string>
+    <string name="mobile_radio">Radio seluler</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% dari waktu baterai</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Konsumsi/jam (layar menyala)</string>
+    <string name="drain_hour_screen_off">Konsumsi/jam (layar mati)</string>
+    <string name="technology">Teknologi</string>
+    <string name="health_status">Status kesehatan</string>
+    <string name="status">Status</string>
+    <string name="current_kernel">Arus (kernel)</string>
+    <string name="voltage_kernel">Tegangan (kernel)</string>
+    <string name="time_to_empty">Waktu hingga habis</string>
+    <string name="time_to_full">Waktu hingga penuh</string>
+    <string name="current_mv">Arus (mA)</string>
+    <string name="voltage_mv">Tegangan (mV)</string>
+    <string name="temperature_c">Suhu (°C)</string>
+    <string name="current_recent">Arus (15 menit terakhir)</string>
+    <string name="sessions">Sesi</string>
+    <string name="samples">Sampel</string>
+    <string name="session_tracking">Pelacakan sesi</string>
+    <string name="session_active">Sesi %1$s aktif • dimulai %2$s</string>
+    <string name="charging_session">Sesi pengisian</string>
+    <string name="discharge_session">Sesi pengosongan</string>
+    <string name="session_state_active">AKTIF</string>
+    <string name="session_state_ended">Aktif</string>
+    <string name="search_session_id">Cari berdasarkan ID sesi…</string>
+    <string name="sort_by">Urutkan: %1$s</string>
+    <string name="sort_power">Konsumsi daya</string>
+    <string name="sort_cpu_time">Waktu CPU</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Jaringan</string>
+    <string name="sort_foreground">Latar depan</string>
+    <string name="start_time">Mulai: %1$s</string>
+    <string name="end_time">Selesai: %1$s</string>
+    <string name="no_sessions_yet">Belum ada sesi</string>
+    <string name="no_sessions_yet_desc">Mulai sesi atau mulai pemantauan untuk melihat riwayat di sini.</string>
+    <string name="no_data_points">Belum ada data yang dikumpulkan.</string>
+    <string name="mah_approx">±%1$s mAh</string>
+    <string name="average_current_ma">±%1$s mA rata-rata</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s jam</string>
+    <string name="data_export_import">Ekspor/impor data</string>
+    <string name="date_range">Rentang tanggal</string>
+    <string name="export">Ekspor</string>
+    <string name="export_json">Ekspor JSON</string>
+    <string name="export_csv_folder">Ekspor CSV (folder)</string>
+    <string name="import_string">Impor</string>
+    <string name="import_json">Impor JSON</string>
+    <string name="import_csv">Impor CSV</string>
+    <string name="csv_import_hint">Impor CSV: buka battery_samples.csv atau charge_sessions.csv</string>
+    <string name="from_beginning">Dari: awal</string>
+    <string name="from_date">Dari: %1$s</string>
+    <string name="to_date">Sampai: %1$s</string>
+    <string name="all">Semua</string>
+    <string name="last_7_days">7 hari terakhir</string>
+    <string name="last_30_days">30 hari terakhir</string>
+    <string name="export_battery_data">Ekspor data baterai</string>
+    <string name="export_battery_data_desc">Ekspor riwayat baterai ke berkas</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Sesuaikan perilaku aplikasi</string>
+    <string name="category_general">Umum</string>
+    <string name="category_notifications">Notifikasi</string>
+    <string name="category_display">Tampilan</string>
+    <string name="category_data">Data dan ekspor</string>
+    <string name="reset_settings">Atur ulang pengaturan</string>
+    <string name="reset_ui">Atur ulang antarmuka</string>
+    <string name="reset_all">Atur ulang semua</string>
+    <string name="import_settings">Impor pengaturan</string>
+    <string name="paste_json">Tempel JSON pengaturan yang diekspor:</string>
+    <string name="paste_json_hint">Tempel JSON di sini…</string>
+    <string name="import_failed">Impor gagal</string>
+    <string name="data_cleared">Semua data dihapus</string>
+    <string name="import_action">Impor</string>
+    <string name="clear_all_data">Hapus semua data?</string>
+    <string name="clear_data_warning">Ini akan menghapus secara permanen seluruh riwayat baterai, sesi, dan statistik. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="delete_all">Hapus semua</string>
+    <string name="clear_all_data_action">Hapus semua data</string>
+    <string name="clear_all_data_action_desc">Hapus semua data baterai yang tersimpan</string>
+    <string name="export_settings">Ekspor pengaturan</string>
+    <string name="import_settings_desc">Impor pengaturan</string>
+    <string name="reset_settings_desc">Atur ulang pengaturan</string>
+    <string name="choose_reset">Pilih yang akan diatur ulang:</string>
+    <string name="reset_ui_settings">Atur ulang pengaturan antarmuka: hanya mengatur ulang pengaturan yang terlihat</string>
+    <string name="reset_all_settings">Atur ulang semua: mengatur ulang semuanya</string>
+    <string name="ui_settings_reset">Pengaturan antarmuka telah diatur ulang</string>
+    <string name="all_settings_reset">Semua pengaturan telah diatur ulang</string>
+    <string name="auto_start_monitoring">Mulai pemantauan otomatis</string>
+    <string name="monitoring_interval">Interval pemantauan</string>
+    <string name="show_persistent_notification">Tampilkan notifikasi permanen</string>
+    <string name="show_drain_notification">Tampilkan notifikasi konsumsi</string>
+    <string name="show_drain_notification_desc">Tampilkan statistik konsumsi terperinci di notifikasi (memerlukan Shizuku, Root, atau ADB)</string>
+    <string name="notification_style">Gaya notifikasi</string>
+    <string name="track_foreground_apps">Lacak aplikasi di latar depan</string>
+    <string name="detailed_stats_interval">Interval statistik terperinci</string>
+    <string name="detailed_stats_interval_desc">Seberapa sering statistik baterai terperinci dikumpulkan melalui Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">Peringatan baterai lemah</string>
+    <string name="low_battery_threshold">Ambang baterai lemah</string>
+    <string name="high_battery_alert">Peringatan baterai penuh</string>
+    <string name="high_battery_alert_desc">Beri tahu saat pengisian mencapai ambang</string>
+    <string name="high_battery_threshold">Ambang baterai penuh</string>
+    <string name="temperature_warning">Peringatan suhu</string>
+    <string name="temperature_threshold">Ambang suhu</string>
+    <string name="temperature_threshold_desc">Suhu peringatan dalam Celsius</string>
+    <string name="high_discharge_alert">Peringatan pengosongan tinggi</string>
+    <string name="discharge_threshold">Ambang pengosongan</string>
+    <string name="discharge_threshold_desc">Beri tahu saat pengosongan melebihi nilai ini (mA)</string>
+    <string name="charging_complete_alert">Peringatan pengisian selesai</string>
+    <string name="alert_sound">Suara peringatan</string>
+    <string name="alert_vibration">Getar peringatan</string>
+    <string name="high_temperature">Peringatan suhu tinggi</string>
+    <string name="high_discharge">Pengosongan tinggi</string>
+    <string name="chart_time_range">Rentang waktu grafik</string>
+    <string name="show_current_ma">Tampilkan arus dalam mA</string>
+    <string name="compact_stats_view">Tampilan statistik ringkas</string>
+    <string name="pure_black_oled">Hitam pekat (OLED)</string>
+    <string name="data_retention">Retensi data</string>
+    <string name="auto_cleanup">Bersihkan data lama secara otomatis</string>
+    <string name="export_format">Format ekspor</string>
+    <string name="include_raw_samples">Sertakan sampel mentah</string>
+    <string name="screen_on">Layar menyala</string>
+    <string name="screen_off">Layar mati</string>
+    <string name="mobile_signal">Sinyal seluler</string>
+    <string name="wifi_signal">Sinyal Wi-Fi</string>
+    <string name="no_signal_data">Tidak ada data sinyal</string>
+    <string name="signal_quality">Kualitas sinyal</string>
+    <string name="signal_none">Tidak ada</string>
+    <string name="signal_poor">Lemah</string>
+    <string name="signal_moderate">Sedang</string>
+    <string name="signal_good">Baik</string>
+    <string name="signal_great">Sangat baik</string>
+    <string name="signal_level">Level %1$d</string>
+    <string name="mobile_rx">Penerimaan seluler</string>
+    <string name="mobile_tx">Pengiriman seluler</string>
+    <string name="wifi_rx">Penerimaan Wi-Fi</string>
+    <string name="wifi_tx">Pengiriman Wi-Fi</string>
+    <string name="no_network_data">Tidak ada data jaringan</string>
+    <string name="kernel_count">Kernel (%1$d)</string>
+    <string name="wakelocks">Wakelock</string>
+    <string name="kernel_wakelocks">Wakelock kernel (asli)</string>
+    <string name="no_app_wakelocks">Tidak ditemukan wakelock aplikasi</string>
+    <string name="no_kernel_wakelocks">Tidak ditemukan wakelock kernel</string>
+    <string name="could_not_read_wakelocks">Tidak dapat membaca wakelock kernel.</string>
+    <string name="count_active">Jumlah: %1$d | Aktif: %2$d</string>
+    <string name="doze_statistics">Statistik Doze</string>
+    <string name="doze_whitelist">Daftar putih Doze</string>
+    <string name="no_whitelist">Tidak ada data daftar putih</string>
+    <string name="no_doze_data">Tidak ada data Doze</string>
+    <string name="deep_doze_time">Waktu dalam Doze mendalam</string>
+    <string name="deep_doze_count">Jumlah Doze mendalam</string>
+    <string name="light_doze_time">Waktu dalam Doze ringan</string>
+    <string name="light_doze_count">Jumlah Doze ringan</string>
+    <string name="maintenance_windows">Jendela pemeliharaan</string>
+    <string name="maintenance_time">Waktu pemeliharaan</string>
+    <string name="current_state">Status saat ini</string>
+    <string name="doze_state">Status Doze</string>
+    <string name="light_state">Status Doze ringan</string>
+    <string name="deep_doze_enabled">Doze mendalam aktif</string>
+    <string name="light_doze_enabled">Doze ringan aktif</string>
+    <string name="screen">Layar</string>
+    <string name="battery_level_label">Tingkat baterai</string>
+    <string name="battery_status">Status baterai</string>
+    <string name="low_power_mode">Mode hemat daya</string>
+    <string name="device_idle_mode">ModeMenganggur perangkat</string>
+    <string name="no_state_data">Tidak ada data status</string>
+    <string name="whitelisted_apps">Aplikasi dalam daftar putih: %1$d</string>
+    <string name="temporarily_whitelisted">Sementara dalam daftar putih: %1$d</string>
+    <string name="suspend_blockers">Pemblokir suspend</string>
+    <string name="no_suspend_blockers">Tidak ada pemblokir suspend aktif</string>
+    <string name="no_bluetooth_data">Tidak ada data Bluetooth</string>
+    <string name="idle_time">Waktu menganggur</string>
+    <string name="rx_time">Waktu RX</string>
+    <string name="tx_time">Waktu TX</string>
+    <string name="scan_time">Waktu pemindaian</string>
+    <string name="system_apps">Aplikasi sistem</string>
+    <string name="no_apps_found">Aplikasi tidak ditemukan</string>
+    <string name="packages_shared_uid">Paket (UID bersama %1$d)</string>
+    <string name="process_statistics">Statistik proses</string>
+    <string name="no_process_data">Tidak ada data proses</string>
+    <string name="apps_tracked">Aplikasi terlacak</string>
+    <string name="power_breakdown">Rincian konsumsi daya</string>
+    <string name="time_usage">Rincian waktu</string>
+    <string name="cpu_time">Waktu CPU</string>
+    <string name="wakelock_time">Waktu wakelock</string>
+    <string name="foreground">Latar depan</string>
+    <string name="foreground_service">Layanan latar depan</string>
+    <string name="top">Latar depan</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Sensor</string>
+    <string name="sensor_usage">Penggunaan sensor</string>
+    <string name="no_sensor_data">Tidak ada data sensor</string>
+    <string name="no_alarm_data">Tidak ada data alarm</string>
+    <string name="no_job_data">Tidak ada data tugas</string>
+    <string name="no_sync_data">Tidak ada data sinkronisasi</string>
+    <string name="wakeups">Buildkan</string>
+    <string name="screen_time_analysis">Analisis waktu layar</string>
+    <string name="screen_time_breakdown">Rincian waktu layar</string>
+    <string name="time_on_battery">Waktu dengan baterai</string>
+    <string name="screen_on_time">Waktu layar menyala</string>
+    <string name="estimated_capacity">Kapasitas diperkirakan</string>
+    <string name="discharge_breakdown">Rincian pengosongan</string>
+    <string name="deep_sleep_share">dari waktu layar mati yang di Deep Sleep</string>
+    <string name="tracking_active">Pelacakan aktif</string>
+    <string name="tracking_paused">Pelacakan dijeda</string>
+    <string name="reset_session">Atur ulang sesi</string>
+    <string name="drain_rates">Laju konsumsi</string>
+    <string name="deep_sleep">Deep Sleep</string>
+    <string name="dozing">Mengantuk</string>
+    <string name="drain_rate">Laju konsumsi</string>
+    <string name="total_drain">Total konsumsi</string>
+    <string name="activity_breakdown">Rincian per aktivitas</string>
+    <string name="session_summary">Ringkasan sesi</string>
+    <string name="avg_rate">Laju rata-rata</string>
+    <string name="drain_history">Riwayat konsumsi</string>
+    <string name="collecting_data">Mengumpulkan data…</string>
+    <string name="session_duration">Sesi: %1$s</string>
+    <string name="total_drain_value">Total konsumsi: %1$s</string>
+    <string name="drain_notification_channel_desc">Menampilkan statistik konsumsi baterai secara real-time</string>
+    <string name="drain_state_charging">⚡ Mengisi daya</string>
+    <string name="drain_state_deep_sleep">😴 Deep Sleep</string>
+    <string name="drain_state_dozing">💤 Mengantuk</string>
+    <string name="drain_state_screen_on">📱 Layar menyala</string>
+    <string name="drain_state_screen_off">🌙 Layar mati</string>
+    <string name="drain_rates_section">━━━ Laju konsumsi ━━━</string>
+    <string name="activity_section">━━━ Aktivitas ━━━</string>
+    <string name="session_section">━━━ Sesi ━━━</string>
+    <string name="drain_on_off_sleep">Menyala: %1$s • Mati: %2$s • Tidur: %3$s</string>
+    <string name="drain_screen_on_line">📱 Layar menyala: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Layar mati: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Deep Sleep: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Terbangun: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Aktif: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Menganggur: %1$s (%2$s)</string>
+    <string name="drain_total_line">Total: %1$s dalam %2$s</string>
+    <string name="drain_average_line">Rata-rata: %1$s</string>
+    <string name="tab_overview">Ikhtisar</string>
+    <string name="tab_apps">Aplikasi</string>
+    <string name="tab_wakelocks">Wakelock</string>
+    <string name="tab_network">Jaringan</string>
+    <string name="tab_system">Sistem</string>
+    <string name="tab_alarms">Alarm</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • melalui %1$s</string>
+    <string name="reset_stats">Atur ulang statistik</string>
+    <string name="stats_reset_success">Statistik berhasil diatur ulang</string>
+    <string name="stats_reset_failed">Gagal mengatur ulang statistik</string>
+    <string name="no_data_available">Tidak ada data</string>
+    <string name="advanced_stats_required">Diperlukan statistik lanjutan</string>
+    <string name="advanced_stats_desc">Statistik terperinci memerlukan salah satu dari: Shizuku, Root, atau izin yang diberikan melalui ADB (permanen, tanpa layanan).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku tidak berjalan. Mulai aplikasi Shizuku (dan layanannya) terlebih dahulu, lalu ketuk Periksa Ulangi.</string>
+    <string name="shizuku_denied">Shizuku menolak aplikasi ini. Buka Shizuku lalu beri otorisasi BatStats kembali di Aplikasi yang Diotorisasi.</string>
+    <string name="shizuku_running">Shizuku sedang berjalan — ketuk Minta Shizuku lalu setujui permintaan tersebut.</string>
+    <string name="request_shizuku">Minta Shizuku</string>
+    <string name="recheck">Periksa Ulangi</string>
+    <string name="troubleshooting">Pemecahan masalah</string>
+    <string name="troubleshoot_1">– Aktifkan opsi pengembang dan debug USB.</string>
+    <string name="troubleshoot_2">– Pada Xiaomi/MIUI/HyperOS/OnePlus: aktifkan juga debug USB (setelan keamanan) atau nonaktifkan pemantauan izin, lalu mulai ulang.</string>
+    <string name="troubleshoot_3">– Jalankan: adb devices, setujui permintaan, jalankan perintah pemberian izin, lalu hentikan paksa BatStats atau mulai ulang perangkat.</string>
+    <string name="troubleshoot_4">– Pemberian izin gagal dengan \"Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?\" Aktifkan setelan keamanan di atas.</string>
+    <string name="troubleshoot_5">– Izin tetap berlaku sampai aplikasi dicopot. Sebagai alternatif gunakan pm grant lewat root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Jalankan sekali melalui ADB; izin bertahan melewati mulai ulang dan pembaruan hingga aplikasi dicopot. Shizuku tidak perlu terus berjalan.</string>
+    <string name="root_only">Fitur khusus Root:</string>
+    <string name="root_access_required">Akses Root diperlukan</string>
+    <string name="root_access_desc">Statistik ini memerlukan akses Root untuk membaca informasi baterai tingkat kernel, termasuk jumlah siklus, kapasitas sebenarnya, wakelock kernel, dan data termal.</string>
+    <string name="root_feature_cycles">Jumlah siklus baterai</string>
+    <string name="root_feature_capacity">Kapasitas sebenarnya (nominal vs. saat ini)</string>
+    <string name="root_feature_health">Persentase usia/kondisi baterai</string>
+    <string name="root_feature_wakelocks">Wakelock kernel (asli)</string>
+    <string name="root_feature_cpu">Status frekuensi CPU</string>
+    <string name="root_feature_thermal">Pemantauan zona termal</string>
+    <string name="root_feature_sysfs">Akses sysfs langsung</string>
+    <string name="battery_health_kernel">Kesehatan baterai (kernel)</string>
+    <string name="no_battery_info">Tidak dapat membaca informasi baterai dari /sys</string>
+    <string name="cycles_value">%1$d siklus</string>
+    <string name="cpu_frequency">Frekuensi CPU</string>
+    <string name="no_cpu_info">Tidak dapat membaca informasi CPU</string>
+    <string name="cluster_n">Klaster %1$d</string>
+    <string name="time_in_state">Waktu dalam status</string>
+    <string name="thermal_zones">Zona termal</string>
+    <string name="no_thermal_data">Tidak dapat membaca zona termal</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d lainnya</item>
+        <item quantity="other">+ %1$d lainnya</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… dan %1$d lainnya</item>
+        <item quantity="other">… dan %1$d lainnya</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d wakelock aktif</item>
+        <item quantity="other">%1$d wakelock aktif</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">Wakelock aplikasi (%1$d)</item>
+        <item quantity="other">Wakelock aplikasi (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarm (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Tugas (%1$d)</item>
+        <item quantity="other">Tugas (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Sinkronisasi (%1$d)</item>
+        <item quantity="other">Sinkronisasi (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Wakelock teratas berdasarkan waktu: %1$d</item>
+        <item quantity="other">Wakelock teratas berdasarkan waktu: %1$d</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d paket berbagi UID ini</item>
+        <item quantity="other">%1$d paket berbagi UID ini</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">%1$d pengaturan diimpor</item>
+        <item quantity="other">%1$d pengaturan diimpor</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 detik</item>
+        <item>10 detik</item>
+        <item>30 detik</item>
+        <item>1 menit</item>
+        <item>5 menit</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Minimal</item>
+        <item>Ringkas</item>
+        <item>Rinci</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 menit</item>
+        <item>5 menit</item>
+        <item>15 menit</item>
+        <item>30 menit</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Ikuti sistem</item>
+        <item>Terang</item>
+        <item>Gelap</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 menit</item>
+        <item>1 jam</item>
+        <item>6 jam</item>
+        <item>24 jam</item>
+        <item>7 hari</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 minggu</item>
+        <item>1 bulan</item>
+        <item>3 bulan</item>
+        <item>6 bulan</item>
+        <item>1 tahun</item>
+        <item>Selamanya</item>
+    </string-array>
+</resources>
+    

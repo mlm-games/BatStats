@@ -24,6 +24,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -53,6 +54,16 @@ import io.github.mlmgames.settings.ui.dialogs.SliderSettingDialog
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import kotlin.reflect.KClass
+
+private data class SettingsCategory(val category: KClass<*>, val key: String, val titleRes: Int)
+
+private val SETTINGS_CATEGORIES = listOf(
+    SettingsCategory(General::class, "general", R.string.category_general),
+    SettingsCategory(Notifications::class, "notifications", R.string.category_notifications),
+    SettingsCategory(Display::class, "display", R.string.category_display),
+    SettingsCategory(Data::class, "data", R.string.category_data)
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,18 +102,11 @@ fun BatterySettingsScreen(
         }
     }
 
-    val categoryOrder = listOf(
-        General::class to "General",
-        Notifications::class to "Notifications",
-        Display::class to "Display",
-        Data::class to "Data & Export"
-    )
-
     val listState = rememberLazyListState()
 
     LaunchedEffect(initialCategory) {
         if (initialCategory != null) {
-            val idx = categoryOrder.indexOfFirst { it.second == initialCategory }
+            val idx = SETTINGS_CATEGORIES.indexOfFirst { it.key == initialCategory }
             if (idx >= 0) {
                 val target = idx * 2
                 // delay to allow LazyColumn to be composed
@@ -128,7 +132,10 @@ fun BatterySettingsScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back)
+                        )
                     }
                 },
                 actions = {
@@ -153,20 +160,20 @@ fun BatterySettingsScreen(
                 modifier = Modifier.padding(padding),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                categoryOrder.forEach { (categoryClass, categoryTitle) ->
-                    val fields = grouped[categoryClass].orEmpty()
+                SETTINGS_CATEGORIES.forEach { entry ->
+                    val fields = grouped[entry.category].orEmpty()
                     if (fields.isEmpty()) return@forEach
 
-                    item(key = "header_$categoryTitle") {
+                    item(key = "header_${entry.key}") {
                         Text(
-                            text = categoryTitle,
+                            text = stringResource(entry.titleRes),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         )
                     }
 
-                    item(key = "section_$categoryTitle") {
+                    item(key = "section_${entry.key}") {
                         SettingsSection(title = "") {
                             fields.forEach { field ->
                                 val meta = field.meta ?: return@forEach
@@ -177,6 +184,7 @@ fun BatterySettingsScreen(
                                     meta = meta,
                                     settings = settings,
                                     enabled = enabled,
+                                    stringProvider = stringProvider,
                                     onToggle = { value ->
                                         vm.updateSetting(field.name, value)
                                     },
@@ -191,18 +199,16 @@ fun BatterySettingsScreen(
                                 )
                             }
 
-                            if (categoryClass == Data::class) {
+                            if (entry.category == Data::class) {
                                 SettingsAction(
-                                    title = "Export Battery Data",
-                                    description = "Export battery history to file",
-//                                    buttonText = "Open",
+                                    title = stringResource(R.string.export_battery_data),
+                                    description = stringResource(R.string.export_battery_data_desc),
                                     onClick = onExportData
                                 )
 
                                 SettingsAction(
-                                    title = "Clear All Data",
-                                    description = "Delete all stored battery data",
-//                                    buttonText = "Clear",
+                                    title = stringResource(R.string.clear_all_data_action),
+                                    description = stringResource(R.string.clear_all_data_action_desc),
                                     onClick = { showClearDataDialog = true }
                                 )
                             }
@@ -226,10 +232,11 @@ fun BatterySettingsScreen(
             else -> 0
         }
 
-        if (meta.options.isNotEmpty()) {
+        val options = meta.resolvedOptions(stringProvider)
+        if (options.isNotEmpty()) {
             DropdownSettingDialog(
-                title = meta.title,
-                options = meta.options,
+                title = meta.resolvedTitle(stringProvider),
+                options = options,
                 selectedIndex = index,
                 onDismiss = { showDropdown = false },
                 onOptionSelected = { idx ->
@@ -258,7 +265,7 @@ fun BatterySettingsScreen(
         }
 
         SliderSettingDialog(
-            title = meta.title,
+            title = meta.resolvedTitle(stringProvider),
             currentValue = currentVal,
             min = meta.min,
             max = meta.max,
@@ -321,8 +328,8 @@ fun BatterySettingsScreen(
     // Import Dialog
     if (showImportDialog) {
         var jsonInput by remember { mutableStateOf("") }
-        val settingsImportedMsg = stringResource(R.string.settings_imported)
         val importFailedMsg = stringResource(R.string.import_failed)
+        val context = LocalContext.current
         AlertDialog(
             onDismissRequest = { showImportDialog = false },
             title = { Text(stringResource(R.string.import_settings)) },
@@ -343,7 +350,13 @@ fun BatterySettingsScreen(
                     onClick = {
                         scope.launch {
                             when (val result = vm.import(jsonInput)) {
-                                is ImportResult.Success -> snackbarHost.showSnackbar("${result.appliedCount} $settingsImportedMsg")
+                                is ImportResult.Success -> snackbarHost.showSnackbar(
+                                    context.resources.getQuantityString(
+                                        R.plurals.settings_imported_count,
+                                        result.appliedCount,
+                                        result.appliedCount
+                                    )
+                                )
                                 is ImportResult.Error -> snackbarHost.showSnackbar("$importFailedMsg: ${result.error}")
                             }
                             showImportDialog = false
@@ -387,18 +400,21 @@ private fun RenderSettingField(
     meta: SettingMeta,
     settings: AppSettings,
     enabled: Boolean,
+    stringProvider: StringResourceProvider,
     onToggle: (Boolean) -> Unit,
     onOpenDropdown: () -> Unit,
     onOpenSlider: () -> Unit
 ) {
+    val title = meta.resolvedTitle(stringProvider)
+    val description = meta.resolvedDescription(stringProvider).takeIf { it.isNotBlank() }
     when (meta.type) {
         Toggle::class -> {
             @Suppress("UNCHECKED_CAST")
             val boolField = field as? SettingField<AppSettings, Boolean>
             if (boolField != null) {
                 SettingsToggle(
-                    title = meta.title,
-                    description = meta.description.takeIf { it.isNotBlank() },
+                    title = title,
+                    description = description,
                     checked = boolField.get(settings),
                     enabled = enabled,
                     onCheckedChange = onToggle
@@ -409,11 +425,12 @@ private fun RenderSettingField(
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
             val index = when (val value = anyField.get(settings)) { is Int -> value; is Enum<*> -> value.ordinal; else -> 0 }
-            if (meta.options.isNotEmpty()) {
+            val options = meta.resolvedOptions(stringProvider)
+            if (options.isNotEmpty()) {
                 SettingsItem(
-                    title = meta.title,
-                    subtitle = meta.options.getOrNull(index) ?: "Unknown",
-                    description = meta.description.takeIf { it.isNotBlank() },
+                    title = title,
+                    subtitle = options.getOrNull(index) ?: stringResource(R.string.unknown),
+                    description = description,
                     enabled = enabled,
                     onClick = onOpenDropdown
                 )
@@ -429,9 +446,9 @@ private fun RenderSettingField(
                 else -> ""
             }
             SettingsItem(
-                title = meta.title,
+                title = title,
                 subtitle = subtitle,
-                description = meta.description.takeIf { it.isNotBlank() },
+                description = description,
                 enabled = enabled,
                 onClick = onOpenSlider
             )

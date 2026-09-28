@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Πίσω</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="dismiss">Κλείσιμο</string>
+    <string name="refresh">Ανανέωση</string>
+    <string name="copy">Αντιγραφή</string>
+    <string name="copy_all">Αντιγραφή όλων</string>
+    <string name="app_info">Πληροφορίες εφαρμογής</string>
+    <string name="unknown">Άγνωστο</string>
+    <string name="battery_icon_description">Εικονίδιο μπαταρίας</string>
+    <string name="yes">Ναι</string>
+    <string name="no">Όχι</string>
+    <string name="on">Ενεργοποιημένο</string>
+    <string name="off">Απενεργοποιημένο</string>
+    <string name="live">Ζωντανά</string>
+    <string name="min">Ελάχ</string>
+    <string name="max">Μέγ</string>
+    <string name="time">Χρόνος</string>
+    <string name="total">Σύνολο</string>
+    <string name="mobile">Κινητό δίκτυο</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">Πλήθος</string>
+    <string name="active">Ενεργό</string>
+    <string name="idle">Αδρανής</string>
+    <string name="awake">Ξύπνιος</string>
+    <string name="duration">Διάρκεια</string>
+    <string name="total_time">Συνολικός χρόνος</string>
+    <string name="network">Δίκτυο</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Έναρξη</string>
+    <string name="stop">Διακοπή</string>
+    <string name="end">Τέλος</string>
+    <string name="pause">Παύση</string>
+    <string name="reset">Επαναφορά</string>
+    <string name="updated">Ενημερώθηκε %1$s</string>
+    <string name="theme">Θέμα</string>
+    <string name="dynamic_colors">Δυναμικά χρώματα</string>
+    <string name="temperature_unit">Μονάδα θερμοκρασίας</string>
+    <string name="alarms">Συναγερμοί</string>
+    <string name="history">Ιστορικό</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="data">Δεδομένα</string>
+    <string name="detailed_stats">Αναλυτικά στατιστικά</string>
+    <string name="drain_statistics">Στατιστικά κατανάλωσης</string>
+    <string name="session_details">Λεπτομέρειες συνεδρίας</string>
+    <string name="summary">Σύνοψη</string>
+    <string name="monitoring">Παρακολούθηση</string>
+    <string name="monitoring_ready">Η παρακολούθηση είναι έτοιμη</string>
+    <string name="start_monitoring">Έναρξη παρακολούθησης</string>
+    <string name="monitoring_battery">Παρακολούθηση μπαταρίας</string>
+    <string name="tap_to_start">Πατήστε για να ξεκινήσει η παρακολούθηση της μπαταρίας</string>
+    <string name="running_foreground">Σε εκτέλεση (πρώτο πλάνο)</string>
+    <string name="stopped">Σε διακοπή</string>
+    <string name="charge">Φόρτιση</string>
+    <string name="discharge">Εκφόρτιση</string>
+    <string name="charging">Φορτίζει</string>
+    <string name="discharging">Εκφορτίζεται</string>
+    <string name="full">Πλήρης</string>
+    <string name="battery_state_charging">Φορτίζει %1$d%%</string>
+    <string name="battery_state_discharging">Εκφορτίζεται %1$d%%</string>
+    <string name="battery_at_percent">Μπαταρία στο %1$d%% — σκεφτείτε να την αποσυνδέσετε.</string>
+    <string name="charge_limit_reached">Συμπληρώθηκε το όριο φόρτισης</string>
+    <string name="temperature_high">%1$d °C — αφήστε τη συσκευή να κρυώσει.</string>
+    <string name="heavy_drain">%1$d mA — εντοπίστηκε υψηλή κατανάλωση.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Κατάσταση</string>
+    <string name="health_good">Καλή</string>
+    <string name="health_overheat">Υπερθέρμανση</string>
+    <string name="health_dead">Χαλασμένη</string>
+    <string name="health_over_voltage">Υπερτάση</string>
+    <string name="health_failed">Απότυχη</string>
+    <string name="health_cold">Κρύα</string>
+    <string name="design">Ονομαστική</string>
+    <string name="capacity">Χωρητικότητα</string>
+    <string name="cycle_count">Αριθμός κύκλων</string>
+    <string name="current">Ρεύμα</string>
+    <string name="temperature">Θερμοκρασία</string>
+    <string name="voltage">Τάση</string>
+    <string name="power">Ισχύς</string>
+    <string name="power_usage">Κατανάλωση ενέργειας</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Κάμερα</string>
+    <string name="mobile_radio">Ραδιόφωνο κινητής</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% του χρόνου με μπαταρία</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Κατανάλωση/ώρα (οθόνη ενεργή)</string>
+    <string name="drain_hour_screen_off">Κατανάλωση/ώρα (οθόνη ανενεργή)</string>
+    <string name="technology">Τεχνολογία</string>
+    <string name="health_status">Κατάσταση υγείας</string>
+    <string name="status">Κατάσταση</string>
+    <string name="current_kernel">Ρεύμα (πυρήνας)</string>
+    <string name="voltage_kernel">Τάση (πυρήνας)</string>
+    <string name="time_to_empty">Χρόνος έως την εκφόρτιση</string>
+    <string name="time_to_full">Χρόνος έως την πλήρη φόρτιση</string>
+    <string name="current_mv">Ρεύμα (mA)</string>
+    <string name="voltage_mv">Τάση (mV)</string>
+    <string name="temperature_c">Θερμοκρασία (°C)</string>
+    <string name="current_recent">Ρεύμα (τελευταία 15 λεπτά)</string>
+    <string name="sessions">Συνεδρίες</string>
+    <string name="samples">Δείγματα</string>
+    <string name="session_tracking">Παρακολούθηση συνεδρίας</string>
+    <string name="session_active">Συνεδρία %1$s ενεργή • ξεκίνησε %2$s</string>
+    <string name="charging_session">Συνεδρία φόρτισης</string>
+    <string name="discharge_session">Συνεδρία εκφόρτισης</string>
+    <string name="session_state_active">ΕΝΕΡΓΗ</string>
+    <string name="session_state_ended">Ενεργή</string>
+    <string name="search_session_id">Αναζήτηση με βάση το ID συνεδρίας…</string>
+    <string name="sort_by">Ταξινόμηση: %1$s</string>
+    <string name="sort_power">Κατανάλωση ενέργειας</string>
+    <string name="sort_cpu_time">Χρόνος CPU</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Δίκτυο</string>
+    <string name="sort_foreground">Πρώτο πλάνο</string>
+    <string name="start_time">Έναρξη: %1$s</string>
+    <string name="end_time">Λήξη: %1$s</string>
+    <string name="no_sessions_yet">Δεν υπάρχουν ακόμη συνεδρίες</string>
+    <string name="no_sessions_yet_desc">Ξεκινήστε μια συνεδρία ή αρχίστε την παρακολούθηση για να δείτε εδώ το ιστορικό.</string>
+    <string name="no_data_points">Δεν έχουν καταγραφεί ακόμη σημεία δεδομένων.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">~%1$s mA μέσο όρο</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s ώρες</string>
+    <string name="data_export_import">Εξαγωγή/εισαγωγή δεδομένων</string>
+    <string name="date_range">Εύρος ημερομηνιών</string>
+    <string name="export">Εξαγωγή</string>
+    <string name="export_json">Εξαγωγή JSON</string>
+    <string name="export_csv_folder">Εξαγωγή CSV (φάκελος)</string>
+    <string name="import_string">Εισαγωγή</string>
+    <string name="import_json">Εισαγωγή JSON</string>
+    <string name="import_csv">Εισαγωγή CSV</string>
+    <string name="csv_import_hint">Εισαγωγή CSV: ανοίξτε το battery_samples.csv ή το charge_sessions.csv</string>
+    <string name="from_beginning">Από: την αρχή</string>
+    <string name="from_date">Από: %1$s</string>
+    <string name="to_date">Έως: %1$s</string>
+    <string name="all">Όλα</string>
+    <string name="last_7_days">Τελευταίες 7 ημέρες</string>
+    <string name="last_30_days">Τελευταίες 30 ημέρες</string>
+    <string name="export_battery_data">Εξαγωγή δεδομένων μπαταρίας</string>
+    <string name="export_battery_data_desc">Εξαγωγή ιστορικού μπαταρίας σε αρχείο</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Προσαρμόστε τη συμπεριφορά της εφαρμογής</string>
+    <string name="category_general">Γενικά</string>
+    <string name="category_notifications">Ειδοποιήσεις</string>
+    <string name="category_display">Εμφάνιση</string>
+    <string name="category_data">Δεδομένα και εξαγωγή</string>
+    <string name="reset_settings">Επαναφορά ρυθμίσεων</string>
+    <string name="reset_ui">Επαναφορά διεπαφής</string>
+    <string name="reset_all">Επαναφορά όλων</string>
+    <string name="import_settings">Εισαγωγή ρυθμίσεων</string>
+    <string name="paste_json">Επικολλήστε το JSON των εξαγόμενων ρυθμίσεων:</string>
+    <string name="paste_json_hint">Επικολλήστε το JSON εδώ…</string>
+    <string name="import_failed">Η εισαγωγή απέτυχε</string>
+    <string name="data_cleared">Όλα τα δεδομένα διαγράφηκαν</string>
+    <string name="import_action">Εισαγωγή</string>
+    <string name="clear_all_data">Εκκαθάριση όλων των δεδομένων;</string>
+    <string name="clear_data_warning">Αυτό θα διαγράψει οριστικά ολόκληρο το ιστορικό της μπαταρίας, τις συνεδρίες και τα στατιστικά. Δεν είναι δυνατή η αναστροφή.</string>
+    <string name="delete_all">Διαγραφή όλων</string>
+    <string name="clear_all_data_action">Εκκαθάριση όλων των δεδομένων</string>
+    <string name="clear_all_data_action_desc">Διαγραφή όλων των αποθηκευμένων δεδομένων μπαταρίας</string>
+    <string name="export_settings">Εξαγωγή ρυθμίσεων</string>
+    <string name="import_settings_desc">Εισαγωγή ρυθμίσεων</string>
+    <string name="reset_settings_desc">Επαναφορά ρυθμίσεων</string>
+    <string name="choose_reset">Επιλέξτε τι θα επαναφέρετε:</string>
+    <string name="reset_ui_settings">Επαναφορά ρυθμίσεων διεπαφής: επαναφέρει μόνο τις ορατές ρυθμίσεις</string>
+    <string name="reset_all_settings">Επαναφορά όλων: επαναφέρει τα πάντα</string>
+    <string name="ui_settings_reset">Οι ρυθμίσεις διεπαφής επαναφέρθηκαν</string>
+    <string name="all_settings_reset">Όλες οι ρυθμίσεις επαναφέρθηκαν</string>
+    <string name="auto_start_monitoring">Αυτόματη έναρξη παρακολούθησης</string>
+    <string name="monitoring_interval">Διάστημα παρακολούθησης</string>
+    <string name="show_persistent_notification">Εμφάνιση μόνιμης ειδοποίησης</string>
+    <string name="show_drain_notification">Εμφάνιση ειδοποίησης κατανάλωσης</string>
+    <string name="show_drain_notification_desc">Εμφάνιση αναλυτικών στατιστικών κατανάλωσης στην ειδοποίηση (απαιτεί Shizuku, Root ή ADB)</string>
+    <string name="notification_style">Στυλ ειδοποιήσεων</string>
+    <string name="track_foreground_apps">Παρακολούθηση εφαρμογών σε πρώτο πλάνο</string>
+    <string name="detailed_stats_interval">Διάστημα αναλυτικών στατιστικών</string>
+    <string name="detailed_stats_interval_desc">Πόσο συχνά συλλέγονται αναλυτικά στατιστικά μπαταρίας μέσω Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">Προειδοποίηση χαμηλής μπαταρίας</string>
+    <string name="low_battery_threshold">Όριο χαμηλής μπαταρίας</string>
+    <string name="high_battery_alert">Προειδοποίηση υψηλής μπαταρίας</string>
+    <string name="high_battery_alert_desc">Ειδοποίηση όταν η φόρτιση φτάσει το όριο</string>
+    <string name="high_battery_threshold">Όριο υψηλής μπαταρίας</string>
+    <string name="temperature_warning">Προειδοποίηση θερμοκρασίας</string>
+    <string name="temperature_threshold">Όριο θερμοκρασίας</string>
+    <string name="temperature_threshold_desc">Θερμοκρασία προειδοποίησης σε βαθμούς Κελσίου</string>
+    <string name="high_discharge_alert">Προειδοποίηση υψηλής εκφόρτισης</string>
+    <string name="discharge_threshold">Όριο εκφόρτισης</string>
+    <string name="discharge_threshold_desc">Προειδοποίηση όταν η εκφόρτιση ξεπερνά αυτή την τιμή (mA)</string>
+    <string name="charging_complete_alert">Προειδοποίηση ολοκλήρωσης φόρτισης</string>
+    <string name="alert_sound">Ήχος προειδοποίησης</string>
+    <string name="alert_vibration">Δόνηση προειδοποίησης</string>
+    <string name="high_temperature">Προειδοποίηση υψηλής θερμοκρασίας</string>
+    <string name="high_discharge">Υψηλή εκφόρτιση</string>
+    <string name="chart_time_range">Εύρος χρόνου γραφήματος</string>
+    <string name="show_current_ma">Εμφάνιση ρεύματος σε mA</string>
+    <string name="compact_stats_view">Συμπυκνωμένη προβολή στατιστικών</string>
+    <string name="pure_black_oled">Απόλυτο μαύρο (OLED)</string>
+    <string name="data_retention">Διατήρηση δεδομένων</string>
+    <string name="auto_cleanup">Αυτόματος καθαρισμός παλιών δεδομένων</string>
+    <string name="export_format">Μορφή εξαγωγής</string>
+    <string name="include_raw_samples">Συμπερίληψη ακατέργαστων δειγμάτων</string>
+    <string name="screen_on">Οθόνη ενεργή</string>
+    <string name="screen_off">Οθόνη ανενεργή</string>
+    <string name="mobile_signal">Σήμα κινητού</string>
+    <string name="wifi_signal">Σήμα Wi-Fi</string>
+    <string name="no_signal_data">Δεν υπάρχουν διαθέσιμα δεδομένα σήματος</string>
+    <string name="signal_quality">Ποιότητα σήματος</string>
+    <string name="signal_none">Κανένα</string>
+    <string name="signal_poor">Ασθενές</string>
+    <string name="signal_moderate">Μέτριο</string>
+    <string name="signal_good">Καλό</string>
+    <string name="signal_great">Άριστο</string>
+    <string name="signal_level">Επίπεδο %1$d</string>
+    <string name="mobile_rx">Λήψη κινητού</string>
+    <string name="mobile_tx">Αποστολή κινητού</string>
+    <string name="wifi_rx">Λήψη Wi-Fi</string>
+    <string name="wifi_tx">Αποστολή Wi-Fi</string>
+    <string name="no_network_data">Δεν υπάρχουν διαθέσιμα δεδομένα δικτύου</string>
+    <string name="kernel_count">Πυρήνας (%1$d)</string>
+    <string name="wakelocks">Wakelock</string>
+    <string name="kernel_wakelocks">Wakelock πυρήνα (εγγενή)</string>
+    <string name="no_app_wakelocks">Δεν βρέθηκαν wakelock εφαρμογών</string>
+    <string name="no_kernel_wakelocks">Δεν βρέθηκαν wakelock πυρήνα</string>
+    <string name="could_not_read_wakelocks">Δεν είναι δυνατή η ανάγνωση των wakelock του πυρήνα.</string>
+    <string name="count_active">Πλήθος: %1$d | Ενεργά: %2$d</string>
+    <string name="doze_statistics">Στατιστικά Doze</string>
+    <string name="doze_whitelist">Λίστα επιτρεπόμενων Doze</string>
+    <string name="no_whitelist">Δεν υπάρχουν δεδομένα λίστας επιτρεπόμενων</string>
+    <string name="no_doze_data">Δεν υπάρχουν διαθέσιμα δεδομένα Doze</string>
+    <string name="deep_doze_time">Χρόνος σε βαθύ Doze</string>
+    <string name="deep_doze_count">Πλήθος βαθύ Doze</string>
+    <string name="light_doze_time">Χρόνος σε ελαφρύ Doze</string>
+    <string name="light_doze_count">Πλήθος ελαφρύ Doze</string>
+    <string name="maintenance_windows">Παράθυρα συντήρησης</string>
+    <string name="maintenance_time">Χρόνος συντήρησης</string>
+    <string name="current_state">Τρέχουσα κατάσταση</string>
+    <string name="doze_state">Κατάσταση Doze</string>
+    <string name="light_state">Κατάσταση ελαφρού Doze</string>
+    <string name="deep_doze_enabled">Βαθύ Doze ενεργοποιημένο</string>
+    <string name="light_doze_enabled">Ελαφρύ Doze ενεργοποιημένο</string>
+    <string name="screen">Οθόνη</string>
+    <string name="battery_level_label">Επίπεδο μπαταρίας</string>
+    <string name="battery_status">Κατάσταση μπαταρίας</string>
+    <string name="low_power_mode">Λειτουργία εξοικονόμησης ενέργειας</string>
+    <string name="device_idle_mode">Λειτουργία αδράνειας συσκευής</string>
+    <string name="no_state_data">Δεν υπάρχουν διαθέσιμα δεδομένα κατάστασης</string>
+    <string name="whitelisted_apps">Εφαρμογές σε λίστα επιτρεπόμενων: %1$d</string>
+    <string name="temporarily_whitelisted">Προσωρινά επιτρεπόμενες: %1$d</string>
+    <string name="suspend_blockers">Αποκλειστικά αναστολής</string>
+    <string name="no_suspend_blockers">Δεν υπάρχουν ενεργά αποκλειστικά αναστολής</string>
+    <string name="no_bluetooth_data">Δεν υπάρχουν διαθέσιμα δεδομένα Bluetooth</string>
+    <string name="idle_time">Χρόνος αδράνειας</string>
+    <string name="rx_time">Χρόνος λήψης</string>
+    <string name="tx_time">Χρόνος αποστολής</string>
+    <string name="scan_time">Χρόνος σάρωσης</string>
+    <string name="system_apps">Εφαρμογές συστήματος</string>
+    <string name="no_apps_found">Δεν βρέθηκαν εφαρμογές</string>
+    <string name="packages_shared_uid">Πακέτα (κοινό UID %1$d)</string>
+    <string name="process_statistics">Στατιστικά διεργασιών</string>
+    <string name="no_process_data">Δεν υπάρχουν δεδομένα διεργασιών</string>
+    <string name="apps_tracked">Εφαρμογές υπό παρακολούθηση</string>
+    <string name="power_breakdown">Ανάλυση κατανάλωσης</string>
+    <string name="time_usage">Ανάλυση χρόνου</string>
+    <string name="cpu_time">Χρόνος CPU</string>
+    <string name="wakelock_time">Χρόνος wakelock</string>
+    <string name="foreground">Πρώτο πλάνο</string>
+    <string name="foreground_service">Υπηρεσία πρώτου πλάνου</string>
+    <string name="top">Πρώτο πλάνο</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Αισθητήρες</string>
+    <string name="sensor_usage">Χρήση αισθητήρων</string>
+    <string name="no_sensor_data">Δεν υπάρχουν δεδομένα αισθητήρων</string>
+    <string name="no_alarm_data">Δεν υπάρχουν δεδομένα συναγερμών</string>
+    <string name="no_job_data">Δεν υπάρχουν δεδομένα εργασιών</string>
+    <string name="no_sync_data">Δεν υπάρχουν δεδομένα συγχρονισμού</string>
+    <string name="wakeups">Ξυπνήματα</string>
+    <string name="screen_time_analysis">Ανάλυση χρόνου οθόνης</string>
+    <string name="screen_time_breakdown">Ανάλυση χρόνου οθόνης</string>
+    <string name="time_on_battery">Χρόνος με μπαταρία</string>
+    <string name="screen_on_time">Χρόνος με ενεργή οθόνη</string>
+    <string name="estimated_capacity">Εκτιμώμενη χωρητικότητα</string>
+    <string name="discharge_breakdown">Ανάλυση εκφόρτισης</string>
+    <string name="deep_sleep_share">του χρόνου με ανενεργή οθόνη σε βαθύ ύπνο</string>
+    <string name="tracking_active">Η παρακολούθηση ενεργή</string>
+    <string name="tracking_paused">Η παρακολούθηση σε παύση</string>
+    <string name="reset_session">Επαναφορά συνεδρίας</string>
+    <string name="drain_rates">Ρυθμοί κατανάλωσης</string>
+    <string name="deep_sleep">Βαθύς ύπνος</string>
+    <string name="dozing">Υπνοδοκίμηση</string>
+    <string name="drain_rate">Ρυθμός κατανάλωσης</string>
+    <string name="total_drain">Συνολική κατανάλωση</string>
+    <string name="activity_breakdown">Ανάλυση ανά δραστηριότητα</string>
+    <string name="session_summary">Σύνοψη συνεδρίας</string>
+    <string name="avg_rate">Μέσος ρυθμός</string>
+    <string name="drain_history">Ιστορικό κατανάλωσης</string>
+    <string name="collecting_data">Συλλογή δεδομένων…</string>
+    <string name="session_duration">Συνεδρία: %1$s</string>
+    <string name="total_drain_value">Συνολική κατανάλωση: %1$s</string>
+    <string name="drain_notification_channel_desc">Εμφανίζει στατιστικά κατανάλωσης μπαταρίας σε πραγματικό χρόνο</string>
+    <string name="drain_state_charging">⚡ Φορτίζει</string>
+    <string name="drain_state_deep_sleep">😴 Βαθύς ύπνος</string>
+    <string name="drain_state_dozing">💤 Υπνοδοκίμηση</string>
+    <string name="drain_state_screen_on">📱 Οθόνη ενεργή</string>
+    <string name="drain_state_screen_off">🌙 Οθόνη ανενεργή</string>
+    <string name="drain_rates_section">━━━ Ρυθμοί κατανάλωσης ━━━</string>
+    <string name="activity_section">━━━ Δραστηριότητα ━━━</string>
+    <string name="session_section">━━━ Συνεδρία ━━━</string>
+    <string name="drain_on_off_sleep">Ενεργή: %1$s • Ανενεργή: %2$s • Ύπνος: %3$s</string>
+    <string name="drain_screen_on_line">📱 Οθόνη ενεργή: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Οθόνη ανενεργή: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Βαθύς ύπνος: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Ξύπνιος: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Ενεργός: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Αδρανής: %1$s (%2$s)</string>
+    <string name="drain_total_line">Σύνολο: %1$s σε %2$s</string>
+    <string name="drain_average_line">Μέσο όρο: %1$s</string>
+    <string name="tab_overview">Επισκόπηση</string>
+    <string name="tab_apps">Εφαρμογές</string>
+    <string name="tab_wakelocks">Wakelock</string>
+    <string name="tab_network">Δίκτυο</string>
+    <string name="tab_system">Σύστημα</string>
+    <string name="tab_alarms">Συναγερμοί</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • μέσω %1$s</string>
+    <string name="reset_stats">Επαναφορά στατιστικών</string>
+    <string name="stats_reset_success">Οι στατιστικές επαναφέρθηκαν</string>
+    <string name="stats_reset_failed">Η επαναφορά των στατιστικών απέτυχε</string>
+    <string name="no_data_available">Δεν υπάρχουν διαθέσιμα δεδομένα</string>
+    <string name="advanced_stats_required">Απαιτούνται προχωρημένα στατιστικά</string>
+    <string name="advanced_stats_desc">Τα αναλυτικά στατιστικά απαιτούν ένα από τα: Shizuku, Root ή δικαιώματα που δίνονται μέσω ADB (μόνιμα, χωρίς υπηρεσία).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Το Shizuku δεν εκτελείται. Ξεκινήστε πρώτα την εφαρμογή Shizuku (και την υπηρεσία της) και έπειτα πατήστε Επανέλεγχος.</string>
+    <string name="shizuku_denied">Το Shizuku απέρριψε αυτή την εφαρμογή. Ανοίξτε το Shizuku και εξουσιοδοτήστε ξανά το BatStats στις Εξουσιοδοτημένες εφαρμογές.</string>
+    <string name="shizuku_running">Το Shizuku εκτελείται — πατήστε Αίτημα Shizuku και εγκρίνετε το αίτημα.</string>
+    <string name="request_shizuku">Αίτημα Shizuku</string>
+    <string name="recheck">Επανέλεγχος</string>
+    <string name="troubleshooting">Αντιμετώπιση προβλημάτων</string>
+    <string name="troubleshoot_1">– Ενεργοποιήστε τις επιλογές προγραμματιστή και τον αποσφαλισμό USB.</string>
+    <string name="troubleshoot_2">– Σε Xiaomi/MIUI/HyperOS/OnePlus: ενεργοποιήστε και τον αποσφαλισμό USB (ρυθμίσεις ασφαλείας) ή απενεργοποιήστε την παρακολούθηση δικαιωμάτων και επανεκκινήστε.</string>
+    <string name="troubleshoot_3">– Εκτελέστε: adb devices, αποδεχτείτε το αίτημα, εκτελέστε τις εντολές παροχής και έπειτα κλείστε το BatStats ή επανεκκινήστε.</string>
+    <string name="troubleshoot_4">– Η παροχή αποτυγχάνει με «Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?»; Ενεργοποιήστε τις παραπάνω ρυθμίσεις ασφαλείας.</string>
+    <string name="troubleshoot_5">– Οι άδειες παραμένουν έως την απεγκατάσταση. Εναλλακτικά, χρησιμοποιήστε το pm grant μέσω root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Εκτελέστε μία φορά μέσω ADB: επιβιώνει σε επανεκκινήσεις και ενημερώσεις έως την απεγκατάσταση. Δεν χρειάζεται να τρέχει το Shizuku.</string>
+    <string name="root_only">Δυνατότητες μόνο με Root:</string>
+    <string name="root_access_required">Απαιτείται πρόσβαση Root</string>
+    <string name="root_access_desc">Αυτά τα στατιστικά απαιτούν πρόσβαση Root για την ανάγνωση πληροφοριών μπαταρίας σε επίπεδο πυρήνα, όπως αριθμός κύκλων, πραγματική χωρητικότητα, wakelock πυρήνα και θερμικά δεδομένα.</string>
+    <string name="root_feature_cycles">Αριθμός κύκλων μπαταρίας</string>
+    <string name="root_feature_capacity">Πραγματική χωρητικότητα (ονομαστική έναντι τρέχουσας)</string>
+    <string name="root_feature_health">Ποσοστό ηλικίας/κατάστασης μπαταρίας</string>
+    <string name="root_feature_wakelocks">Wakelock πυρήνα (εγγενή)</string>
+    <string name="root_feature_cpu">Καταστάσεις συχνότητας CPU</string>
+    <string name="root_feature_thermal">Παρακολούθηση θερμικών ζωνών</string>
+    <string name="root_feature_sysfs">Άμεση πρόσβαση στο sysfs</string>
+    <string name="battery_health_kernel">Υγεία μπαταρίας (πυρήνας)</string>
+    <string name="no_battery_info">Δεν είναι δυνατή η ανάγνωση πληροφοριών μπαταρίας από το /sys</string>
+    <string name="cycles_value">%1$d κύκλοι</string>
+    <string name="cpu_frequency">Συχνότητα CPU</string>
+    <string name="no_cpu_info">Δεν είναι δυνατή η ανάγνωση πληροφοριών CPU</string>
+    <string name="cluster_n">Σύμπλεγμα %1$d</string>
+    <string name="time_in_state">Χρόνος σε κατάσταση</string>
+    <string name="thermal_zones">Θερμικές ζώνες</string>
+    <string name="no_thermal_data">Δεν είναι δυνατή η ανάγνωση των θερμικών ζωνών</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d άλλη</item>
+        <item quantity="other">+ %1$d άλλες</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… και %1$d άλλη</item>
+        <item quantity="other">… και %1$d άλλες</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d ενεργό wakelock</item>
+        <item quantity="other">%1$d ενεργά wakelock</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">Wakelock εφαρμογής (%1$d)</item>
+        <item quantity="other">Wakelock εφαρμογών (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Συναγερμός (%1$d)</item>
+        <item quantity="other">Συναγερμοί (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Εργασία (%1$d)</item>
+        <item quantity="other">Εργασίες (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Συγχρονισμός (%1$d)</item>
+        <item quantity="other">Συγχρονισμοί (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Κορυφαίο wakelock ανά χρόνο: %1$d</item>
+        <item quantity="other">Κορυφαία wakelock ανά χρόνο: %1$d</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d πακέτο μοιράζεται αυτό το UID</item>
+        <item quantity="other">%1$d πακέτα μοιράζονται αυτό το UID</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">Εισήχθη %1$d ρύθμιση</item>
+        <item quantity="other">Εισήχθησαν %1$d ρυθμίσεις</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 δευτερόλεπτα</item>
+        <item>10 δευτερόλεπτα</item>
+        <item>30 δευτερόλεπτα</item>
+        <item>1 λεπτό</item>
+        <item>5 λεπτά</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Ελάχιστο</item>
+        <item>Συμπυκνωμένο</item>
+        <item>Αναλυτικό</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 λεπτό</item>
+        <item>5 λεπτά</item>
+        <item>15 λεπτά</item>
+        <item>30 λεπτά</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Προεπιλογή συστήματος</item>
+        <item>Φωτεινό</item>
+        <item>Σκοτεινό</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 λεπτά</item>
+        <item>1 ώρα</item>
+        <item>6 ώρες</item>
+        <item>24 ώρες</item>
+        <item>7 ημέρες</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Κελσίου</item>
+        <item>Φάρενγκτ</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 εβδομάδα</item>
+        <item>1 μήνας</item>
+        <item>3 μήνες</item>
+        <item>6 μήνες</item>
+        <item>1 έτος</item>
+        <item>Για πάντα</item>
+    </string-array>
+</resources>
+    

@@ -16,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import app.batstats.R
 import app.batstats.viewmodel.SessionDetailsViewModel
 import kotlin.math.abs
 import java.time.Instant
@@ -35,8 +37,8 @@ fun SessionDetailsScreen(
 
     Scaffold(topBar = {
         LargeTopAppBar(
-            title = { Text("Session details") },
-            navigationIcon = { TextButton(onClick = onBack) { Text("Back") } },
+            title = { Text(stringResource(R.string.session_details)) },
+            navigationIcon = { TextButton(onClick = onBack) { Text(stringResource(R.string.back)) } },
             actions = {
 //                IconButton(onClick = { /* share later */ }) { Icon(Icons.Outlined.Share, null) }
 //                IconButton(onClick = { /* export later */ }) { Icon(Icons.Outlined.Download, null) }
@@ -55,25 +57,26 @@ fun SessionDetailsScreen(
                     .atZone(ZoneId.systemDefault())
                     .format(dateTimeFormatter)
             }
+            val endedLabel = stringResource(R.string.session_state_ended)
             val endStr = remember(ui.end) {
                 ui.end?.let {
                     Instant.ofEpochMilli(it)
                         .atZone(ZoneId.systemDefault())
                         .format(dateTimeFormatter)
-                } ?: "Active"
+                } ?: endedLabel
             }
 
             ElevatedCard {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("${ui.type} • ${ui.levelRange}", style = MaterialTheme.typography.titleMedium)
-                    Text("Start: $startStr", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("End: $endStr", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.start_time, startStr), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.end_time, endStr), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         ui.capacityMah?.let {
-                            AssistChip(onClick = {}, label = { Text("~${it} mAh") })
+                            AssistChip(onClick = {}, label = { Text(stringResource(R.string.mah_approx, it.toString())) })
                         }
                         ui.avgCurrent?.let {
-                            AssistChip(onClick = {}, label = { Text("${it / 1000} mA avg") })
+                            AssistChip(onClick = {}, label = { Text(stringResource(R.string.average_current_ma, (it / 1000).toString())) })
                         }
                     }
                 }
@@ -83,22 +86,22 @@ fun SessionDetailsScreen(
             val tertiaryColor = MaterialTheme.colorScheme.tertiary
             val errorColor = MaterialTheme.colorScheme.error
 
-            ChartCard("Current (mA)") {
+            ChartCard(stringResource(R.string.current_mv)) {
                 val values = ui.points.map { it.currentMa?.toFloat() ?: 0f }
                 drawSeries(values, primaryColor)
             }
-            ChartCard("Voltage (mV)") {
+            ChartCard(stringResource(R.string.voltage_mv)) {
                 val values = ui.points.map { it.voltageMv?.toFloat() ?: 0f }
                 drawSeries(values, tertiaryColor)
             }
-            ChartCard("Temperature (°C)") {
+            ChartCard(stringResource(R.string.temperature_c)) {
                 val values = ui.points.map { it.tempC?.toFloat() ?: 0f }
                 drawSeries(values, errorColor)
             }
 
             AnimatedVisibility(visible = ui.points.isEmpty(), enter = fadeIn(), exit = fadeOut()) {
                 Text(
-                    "No data points captured yet.",
+                    stringResource(R.string.no_data_points),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(4.dp)
                 )

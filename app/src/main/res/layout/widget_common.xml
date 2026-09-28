@@ -19,7 +19,7 @@
             android:id="@+id/icon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:contentDescription="Battery icon"
+            android:contentDescription="@string/battery_icon_description"
             android:src="@drawable/ic_battery"
             android:layout_marginEnd="8dp"
             app:tint="#00D9B5" />

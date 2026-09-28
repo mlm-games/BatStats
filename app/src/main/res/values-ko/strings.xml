@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">뒤로</string>
+    <string name="cancel">취소</string>
+    <string name="dismiss">닫기</string>
+    <string name="refresh">새로 고침</string>
+    <string name="copy">복사</string>
+    <string name="copy_all">모두 복사</string>
+    <string name="app_info">앱 정보</string>
+    <string name="unknown">알 수 없음</string>
+    <string name="battery_icon_description">배터리 아이콘</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
+    <string name="on">켜짐</string>
+    <string name="off">꺼짐</string>
+    <string name="live">실시간</string>
+    <string name="min">최소</string>
+    <string name="max">최대</string>
+    <string name="time">시간</string>
+    <string name="total">합계</string>
+    <string name="mobile">모바일</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">개수</string>
+    <string name="active">활성</string>
+    <string name="idle">유휴</string>
+    <string name="awake">깨어 있음</string>
+    <string name="duration">기간</string>
+    <string name="total_time">총 시간</string>
+    <string name="network">네트워크</string>
+    <string name="bluetooth">블루투스</string>
+    <string name="start">시작</string>
+    <string name="stop">중지</string>
+    <string name="end">종료</string>
+    <string name="pause">일시 정지</string>
+    <string name="reset">초기화</string>
+    <string name="updated">업데이트 %1$s</string>
+    <string name="theme">테마</string>
+    <string name="dynamic_colors">동적 색상</string>
+    <string name="temperature_unit">온도 단위</string>
+    <string name="alarms">알람</string>
+    <string name="history">기록</string>
+    <string name="settings">설정</string>
+    <string name="data">데이터</string>
+    <string name="detailed_stats">상세 통계</string>
+    <string name="drain_statistics">소비 통계</string>
+    <string name="session_details">세션 세부정보</string>
+    <string name="summary">요약</string>
+    <string name="monitoring">모니터링</string>
+    <string name="monitoring_ready">모니터링 준비 완료</string>
+    <string name="start_monitoring">모니터링 시작</string>
+    <string name="monitoring_battery">배터리 모니터링 중</string>
+    <string name="tap_to_start">탭하여 배터리 모니터링 시작</string>
+    <string name="running_foreground">실행 중(포그라운드)</string>
+    <string name="stopped">중지됨</string>
+    <string name="charge">충전</string>
+    <string name="discharge">방전</string>
+    <string name="charging">충전 중</string>
+    <string name="discharging">방전 중</string>
+    <string name="full">완전 충전</string>
+    <string name="battery_state_charging">충전 중 %1$d%%</string>
+    <string name="battery_state_discharging">방전 중 %1$d%%</string>
+    <string name="battery_at_percent">배터리 %1$d%% — 분리하는 것이 좋습니다.</string>
+    <string name="charge_limit_reached">충전 한도에 도달했습니다</string>
+    <string name="temperature_high">%1$d °C — 기기를 식히세요.</string>
+    <string name="heavy_drain">%1$d mA — 큰 소비가 감지되었습니다.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">상태</string>
+    <string name="health_good">양호</string>
+    <string name="health_overheat">과열</string>
+    <string name="health_dead">고장</string>
+    <string name="health_over_voltage">과전압</string>
+    <string name="health_failed">실패</string>
+    <string name="health_cold">저온</string>
+    <string name="design">정격</string>
+    <string name="capacity">용량</string>
+    <string name="cycle_count">사이클 수</string>
+    <string name="current">전류</string>
+    <string name="temperature">온도</string>
+    <string name="voltage">전압</string>
+    <string name="power">전력</string>
+    <string name="power_usage">전력 소비</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">카메라</string>
+    <string name="mobile_radio">모바일 라디오</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">배터리 구동 시간의 %1$s%%</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">시간당 소비(화면 켜짐)</string>
+    <string name="drain_hour_screen_off">시간당 소비(화면 꺼짐)</string>
+    <string name="technology">기술</string>
+    <string name="health_status">상태</string>
+    <string name="status">상태</string>
+    <string name="current_kernel">전류(커널)</string>
+    <string name="voltage_kernel">전압(커널)</string>
+    <string name="time_to_empty">방전까지 남은 시간</string>
+    <string name="time_to_full">완전 충전까지 남은 시간</string>
+    <string name="current_mv">전류 (mA)</string>
+    <string name="voltage_mv">전압 (mV)</string>
+    <string name="temperature_c">온도 (°C)</string>
+    <string name="current_recent">전류(최근 15분)</string>
+    <string name="sessions">세션</string>
+    <string name="samples">샘플</string>
+    <string name="session_tracking">세션 추적</string>
+    <string name="session_active">%1$s 세션 활성 • 시작 %2$s</string>
+    <string name="charging_session">충전 세션</string>
+    <string name="discharge_session">방전 세션</string>
+    <string name="session_state_active">활성</string>
+    <string name="session_state_ended">활성</string>
+    <string name="search_session_id">세션 ID로 검색…</string>
+    <string name="sort_by">정렬: %1$s</string>
+    <string name="sort_power">전력 소비</string>
+    <string name="sort_cpu_time">CPU 시간</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">네트워크</string>
+    <string name="sort_foreground">포그라운드</string>
+    <string name="start_time">시작: %1$s</string>
+    <string name="end_time">종료: %1$s</string>
+    <string name="no_sessions_yet">아직 세션이 없습니다</string>
+    <string name="no_sessions_yet_desc">세션을 시작하거나 모니터링을 시작하면 여기에 기록이 표시됩니다.</string>
+    <string name="no_data_points">아직 수집된 데이터가 없습니다.</string>
+    <string name="mah_approx">약 %1$s mAh</string>
+    <string name="average_current_ma">평균 %1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s 시간</string>
+    <string name="data_export_import">데이터 내보내기/가져오기</string>
+    <string name="date_range">기간</string>
+    <string name="export">내보내기</string>
+    <string name="export_json">JSON 내보내기</string>
+    <string name="export_csv_folder">CSV 내보내기(폴더)</string>
+    <string name="import_string">가져오기</string>
+    <string name="import_json">JSON 가져오기</string>
+    <string name="import_csv">CSV 가져오기</string>
+    <string name="csv_import_hint">CSV 가져오기: battery_samples.csv 또는 charge_sessions.csv를 여세요</string>
+    <string name="from_beginning">시작: 처음</string>
+    <string name="from_date">시작: %1$s</string>
+    <string name="to_date">종료: %1$s</string>
+    <string name="all">전체</string>
+    <string name="last_7_days">최근 7일</string>
+    <string name="last_30_days">최근 30일</string>
+    <string name="export_battery_data">배터리 데이터 내보내기</string>
+    <string name="export_battery_data_desc">배터리 기록을 파일로 내보내기</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">앱 동작 사용자 지정</string>
+    <string name="category_general">일반</string>
+    <string name="category_notifications">알림</string>
+    <string name="category_display">화면</string>
+    <string name="category_data">데이터 및 내보내기</string>
+    <string name="reset_settings">설정 초기화</string>
+    <string name="reset_ui">UI 초기화</string>
+    <string name="reset_all">모두 초기화</string>
+    <string name="import_settings">설정 가져오기</string>
+    <string name="paste_json">내보낸 설정 JSON을 붙여넣으세요:</string>
+    <string name="paste_json_hint">여기에 JSON을 붙여넣으세요…</string>
+    <string name="import_failed">가져오기 실패</string>
+    <string name="data_cleared">모든 데이터를 삭제했습니다</string>
+    <string name="import_action">가져오기</string>
+    <string name="clear_all_data">모든 데이터를 삭제할까요?</string>
+    <string name="clear_data_warning">배터리 기록, 세션, 통계가 모두 영구적으로 삭제됩니다. 되돌릴 수 없습니다.</string>
+    <string name="delete_all">모두 삭제</string>
+    <string name="clear_all_data_action">모든 데이터 삭제</string>
+    <string name="clear_all_data_action_desc">저장된 모든 배터리 데이터 삭제</string>
+    <string name="export_settings">설정 내보내기</string>
+    <string name="import_settings_desc">설정 가져오기</string>
+    <string name="reset_settings_desc">설정 초기화</string>
+    <string name="choose_reset">초기화할 항목을 선택하세요:</string>
+    <string name="reset_ui_settings">UI 설정 초기화: 보이는 설정만 초기화합니다</string>
+    <string name="reset_all_settings">모두 초기화: 모든 항목을 초기화합니다</string>
+    <string name="ui_settings_reset">UI 설정을 초기화했습니다</string>
+    <string name="all_settings_reset">모든 설정을 초기화했습니다</string>
+    <string name="auto_start_monitoring">모니터링 자동 시작</string>
+    <string name="monitoring_interval">모니터링 간격</string>
+    <string name="show_persistent_notification">지속 알림 표시</string>
+    <string name="show_drain_notification">소비 알림 표시</string>
+    <string name="show_drain_notification_desc">알림에 상세 소비 통계를 표시합니다(Shizuku, Root 또는 ADB 필요)</string>
+    <string name="notification_style">알림 스타일</string>
+    <string name="track_foreground_apps">포그라운드 앱 추적</string>
+    <string name="detailed_stats_interval">상세 통계 간격</string>
+    <string name="detailed_stats_interval_desc">Shizuku/Root/ADB를 통해 상세 배터리 통계를 수집하는 주기입니다.</string>
+    <string name="low_battery_alert">배터리 부족 알림</string>
+    <string name="low_battery_threshold">배터리 부족 임계값</string>
+    <string name="high_battery_alert">배터리 과충전 알림</string>
+    <string name="high_battery_alert_desc">충전이 임계값에 도달하면 알립니다</string>
+    <string name="high_battery_threshold">배터리 과충전 임계값</string>
+    <string name="temperature_warning">온도 경고</string>
+    <string name="temperature_threshold">온도 임계값</string>
+    <string name="temperature_threshold_desc">경고 온도(섭씨)</string>
+    <string name="high_discharge_alert">과도한 방전 알림</string>
+    <string name="discharge_threshold">방전 임계값</string>
+    <string name="discharge_threshold_desc">방전이 이 값을 초과하면 경고합니다(mA)</string>
+    <string name="charging_complete_alert">충전 완료 알림</string>
+    <string name="alert_sound">알림음</string>
+    <string name="alert_vibration">알림 진동</string>
+    <string name="high_temperature">고온 경고</string>
+    <string name="high_discharge">과도한 방전</string>
+    <string name="chart_time_range">차트 기간</string>
+    <string name="show_current_ma">전류를 mA로 표시</string>
+    <string name="compact_stats_view">간결한 통계 보기</string>
+    <string name="pure_black_oled">순수 검정 (OLED)</string>
+    <string name="data_retention">데이터 보존 기간</string>
+    <string name="auto_cleanup">오래된 데이터 자동 정리</string>
+    <string name="export_format">내보내기 형식</string>
+    <string name="include_raw_samples">원본 샘플 포함</string>
+    <string name="screen_on">화면 켜짐</string>
+    <string name="screen_off">화면 꺼짐</string>
+    <string name="mobile_signal">모바일 신호</string>
+    <string name="wifi_signal">Wi-Fi 신호</string>
+    <string name="no_signal_data">신호 데이터가 없습니다</string>
+    <string name="signal_quality">신호 품질</string>
+    <string name="signal_none">없음</string>
+    <string name="signal_poor">약함</string>
+    <string name="signal_moderate">보통</string>
+    <string name="signal_good">양호</string>
+    <string name="signal_great">매우 좋음</string>
+    <string name="signal_level">단계 %1$d</string>
+    <string name="mobile_rx">모바일 수신</string>
+    <string name="mobile_tx">모바일 송신</string>
+    <string name="wifi_rx">Wi-Fi 수신</string>
+    <string name="wifi_tx">Wi-Fi 송신</string>
+    <string name="no_network_data">네트워크 데이터가 없습니다</string>
+    <string name="kernel_count">커널 (%1$d)</string>
+    <string name="wakelocks">Wakelock</string>
+    <string name="kernel_wakelocks">커널 Wakelock(네이티브)</string>
+    <string name="no_app_wakelocks">앱 Wakelock을 찾을 수 없습니다</string>
+    <string name="no_kernel_wakelocks">커널 Wakelock을 찾을 수 없습니다</string>
+    <string name="could_not_read_wakelocks">커널 Wakelock을 읽을 수 없습니다.</string>
+    <string name="count_active">개수: %1$d | 활성: %2$d</string>
+    <string name="doze_statistics">Doze 통계</string>
+    <string name="doze_whitelist">Doze 화이트리스트</string>
+    <string name="no_whitelist">화이트리스트 데이터가 없습니다</string>
+    <string name="no_doze_data">Doze 데이터가 없습니다</string>
+    <string name="deep_doze_time">딥 Doze 시간</string>
+    <string name="deep_doze_count">딥 Doze 횟수</string>
+    <string name="light_doze_time">라이트 Doze 시간</string>
+    <string name="light_doze_count">라이트 Doze 횟수</string>
+    <string name="maintenance_windows">유지 관리 창</string>
+    <string name="maintenance_time">유지 관리 시간</string>
+    <string name="current_state">현재 상태</string>
+    <string name="doze_state">Doze 상태</string>
+    <string name="light_state">라이트 Doze 상태</string>
+    <string name="deep_doze_enabled">딥 Doze 사용</string>
+    <string name="light_doze_enabled">라이트 Doze 사용</string>
+    <string name="screen">화면</string>
+    <string name="battery_level_label">배터리 잔량</string>
+    <string name="battery_status">배터리 상태</string>
+    <string name="low_power_mode">저전력 모드</string>
+    <string name="device_idle_mode">기기 유휴 모드</string>
+    <string name="no_state_data">상태 데이터가 없습니다</string>
+    <string name="whitelisted_apps">화이트리스트 앱: %1$d</string>
+    <string name="temporarily_whitelisted">임시 화이트리스트: %1$d</string>
+    <string name="suspend_blockers">서스펜드 차단기</string>
+    <string name="no_suspend_blockers">활성 서스펜드 차단기가 없습니다</string>
+    <string name="no_bluetooth_data">블루투스 데이터가 없습니다</string>
+    <string name="idle_time">유휴 시간</string>
+    <string name="rx_time">수신 시간</string>
+    <string name="tx_time">송신 시간</string>
+    <string name="scan_time">스캔 시간</string>
+    <string name="system_apps">시스템 앱</string>
+    <string name="no_apps_found">앱을 찾을 수 없습니다</string>
+    <string name="packages_shared_uid">패키지(공유 UID %1$d)</string>
+    <string name="process_statistics">프로세스 통계</string>
+    <string name="no_process_data">프로세스 데이터가 없습니다</string>
+    <string name="apps_tracked">추적 중인 앱</string>
+    <string name="power_breakdown">전력 소비 내역</string>
+    <string name="time_usage">시간 사용 내역</string>
+    <string name="cpu_time">CPU 시간</string>
+    <string name="wakelock_time">Wakelock 시간</string>
+    <string name="foreground">포그라운드</string>
+    <string name="foreground_service">포그라운드 서비스</string>
+    <string name="top">포그라운드</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">센서</string>
+    <string name="sensor_usage">센서 사용량</string>
+    <string name="no_sensor_data">센서 데이터가 없습니다</string>
+    <string name="no_alarm_data">알람 데이터가 없습니다</string>
+    <string name="no_job_data">작업 데이터가 없습니다</string>
+    <string name="no_sync_data">동기화 데이터가 없습니다</string>
+    <string name="wakeups">깨운 횟수</string>
+    <string name="screen_time_analysis">화면 사용 시간 분석</string>
+    <string name="screen_time_breakdown">화면 사용 시간 내역</string>
+    <string name="time_on_battery">배터리 구동 시간</string>
+    <string name="screen_on_time">화면 켜진 시간</string>
+    <string name="estimated_capacity">추정 용량</string>
+    <string name="discharge_breakdown">방전 내역</string>
+    <string name="deep_sleep_share">화면 꺼진 시간 중 딥 슬립 시간 비율</string>
+    <string name="tracking_active">추적 중</string>
+    <string name="tracking_paused">추적 일시 중지</string>
+    <string name="reset_session">세션 초기화</string>
+    <string name="drain_rates">소비 속도</string>
+    <string name="deep_sleep">딥 슬립</string>
+    <string name="dozing">잔잠</string>
+    <string name="drain_rate">소비 속도</string>
+    <string name="total_drain">총 소비량</string>
+    <string name="activity_breakdown">활동 내역</string>
+    <string name="session_summary">세션 요약</string>
+    <string name="avg_rate">평균 속도</string>
+    <string name="drain_history">소비 기록</string>
+    <string name="collecting_data">데이터 수집 중…</string>
+    <string name="session_duration">세션: %1$s</string>
+    <string name="total_drain_value">총 소비량: %1$s</string>
+    <string name="drain_notification_channel_desc">실시간 배터리 소비 통계를 표시합니다</string>
+    <string name="drain_state_charging">⚡ 충전 중</string>
+    <string name="drain_state_deep_sleep">😴 딥 슬립</string>
+    <string name="drain_state_dozing">💤 잔잠</string>
+    <string name="drain_state_screen_on">📱 화면 켜짐</string>
+    <string name="drain_state_screen_off">🌙 화면 꺼짐</string>
+    <string name="drain_rates_section">━━━ 소비 속도 ━━━</string>
+    <string name="activity_section">━━━ 활동 ━━━</string>
+    <string name="session_section">━━━ 세션 ━━━</string>
+    <string name="drain_on_off_sleep">켜짐: %1$s • 꺼짐: %2$s • 슬립: %3$s</string>
+    <string name="drain_screen_on_line">📱 화면 켜짐: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 화면 꺼짐: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 딥 슬립: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ 깨어 있음: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 활성: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 유휴: %1$s (%2$s)</string>
+    <string name="drain_total_line">합계: %1$s / %2$s</string>
+    <string name="drain_average_line">평균: %1$s</string>
+    <string name="tab_overview">개요</string>
+    <string name="tab_apps">앱</string>
+    <string name="tab_wakelocks">Wakelock</string>
+    <string name="tab_network">네트워크</string>
+    <string name="tab_system">시스템</string>
+    <string name="tab_alarms">알람</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • %1$s 경유</string>
+    <string name="reset_stats">통계 초기화</string>
+    <string name="stats_reset_success">통계를 초기화했습니다</string>
+    <string name="stats_reset_failed">통계를 초기화하지 못했습니다</string>
+    <string name="no_data_available">데이터가 없습니다</string>
+    <string name="advanced_stats_required">고급 통계 필요</string>
+    <string name="advanced_stats_desc">상세 통계에는 Shizuku, Root 또는 ADB로 부여한 권한 중 하나가 필요합니다(영구적, 서비스 불필요).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku가 실행되고 있지 않습니다. 먼저 Shizuku 앱(및 서비스)을 시작한 다음 다시 확인을 누르세요.</string>
+    <string name="shizuku_denied">Shizuku가 이 앱을 거부했습니다. Shizuku를 열고 승인된 앱에서 BatStats를 다시 승인하세요.</string>
+    <string name="shizuku_running">Shizuku가 실행 중입니다 — Shizuku 요청을 누르고 프롬프트를 승인하세요.</string>
+    <string name="request_shizuku">Shizuku 요청</string>
+    <string name="recheck">다시 확인</string>
+    <string name="troubleshooting">문제 해결</string>
+    <string name="troubleshoot_1">– 개발자 옵션과 USB 디버깅을 켜세요.</string>
+    <string name="troubleshoot_2">– Xiaomi/MIUI/HyperOS/OnePlus에서는 USB 디버깅(보안 설정)도 켜거나 권한 모니터링을 끄고 재부팅하세요.</string>
+    <string name="troubleshoot_3">– adb devices를 실행하고, 프롬프트를 수락한 뒤, 권한 부여 명령을 실행하고 BatStats를 강제 종료하거나 재부팅하세요.</string>
+    <string name="troubleshoot_4">– 권한 부여가 \"Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?\" 오류로 실패한다면 위의 보안 설정을 켜세요.</string>
+    <string name="troubleshoot_5">– 부여한 권한은 삭제할 때까지 유지됩니다. 대신 루트를 통해 pm grant를 사용할 수 있습니다(su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">ADB를 통해 한 번만 실행하면 됩니다. 재부팅과 업데이트 후에도 삭제할 때까지 유지되며, Shizuku를 계속 실행할 필요가 없습니다.</string>
+    <string name="root_only">Root 전용 기능:</string>
+    <string name="root_access_required">Root 권한 필요</string>
+    <string name="root_access_desc">이 통계에는 사이클 수, 실제 용량, 커널 Wakelock, 열 데이터 등 커널 수준의 배터리 정보를 읽기 위한 Root 권한이 필요합니다.</string>
+    <string name="root_feature_cycles">배터리 사이클 수</string>
+    <string name="root_feature_capacity">실제 용량(정격 대비 현재)</string>
+    <string name="root_feature_health">배터리 노후도/상태 비율</string>
+    <string name="root_feature_wakelocks">커널 Wakelock(네이티브)</string>
+    <string name="root_feature_cpu">CPU 주파수 상태</string>
+    <string name="root_feature_thermal">온도 영역 모니터링</string>
+    <string name="root_feature_sysfs">sysfs 직접 접근</string>
+    <string name="battery_health_kernel">배터리 상태(커널)</string>
+    <string name="no_battery_info">/sys에서 배터리 정보를 읽을 수 없습니다</string>
+    <string name="cycles_value">사이클 %1$d회</string>
+    <string name="cpu_frequency">CPU 주파수</string>
+    <string name="no_cpu_info">CPU 정보를 읽을 수 없습니다</string>
+    <string name="cluster_n">클러스터 %1$d</string>
+    <string name="time_in_state">상태별 시간</string>
+    <string name="thermal_zones">온도 영역</string>
+    <string name="no_thermal_data">온도 영역을 읽을 수 없습니다</string>
+    <plurals name="more_count">
+        <item quantity="one">외 %1$d개</item>
+        <item quantity="other">외 %1$d개</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… 외 %1$d개</item>
+        <item quantity="other">… 외 %1$d개</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">활성 Wakelock %1$d개</item>
+        <item quantity="other">활성 Wakelock %1$d개</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">앱 Wakelock (%1$d)</item>
+        <item quantity="other">앱 Wakelock (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">알람 (%1$d)</item>
+        <item quantity="other">알람 (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">작업 (%1$d)</item>
+        <item quantity="other">작업 (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">동기화 (%1$d)</item>
+        <item quantity="other">동기화 (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">시간 기준 상위 Wakelock %1$d개</item>
+        <item quantity="other">시간 기준 상위 Wakelock %1$d개</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">패키지 %1$d개가 이 UID를 공유합니다</item>
+        <item quantity="other">패키지 %1$d개가 이 UID를 공유합니다</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">설정 %1$d개를 가져왔습니다</item>
+        <item quantity="other">설정 %1$d개를 가져왔습니다</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5초</item>
+        <item>10초</item>
+        <item>30초</item>
+        <item>1분</item>
+        <item>5분</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>최소</item>
+        <item>간결</item>
+        <item>상세</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1분</item>
+        <item>5분</item>
+        <item>15분</item>
+        <item>30분</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>시스템 기본</item>
+        <item>밝게</item>
+        <item>어둡게</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15분</item>
+        <item>1시간</item>
+        <item>6시간</item>
+        <item>24시간</item>
+        <item>7일</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>섭씨</item>
+        <item>화씨</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1주</item>
+        <item>1개월</item>
+        <item>3개월</item>
+        <item>6개월</item>
+        <item>1년</item>
+        <item>무제한</item>
+    </string-array>
+</resources>
+    

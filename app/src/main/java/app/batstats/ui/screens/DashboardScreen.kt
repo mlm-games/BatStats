@@ -87,6 +87,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
@@ -95,6 +96,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.R
 import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
@@ -135,7 +137,7 @@ fun DashboardScreen(
                 title = {
                     Column {
                         Text(
-                            "BatStats",
+                            stringResource(R.string.batstats),
                             style = MaterialTheme.typography.headlineMedium
                         )
                         AnimatedVisibility(visible = rt.sample != null) {
@@ -146,7 +148,7 @@ fun DashboardScreen(
                                     .format(timeFormatter)
                             }
                             Text(
-                                "Updated $formatted",
+                                stringResource(R.string.updated, formatted),
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -155,22 +157,22 @@ fun DashboardScreen(
                 },
                 actions = {
                     IconButton(onClick = onOpenHistory) {
-                        Icon(Icons.Outlined.History, "History")
+                        Icon(Icons.Outlined.History, stringResource(R.string.history))
                     }
                     IconButton(onClick = onOpenAlarms) {
-                        Icon(Icons.Outlined.Notifications, "Alarms")
+                        Icon(Icons.Outlined.Notifications, stringResource(R.string.alarms))
                     }
                     IconButton(onClick = onOpenData) {
-                        Icon(Icons.Outlined.CloudDownload, "Data")
+                        Icon(Icons.Outlined.CloudDownload, stringResource(R.string.data))
                     }
                     IconButton(onClick = onOpenDrainStats) {
-                        Icon(Icons.AutoMirrored.Outlined.ShowChart, "Drain Stats")
+                        Icon(Icons.AutoMirrored.Outlined.ShowChart, stringResource(R.string.drain_statistics))
                     }
                     IconButton(onClick = onOpenDetailedStats) {
-                        Icon(Icons.Outlined.Analytics, "Detailed Stats")
+                        Icon(Icons.Outlined.Analytics, stringResource(R.string.detailed_stats))
                     }
                     IconButton(onClick = onOpenSettings) {
-                        Icon(Icons.Outlined.Settings, "Settings")
+                        Icon(Icons.Outlined.Settings, stringResource(R.string.settings))
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -303,11 +305,15 @@ private fun CircularBatteryIndicator(
         label = "battery_progress"
     )
     val colors = MaterialTheme.colorScheme
+    val stateDesc = stringResource(
+        if (isCharging) R.string.battery_state_charging else R.string.battery_state_discharging,
+        level
+    )
 
     Box(
         modifier = modifier.semantics {
             progressBarRangeInfo = ProgressBarRangeInfo(progress, 0f..1f, 0)
-            stateDescription = if (isCharging) "Charging $level%" else "Discharging $level%"
+            stateDescription = stateDesc
         },
         contentAlignment = Alignment.Center
     ) {
@@ -346,11 +352,13 @@ private fun CircularBatteryIndicator(
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold
             )
-            val statusText = when {
-                isCharging && level >= 100 -> "Full"
-                isCharging -> "Charging"
-                else -> "Discharging"
-            }
+            val statusText = stringResource(
+                when {
+                    isCharging && level >= 100 -> R.string.full
+                    isCharging -> R.string.charging
+                    else -> R.string.discharging
+                }
+            )
             Text(
                 text = statusText,
                 style = MaterialTheme.typography.labelLarge,
@@ -369,7 +377,7 @@ private fun CircularBatteryIndicator(
                         tint = if (current > 0) colors.primary else colors.error
                     )
                     Text(
-                        text = "${kotlin.math.abs(current)} mA",
+                        text = stringResource(R.string.current_ma, kotlin.math.abs(current).toString()),
                         style = MaterialTheme.typography.labelLarge
                     )
                 }
@@ -390,7 +398,7 @@ private fun CircularBatteryIndicator(
 
             Icon(
                 imageVector = Icons.Default.OfflineBolt,
-                contentDescription = "Charging",
+                contentDescription = stringResource(R.string.charging),
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.TopEnd)
@@ -425,9 +433,9 @@ private fun ControlCenter(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text("Monitoring", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.monitoring), style = MaterialTheme.typography.titleMedium)
                     Text(
-                        if (isMonitoring) "Running (foreground)" else "Stopped",
+                        stringResource(if (isMonitoring) R.string.running_foreground else R.string.stopped),
                         style = MaterialTheme.typography.bodySmall,
                         color = if (isMonitoring) MaterialTheme.colorScheme.primary
                         else MaterialTheme.colorScheme.onSurfaceVariant
@@ -449,7 +457,7 @@ private fun ControlCenter(
                         Modifier.size(18.dp)
                     )
                     Spacer(Modifier.width(6.dp))
-                    Text(if (isMonitoring) "Stop" else "Start")
+                    Text(stringResource(if (isMonitoring) R.string.stop else R.string.start))
                 }
             }
 
@@ -465,7 +473,7 @@ private fun ControlCenter(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        "Session tracking",
+                        stringResource(R.string.session_tracking),
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -474,14 +482,14 @@ private fun ControlCenter(
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             AssistChip(
                                 onClick = { onStartSession(SessionType.CHARGE) },
-                                label = { Text("Charge") },
+                                label = { Text(stringResource(R.string.charge)) },
                                 leadingIcon = {
                                     Icon(Icons.Default.BatteryChargingFull, null, Modifier.size(16.dp))
                                 }
                             )
                             AssistChip(
                                 onClick = { onStartSession(SessionType.DISCHARGE) },
-                                label = { Text("Discharge") },
+                                label = { Text(stringResource(R.string.discharge)) },
                                 leadingIcon = {
                                     Icon(Icons.Default.Battery0Bar, null, Modifier.size(16.dp))
                                 }
@@ -491,7 +499,7 @@ private fun ControlCenter(
                         TextButton(onClick = onEndSession) {
                             Icon(Icons.Default.CheckCircle, null, Modifier.size(18.dp))
                             Spacer(Modifier.width(6.dp))
-                            Text("End")
+                            Text(stringResource(R.string.end))
                         }
                     }
                 }
@@ -509,7 +517,16 @@ private fun ControlCenter(
 
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = "${session.type} session active • started $startedAt",
+                        text = stringResource(
+                            R.string.session_active,
+                            stringResource(
+                                when (session.type) {
+                                    SessionType.CHARGE -> R.string.charge
+                                    SessionType.DISCHARGE -> R.string.discharge
+                                }
+                            ),
+                            startedAt
+                        ),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -523,10 +540,10 @@ private fun ControlCenter(
 private fun StatsGrid(rt: BatteryRepository.Realtime) {
     val locale = remember { Locale.getDefault() }
     val stats = listOf(
-        Triple(Icons.Outlined.ElectricBolt, "Voltage", "${rt.voltageMv} mV"),
-        Triple(Icons.Outlined.SettingsPower, "Power", String.format(locale, "%.1f mW", rt.powerMw)),
-        Triple(Icons.Outlined.Thermostat, "Temperature", String.format(locale, "%.1f°C", rt.temperatureC)),
-        Triple(Icons.Outlined.Battery0Bar, "Health", getHealthString(rt.sample?.health))
+        Triple(Icons.Outlined.ElectricBolt, stringResource(R.string.voltage), "${rt.voltageMv} mV"),
+        Triple(Icons.Outlined.SettingsPower, stringResource(R.string.power), String.format(locale, "%.1f mW", rt.powerMw)),
+        Triple(Icons.Outlined.Thermostat, stringResource(R.string.temperature), String.format(locale, "%.1f°C", rt.temperatureC)),
+        Triple(Icons.Outlined.Battery0Bar, stringResource(R.string.health), getHealthString(rt.sample?.health))
     )
 
     Row(
@@ -630,7 +647,7 @@ private fun LiveChartCard(vm: DashboardViewModel) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Current (last 15 minutes)",
+                    stringResource(R.string.current_recent),
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -649,7 +666,7 @@ private fun LiveChartCard(vm: DashboardViewModel) {
                         )
                         Spacer(Modifier.width(4.dp))
                         Text(
-                            "Live",
+                            stringResource(R.string.live),
                             style = MaterialTheme.typography.labelSmall
                         )
                     }
@@ -743,12 +760,15 @@ private fun AnimatedLineChart(
     ) { }
 }
 
-private fun getHealthString(health: Int?): String = when(health) {
-    2 -> "Good"
-    3 -> "Overheat"
-    4 -> "Dead"
-    5 -> "Over voltage"
-    6 -> "Failed"
-    7 -> "Cold"
-    else -> "Unknown"
-}
+@Composable
+private fun getHealthString(health: Int?): String = stringResource(
+    when (health) {
+        2 -> R.string.health_good
+        3 -> R.string.health_overheat
+        4 -> R.string.health_dead
+        5 -> R.string.health_over_voltage
+        6 -> R.string.health_failed
+        7 -> R.string.health_cold
+        else -> R.string.unknown
+    }
+)

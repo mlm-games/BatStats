@@ -32,7 +32,7 @@ fun NavGraph(
             entry<Screen.Dashboard> {
                 DashboardScreen(
                     onOpenHistory = { backStack.add(Screen.History) },
-                    onOpenAlarms = { backStack.add(Screen.Settings(initialCategory = "Notifications")) },
+                    onOpenAlarms = { backStack.add(Screen.Settings(initialCategory = "notifications")) },
                     onOpenSettings = { backStack.add(Screen.Settings()) },
                     onOpenData = { backStack.add(Screen.Data) },
                     onOpenDetailedStats = { backStack.add(Screen.DetailedStats) },

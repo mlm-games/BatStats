@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Zpět</string>
+    <string name="cancel">Zrušit</string>
+    <string name="dismiss">Zavřít</string>
+    <string name="refresh">Obnovit</string>
+    <string name="copy">Kopírovat</string>
+    <string name="copy_all">Kopírovat vše</string>
+    <string name="app_info">Informace o aplikaci</string>
+    <string name="unknown">Neznámé</string>
+    <string name="battery_icon_description">Ikona baterie</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="on">Zap.</string>
+    <string name="off">Vyp.</string>
+    <string name="live">Živě</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="time">Čas</string>
+    <string name="total">Celkem</string>
+    <string name="mobile">Mobilní síť</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">Počet</string>
+    <string name="active">Aktivní</string>
+    <string name="idle">Nečinnost</string>
+    <string name="awake">Probuzení</string>
+    <string name="duration">Trvání</string>
+    <string name="total_time">Celkový čas</string>
+    <string name="network">Síť</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Spustit</string>
+    <string name="stop">Zastavit</string>
+    <string name="end">Ukončit</string>
+    <string name="pause">Pozastavit</string>
+    <string name="reset">Obnovit nastavení</string>
+    <string name="updated">Aktualizováno %1$s</string>
+    <string name="theme">Motiv</string>
+    <string name="dynamic_colors">Dynamické barvy</string>
+    <string name="temperature_unit">Jednotka teploty</string>
+    <string name="alarms">Budíky</string>
+    <string name="history">Historie</string>
+    <string name="settings">Nastavení</string>
+    <string name="data">Data</string>
+    <string name="detailed_stats">Podrobné statistiky</string>
+    <string name="drain_statistics">Statistiky spotřeby</string>
+    <string name="session_details">Podrobnosti relace</string>
+    <string name="summary">Souhrn</string>
+    <string name="monitoring">Sledování</string>
+    <string name="monitoring_ready">Sledování je připraveno</string>
+    <string name="start_monitoring">Spustit sledování</string>
+    <string name="monitoring_battery">Sledování baterie</string>
+    <string name="tap_to_start">Klepnutím spustíte sledování baterie</string>
+    <string name="running_foreground">Běží (na popředí)</string>
+    <string name="stopped">Zastaveno</string>
+    <string name="charge">Nabíjení</string>
+    <string name="discharge">Vybíjení</string>
+    <string name="charging">Nabíjí se</string>
+    <string name="discharging">Vybíjí se</string>
+    <string name="full">Plná</string>
+    <string name="battery_state_charging">Nabíjí se %1$d%%</string>
+    <string name="battery_state_discharging">Vybíjí se %1$d%%</string>
+    <string name="battery_at_percent">Baterie na %1$d%% — zvažte odpojení.</string>
+    <string name="charge_limit_reached">Dosáhla se meze nabíjení</string>
+    <string name="temperature_high">%1$d °C — nechte zařízení vychladnout.</string>
+    <string name="heavy_drain">%1$d mA — zjištěna vysoká spotřeba.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Stav</string>
+    <string name="health_good">Dobrý</string>
+    <string name="health_overheat">Přehřátí</string>
+    <string name="health_dead">Vadná</string>
+    <string name="health_over_voltage">Přepětí</string>
+    <string name="health_failed">Selhání</string>
+    <string name="health_cold">Studená</string>
+    <string name="design">Jmenovitá</string>
+    <string name="capacity">Kapacita</string>
+    <string name="cycle_count">Počet cyklů</string>
+    <string name="current">Proud</string>
+    <string name="temperature">Teplota</string>
+    <string name="voltage">Napětí</string>
+    <string name="power">Výkon</string>
+    <string name="power_usage">Spotřeba</string>
+    <string name="cpu">Procesor</string>
+    <string name="camera">Kamera</string>
+    <string name="mobile_radio">Mobilní rádio</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% času na baterii</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Spotřeba/hod. (obrazovka zap.)</string>
+    <string name="drain_hour_screen_off">Spotřeba/hod. (obrazovka vyp.)</string>
+    <string name="technology">Technologie</string>
+    <string name="health_status">Stav zdraví</string>
+    <string name="status">Stav</string>
+    <string name="current_kernel">Proud (jádro)</string>
+    <string name="voltage_kernel">Napětí (jádro)</string>
+    <string name="time_to_empty">Čas do vybití</string>
+    <string name="time_to_full">Čas do úplného nabití</string>
+    <string name="current_mv">Proud (mA)</string>
+    <string name="voltage_mv">Napětí (mV)</string>
+    <string name="temperature_c">Teplota (°C)</string>
+    <string name="current_recent">Proud (posledních 15 minut)</string>
+    <string name="sessions">Relace</string>
+    <string name="samples">Vzorky</string>
+    <string name="session_tracking">Sledování relace</string>
+    <string name="session_active">Relace „%1$s” je aktivní • spuštěna %2$s</string>
+    <string name="charging_session">Relace nabíjení</string>
+    <string name="discharge_session">Relace vybíjení</string>
+    <string name="session_state_active">AKTIVNÍ</string>
+    <string name="session_state_ended">Aktivní</string>
+    <string name="search_session_id">Hledat podle ID relace…</string>
+    <string name="sort_by">Řazení: %1$s</string>
+    <string name="sort_power">Spotřeba</string>
+    <string name="sort_cpu_time">Čas procesoru</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Síť</string>
+    <string name="sort_foreground">Popředí</string>
+    <string name="start_time">Začátek: %1$s</string>
+    <string name="end_time">Konec: %1$s</string>
+    <string name="no_sessions_yet">Zatím žádné relace</string>
+    <string name="no_sessions_yet_desc">Spusťte relaci nebo začněte sledování a zde uvidíte historii.</string>
+    <string name="no_data_points">Zatím nebyl zaznamenán žádný údaj.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">prům. ~%1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s h</string>
+    <string name="data_export_import">Export a import dat</string>
+    <string name="date_range">Rozsah dat</string>
+    <string name="export">Exportovat</string>
+    <string name="export_json">Exportovat JSON</string>
+    <string name="export_csv_folder">Exportovat CSV (složka)</string>
+    <string name="import_string">Importovat</string>
+    <string name="import_json">Importovat JSON</string>
+    <string name="import_csv">Importovat CSV</string>
+    <string name="csv_import_hint">Import CSV: otevřete battery_samples.csv nebo charge_sessions.csv</string>
+    <string name="from_beginning">Od: začátku</string>
+    <string name="from_date">Od: %1$s</string>
+    <string name="to_date">Do: %1$s</string>
+    <string name="all">Vše</string>
+    <string name="last_7_days">Posledních 7 dní</string>
+    <string name="last_30_days">Posledních 30 dní</string>
+    <string name="export_battery_data">Exportovat data baterie</string>
+    <string name="export_battery_data_desc">Exportovat historii baterie do souboru</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Přizpůsobte chování aplikace</string>
+    <string name="category_general">Obecné</string>
+    <string name="category_notifications">Oznámení</string>
+    <string name="category_display">Zobrazení</string>
+    <string name="category_data">Data a export</string>
+    <string name="reset_settings">Obnovit nastavení</string>
+    <string name="reset_ui">Obnovit rozhraní</string>
+    <string name="reset_all">Obnovit vše</string>
+    <string name="import_settings">Importovat nastavení</string>
+    <string name="paste_json">Vložte JSON exportovaného nastavení:</string>
+    <string name="paste_json_hint">Vložte JSON sem…</string>
+    <string name="import_failed">Import se nezdařil</string>
+    <string name="data_cleared">Všechna data byla smazána</string>
+    <string name="import_action">Importovat</string>
+    <string name="clear_all_data">Smazat všechna data?</string>
+    <string name="clear_data_warning">Tímto trvale smažete veškerou historii baterie, relace a statistiky. Tuto akci nelze vzít zpět.</string>
+    <string name="delete_all">Smazat vše</string>
+    <string name="clear_all_data_action">Smazat všechna data</string>
+    <string name="clear_all_data_action_desc">Smazat všechna uložená data baterie</string>
+    <string name="export_settings">Exportovat nastavení</string>
+    <string name="import_settings_desc">Importovat nastavení</string>
+    <string name="reset_settings_desc">Obnovit nastavení</string>
+    <string name="choose_reset">Vyberte, co obnovit:</string>
+    <string name="reset_ui_settings">Obnovit nastavení rozhraní: obnoví pouze viditelné nastavení</string>
+    <string name="reset_all_settings">Obnovit vše: obnoví všechna nastavení</string>
+    <string name="ui_settings_reset">Nastavení rozhraní bylo obnoveno</string>
+    <string name="all_settings_reset">Všechna nastavení byla obnovena</string>
+    <string name="auto_start_monitoring">Automaticky spouštět sledování</string>
+    <string name="monitoring_interval">Interval sledování</string>
+    <string name="show_persistent_notification">Zobrazovat trvalé oznámení</string>
+    <string name="show_drain_notification">Zobrazovat oznámení o spotřebě</string>
+    <string name="show_drain_notification_desc">Zobrazovat podrobné statistiky spotřeby v oznámení (vyžaduje Shizuku, Root nebo ADB)</string>
+    <string name="notification_style">Styl oznámení</string>
+    <string name="track_foreground_apps">Sledovat aplikace v popředí</string>
+    <string name="detailed_stats_interval">Interval podrobných statistik</string>
+    <string name="detailed_stats_interval_desc">Jak často sbírat podrobné statistiky baterie přes Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">Upozornění na nízkou baterii</string>
+    <string name="low_battery_threshold">Práh nízké baterie</string>
+    <string name="high_battery_alert">Upozornění na vysokou baterii</string>
+    <string name="high_battery_alert_desc">Upozornit, když nabití dosáhne prahu</string>
+    <string name="high_battery_threshold">Práh vysoké baterie</string>
+    <string name="temperature_warning">Upozornění na teplotu</string>
+    <string name="temperature_threshold">Práh teploty</string>
+    <string name="temperature_threshold_desc">Varovná teplota ve stupních Celsia</string>
+    <string name="high_discharge_alert">Upozornění na vysokou spotřebu</string>
+    <string name="discharge_threshold">Práh vybíjení</string>
+    <string name="discharge_threshold_desc">Upozornit, když vybíjení překročí tuto hodnotu (mA)</string>
+    <string name="charging_complete_alert">Upozornění na dokončení nabíjení</string>
+    <string name="alert_sound">Zvuk upozornění</string>
+    <string name="alert_vibration">Vibrace upozornění</string>
+    <string name="high_temperature">Upozornění na vysokou teplotu</string>
+    <string name="high_discharge">Vysoká spotřeba</string>
+    <string name="chart_time_range">Časový rozsah grafu</string>
+    <string name="show_current_ma">Zobrazovat proud v mA</string>
+    <string name="compact_stats_view">Kompaktní zobrazení statistik</string>
+    <string name="pure_black_oled">Čistá černá (OLED)</string>
+    <string name="data_retention">Retence dat</string>
+    <string name="auto_cleanup">Automaticky čistit stará data</string>
+    <string name="export_format">Formát exportu</string>
+    <string name="include_raw_samples">Zahrnout surové vzorky</string>
+    <string name="screen_on">Obrazovka zapnutá</string>
+    <string name="screen_off">Obrazovka vypnutá</string>
+    <string name="mobile_signal">Signál mobilní sítě</string>
+    <string name="wifi_signal">Signál Wi-Fi</string>
+    <string name="no_signal_data">Nejsou dostupná žádná data o signálu</string>
+    <string name="signal_quality">Kvalita signálu</string>
+    <string name="signal_none">Žádný</string>
+    <string name="signal_poor">Slabý</string>
+    <string name="signal_moderate">Střední</string>
+    <string name="signal_good">Dobrý</string>
+    <string name="signal_great">Výborný</string>
+    <string name="signal_level">Úroveň %1$d</string>
+    <string name="mobile_rx">Příjem mobilních dat</string>
+    <string name="mobile_tx">Odesílání mobilních dat</string>
+    <string name="wifi_rx">Příjem Wi-Fi</string>
+    <string name="wifi_tx">Odesílání Wi-Fi</string>
+    <string name="no_network_data">Nejsou dostupná žádná data o síti</string>
+    <string name="kernel_count">Jádro (%1$d)</string>
+    <string name="wakelocks">Wakelocky</string>
+    <string name="kernel_wakelocks">Wakelocky jádra (nativní)</string>
+    <string name="no_app_wakelocks">Nenalezeny žádné wakelocky aplikací</string>
+    <string name="no_kernel_wakelocks">Nenalezeny žádné wakelocky jádra</string>
+    <string name="could_not_read_wakelocks">Nelze přečíst wakelocky jádra.</string>
+    <string name="count_active">Počet: %1$d | Aktivní: %2$d</string>
+    <string name="doze_statistics">Statistiky Doze</string>
+    <string name="doze_whitelist">Bílý seznam Doze</string>
+    <string name="no_whitelist">Nejsou dostupná žádná data o bílém seznamu</string>
+    <string name="no_doze_data">Nejsou dostupná žádná data Doze</string>
+    <string name="deep_doze_time">Čas v hlubokém Doze</string>
+    <string name="deep_doze_count">Počet hlubokých Doze</string>
+    <string name="light_doze_time">Čas v lehkém Doze</string>
+    <string name="light_doze_count">Počet lehkých Doze</string>
+    <string name="maintenance_windows">Okna údržby</string>
+    <string name="maintenance_time">Čas údržby</string>
+    <string name="current_state">Aktuální stav</string>
+    <string name="doze_state">Stav Doze</string>
+    <string name="light_state">Stav lehkého Doze</string>
+    <string name="deep_doze_enabled">Hluboké Doze zapnuto</string>
+    <string name="light_doze_enabled">Lehké Doze zapnuto</string>
+    <string name="screen">Obrazovka</string>
+    <string name="battery_level_label">Úroveň baterie</string>
+    <string name="battery_status">Stav baterie</string>
+    <string name="low_power_mode">Režim úspory energie</string>
+    <string name="device_idle_mode">Režim nečinnosti zařízení</string>
+    <string name="no_state_data">Nejsou dostupná žádná data o stavu</string>
+    <string name="whitelisted_apps">Aplikace na bílém seznamu: %1$d</string>
+    <string name="temporarily_whitelisted">Dočasně na bílém seznamu: %1$d</string>
+    <string name="suspend_blockers">Blokátory pozastavení</string>
+    <string name="no_suspend_blockers">Žádné aktivní blokátory pozastavení</string>
+    <string name="no_bluetooth_data">Nejsou dostupná žádná data Bluetooth</string>
+    <string name="idle_time">Čas nečinnosti</string>
+    <string name="rx_time">Čas příjmu</string>
+    <string name="tx_time">Čas vysílání</string>
+    <string name="scan_time">Čas skenování</string>
+    <string name="system_apps">Systémové aplikace</string>
+    <string name="no_apps_found">Nenalezeny žádné aplikace</string>
+    <string name="packages_shared_uid">Balíčky (společné UID %1$d)</string>
+    <string name="process_statistics">Statistiky procesů</string>
+    <string name="no_process_data">Nejsou dostupná žádná data o procesech</string>
+    <string name="apps_tracked">Sledované aplikace</string>
+    <string name="power_breakdown">Rozdělení spotřeby</string>
+    <string name="time_usage">Rozdělení času</string>
+    <string name="cpu_time">Čas procesoru</string>
+    <string name="wakelock_time">Čas wakelocku</string>
+    <string name="foreground">Popředí</string>
+    <string name="foreground_service">Služba v popředí</string>
+    <string name="top">Popředí</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Senzory</string>
+    <string name="sensor_usage">Využití senzorů</string>
+    <string name="no_sensor_data">Nejsou dostupná žádná data senzorů</string>
+    <string name="no_alarm_data">Nejsou dostupná žádná data o budících</string>
+    <string name="no_job_data">Nejsou dostupná žádná data o úlohách</string>
+    <string name="no_sync_data">Nejsou dostupná žádná data o synchronizaci</string>
+    <string name="wakeups">Probuzení</string>
+    <string name="screen_time_analysis">Analýza času obrazovky</string>
+    <string name="screen_time_breakdown">Rozdělení času obrazovky</string>
+    <string name="time_on_battery">Čas na baterii</string>
+    <string name="screen_on_time">Čas se zapnutou obrazovkou</string>
+    <string name="estimated_capacity">Odhadovaná kapacita</string>
+    <string name="discharge_breakdown">Rozdělení vybíjení</string>
+    <string name="deep_sleep_share">z času s vypnutou obrazovkou v hlubokém spánku</string>
+    <string name="tracking_active">Sledování aktivní</string>
+    <string name="tracking_paused">Sledování pozastaveno</string>
+    <string name="reset_session">Obnovit relaci</string>
+    <string name="drain_rates">Rychlost spotřeby</string>
+    <string name="deep_sleep">Hluboký spánek</string>
+    <string name="dozing">Ospalost</string>
+    <string name="drain_rate">Rychlost spotřeby</string>
+    <string name="total_drain">Celková spotřeba</string>
+    <string name="activity_breakdown">Rozdělení podle činnosti</string>
+    <string name="session_summary">Souhrn relace</string>
+    <string name="avg_rate">Průměrná rychlost</string>
+    <string name="drain_history">Historie spotřeby</string>
+    <string name="collecting_data">Shromažďování dat…</string>
+    <string name="session_duration">Relace: %1$s</string>
+    <string name="total_drain_value">Celková spotřeba: %1$s</string>
+    <string name="drain_notification_channel_desc">Zobrazuje statistiky spotřeby baterie v reálném čase</string>
+    <string name="drain_state_charging">⚡ Nabíjí se</string>
+    <string name="drain_state_deep_sleep">😴 Hluboký spánek</string>
+    <string name="drain_state_dozing">💤 Ospalost</string>
+    <string name="drain_state_screen_on">📱 Obrazovka zapnutá</string>
+    <string name="drain_state_screen_off">🌙 Obrazovka vypnutá</string>
+    <string name="drain_rates_section">━━━ Rychlost spotřeby ━━━</string>
+    <string name="activity_section">━━━ Činnost ━━━</string>
+    <string name="session_section">━━━ Relace ━━━</string>
+    <string name="drain_on_off_sleep">Zap.: %1$s • Vyp.: %2$s • Spánek: %3$s</string>
+    <string name="drain_screen_on_line">📱 Obrazovka zapnutá: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Obrazovka vypnutá: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Hluboký spánek: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Probuzení: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Aktivní: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Nečinnost: %1$s (%2$s)</string>
+    <string name="drain_total_line">Celkem: %1$s za %2$s</string>
+    <string name="drain_average_line">Průměrně: %1$s</string>
+    <string name="tab_overview">Přehled</string>
+    <string name="tab_apps">Aplikace</string>
+    <string name="tab_wakelocks">Wakelocky</string>
+    <string name="tab_network">Síť</string>
+    <string name="tab_system">Systém</string>
+    <string name="tab_alarms">Budíky</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • přes %1$s</string>
+    <string name="reset_stats">Obnovit statistiky</string>
+    <string name="stats_reset_success">Statistiky byly obnoveny</string>
+    <string name="stats_reset_failed">Statistiky se nepodařilo obnovit</string>
+    <string name="no_data_available">Nejsou dostupná žádná data</string>
+    <string name="advanced_stats_required">Jsou vyžadovány pokročilé statistiky</string>
+    <string name="advanced_stats_desc">Podrobné statistiky vyžadují jedno z: Shizuku, Root nebo oprávnění udělená přes ADB (trvalá, bez služby).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku neběží. Nejprve spusťte aplikaci Shizuku (a její službu) a poté klepněte na Zkontrolovat znovu.</string>
+    <string name="shizuku_denied">Shizuku tuto aplikaci odmítlo. Otevřete Shizuku a znovu autorizujte BatStats v části Autorizované aplikace.</string>
+    <string name="shizuku_running">Shizuku běží – klepněte na Vyžádat Shizuku a potvrďte výzvu.</string>
+    <string name="request_shizuku">Vyžádat Shizuku</string>
+    <string name="recheck">Zkontrolovat znovu</string>
+    <string name="troubleshooting">Řešení potíží</string>
+    <string name="troubleshoot_1">– Zapněte možnosti vývojáře a ladění USB.</string>
+    <string name="troubleshoot_2">– Na Xiaomi/MIUI/HyperOS/OnePlus: zapněte také ladění USB (nastavení zabezpečení) nebo vypněte sledování oprávnění a restartujte zařízení.</string>
+    <string name="troubleshoot_3">– Spusťte: adb devices, potvrďte výzvu, spusťte přidělovací příkazy a poté BatStats vynuceně ukončete nebo restartujte zařízení.</string>
+    <string name="troubleshoot_4">– Přidělení selhává s chybou „Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?“? Zapněte výše uvedené nastavení zabezpečení.</string>
+    <string name="troubleshoot_5">– Oprávnění zůstávají platná až do odinstalace. Alternativně použijte pm grant přes root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Spusťte jednou přes ADB; oprávnění přežijí restarty a aktualizace až do odinstalace. Není nutné držet Shizuku spuštěný.</string>
+    <string name="root_only">Funkce pouze s Root:</string>
+    <string name="root_access_required">Je vyžadován přístup Root</string>
+    <string name="root_access_desc">Tato statistika vyžaduje přístup Root, aby mohla načítat údaje o baterii na úrovni jádra, včetně počtu cyklů, skutečné kapacity, wakelocků jádra a termálních dat.</string>
+    <string name="root_feature_cycles">Počet cyklů baterie</string>
+    <string name="root_feature_capacity">Skutečná kapacita (jmenovitá a aktuální)</string>
+    <string name="root_feature_health">Procento opotřebení a stavu baterie</string>
+    <string name="root_feature_wakelocks">Wakelocky jádra (nativní)</string>
+    <string name="root_feature_cpu">Stavy frekvence procesoru</string>
+    <string name="root_feature_thermal">Sledování tepelných zón</string>
+    <string name="root_feature_sysfs">Přímý přístup k sysfs</string>
+    <string name="battery_health_kernel">Stav baterie (jádro)</string>
+    <string name="no_battery_info">Nelze načíst údaje o baterii z /sys</string>
+    <string name="cycles_value">%1$d cyklů</string>
+    <string name="cpu_frequency">Frekvence procesoru</string>
+    <string name="no_cpu_info">Nelze načíst údaje o procesoru</string>
+    <string name="cluster_n">Cluster %1$d</string>
+    <string name="time_in_state">Čas ve stavu</string>
+    <string name="thermal_zones">Tepelné zóny</string>
+    <string name="no_thermal_data">Nelze načíst tepelné zóny</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d další</item>
+        <item quantity="few">+ %1$d další</item>
+        <item quantity="many">+ %1$d dalších</item>
+        <item quantity="other">+ %1$d dalších</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… a %1$d další</item>
+        <item quantity="few">… a %1$d další</item>
+        <item quantity="many">… a %1$d dalších</item>
+        <item quantity="other">… a %1$d dalších</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d aktivní wakelock</item>
+        <item quantity="few">%1$d aktivní wakelocky</item>
+        <item quantity="many">%1$d aktivních wakelocků</item>
+        <item quantity="other">%1$d aktivních wakelocků</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">Wakelock aplikace (%1$d)</item>
+        <item quantity="few">Wakelocky aplikací (%1$d)</item>
+        <item quantity="many">Wakelocků aplikací (%1$d)</item>
+        <item quantity="other">Wakelocků aplikací (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Budík (%1$d)</item>
+        <item quantity="few">Budíky (%1$d)</item>
+        <item quantity="many">Budíků (%1$d)</item>
+        <item quantity="other">Budíků (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Úloha (%1$d)</item>
+        <item quantity="few">Úlohy (%1$d)</item>
+        <item quantity="many">Úloh (%1$d)</item>
+        <item quantity="other">Úloh (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Synchronizace (%1$d)</item>
+        <item quantity="few">Synchronizace (%1$d)</item>
+        <item quantity="many">Synchronizací (%1$d)</item>
+        <item quantity="other">Synchronizací (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Nejvyšší wakelock podle času: %1$d</item>
+        <item quantity="few">Nejvyšší wakelocky podle času: %1$d</item>
+        <item quantity="many">Nejvyšších wakelocků podle času: %1$d</item>
+        <item quantity="other">Nejvyšších wakelocků podle času: %1$d</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d balíček sdílí toto UID</item>
+        <item quantity="few">%1$d balíčky sdílejí toto UID</item>
+        <item quantity="many">%1$d balíčků sdílí toto UID</item>
+        <item quantity="other">%1$d balíčků sdílí toto UID</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">Importováno %1$d nastavení</item>
+        <item quantity="few">Importována %1$d nastavení</item>
+        <item quantity="many">Importováno %1$d nastavení</item>
+        <item quantity="other">Importováno %1$d nastavení</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 sekund</item>
+        <item>10 sekund</item>
+        <item>30 sekund</item>
+        <item>1 minuta</item>
+        <item>5 minut</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Minimální</item>
+        <item>Kompaktní</item>
+        <item>Podrobný</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 minuta</item>
+        <item>5 minut</item>
+        <item>15 minut</item>
+        <item>30 minut</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Podle systému</item>
+        <item>Světlý</item>
+        <item>Tmavý</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 minut</item>
+        <item>1 hodina</item>
+        <item>6 hodin</item>
+        <item>24 hodin</item>
+        <item>7 dní</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Celsiů</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 týden</item>
+        <item>1 měsíc</item>
+        <item>3 měsíce</item>
+        <item>6 měsíců</item>
+        <item>1 rok</item>
+        <item>Navždy</item>
+    </string-array>
+</resources>
+    

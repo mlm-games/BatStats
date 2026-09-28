@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Takaisin</string>
+    <string name="cancel">Peruuta</string>
+    <string name="dismiss">Sulje</string>
+    <string name="refresh">Päivitä</string>
+    <string name="copy">Kopioi</string>
+    <string name="copy_all">Kopioi kaikki</string>
+    <string name="app_info">Sovelluksen tiedot</string>
+    <string name="unknown">Tuntematon</string>
+    <string name="battery_icon_description">Akun kuvake</string>
+    <string name="yes">Kyllä</string>
+    <string name="no">Ei</string>
+    <string name="on">Päällä</string>
+    <string name="off">Poissa</string>
+    <string name="live">Suora</string>
+    <string name="min">Min</string>
+    <string name="max">Maks</string>
+    <string name="time">Aika</string>
+    <string name="total">Yhteensä</string>
+    <string name="mobile">Mobiili</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">Määrä</string>
+    <string name="active">Aktiivinen</string>
+    <string name="idle">Valpas</string>
+    <string name="awake">Here</string>
+    <string name="duration">Kesto</string>
+    <string name="total_time">Kokonaisaika</string>
+    <string name="network">Verkko</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Käynnistä</string>
+    <string name="stop">Pysäytä</string>
+    <string name="end">Lopeta</string>
+    <string name="pause">Tauko</string>
+    <string name="reset">Palauta</string>
+    <string name="updated">Päivitetty %1$s</string>
+    <string name="theme">Teema</string>
+    <string name="dynamic_colors">Dynaamiset värit</string>
+    <string name="temperature_unit">Lämpötilayksikkö</string>
+    <string name="alarms">Hälytykset</string>
+    <string name="history">Historia</string>
+    <string name="settings">Asetukset</string>
+    <string name="data">Tiedot</string>
+    <string name="detailed_stats">Tarkat tilastot</string>
+    <string name="drain_statistics">Kulutustilastot</string>
+    <string name="session_details">Istunnon tiedot</string>
+    <string name="summary">Yhteenveto</string>
+    <string name="monitoring">Valvonta</string>
+    <string name="monitoring_ready">Valvonta valmis</string>
+    <string name="start_monitoring">Käynnistä valvonta</string>
+    <string name="monitoring_battery">Valvotaan akkua</string>
+    <string name="tap_to_start">Aloita akun valvonta napauttamalla</string>
+    <string name="running_foreground">Toimii (etualalla)</string>
+    <string name="stopped">Pysäytetty</string>
+    <string name="charge">Lataus</string>
+    <string name="discharge">Purkaus</string>
+    <string name="charging">Ladataan</string>
+    <string name="discharging">puretaan</string>
+    <string name="full">Täynnä</string>
+    <string name="battery_state_charging">Ladataan %1$d%%</string>
+    <string name="battery_state_discharging">Puretaan %1$d%%</string>
+    <string name="battery_at_percent">Akku %1$d%% – harkitse irrottamista.</string>
+    <string name="charge_limit_reached">Latausraja saavutettu</string>
+    <string name="temperature_high">%1$d °C – anna laitteen jäähtyä.</string>
+    <string name="heavy_drain">%1$d mA – suuri kulutus havaittu.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Kunto</string>
+    <string name="health_good">Hyvä</string>
+    <string name="health_overheat">Ylikuumeneminen</string>
+    <string name="health_dead">Viallinen</string>
+    <string name="health_over_voltage">Ylijännite</string>
+    <string name="health_failed">Epäonnistunut</string>
+    <string name="health_cold">Kylmä</string>
+    <string name="design">Nimellisarvo</string>
+    <string name="capacity">Kapasiteetti</string>
+    <string name="cycle_count">Syklejen määrä</string>
+    <string name="current">Virta</string>
+    <string name="temperature">Lämpötila</string>
+    <string name="voltage">Jännite</string>
+    <string name="power">Teho</string>
+    <string name="power_usage">Kulutus</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Kamera</string>
+    <string name="mobile_radio">Mobili-radio</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% akkuajasta</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Kulutus/tunti (näyttö päällä)</string>
+    <string name="drain_hour_screen_off">Kulutus/tunti (näyttö pois)</string>
+    <string name="technology">Teknologia</string>
+    <string name="health_status">Terveystila</string>
+    <string name="status">Tila</string>
+    <string name="current_kernel">Virta (ydin)</string>
+    <string name="voltage_kernel">Jännite (ydin)</string>
+    <string name="time_to_empty">Aika tyhjentymiseen</string>
+    <string name="time_to_full">Aika täyteen lataukseen</string>
+    <string name="current_mv">Virta (mA)</string>
+    <string name="voltage_mv">Jännite (mV)</string>
+    <string name="temperature_c">Lämpötila (°C)</string>
+    <string name="current_recent">Virta (viimeiset 15 minuuttia)</string>
+    <string name="sessions">Istunnot</string>
+    <string name="samples">Näytteet</string>
+    <string name="session_tracking">Istunnon seuranta</string>
+    <string name="session_active">Istunto %1$s käynnissä • aloitettu %2$s</string>
+    <string name="charging_session">Latausistunto</string>
+    <string name="discharge_session">Purkausistunto</string>
+    <string name="session_state_active">AKTIIVINEN</string>
+    <string name="session_state_ended">Aktiivinen</string>
+    <string name="search_session_id">Hae istunnon tunnuksella…</string>
+    <string name="sort_by">Järjestys: %1$s</string>
+    <string name="sort_power">Kulutus</string>
+    <string name="sort_cpu_time">CPU-aika</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Verkko</string>
+    <string name="sort_foreground">Etuala</string>
+    <string name="start_time">Alkaa: %1$s</string>
+    <string name="end_time">Loppuu: %1$s</string>
+    <string name="no_sessions_yet">Ei vielä istuntoja</string>
+    <string name="no_sessions_yet_desc">Aloita istunto tai aloita valvonta, niin näet historian tässä.</string>
+    <string name="no_data_points">Ei vielä kerättyjä datapisteitä.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">keskim. ~%1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s tuntia</string>
+    <string name="data_export_import">Tietojen vienti ja tuonti</string>
+    <string name="date_range">Päivämääräväli</string>
+    <string name="export">Vie</string>
+    <string name="export_json">Vie JSON</string>
+    <string name="export_csv_folder">Vie CSV (kansio)</string>
+    <string name="import_string">Tuo</string>
+    <string name="import_json">Tuo JSON</string>
+    <string name="import_csv">Tuo CSV</string>
+    <string name="csv_import_hint">CSV-tuonti: avaa battery_samples.csv tai charge_sessions.csv</string>
+    <string name="from_beginning">Alkaen: alku</string>
+    <string name="from_date">Alkaen: %1$s</string>
+    <string name="to_date">Loppuen: %1$s</string>
+    <string name="all">Kaikki</string>
+    <string name="last_7_days">Viimeiset 7 päivää</string>
+    <string name="last_30_days">Viimeiset 30 päivää</string>
+    <string name="export_battery_data">Vie akun tiedot</string>
+    <string name="export_battery_data_desc">Vie akun historia tiedostoon</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Mukauta sovelluksen toimintaa</string>
+    <string name="category_general">Yleiset</string>
+    <string name="category_notifications">Ilmoitukset</string>
+    <string name="category_display">Näyttö</string>
+    <string name="category_data">Tiedot ja vienti</string>
+    <string name="reset_settings">Palauta asetukset</string>
+    <string name="reset_ui">Palauta käyttöliittymä</string>
+    <string name="reset_all">Palauta kaikki</string>
+    <string name="import_settings">Tuo asetukset</string>
+    <string name="paste_json">Liitä vietyjen asetusten JSON:</string>
+    <string name="paste_json_hint">Liitä JSON tähän…</string>
+    <string name="import_failed">Tuonti epäonnistui</string>
+    <string name="data_cleared">Kaikki tiedot poistettu</string>
+    <string name="import_action">Tuo</string>
+    <string name="clear_all_data">Poistetaanko kaikki tiedot?</string>
+    <string name="clear_data_warning">Tämä poistaa pysyvästi koko akun historian, istunnot ja tilastot. Tätä ei voi peruuttaa.</string>
+    <string name="delete_all">Poista kaikki</string>
+    <string name="clear_all_data_action">Poista kaikki tiedot</string>
+    <string name="clear_all_data_action_desc">Poista kaikki tallennetut akun tiedot</string>
+    <string name="export_settings">Vie asetukset</string>
+    <string name="import_settings_desc">Tuo asetukset</string>
+    <string name="reset_settings_desc">Palauta asetukset</string>
+    <string name="choose_reset">Valitse, mitä palautetaan:</string>
+    <string name="reset_ui_settings">Palauta käyttöliittymän asetukset: palauttaa vain näkyvät asetukset</string>
+    <string name="reset_all_settings">Palauta kaikki: palauttaa kaiken</string>
+    <string name="ui_settings_reset">Käyttöliittymän asetukset palautettu</string>
+    <string name="all_settings_reset">Kaikki asetukset palautettu</string>
+    <string name="auto_start_monitoring">Valvonta käynnistyy automaattisesti</string>
+    <string name="monitoring_interval">Valvontaväli</string>
+    <string name="show_persistent_notification">Näytä pysyvä ilmoitus</string>
+    <string name="show_drain_notification">Näytä kulutusilmoitus</string>
+    <string name="show_drain_notification_desc">Näytä tarkat kulutustilastot ilmoituksessa (vaatii Shizukun, rootin tai ADB:n)</string>
+    <string name="notification_style">Ilmoitusten tyyli</string>
+    <string name="track_foreground_apps">Seuraa etualan sovelluksia</string>
+    <string name="detailed_stats_interval">Tarkkojen tilastojen väli</string>
+    <string name="detailed_stats_interval_desc">Kuinka usein kerätään tarkat akun tilastot Shizukun/rootin/ADB:n kautta.</string>
+    <string name="low_battery_alert">Varahitus alhaisesta akusta</string>
+    <string name="low_battery_threshold">Alhaisen akun raja</string>
+    <string name="high_battery_alert">Varahitus korkeasta akusta</string>
+    <string name="high_battery_alert_desc">Ilmoita, kun lataus saavuttaa rajan</string>
+    <string name="high_battery_threshold">Korkean akun raja</string>
+    <string name="temperature_warning">Lämpötilavaroitus</string>
+    <string name="temperature_threshold">Lämpötilaraja</string>
+    <string name="temperature_threshold_desc">Varoituslämpötila celsiuksina</string>
+    <string name="high_discharge_alert">Varahitus suuresta purkauksesta</string>
+    <string name="discharge_threshold">Purkauksen raja</string>
+    <string name="discharge_threshold_desc">Varoita, kun purkaus ylittää tämän (mA)</string>
+    <string name="charging_complete_alert">Varahitus latauksen valmistuessa</string>
+    <string name="alert_sound">Varoitusääni</string>
+    <string name="alert_vibration">Varoitusvärinä</string>
+    <string name="high_temperature">Korkean lämpötilan varoitus</string>
+    <string name="high_discharge">Suuri purkaus</string>
+    <string name="chart_time_range">Kaavion aikaväli</string>
+    <string name="show_current_ma">Näytä virta mA:ssa</string>
+    <string name="compact_stats_view">Supistettu tilastonäkymä</string>
+    <string name="pure_black_oled">Täysi musta (OLED)</string>
+    <string name="data_retention">Tietojen säilytys</string>
+    <string name="auto_cleanup">Siivoa vanhat tiedot automaattisesti</string>
+    <string name="export_format">Vientimuoto</string>
+    <string name="include_raw_samples">Sisällytä raakavälit</string>
+    <string name="screen_on">Näyttö päällä</string>
+    <string name="screen_off">Näyttö pois</string>
+    <string name="mobile_signal">Mobilisignaali</string>
+    <string name="wifi_signal">Wi-Fi-signaali</string>
+    <string name="no_signal_data">Signaalitietoja ei ole saatavilla</string>
+    <string name="signal_quality">Signaalin laatu</string>
+    <string name="signal_none">Ei signaalia</string>
+    <string name="signal_poor">Heikko</string>
+    <string name="signal_moderate">Kohtalainen</string>
+    <string name="signal_good">Hyvä</string>
+    <string name="signal_great">Erinomainen</string>
+    <string name="signal_level">Taso %1$d</string>
+    <string name="mobile_rx">Mobilin vastaanotto</string>
+    <string name="mobile_tx">Mobilin lähetys</string>
+    <string name="wifi_rx">Wi-Fin vastaanotto</string>
+    <string name="wifi_tx">Wi-Fin lähetys</string>
+    <string name="no_network_data">Verkkotietoja ei ole saatavilla</string>
+    <string name="kernel_count">Ydin (%1$d)</string>
+    <string name="wakelocks">Wakelockit</string>
+    <string name="kernel_wakelocks">Ydinwakelockit (natiivit)</string>
+    <string name="no_app_wakelocks">Ydinwakelockkeja ei löytynyt</string>
+    <string name="no_kernel_wakelocks">Ydinwakelockkeja ei löytynyt</string>
+    <string name="could_not_read_wakelocks">Ydinwakelockkeja ei voitu lukea.</string>
+    <string name="count_active">Määrä: %1$d | Aktiiviset: %2$d</string>
+    <string name="doze_statistics">Doze-tilastot</string>
+    <string name="doze_whitelist">Doze-sallittujen lista</string>
+    <string name="no_whitelist">Sallittujen listan tietoja ei ole saatavilla</string>
+    <string name="no_doze_data">Doze-tietoja ei ole saatavilla</string>
+    <string name="deep_doze_time">Aika syvässä Dozessa</string>
+    <string name="deep_doze_count">Syvien Doze-tilojen määrä</string>
+    <string name="light_doze_time">Aika kevyessä Dozessa</string>
+    <string name="light_doze_count">Kevyiden Doze-tilojen määrä</string>
+    <string name="maintenance_windows">Ylläpitoikkunat</string>
+    <string name="maintenance_time">Ylläpitoaika</string>
+    <string name="current_state">Nykyinen tila</string>
+    <string name="doze_state">Doze-tila</string>
+    <string name="light_state">Kevyen Dozen tila</string>
+    <string name="deep_doze_enabled">Syvä Doze käytössä</string>
+    <string name="light_doze_enabled">Kevyt Doze käytössä</string>
+    <string name="screen">Näyttö</string>
+    <string name="battery_level_label">Akun taso</string>
+    <string name="battery_status">Akun tila</string>
+    <string name="low_power_mode">Virransäästötila</string>
+    <string name="device_idle_mode">Laitteen lepotila</string>
+    <string name="no_state_data">Tilatietoja ei ole saatavilla</string>
+    <string name="whitelisted_apps">Sallitut sovellukset: %1$d</string>
+    <string name="temporarily_whitelisted">Tilapäisesti sallitut: %1$d</string>
+    <string name="suspend_blockers">Keskeytyksen estäjät</string>
+    <string name="no_suspend_blockers">Ei aktiivisia keskeytyksen estäjiä</string>
+    <string name="no_bluetooth_data">Bluetooth-tietoja ei ole saatavilla</string>
+    <string name="idle_time">Valpasusaika</string>
+    <string name="rx_time">RX-aika</string>
+    <string name="tx_time">TX-aika</string>
+    <string name="scan_time">Skannausaika</string>
+    <string name="system_apps">Järjestelmäsovellukset</string>
+    <string name="no_apps_found">Sovelluksia ei löytynyt</string>
+    <string name="packages_shared_uid">Paketit (yhteinen UID %1$d)</string>
+    <string name="process_statistics">Prosessitilastot</string>
+    <string name="no_process_data">Prosessitietoja ei ole saatavilla</string>
+    <string name="apps_tracked">Seuratut sovellukset</string>
+    <string name="power_breakdown">Kulutuksen jakautuminen</string>
+    <string name="time_usage">Ajankäytön jakautuminen</string>
+    <string name="cpu_time">CPU-aika</string>
+    <string name="wakelock_time">Wakelock-aika</string>
+    <string name="foreground">Etuala</string>
+    <string name="foreground_service">Etualapalvelu</string>
+    <string name="top">Etuala</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Anturit</string>
+    <string name="sensor_usage">Anturien käyttö</string>
+    <string name="no_sensor_data">Anturitietoja ei ole saatavilla</string>
+    <string name="no_alarm_data">Hälytystietoja ei ole saatavilla</string>
+    <string name="no_job_data">Työtietoja ei ole saatavilla</string>
+    <string name="no_sync_data">Synkronointitietoja ei ole saatavilla</string>
+    <string name="wakeups">Herätykset</string>
+    <string name="screen_time_analysis">Näytön ajan analyysi</string>
+    <string name="screen_time_breakdown">Näytön ajan jakautuminen</string>
+    <string name="time_on_battery">Aika akulla</string>
+    <string name="screen_on_time">Näytön päällä oloaika</string>
+    <string name="estimated_capacity">Arvioitu kapasiteetti</string>
+    <string name="discharge_breakdown">Purkauksen jakautuminen</string>
+    <string name="deep_sleep_share">näytön sammutuksen ajasta syvässä unessa</string>
+    <string name="tracking_active">Seuranta käynnissä</string>
+    <string name="tracking_paused">Seuranta keskeytetty</string>
+    <string name="reset_session">Nollaa istunto</string>
+    <string name="drain_rates">Kulutusnopeudet</string>
+    <string name="deep_sleep">Syvä uni</string>
+    <string name="dozing">Uneliasu</string>
+    <string name="drain_rate">Kulutusnopeus</string>
+    <string name="total_drain">Kokonaiskulutus</string>
+    <string name="activity_breakdown">Toimintojen jakautuminen</string>
+    <string name="session_summary">Istunnon yhteenveto</string>
+    <string name="avg_rate">Keskimääräinen nopeus</string>
+    <string name="drain_history">Kulutushistoria</string>
+    <string name="collecting_data">Kerätään tietoja…</string>
+    <string name="session_duration">Istunto: %1$s</string>
+    <string name="total_drain_value">Kokonaiskulutus: %1$s</string>
+    <string name="drain_notification_channel_desc">Näyttää akun kulutustilastot reaaliajassa</string>
+    <string name="drain_state_charging">⚡ Ladataan</string>
+    <string name="drain_state_deep_sleep">😴 Syvä uni</string>
+    <string name="drain_state_dozing">💤 Uneliasu</string>
+    <string name="drain_state_screen_on">📱 Näyttö päällä</string>
+    <string name="drain_state_screen_off">🌙 Näyttö pois</string>
+    <string name="drain_rates_section">━━━ Kulutusnopeudet ━━━</string>
+    <string name="activity_section">━━━ Toiminta ━━━</string>
+    <string name="session_section">━━━ Istunto ━━━</string>
+    <string name="drain_on_off_sleep">Päällä: %1$s • Pois: %2$s • Uni: %3$s</string>
+    <string name="drain_screen_on_line">📱 Näyttö päällä: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Näyttö pois: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Syvä uni: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Here: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Aktiivinen: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Valpas: %1$s (%2$s)</string>
+    <string name="drain_total_line">Yhteensä: %1$s %2$s aikana</string>
+    <string name="drain_average_line">Keskimäärin: %1$s</string>
+    <string name="tab_overview">Yleiskatsaus</string>
+    <string name="tab_apps">Sovellukset</string>
+    <string name="tab_wakelocks">Wakelockit</string>
+    <string name="tab_network">Verkko</string>
+    <string name="tab_system">Järjestelmä</string>
+    <string name="tab_alarms">Hälytykset</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> •:n kautta %1$s</string>
+    <string name="reset_stats">Nollaa tilastot</string>
+    <string name="stats_reset_success">Tilastot nollattu</string>
+    <string name="stats_reset_failed">Tilastojen nollaaminen epäonnistui</string>
+    <string name="no_data_available">Tietoja ei ole saatavilla</string>
+    <string name="advanced_stats_required">Edistyneet tilastot vaaditaan</string>
+    <string name="advanced_stats_desc">Tarkat tilastot vaativat yhden seuraavista: Shizuku, root tai ADB:llä myönnetyt käyttöoikeudet (pysyviä, ei palvelua).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku ei ole käynnissä. Käynnistä ensin Shizuku-sovellus (ja sen palvelu) ja napauta sitten Tarkista uudelleen.</string>
+    <string name="shizuku_denied">Shizuku eväsi tälle sovellukselle. Avaa Shizuku ja valtuuta BatStats uudelleen kohdassa Valtuutetut sovellukset.</string>
+    <string name="shizuku_running">Shizuku on käynnissä – napauta Pyydä Shizukua ja hyväksy pyyntö.</string>
+    <string name="request_shizuku">Pyydä Shizukua</string>
+    <string name="recheck">Tarkista uudelleen</string>
+    <string name="troubleshooting">Vianmääritys</string>
+    <string name="troubleshoot_1">– Ota kehittäjäasetukset ja USB-vianmääritys käyttöön.</string>
+    <string name="troubleshoot_2">– Xiaomi/MIUI/HyperOS/OnePlus: ota myös USB-vianmääritys käyttöön (tietoturva-asetukset) tai poista käyttöoikeuksien valvonta käytöstä ja käynnistä uudelleen.</string>
+    <string name="troubleshoot_3">– Suorita: adb devices, hyväksy pyyntö, suorita myöntämiskomennot ja pakota sitten BatStatsin sulkeutuminen tai käynnistä uudelleen.</string>
+    <string name="troubleshoot_4">– Myöntäminen epäonnistuu viestillä ”Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?” Ota yllä mainitut tietoturva-asetukset käyttöön.</string>
+    <string name="troubleshoot_5">– Myönnetyt käyttöoikeudet säilyvät asennuksen poistoon. Vaihtoehtona käytä pm grantia rootin kautta (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Suorita kerran ADB:n kautta; säilyy uudelleenkäynnistysten ja päivitysten yli asennuksen poistoon. Shizukun ei tarvitse olla käynnissä.</string>
+    <string name="root_only">Vain root-toiminnot:</string>
+    <string name="root_access_required">Root-käyttöoikeus vaaditaan</string>
+    <string name="root_access_desc">Nämä tilastot vaativat root-käyttöoikeuden, jotta akun ytimen tiedot voidaan lukea, mukaan lukien sykleiden määrä, todellinen kapasiteetti, ydinwakelockit ja lämpötilatiedot.</string>
+    <string name="root_feature_cycles">Akun lataussykliet</string>
+    <string name="root_feature_capacity">Todellinen kapasiteetti (nimellinen ja nykyinen)</string>
+    <string name="root_feature_health">Akun iän ja kunnon prosentti</string>
+    <string name="root_feature_wakelocks">Ydinwakelockit (natiivit)</string>
+    <string name="root_feature_cpu">CPU-taajuustilat</string>
+    <string name="root_feature_thermal">Lämpötilavyöhykkeiden valvonta</string>
+    <string name="root_feature_sysfs">Suora sysfs-käyttö</string>
+    <string name="battery_health_kernel">Akun kunto (ydin)</string>
+    <string name="no_battery_info">Akun tietoja ei voitu lukea kohteesta /sys</string>
+    <string name="cycles_value">%1$d sykliä</string>
+    <string name="cpu_frequency">CPU-taajuus</string>
+    <string name="no_cpu_info">CPU:n tietoja ei voitu lukea</string>
+    <string name="cluster_n">Ryhmä %1$d</string>
+    <string name="time_in_state">Aika tilassa</string>
+    <string name="thermal_zones">Lämpötilavyöhykkeet</string>
+    <string name="no_thermal_data">Lämpötilavyöhykkeitä ei voitu lukea</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d muu</item>
+        <item quantity="other">+ %1$d muuta</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… ja %1$d muu</item>
+        <item quantity="other">… ja %1$d muuta</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d aktiivinen wakelock</item>
+        <item quantity="other">%1$d aktiivista wakelockia</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">Sovelluksen wakelock (%1$d)</item>
+        <item quantity="other">Sovellusten wakelockit (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Hälytys (%1$d)</item>
+        <item quantity="other">Hälytykset (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Työ (%1$d)</item>
+        <item quantity="other">Työt (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Synkronointi (%1$d)</item>
+        <item quantity="other">Synkronoinnit (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Eniten aikaa kuluttanut wakelock: %1$d</item>
+        <item quantity="other">Eniten aikaa kuluttaneet wakelockit: %1$d</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d paketti jakaa tämän UID:n</item>
+        <item quantity="other">%1$d pakettia jakaa tämän UID:n</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">%1$d asetus tuotu</item>
+        <item quantity="other">%1$d asetusta tuotu</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 sekuntia</item>
+        <item>10 sekuntia</item>
+        <item>30 sekuntia</item>
+        <item>1 minuutti</item>
+        <item>5 minuuttia</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Minimaalinen</item>
+        <item>Supistettu</item>
+        <item>Tarkka</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 minuutti</item>
+        <item>5 minuuttia</item>
+        <item>15 minuuttia</item>
+        <item>30 minuuttia</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Järjestelmän oletus</item>
+        <item>Vaalea</item>
+        <item>Tumma</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 minuuttia</item>
+        <item>1 tunti</item>
+        <item>6 tuntia</item>
+        <item>24 tuntia</item>
+        <item>7 päivää</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 viikko</item>
+        <item>1 kuukausi</item>
+        <item>3 kuukautta</item>
+        <item>6 kuukautta</item>
+        <item>1 vuosi</item>
+        <item>Ikuisesti</item>
+    </string-array>
+</resources>
+    

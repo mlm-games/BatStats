@@ -37,9 +37,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import app.batstats.R
 import app.batstats.battery.data.db.SessionType
 import app.batstats.viewmodel.HistoryViewModel
 import app.batstats.ui.components.SessionCard
@@ -69,12 +71,12 @@ fun HistoryScreen(
         modifier = Modifier.nestedScroll(behavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text("History") },
+                title = { Text(stringResource(R.string.history)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -129,17 +131,17 @@ private fun FilterRow(
             FilterChip(
                 selected = filter == null,
                 onClick = { onFilter(null) },
-                label = { Text("All") }
+                label = { Text(stringResource(R.string.all)) }
             )
             FilterChip(
                 selected = filter == SessionType.CHARGE,
                 onClick = { onFilter(SessionType.CHARGE) },
-                label = { Text("Charge") }
+                label = { Text(stringResource(R.string.charge)) }
             )
             FilterChip(
                 selected = filter == SessionType.DISCHARGE,
                 onClick = { onFilter(SessionType.DISCHARGE) },
-                label = { Text("Discharge") }
+                label = { Text(stringResource(R.string.discharge)) }
             )
         }
         Spacer(Modifier.height(8.dp))
@@ -147,7 +149,7 @@ private fun FilterRow(
             value = query,
             onValueChange = onQuery,
             leadingIcon = { Icon(Icons.Outlined.Search, null) },
-            placeholder = { Text("Search by session id…") },
+            placeholder = { Text(stringResource(R.string.search_session_id)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -170,10 +172,10 @@ private fun EmptyHistoryState() {
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("No sessions yet", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.no_sessions_yet), style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(6.dp))
             Text(
-                "Start a session or begin monitoring to see history here.",
+                stringResource(R.string.no_sessions_yet_desc),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

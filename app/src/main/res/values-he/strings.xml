@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">חזרה</string>
+    <string name="cancel">ביטול</string>
+    <string name="dismiss">סגירה</string>
+    <string name="refresh">רענון</string>
+    <string name="copy">העתקה</string>
+    <string name="copy_all">העתקת הכול</string>
+    <string name="app_info">מידע על האפליקציה</string>
+    <string name="unknown">לא ידוע</string>
+    <string name="battery_icon_description">סמל סוללה</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="on">פועל</string>
+    <string name="off">כבוי</string>
+    <string name="live">חי</string>
+    <string name="min">מינימום</string>
+    <string name="max">מקסימום</string>
+    <string name="time">זמן</string>
+    <string name="total">סך הכול</string>
+    <string name="mobile">נייד</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">כמות</string>
+    <string name="active">פעיל</string>
+    <string name="idle">לא פעיל</string>
+    <string name="awake">ער</string>
+    <string name="duration">משך</string>
+    <string name="total_time">זמן כולל</string>
+    <string name="network">רשת</string>
+    <string name="bluetooth">בלוטות׳</string>
+    <string name="start">התחל</string>
+    <string name="stop">עצירה</string>
+    <string name="end">סיום</string>
+    <string name="pause">השהיה</string>
+    <string name="reset">איפוס</string>
+    <string name="updated">עודכן %1$s</string>
+    <string name="theme">ערכת נושא</string>
+    <string name="dynamic_colors">צבעים דינמיים</string>
+    <string name="temperature_unit">יחידת טמפרטורה</string>
+    <string name="alarms">שעונים</string>
+    <string name="history">היסטוריה</string>
+    <string name="settings">הגדרות</string>
+    <string name="data">נתונים</string>
+    <string name="detailed_stats">סטטיסטיקה מפורטת</string>
+    <string name="drain_statistics">סטטיסטיקת צריכה</string>
+    <string name="session_details">פרטי הפעלה</string>
+    <string name="summary">סיכום</string>
+    <string name="monitoring">ניטור</string>
+    <string name="monitoring_ready">הניטור מוכן</string>
+    <string name="start_monitoring">התחלת ניטור</string>
+    <string name="monitoring_battery">מנטר את הסוללה</string>
+    <string name="tap_to_start">הקש כדי להתחיל ניטור סוללה</string>
+    <string name="running_foreground">פועל (חזית)</string>
+    <string name="stopped">עצור</string>
+    <string name="charge">טעינה</string>
+    <string name="discharge">פריקה</string>
+    <string name="charging">בטעינה</string>
+    <string name="discharging">בפריקה</string>
+    <string name="full">מלאה</string>
+    <string name="battery_state_charging">בטעינה %1$d%%</string>
+    <string name="battery_state_discharging">בפריקה %1$d%%</string>
+    <string name="battery_at_percent">הסוללה ב־%1$d%% — כדאי לנתק את המטען.</string>
+    <string name="charge_limit_reached">הוגע למגבלת הטעינה</string>
+    <string name="temperature_high">%1$d °C — תנו למכשיר להתקרר.</string>
+    <string name="heavy_drain">%1$d mA — זוהתה צריכה גבוהה.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">מצב</string>
+    <string name="health_good">תקין</string>
+    <string name="health_overheat">חימום יתר</string>
+    <string name="health_dead">תקולה</string>
+    <string name="health_over_voltage">מתח יתר</string>
+    <string name="health_failed">נכשל</string>
+    <string name="health_cold">קרה</string>
+    <string name="design">נקובה</string>
+    <string name="capacity">קיבולת</string>
+    <string name="cycle_count">מספר מחזורים</string>
+    <string name="current">זרם</string>
+    <string name="temperature">טמפרטורה</string>
+    <string name="voltage">מתח</string>
+    <string name="power">הספק</string>
+    <string name="power_usage">צריכת אנרגיה</string>
+    <string name="cpu">מעבד</string>
+    <string name="camera">מצלמה</string>
+    <string name="mobile_radio">רשת נייד</string>
+    <string name="wakelock">נעילת יקיצה</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% מזמן העבודה על הסוללה</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">צריכה/שעה (מסך מופעל)</string>
+    <string name="drain_hour_screen_off">צריכה/שעה (מסך כבוי)</string>
+    <string name="technology">טכנולוגיה</string>
+    <string name="health_status">מצב בריאות</string>
+    <string name="status">מצב</string>
+    <string name="current_kernel">זרם (קרנל)</string>
+    <string name="voltage_kernel">מתח (קרנל)</string>
+    <string name="time_to_empty">זמן לפריקה מלאה</string>
+    <string name="time_to_full">זמן לטעינה מלאה</string>
+    <string name="current_mv">זרם (mA)</string>
+    <string name="voltage_mv">מתח (mV)</string>
+    <string name="temperature_c">טמפרטורה (°C)</string>
+    <string name="current_recent">זרם (15 הדקות האחרונות)</string>
+    <string name="sessions">הפעלות</string>
+    <string name="samples">דגימות</string>
+    <string name="session_tracking">מעקב הפעלה</string>
+    <string name="session_active">הפעלת %1$s פעילה • החלה %2$s</string>
+    <string name="charging_session">הפעלת טעינה</string>
+    <string name="discharge_session">הפעלת פריקה</string>
+    <string name="session_state_active">פעילה</string>
+    <string name="session_state_ended">פעילה</string>
+    <string name="search_session_id">חיפוש לפי מזהה הפעלה…</string>
+    <string name="sort_by">מיון: %1$s</string>
+    <string name="sort_power">צריכת אנרגיה</string>
+    <string name="sort_cpu_time">זמן מעבד</string>
+    <string name="sort_wakelock">נעילת יקיצה</string>
+    <string name="sort_network">רשת</string>
+    <string name="sort_foreground">חזית</string>
+    <string name="start_time">התחלה: %1$s</string>
+    <string name="end_time">סיום: %1$s</string>
+    <string name="no_sessions_yet">אין עדיין הפעלות</string>
+    <string name="no_sessions_yet_desc">התחילו הפעלה או הפעילו ניטור כדי לראות כאן את ההיסטוריה.</string>
+    <string name="no_data_points">עדיין לא נאספו נקודות נתונים.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">ממוצע ~%1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s שעות</string>
+    <string name="data_export_import">ייצוא/ייבוא נתונים</string>
+    <string name="date_range">טווח תאריכים</string>
+    <string name="export">ייצוא</string>
+    <string name="export_json">ייצוא JSON</string>
+    <string name="export_csv_folder">ייצוא CSV (תיקייה)</string>
+    <string name="import_string">ייבוא</string>
+    <string name="import_json">ייבוא JSON</string>
+    <string name="import_csv">ייבוא CSV</string>
+    <string name="csv_import_hint">ייבוא CSV: פתחו את battery_samples.csv או את charge_sessions.csv</string>
+    <string name="from_beginning">מתאריך: התחלה</string>
+    <string name="from_date">מתאריך: %1$s</string>
+    <string name="to_date">עד: %1$s</string>
+    <string name="all">הכול</string>
+    <string name="last_7_days">7 הימים האחרונים</string>
+    <string name="last_30_days">30 הימים האחרונים</string>
+    <string name="export_battery_data">ייצוא נתוני סוללה</string>
+    <string name="export_battery_data_desc">ייצוא היסטוריית הסוללה לקובץ</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">התאימו את התנהגות האפליקציה</string>
+    <string name="category_general">כללי</string>
+    <string name="category_notifications">התראות</string>
+    <string name="category_display">תצוגה</string>
+    <string name="category_data">נתונים וייצוא</string>
+    <string name="reset_settings">איפוס הגדרות</string>
+    <string name="reset_ui">איפוס ממשק המשתמש</string>
+    <string name="reset_all">איפוס הכול</string>
+    <string name="import_settings">ייבוא הגדרות</string>
+    <string name="paste_json">הדביקו את ה־JSON של ההגדרות שיוצא:</string>
+    <string name="paste_json_hint">הדביקו JSON כאן…</string>
+    <string name="import_failed">הייבוא נכשל</string>
+    <string name="data_cleared">כל הנתונים נמחקו</string>
+    <string name="import_action">ייבוא</string>
+    <string name="clear_all_data">למחוק את כל הנתונים?</string>
+    <string name="clear_data_warning">פעולה זו תמחק לצמיתות את כל היסטוריית הסוללה, ההפעלות והסטטיסטיקה. לא ניתן לבטל אותה.</string>
+    <string name="delete_all">מחיקת הכול</string>
+    <string name="clear_all_data_action">ניקוי כל הנתונים</string>
+    <string name="clear_all_data_action_desc">מחיקת כל נתוני הסוללה המאוחסנים</string>
+    <string name="export_settings">ייצוא הגדרות</string>
+    <string name="import_settings_desc">ייבוא הגדרות</string>
+    <string name="reset_settings_desc">איפוס הגדרות</string>
+    <string name="choose_reset">בחרו מה לאפס:</string>
+    <string name="reset_ui_settings">איפוס הגדרות הממשק: מאפס רק את ההגדרות הגלויות</string>
+    <string name="reset_all_settings">איפוס הכול: מאפס את הכול</string>
+    <string name="ui_settings_reset">הגדרות הממשק אופסו</string>
+    <string name="all_settings_reset">כל ההגדרות אופסו</string>
+    <string name="auto_start_monitoring">התחלת ניטור אוטומטית</string>
+    <string name="monitoring_interval">מרווח ניטור</string>
+    <string name="show_persistent_notification">הצגת התראה קבועה</string>
+    <string name="show_drain_notification">הצגת התראת צריכה</string>
+    <string name="show_drain_notification_desc">הצגת סטטיסטיקת צריכה מפורטת בהתראה (נדרש Shizuku, Root או ADB)</string>
+    <string name="notification_style">סגנון התראות</string>
+    <string name="track_foreground_apps">מעקב אחרי אפליקציות בחזית</string>
+    <string name="detailed_stats_interval">מרווח הסטטיסטיקה המפורטת</string>
+    <string name="detailed_stats_interval_desc">תדירות איסוף הסטטיסטיקה המפורטת של הסוללה דרך Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">התראת סוללה חלשה</string>
+    <string name="low_battery_threshold">סף סוללה חלשה</string>
+    <string name="high_battery_alert">התראת סוללה מלאה</string>
+    <string name="high_battery_alert_desc">התראה כאשר הטעינה מגיעה לסף</string>
+    <string name="high_battery_threshold">סף סוללה מלאה</string>
+    <string name="temperature_warning">אזהרת טמפרטורה</string>
+    <string name="temperature_threshold">סף טמפרטורה</string>
+    <string name="temperature_threshold_desc">טמפרטורת אזהרה בצלזיוס</string>
+    <string name="high_discharge_alert">התראת פריקה גבוהה</string>
+    <string name="discharge_threshold">סף פריקה</string>
+    <string name="discharge_threshold_desc">התראה כאשר הפריקה עוברת את הערך הזה (mA)</string>
+    <string name="charging_complete_alert">התראת טעינה הושלמה</string>
+    <string name="alert_sound">צליל התראה</string>
+    <string name="alert_vibration">רטט התראה</string>
+    <string name="high_temperature">התראת טמפרטורה גבוהה</string>
+    <string name="high_discharge">פריקה גבוהה</string>
+    <string name="chart_time_range">טווח זמן בתרשים</string>
+    <string name="show_current_ma">הצגת הזרם ב־mA</string>
+    <string name="compact_stats_view">תצוגת סטטיסטיקה מצומצמת</string>
+    <string name="pure_black_oled">שחור מלא (OLED)</string>
+    <string name="data_retention">שמירת נתונים</string>
+    <string name="auto_cleanup">ניקוי אוטומטי של נתונים ישנים</string>
+    <string name="export_format">פורמט ייצוא</string>
+    <string name="include_raw_samples">כלול דגימות גולמיות</string>
+    <string name="screen_on">מסך מופעל</string>
+    <string name="screen_off">מסך כבוי</string>
+    <string name="mobile_signal">אות נייד</string>
+    <string name="wifi_signal">אות Wi-Fi</string>
+    <string name="no_signal_data">אין נתוני אות זמינים</string>
+    <string name="signal_quality">איכות האות</string>
+    <string name="signal_none">אין</string>
+    <string name="signal_poor">חלש</string>
+    <string name="signal_moderate">בינוני</string>
+    <string name="signal_good">טוב</string>
+    <string name="signal_great">מצוין</string>
+    <string name="signal_level">רמה %1$d</string>
+    <string name="mobile_rx">קליטה ניידת</string>
+    <string name="mobile_tx">שליחה ניידת</string>
+    <string name="wifi_rx">קליטת Wi-Fi</string>
+    <string name="wifi_tx">שליחת Wi-Fi</string>
+    <string name="no_network_data">אין נתוני רשת זמינים</string>
+    <string name="kernel_count">קרנל (%1$d)</string>
+    <string name="wakelocks">נעילות יקיצה</string>
+    <string name="kernel_wakelocks">נעילות יקיצה של הקרנל (מקומיות)</string>
+    <string name="no_app_wakelocks">לא נמצאו נעילות יקיצה של אפליקציות</string>
+    <string name="no_kernel_wakelocks">לא נמצאו נעילות יקיצה של הקרנל</string>
+    <string name="could_not_read_wakelocks">לא ניתן לקרוא נעילות יקיצה של הקרנל.</string>
+    <string name="count_active">כמות: %1$d | פעילות: %2$d</string>
+    <string name="doze_statistics">סטטיסטיקת Doze</string>
+    <string name="doze_whitelist">רשימת היתרים של Doze</string>
+    <string name="no_whitelist">אין נתוני רשימת היתרים</string>
+    <string name="no_doze_data">אין נתוני Doze</string>
+    <string name="deep_doze_time">זמן ב־Doze עמוק</string>
+    <string name="deep_doze_count">מספר פעמים של Doze עמוק</string>
+    <string name="light_doze_time">זמן ב־Doze קל</string>
+    <string name="light_doze_count">מספר פעמים של Doze קל</string>
+    <string name="maintenance_windows">חלונות תחזוקה</string>
+    <string name="maintenance_time">זמן תחזוקה</string>
+    <string name="current_state">מצב נוכחי</string>
+    <string name="doze_state">מצב Doze</string>
+    <string name="light_state">מצב Doze קל</string>
+    <string name="deep_doze_enabled">Doze עמוק מופעל</string>
+    <string name="light_doze_enabled">Doze קל מופעל</string>
+    <string name="screen">מסך</string>
+    <string name="battery_level_label">רמת סוללה</string>
+    <string name="battery_status">מצב הסוללה</string>
+    <string name="low_power_mode">מצב חסיך בחשמל</string>
+    <string name="device_idle_mode">מצב חסר פעילות של המכשיר</string>
+    <string name="no_state_data">אין נתוני מצב זמינים</string>
+    <string name="whitelisted_apps">אפליקציות ברשימת היתרים: %1$d</string>
+    <string name="temporarily_whitelisted">ברשימת היתרים זמנית: %1$d</string>
+    <string name="suspend_blockers">חוסמי השהיה</string>
+    <string name="no_suspend_blockers">אין חוסמי השהיה פעילים</string>
+    <string name="no_bluetooth_data">אין נתוני בלוטות׳</string>
+    <string name="idle_time">זמן לא פעיל</string>
+    <string name="rx_time">זמן קליטה</string>
+    <string name="tx_time">זמן שידור</string>
+    <string name="scan_time">זמן סריקה</string>
+    <string name="system_apps">אפליקציות מערכת</string>
+    <string name="no_apps_found">לא נמצאו אפליקציות</string>
+    <string name="packages_shared_uid">חבילות (UID משותף %1$d)</string>
+    <string name="process_statistics">סטטיסטיקת תהליכים</string>
+    <string name="no_process_data">אין נתוני תהליכים</string>
+    <string name="apps_tracked">אפליקציות במעקב</string>
+    <string name="power_breakdown">פילוח צריכת האנרגיה</string>
+    <string name="time_usage">פילוח הזמן</string>
+    <string name="cpu_time">זמן מעבד</string>
+    <string name="wakelock_time">זמן נעילת יקיצה</string>
+    <string name="foreground">חזית</string>
+    <string name="foreground_service">שירות בחזית</string>
+    <string name="top">חזית</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">חיישנים</string>
+    <string name="sensor_usage">שימוש בחיישנים</string>
+    <string name="no_sensor_data">אין נתוני חיישנים</string>
+    <string name="no_alarm_data">אין נתוני שעונים</string>
+    <string name="no_job_data">אין נתוני משימות</string>
+    <string name="no_sync_data">אין נתוני סנכרון</string>
+    <string name="wakeups">יקיצות</string>
+    <string name="screen_time_analysis">ניתוח זמן מסך</string>
+    <string name="screen_time_breakdown">פילוח זמן המסך</string>
+    <string name="time_on_battery">זמן על הסוללה</string>
+    <string name="screen_on_time">זמן מסך מופעל</string>
+    <string name="estimated_capacity">קיבולת משוערת</string>
+    <string name="discharge_breakdown">פילוח הפריקה</string>
+    <string name="deep_sleep_share">מזמן המסך הכבוי שהיה בשינה עמוקה</string>
+    <string name="tracking_active">מעקב פעיל</string>
+    <string name="tracking_paused">המעקב מושהה</string>
+    <string name="reset_session">איפוס ההפעלה</string>
+    <string name="drain_rates">קצבי צריכה</string>
+    <string name="deep_sleep">שינה עמוקה</string>
+    <string name="dozing">נמנום</string>
+    <string name="drain_rate">קצב צריכה</string>
+    <string name="total_drain">צריכה כוללת</string>
+    <string name="activity_breakdown">פילוח לפי פעילות</string>
+    <string name="session_summary">סיכום ההפעלה</string>
+    <string name="avg_rate">קצב ממוצע</string>
+    <string name="drain_history">היסטוריית צריכה</string>
+    <string name="collecting_data">אוסף נתונים…</string>
+    <string name="session_duration">הפעלה: %1$s</string>
+    <string name="total_drain_value">צריכה כוללת: %1$s</string>
+    <string name="drain_notification_channel_desc">מציג סטטיסטיקת צריכת סוללה בזמן אמת</string>
+    <string name="drain_state_charging">⚡ בטעינה</string>
+    <string name="drain_state_deep_sleep">😴 שינה עמוקה</string>
+    <string name="drain_state_dozing">💤 נמנום</string>
+    <string name="drain_state_screen_on">📱 מסך מופעל</string>
+    <string name="drain_state_screen_off">🌙 מסך כבוי</string>
+    <string name="drain_rates_section">━━━ קצבי צריכה ━━━</string>
+    <string name="activity_section">━━━ פעילות ━━━</string>
+    <string name="session_section">━━━ הפעלה ━━━</string>
+    <string name="drain_on_off_sleep">מופעל: %1$s • כבוי: %2$s • שינה: %3$s</string>
+    <string name="drain_screen_on_line">📱 מסך מופעל: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 מסך כבוי: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 שינה עמוקה: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ ער: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 פעיל: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 לא פעיל: %1$s (%2$s)</string>
+    <string name="drain_total_line">סך הכול: %1$s תוך %2$s</string>
+    <string name="drain_average_line">ממוצע: %1$s</string>
+    <string name="tab_overview">סקירה</string>
+    <string name="tab_apps">אפליקציות</string>
+    <string name="tab_wakelocks">נעילות יקיצה</string>
+    <string name="tab_network">רשת</string>
+    <string name="tab_system">מערכת</string>
+    <string name="tab_alarms">שעונים</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • דרך %1$s</string>
+    <string name="reset_stats">איפוס הסטטיסטיקה</string>
+    <string name="stats_reset_success">הסטטיסטיקה אופסה</string>
+    <string name="stats_reset_failed">איפוס הסטטיסטיקה נכשל</string>
+    <string name="no_data_available">אין נתונים זמינים</string>
+    <string name="advanced_stats_required">נדרשת סטטיסטיקה מתקדמת</string>
+    <string name="advanced_stats_desc">הסטטיסטיקה המפורטת דורשת אחד מאלה: Shizuku, Root או הרשאות שניתנו דרך ADB (קבועות, ללא שירות).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku אינו פועל. הפעילו תחילה את אפליקציית Shizuku (ואת השירות שלה), ואז הקישו בדיקה חוזרת.</string>
+    <string name="shizuku_denied">Shizuku דחה את האפליקציה הזאת. פתחו את Shizuku ואשרו מחדש את BatStats תחת אפליקציות מורשות.</string>
+    <string name="shizuku_running">Shizuku פועל — הקישו בבקשת Shizuku ואשרו את הבקשה.</string>
+    <string name="request_shizuku">בקשת Shizuku</string>
+    <string name="recheck">בדיקה חוזרת</string>
+    <string name="troubleshooting">פתרון תקלות</string>
+    <string name="troubleshoot_1">– הפעילו אפשרויות מפתחים וניפוי USB.</string>
+    <string name="troubleshoot_2">– ב־Xiaomi/MIUI/HyperOS/OnePlus: הפעילו גם ניפוי USB (הגדרות אבטחה) או השביתו ניטור הרשאות, ואז הפעילו מחדש.</string>
+    <string name="troubleshoot_3">– הריצו: adb devices, אשרו את הבקשה, הריצו את פקודות ההרשאה, ואז כפיתו עצירה ל־BatStats או הפעילו מחדש.</string>
+    <string name="troubleshoot_4">– ההרשאה נכשלת עם \"Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?\" הפעילו את הגדרות האבטחה שלמעלה.</string>
+    <string name="troubleshoot_5">– ההרשאות נשארות עד להסרת האפליקציה. כחלופה אפשר להשתמש ב־pm grant דרך root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">הריצו פעם אחת דרך ADB; ההרשאות שורדות אתחולים ועדכונים עד להסרת האפליקציה. אין צורך להשאיר את Shizuku פועל.</string>
+    <string name="root_only">תכונות ל־Root בלבד:</string>
+    <string name="root_access_required">נדרש גישת Root</string>
+    <string name="root_access_desc">הסטטיסטיקות האלה דורשות גישת Root כדי לקרוא מידע על הסוללה ברמת הקרנל, כולל מספר מחזורים, קיבולת אמיתית, נעילות יקיצה של הקרנל ונתוני תרמיות.</string>
+    <string name="root_feature_cycles">מספר מחזורי טעינה של הסוללה</string>
+    <string name="root_feature_capacity">קיבולת אמיתית (נקובה מול נוכחית)</string>
+    <string name="root_feature_health">אחוז קשיחה ובריאות הסוללה</string>
+    <string name="root_feature_wakelocks">נעילות יקיצה של הקרנל (מקומיות)</string>
+    <string name="root_feature_cpu">מצבי תדר מעבד</string>
+    <string name="root_feature_thermal">ניטור אזורים תרמיים</string>
+    <string name="root_feature_sysfs">גישה ישירה ל־sysfs</string>
+    <string name="battery_health_kernel">בריאות הסוללה (קרנל)</string>
+    <string name="no_battery_info">לא ניתן לקרוא מידע על הסוללה מ־/sys</string>
+    <string name="cycles_value">%1$d מחזורים</string>
+    <string name="cpu_frequency">תדר מעבד</string>
+    <string name="no_cpu_info">לא ניתן לקרוא מידע על המעבד</string>
+    <string name="cluster_n">אשכול %1$d</string>
+    <string name="time_in_state">זמן במצב</string>
+    <string name="thermal_zones">אזורים תרמיים</string>
+    <string name="no_thermal_data">לא ניתן לקרוא את האזורים התרמיים</string>
+    <plurals name="more_count">
+        <item quantity="one">עוד %1$d</item>
+        <item quantity="two">עוד %1$d</item>
+        <item quantity="many">עוד %1$d</item>
+        <item quantity="other">עוד %1$d</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">... ועוד %1$d</item>
+        <item quantity="two">... ועוד %1$d</item>
+        <item quantity="many">... ועוד %1$d</item>
+        <item quantity="other">... ועוד %1$d</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">נעילת יקיצה פעילה אחת (%1$d)</item>
+        <item quantity="two">שתי נעילות יקיצה פעילות</item>
+        <item quantity="many">%1$d נעילות יקיצה פעילות</item>
+        <item quantity="other">%1$d נעילות יקיצה פעילות</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">נעילת יקיצה של אפליקציה (%1$d)</item>
+        <item quantity="two">נעילות יקיצה של שתי אפליקציות (%1$d)</item>
+        <item quantity="many">נעילות יקיצה של %1$d אפליקציות</item>
+        <item quantity="other">נעילות יקיצה של %1$d אפליקציות</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">שעון אחד (%1$d)</item>
+        <item quantity="two">שעוניים (%1$d)</item>
+        <item quantity="many">%1$d שעונים</item>
+        <item quantity="other">%1$d שעונים</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">משימה אחת (%1$d)</item>
+        <item quantity="two">שתי משימות (%1$d)</item>
+        <item quantity="many">%1$d משימות</item>
+        <item quantity="other">%1$d משימות</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">סנכרון אחד (%1$d)</item>
+        <item quantity="two">שני סנכרונים (%1$d)</item>
+        <item quantity="many">%1$d סנכרונים</item>
+        <item quantity="other">%1$d סנכרונים</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">נעילת היקיצה המובילה לפי זמן: %1$d</item>
+        <item quantity="two">שתי נעילות היקיצה המובילות לפי זמן: %1$d</item>
+        <item quantity="many">%1$d נעילות היקיצה המובילות לפי זמן</item>
+        <item quantity="other">%1$d נעילות היקיצה המובילות לפי זמן</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">חבילה אחת חלקה את ה־UID הזה (%1$d)</item>
+        <item quantity="two">שתי חבילות חלקו את ה־UID הזה</item>
+        <item quantity="many">%1$d חבילות חלקו את ה־UID הזה</item>
+        <item quantity="other">%1$d חבילות חלקו את ה־UID הזה</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">יובאה הגדרה אחת (%1$d)</item>
+        <item quantity="two">יובאו שתי הגדרות</item>
+        <item quantity="many">יובאו %1$d הגדרות</item>
+        <item quantity="other">יובאו %1$d הגדרות</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 שניות</item>
+        <item>10 שניות</item>
+        <item>30 שניות</item>
+        <item>דקה אחת</item>
+        <item>5 דקות</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>מינימלי</item>
+        <item>מצומצם</item>
+        <item>מפורט</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>דקה אחת</item>
+        <item>5 דקות</item>
+        <item>15 דקות</item>
+        <item>30 דקות</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>ברירת מחדל של המערכת</item>
+        <item>בהיר</item>
+        <item>כהה</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 דקות</item>
+        <item>שעה אחת</item>
+        <item>6 שעות</item>
+        <item>24 שעות</item>
+        <item>7 ימים</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>צלזיוס</item>
+        <item>פרנהייט</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>שבוע אחד</item>
+        <item>חודש אחד</item>
+        <item>3 חודשים</item>
+        <item>6 חודשים</item>
+        <item>שנה אחת</item>
+        <item>לתמיד</item>
+    </string-array>
+</resources>
+    

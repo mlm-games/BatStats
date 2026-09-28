@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">返回</string>
+    <string name="cancel">取消</string>
+    <string name="dismiss">關閉</string>
+    <string name="refresh">重新整理</string>
+    <string name="copy">複製</string>
+    <string name="copy_all">全部複製</string>
+    <string name="app_info">應用程式資訊</string>
+    <string name="unknown">未知</string>
+    <string name="battery_icon_description">電池圖示</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="on">開啟</string>
+    <string name="off">關閉</string>
+    <string name="live">即時</string>
+    <string name="min">最小</string>
+    <string name="max">最大</string>
+    <string name="time">時間</string>
+    <string name="total">總計</string>
+    <string name="mobile">行動網路</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">數量</string>
+    <string name="active">使用中</string>
+    <string name="idle">閒置</string>
+    <string name="awake">清醒</string>
+    <string name="duration">持續時間</string>
+    <string name="total_time">總時間</string>
+    <string name="network">網路</string>
+    <string name="bluetooth">藍牙</string>
+    <string name="start">開始</string>
+    <string name="stop">停止</string>
+    <string name="end">結束</string>
+    <string name="pause">暫停</string>
+    <string name="reset">重設</string>
+    <string name="updated">更新於 %1$s</string>
+    <string name="theme">主題</string>
+    <string name="dynamic_colors">動態取色</string>
+    <string name="temperature_unit">溫度單位</string>
+    <string name="alarms">鬧鐘</string>
+    <string name="history">歷史記錄</string>
+    <string name="settings">設定</string>
+    <string name="data">資料</string>
+    <string name="detailed_stats">詳細統計</string>
+    <string name="drain_statistics">耗電統計</string>
+    <string name="session_details">工作階段詳情</string>
+    <string name="summary">摘要</string>
+    <string name="monitoring">監測</string>
+    <string name="monitoring_ready">監測已就緒</string>
+    <string name="start_monitoring">開始監測</string>
+    <string name="monitoring_battery">正在監測電池</string>
+    <string name="tap_to_start">點選以開始監測電池</string>
+    <string name="running_foreground">執行中（前景）</string>
+    <string name="stopped">已停止</string>
+    <string name="charge">充電</string>
+    <string name="discharge">放電</string>
+    <string name="charging">正在充電</string>
+    <string name="discharging">正在放電</string>
+    <string name="full">已充飽</string>
+    <string name="battery_state_charging">正在充電 %1$d%%</string>
+    <string name="battery_state_discharging">正在放電 %1$d%%</string>
+    <string name="battery_at_percent">電量 %1$d%% — 建議拔除充電器。</string>
+    <string name="charge_limit_reached">已達充電上限</string>
+    <string name="temperature_high">%1$d °C — 請讓裝置降溫。</string>
+    <string name="heavy_drain">%1$d mA — 偵測到高耗電。</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">狀態</string>
+    <string name="health_good">良好</string>
+    <string name="health_overheat">過熱</string>
+    <string name="health_dead">失效</string>
+    <string name="health_over_voltage">過壓</string>
+    <string name="health_failed">故障</string>
+    <string name="health_cold">低溫</string>
+    <string name="design">標稱</string>
+    <string name="capacity">容量</string>
+    <string name="cycle_count">循環次數</string>
+    <string name="current">電流</string>
+    <string name="temperature">溫度</string>
+    <string name="voltage">電壓</string>
+    <string name="power">功率</string>
+    <string name="power_usage">耗電量</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">相機</string>
+    <string name="mobile_radio">行動網路</string>
+    <string name="wakelock">喚醒鎖</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">占電池使用時長的 %1$s%%</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">每小時耗電（亮螢幕）</string>
+    <string name="drain_hour_screen_off">每小時耗電（熄螢幕）</string>
+    <string name="technology">技術</string>
+    <string name="health_status">健康狀態</string>
+    <string name="status">狀態</string>
+    <string name="current_kernel">電流（核心）</string>
+    <string name="voltage_kernel">電壓（核心）</string>
+    <string name="time_to_empty">剩餘放電時間</string>
+    <string name="time_to_full">充飽剩餘時間</string>
+    <string name="current_mv">電流 (mA)</string>
+    <string name="voltage_mv">電壓 (mV)</string>
+    <string name="temperature_c">溫度 (°C)</string>
+    <string name="current_recent">電流（最近 15 分鐘）</string>
+    <string name="sessions">工作階段</string>
+    <string name="samples">取樣</string>
+    <string name="session_tracking">工作階段追蹤</string>
+    <string name="session_active">%1$s 工作階段進行中 • 開始於 %2$s</string>
+    <string name="charging_session">充電工作階段</string>
+    <string name="discharge_session">放電工作階段</string>
+    <string name="session_state_active">進行中</string>
+    <string name="session_state_ended">進行中</string>
+    <string name="search_session_id">依工作階段 ID 搜尋…</string>
+    <string name="sort_by">排序：%1$s</string>
+    <string name="sort_power">耗電量</string>
+    <string name="sort_cpu_time">CPU 時間</string>
+    <string name="sort_wakelock">喚醒鎖</string>
+    <string name="sort_network">網路</string>
+    <string name="sort_foreground">前景</string>
+    <string name="start_time">開始：%1$s</string>
+    <string name="end_time">結束：%1$s</string>
+    <string name="no_sessions_yet">尚無工作階段</string>
+    <string name="no_sessions_yet_desc">開始一個工作階段或啟動監測後，即可在此查看歷史記錄。</string>
+    <string name="no_data_points">尚未擷取到資料點。</string>
+    <string name="mah_approx">約 %1$s mAh</string>
+    <string name="average_current_ma">平均 %1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s 小時</string>
+    <string name="data_export_import">資料匯出/匯入</string>
+    <string name="date_range">日期範圍</string>
+    <string name="export">匯出</string>
+    <string name="export_json">匯出 JSON</string>
+    <string name="export_csv_folder">匯出 CSV（資料夾）</string>
+    <string name="import_string">匯入</string>
+    <string name="import_json">匯入 JSON</string>
+    <string name="import_csv">匯入 CSV</string>
+    <string name="csv_import_hint">CSV 匯入：請開啟 battery_samples.csv 或 charge_sessions.csv</string>
+    <string name="from_beginning">起始：最早</string>
+    <string name="from_date">起始：%1$s</string>
+    <string name="to_date">截止：%1$s</string>
+    <string name="all">全部</string>
+    <string name="last_7_days">最近 7 天</string>
+    <string name="last_30_days">最近 30 天</string>
+    <string name="export_battery_data">匯出電池資料</string>
+    <string name="export_battery_data_desc">將電池歷史記錄匯出至檔案</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">自訂應用程式行為</string>
+    <string name="category_general">一般</string>
+    <string name="category_notifications">通知</string>
+    <string name="category_display">顯示</string>
+    <string name="category_data">資料與匯出</string>
+    <string name="reset_settings">重設設定</string>
+    <string name="reset_ui">重設介面</string>
+    <string name="reset_all">全部重設</string>
+    <string name="import_settings">匯入設定</string>
+    <string name="paste_json">貼上已匯出的設定 JSON：</string>
+    <string name="paste_json_hint">在此貼上 JSON…</string>
+    <string name="import_failed">匯入失敗</string>
+    <string name="data_cleared">已清除所有資料</string>
+    <string name="import_action">匯入</string>
+    <string name="clear_all_data">清除所有資料？</string>
+    <string name="clear_data_warning">這將永久刪除所有電池歷史記錄、工作階段與統計資料，且無法復原。</string>
+    <string name="delete_all">全部刪除</string>
+    <string name="clear_all_data_action">清除所有資料</string>
+    <string name="clear_all_data_action_desc">刪除所有已儲存的電池資料</string>
+    <string name="export_settings">匯出設定</string>
+    <string name="import_settings_desc">匯入設定</string>
+    <string name="reset_settings_desc">重設設定</string>
+    <string name="choose_reset">選擇要重設的項目：</string>
+    <string name="reset_ui_settings">重設介面設定：僅重設可見的設定</string>
+    <string name="reset_all_settings">全部重設：重設所有項目</string>
+    <string name="ui_settings_reset">介面設定已重設</string>
+    <string name="all_settings_reset">所有設定已重設</string>
+    <string name="auto_start_monitoring">自動啟動監測</string>
+    <string name="monitoring_interval">監測間隔</string>
+    <string name="show_persistent_notification">顯示常駐通知</string>
+    <string name="show_drain_notification">顯示耗電通知</string>
+    <string name="show_drain_notification_desc">在通知中顯示詳細的耗電統計（需要 Shizuku、Root 或 ADB）</string>
+    <string name="notification_style">通知樣式</string>
+    <string name="track_foreground_apps">追蹤前景應用程式</string>
+    <string name="detailed_stats_interval">詳細統計間隔</string>
+    <string name="detailed_stats_interval_desc">透過 Shizuku/Root/ADB 收集詳細電池統計的頻率。</string>
+    <string name="low_battery_alert">低電量提醒</string>
+    <string name="low_battery_threshold">低電量閾值</string>
+    <string name="high_battery_alert">高電量提醒</string>
+    <string name="high_battery_alert_desc">充電達到閾值時通知</string>
+    <string name="high_battery_threshold">高電量閾值</string>
+    <string name="temperature_warning">溫度警告</string>
+    <string name="temperature_threshold">溫度閾值</string>
+    <string name="temperature_threshold_desc">警告溫度（攝氏）</string>
+    <string name="high_discharge_alert">高耗電提醒</string>
+    <string name="discharge_threshold">放電閾值</string>
+    <string name="discharge_threshold_desc">放電超過此值時發出警告 (mA)</string>
+    <string name="charging_complete_alert">充電完成提醒</string>
+    <string name="alert_sound">提示音</string>
+    <string name="alert_vibration">震動提醒</string>
+    <string name="high_temperature">高溫警告</string>
+    <string name="high_discharge">高耗電</string>
+    <string name="chart_time_range">圖表時間範圍</string>
+    <string name="show_current_ma">以 mA 顯示電流</string>
+    <string name="compact_stats_view">精簡統計檢視</string>
+    <string name="pure_black_oled">純黑（OLED）</string>
+    <string name="data_retention">資料保留期限</string>
+    <string name="auto_cleanup">自動清除舊資料</string>
+    <string name="export_format">匯出格式</string>
+    <string name="include_raw_samples">包含原始取樣</string>
+    <string name="screen_on">亮螢幕</string>
+    <string name="screen_off">熄螢幕</string>
+    <string name="mobile_signal">行動訊號</string>
+    <string name="wifi_signal">Wi-Fi 訊號</string>
+    <string name="no_signal_data">沒有訊號資料</string>
+    <string name="signal_quality">訊號品質</string>
+    <string name="signal_none">無</string>
+    <string name="signal_poor">差</string>
+    <string name="signal_moderate">普通</string>
+    <string name="signal_good">良好</string>
+    <string name="signal_great">極佳</string>
+    <string name="signal_level">等級 %1$d</string>
+    <string name="mobile_rx">行動接收</string>
+    <string name="mobile_tx">行動傳送</string>
+    <string name="wifi_rx">Wi-Fi 接收</string>
+    <string name="wifi_tx">Wi-Fi 傳送</string>
+    <string name="no_network_data">沒有網路資料</string>
+    <string name="kernel_count">核心 (%1$d)</string>
+    <string name="wakelocks">喚醒鎖</string>
+    <string name="kernel_wakelocks">核心喚醒鎖（原生）</string>
+    <string name="no_app_wakelocks">找不到應用程式喚醒鎖</string>
+    <string name="no_kernel_wakelocks">找不到核心喚醒鎖</string>
+    <string name="could_not_read_wakelocks">無法讀取核心喚醒鎖。</string>
+    <string name="count_active">數量：%1$d | 使用中：%2$d</string>
+    <string name="doze_statistics">Doze 統計</string>
+    <string name="doze_whitelist">Doze 白名單</string>
+    <string name="no_whitelist">沒有白名單資料</string>
+    <string name="no_doze_data">沒有 Doze 資料</string>
+    <string name="deep_doze_time">深度 Doze 時長</string>
+    <string name="deep_doze_count">深度 Doze 次數</string>
+    <string name="light_doze_time">輕量 Doze 時長</string>
+    <string name="light_doze_count">輕量 Doze 次數</string>
+    <string name="maintenance_windows">維護時段</string>
+    <string name="maintenance_time">維護時長</string>
+    <string name="current_state">目前狀態</string>
+    <string name="doze_state">Doze 狀態</string>
+    <string name="light_state">輕量 Doze 狀態</string>
+    <string name="deep_doze_enabled">已啟用深度 Doze</string>
+    <string name="light_doze_enabled">已啟用輕量 Doze</string>
+    <string name="screen">螢幕</string>
+    <string name="battery_level_label">電量</string>
+    <string name="battery_status">電池狀態</string>
+    <string name="low_power_mode">低耗電模式</string>
+    <string name="device_idle_mode">裝置閒置模式</string>
+    <string name="no_state_data">沒有狀態資料</string>
+    <string name="whitelisted_apps">白名單應用程式：%1$d</string>
+    <string name="temporarily_whitelisted">暫時白名單：%1$d</string>
+    <string name="suspend_blockers">暫停阻擋項</string>
+    <string name="no_suspend_blockers">沒有使用中的暫停阻擋項</string>
+    <string name="no_bluetooth_data">沒有藍牙資料</string>
+    <string name="idle_time">閒置時長</string>
+    <string name="rx_time">接收時長</string>
+    <string name="tx_time">傳送時長</string>
+    <string name="scan_time">掃描時長</string>
+    <string name="system_apps">系統應用程式</string>
+    <string name="no_apps_found">找不到應用程式</string>
+    <string name="packages_shared_uid">套件（共用 UID %1$d）</string>
+    <string name="process_statistics">處理程序統計</string>
+    <string name="no_process_data">沒有處理程序資料</string>
+    <string name="apps_tracked">已追蹤的應用程式</string>
+    <string name="power_breakdown">耗電量組成</string>
+    <string name="time_usage">時間組成</string>
+    <string name="cpu_time">CPU 時間</string>
+    <string name="wakelock_time">喚醒鎖時長</string>
+    <string name="foreground">前景</string>
+    <string name="foreground_service">前景服務</string>
+    <string name="top">前景</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">感測器</string>
+    <string name="sensor_usage">感測器使用情況</string>
+    <string name="no_sensor_data">沒有感測器資料</string>
+    <string name="no_alarm_data">沒有鬧鐘資料</string>
+    <string name="no_job_data">沒有工作資料</string>
+    <string name="no_sync_data">沒有同步資料</string>
+    <string name="wakeups">喚醒次數</string>
+    <string name="screen_time_analysis">螢幕使用時間分析</string>
+    <string name="screen_time_breakdown">螢幕時間組成</string>
+    <string name="time_on_battery">電池使用時間</string>
+    <string name="screen_on_time">亮螢幕時長</string>
+    <string name="estimated_capacity">估算容量</string>
+    <string name="discharge_breakdown">放電組成</string>
+    <string name="deep_sleep_share">的熄螢幕時間處於深度睡眠</string>
+    <string name="tracking_active">正在追蹤</string>
+    <string name="tracking_paused">追蹤已暫停</string>
+    <string name="reset_session">重設工作階段</string>
+    <string name="drain_rates">耗電速率</string>
+    <string name="deep_sleep">深度睡眠</string>
+    <string name="dozing">半夢半醒</string>
+    <string name="drain_rate">耗電速率</string>
+    <string name="total_drain">總耗電量</string>
+    <string name="activity_breakdown">活動組成</string>
+    <string name="session_summary">工作階段摘要</string>
+    <string name="avg_rate">平均速率</string>
+    <string name="drain_history">耗電歷史</string>
+    <string name="collecting_data">正在擷取資料…</string>
+    <string name="session_duration">工作階段：%1$s</string>
+    <string name="total_drain_value">總耗電量：%1$s</string>
+    <string name="drain_notification_channel_desc">顯示即時的電池耗電統計</string>
+    <string name="drain_state_charging">⚡ 正在充電</string>
+    <string name="drain_state_deep_sleep">😴 深度睡眠</string>
+    <string name="drain_state_dozing">💤 半夢半醒</string>
+    <string name="drain_state_screen_on">📱 亮螢幕</string>
+    <string name="drain_state_screen_off">🌙 熄螢幕</string>
+    <string name="drain_rates_section">━━━ 耗電速率 ━━━</string>
+    <string name="activity_section">━━━ 活動 ━━━</string>
+    <string name="session_section">━━━ 工作階段 ━━━</string>
+    <string name="drain_on_off_sleep">亮螢幕：%1$s • 熄螢幕：%2$s • 睡眠：%3$s</string>
+    <string name="drain_screen_on_line">📱 亮螢幕：%1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 熄螢幕：%1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 深度睡眠：%1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ 清醒：%1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 使用中：%1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 閒置：%1$s (%2$s)</string>
+    <string name="drain_total_line">總計：%1$s / %2$s</string>
+    <string name="drain_average_line">平均：%1$s</string>
+    <string name="tab_overview">概覽</string>
+    <string name="tab_apps">應用程式</string>
+    <string name="tab_wakelocks">喚醒鎖</string>
+    <string name="tab_network">網路</string>
+    <string name="tab_system">系統</string>
+    <string name="tab_alarms">鬧鐘</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • 透過 %1$s</string>
+    <string name="reset_stats">重設統計</string>
+    <string name="stats_reset_success">統計已重設</string>
+    <string name="stats_reset_failed">重設統計失敗</string>
+    <string name="no_data_available">沒有資料</string>
+    <string name="advanced_stats_required">需要進階統計權限</string>
+    <string name="advanced_stats_desc">詳細統計需要下列其中一項：Shizuku、Root，或透過 ADB 授予的權限（永久有效，無需常駐服務）。</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku 未執行。請先啟動 Shizuku 應用程式（及其服務），再點選「重新檢查」。</string>
+    <string name="shizuku_denied">Shizuku 拒絕了這個應用程式。請開啟 Shizuku，並在「已授權的應用程式」中重新授權 BatStats。</string>
+    <string name="shizuku_running">Shizuku 正在執行 — 請點選「請求 Shizuku」並核准該提示。</string>
+    <string name="request_shizuku">請求 Shizuku</string>
+    <string name="recheck">重新檢查</string>
+    <string name="troubleshooting">疑難排解</string>
+    <string name="troubleshoot_1">– 開啟開發者選項與 USB 偵錯。</string>
+    <string name="troubleshoot_2">– 在小米/MIUI/HyperOS/OnePlus 上：另需開啟 USB 偵錯（安全性設定）或關閉權限監控，然後重新啟動。</string>
+    <string name="troubleshoot_3">– 執行：adb devices，同意提示，執行授權指令，然後強制停止 BatStats 或重新啟動裝置。</string>
+    <string name="troubleshoot_4">– 授權失敗並出現「Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?」？請開啟上述安全性設定。</string>
+    <string name="troubleshoot_5">– 授權會保留到解除安裝為止。也可改用 root 執行 pm grant（su -c pm grant ...）。</string>
+    <string name="granted_yes_no">%1$s：%2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">只需透過 ADB 執行一次；重新啟動與更新後依然有效，直至解除安裝。無需讓 Shizuku 持續執行。</string>
+    <string name="root_only">僅 Root 可用的功能：</string>
+    <string name="root_access_required">需要 Root 權限</string>
+    <string name="root_access_desc">這些統計需要 Root 權限才能讀取核心層級的電池資訊，包括循環次數、實際容量、核心喚醒鎖與溫度資料。</string>
+    <string name="root_feature_cycles">電池循環次數</string>
+    <string name="root_feature_capacity">實際容量（標稱與目前）</string>
+    <string name="root_feature_health">電池老化/健康百分比</string>
+    <string name="root_feature_wakelocks">核心喚醒鎖（原生）</string>
+    <string name="root_feature_cpu">CPU 頻率狀態</string>
+    <string name="root_feature_thermal">溫度區域監控</string>
+    <string name="root_feature_sysfs">直接存取 sysfs</string>
+    <string name="battery_health_kernel">電池健康狀況（核心）</string>
+    <string name="no_battery_info">無法從 /sys 讀取電池資訊</string>
+    <string name="cycles_value">%1$d 次循環</string>
+    <string name="cpu_frequency">CPU 頻率</string>
+    <string name="no_cpu_info">無法讀取 CPU 資訊</string>
+    <string name="cluster_n">叢集 %1$d</string>
+    <string name="time_in_state">各狀態時長</string>
+    <string name="thermal_zones">溫度區域</string>
+    <string name="no_thermal_data">無法讀取溫度區域</string>
+    <plurals name="more_count">
+        <item quantity="one">另有 %1$d 個</item>
+        <item quantity="other">另有 %1$d 個</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">…另有 %1$d 個</item>
+        <item quantity="other">…另有 %1$d 個</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d 個使用中的喚醒鎖</item>
+        <item quantity="other">%1$d 個使用中的喚醒鎖</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">應用程式喚醒鎖 (%1$d)</item>
+        <item quantity="other">應用程式喚醒鎖 (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">鬧鐘 (%1$d)</item>
+        <item quantity="other">鬧鐘 (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">工作 (%1$d)</item>
+        <item quantity="other">工作 (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">同步 (%1$d)</item>
+        <item quantity="other">同步 (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">依時長排名前 %1$d 個喚醒鎖</item>
+        <item quantity="other">依時長排名前 %1$d 個喚醒鎖</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d 個套件共用此 UID</item>
+        <item quantity="other">%1$d 個套件共用此 UID</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">已匯入 %1$d 項設定</item>
+        <item quantity="other">已匯入 %1$d 項設定</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 秒</item>
+        <item>10 秒</item>
+        <item>30 秒</item>
+        <item>1 分鐘</item>
+        <item>5 分鐘</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>極簡</item>
+        <item>精簡</item>
+        <item>詳細</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 分鐘</item>
+        <item>5 分鐘</item>
+        <item>15 分鐘</item>
+        <item>30 分鐘</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>跟隨系統</item>
+        <item>淺色</item>
+        <item>深色</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 分鐘</item>
+        <item>1 小時</item>
+        <item>6 小時</item>
+        <item>24 小時</item>
+        <item>7 天</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>攝氏</item>
+        <item>華氏</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 週</item>
+        <item>1 個月</item>
+        <item>3 個月</item>
+        <item>6 個月</item>
+        <item>1 年</item>
+        <item>永久</item>
+    </string-array>
+</resources>
+    

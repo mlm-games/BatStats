@@ -25,6 +25,7 @@ kotlin {
 
 android {
     compileSdk = 37
+    compileSdkMinor = 2
 
     defaultConfig {
         applicationId = "org.mlm.batstats"
@@ -34,7 +35,12 @@ android {
         versionName = "6.2.6"
 
         androidResources {
-            localeFilters += setOf("en", "ar", "de", "es-rES", "es-rUS", "fr", "hr", "hu", "in", "it", "ja", "pl", "pt-rBR", "ru-rRU", "sv", "tr", "uk", "zh")
+            generateLocaleConfig = true
+            localeFilters += setOf(
+                "en", "ar", "cs", "de", "el", "es", "es-rES", "es-rUS", "fa", "fi", "fr",
+                "he", "hr", "hu", "id", "it", "ja", "ko", "nl", "pl", "pt", "pt-rBR", "ru",
+                "ru-rRU", "sv", "tr", "uk", "vi", "zh", "zh-rTW"
+            )
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

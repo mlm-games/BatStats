@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Quay lại</string>
+    <string name="cancel">Hủy</string>
+    <string name="dismiss">Đóng</string>
+    <string name="refresh">Làm mới</string>
+    <string name="copy">Sao chép</string>
+    <string name="copy_all">Sao chép tất cả</string>
+    <string name="app_info">Thông tin ứng dụng</string>
+    <string name="unknown">Không rõ</string>
+    <string name="battery_icon_description">Biểu tượng pin</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="on">Bật</string>
+    <string name="off">Tắt</string>
+    <string name="live">Trực tiếp</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="time">Thời gian</string>
+    <string name="total">Tổng</string>
+    <string name="mobile">Di động</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="count">Số lượng</string>
+    <string name="active">Hoạt động</string>
+    <string name="idle">Nhàn rỗi</string>
+    <string name="awake">Tỉnh táo</string>
+    <string name="duration">Thời lượng</string>
+    <string name="total_time">Tổng thời gian</string>
+    <string name="network">Mạng</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Bắt đầu</string>
+    <string name="stop">Dừng</string>
+    <string name="end">Kết thúc</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="reset">Đặt lại</string>
+    <string name="updated">Đã cập nhật %1$s</string>
+    <string name="theme">Giao diện</string>
+    <string name="dynamic_colors">Màu động</string>
+    <string name="temperature_unit">Đơn vị nhiệt độ</string>
+    <string name="alarms">Báo thức</string>
+    <string name="history">Lịch sử</string>
+    <string name="settings">Cài đặt</string>
+    <string name="data">Dữ liệu</string>
+    <string name="detailed_stats">Thống kê chi tiết</string>
+    <string name="drain_statistics">Thống kê tiêu thụ</string>
+    <string name="session_details">Chi tiết phiên</string>
+    <string name="summary">Tóm tắt</string>
+    <string name="monitoring">Giám sát</string>
+    <string name="monitoring_ready">Sẵn sàng giám sát</string>
+    <string name="start_monitoring">Bắt đầu giám sát</string>
+    <string name="monitoring_battery">Đang giám sát pin</string>
+    <string name="tap_to_start">Chạm để bắt đầu giám sát pin</string>
+    <string name="running_foreground">Đang chạy (nền)</string>
+    <string name="stopped">Đã dừng</string>
+    <string name="charge">Sạc</string>
+    <string name="discharge">Phóng điện</string>
+    <string name="charging">Đang sạc</string>
+    <string name="discharging">Đang phóng điện</string>
+    <string name="full">Đầy</string>
+    <string name="battery_state_charging">Đang sạc %1$d%%</string>
+    <string name="battery_state_discharging">Đang phóng điện %1$d%%</string>
+    <string name="battery_at_percent">Pin còn %1$d%% — nên tháo sạc.</string>
+    <string name="charge_limit_reached">Đã đạt giới hạn sạc</string>
+    <string name="temperature_high">%1$d °C — hãy để thiết bị nguội.</string>
+    <string name="heavy_drain">%1$d mA — phát hiện mức tiêu thụ cao.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Tình trạng</string>
+    <string name="health_good">Tốt</string>
+    <string name="health_overheat">Quá nhiệt</string>
+    <string name="health_dead">Hỏng</string>
+    <string name="health_over_voltage">Quá áp</string>
+    <string name="health_failed">Không hoạt động</string>
+    <string name="health_cold">Lạnh</string>
+    <string name="design">Định mức</string>
+    <string name="capacity">Dung lượng</string>
+    <string name="cycle_count">Số chu kỳ</string>
+    <string name="current">Dòng điện</string>
+    <string name="temperature">Nhiệt độ</string>
+    <string name="voltage">Điện áp</string>
+    <string name="power">Công suất</string>
+    <string name="power_usage">Mức tiêu thụ</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Máy ảnh</string>
+    <string name="mobile_radio">Sóng di động</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% thời gian chạy bằng pin</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Tiêu thụ/giờ (màn hình bật)</string>
+    <string name="drain_hour_screen_off">Tiêu thụ/giờ (màn hình tắt)</string>
+    <string name="technology">Công nghệ</string>
+    <string name="health_status">Trạng thái sức khỏe</string>
+    <string name="status">Trạng thái</string>
+    <string name="current_kernel">Dòng điện (hạt nhân)</string>
+    <string name="voltage_kernel">Điện áp (hạt nhân)</string>
+    <string name="time_to_empty">Thời gian còn lại phóng hết</string>
+    <string name="time_to_full">Thời gian còn lại sạc đầy</string>
+    <string name="current_mv">Dòng điện (mA)</string>
+    <string name="voltage_mv">Điện áp (mV)</string>
+    <string name="temperature_c">Nhiệt độ (°C)</string>
+    <string name="current_recent">Dòng điện (15 phút gần nhất)</string>
+    <string name="sessions">Phiên</string>
+    <string name="samples">Mẫu</string>
+    <string name="session_tracking">Theo dõi phiên</string>
+    <string name="session_active">Phiên %1$s đang hoạt động • bắt đầu %2$s</string>
+    <string name="charging_session">Phiên sạc</string>
+    <string name="discharge_session">Phiên phóng điện</string>
+    <string name="session_state_active">ĐANG HOẠT ĐỘNG</string>
+    <string name="session_state_ended">Đang hoạt động</string>
+    <string name="search_session_id">Tìm theo ID phiên…</string>
+    <string name="sort_by">Sắp xếp: %1$s</string>
+    <string name="sort_power">Mức tiêu thụ</string>
+    <string name="sort_cpu_time">Thời gian CPU</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Mạng</string>
+    <string name="sort_foreground">Ứng dụng nền</string>
+    <string name="start_time">Bắt đầu: %1$s</string>
+    <string name="end_time">Kết thúc: %1$s</string>
+    <string name="no_sessions_yet">Chưa có phiên nào</string>
+    <string name="no_sessions_yet_desc">Hãy bắt đầu một phiên hoặc bật giám sát để xem lịch sử tại đây.</string>
+    <string name="no_data_points">Chưa ghi nhận được điểm dữ liệu nào.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">~%1$s mA trung bình</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s giờ</string>
+    <string name="data_export_import">Xuất/nhập dữ liệu</string>
+    <string name="date_range">Khoảng thời gian</string>
+    <string name="export">Xuất</string>
+    <string name="export_json">Xuất JSON</string>
+    <string name="export_csv_folder">Xuất CSV (thư mục)</string>
+    <string name="import_string">Nhập</string>
+    <string name="import_json">Nhập JSON</string>
+    <string name="import_csv">Nhập CSV</string>
+    <string name="csv_import_hint">Nhập CSV: mở battery_samples.csv hoặc charge_sessions.csv</string>
+    <string name="from_beginning">Từ: đầu</string>
+    <string name="from_date">Từ: %1$s</string>
+    <string name="to_date">Đến: %1$s</string>
+    <string name="all">Tất cả</string>
+    <string name="last_7_days">7 ngày gần nhất</string>
+    <string name="last_30_days">30 ngày gần nhất</string>
+    <string name="export_battery_data">Xuất dữ liệu pin</string>
+    <string name="export_battery_data_desc">Xuất lịch sử pin ra tệp</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Tùy chỉnh hành vi ứng dụng</string>
+    <string name="category_general">Chung</string>
+    <string name="category_notifications">Thông báo</string>
+    <string name="category_display">Hiển thị</string>
+    <string name="category_data">Dữ liệu và xuất</string>
+    <string name="reset_settings">Đặt lại cài đặt</string>
+    <string name="reset_ui">Đặt lại giao diện</string>
+    <string name="reset_all">Đặt lại tất cả</string>
+    <string name="import_settings">Nhập cài đặt</string>
+    <string name="paste_json">Dán JSON cài đặt đã xuất:</string>
+    <string name="paste_json_hint">Dán JSON vào đây…</string>
+    <string name="import_failed">Nhập không thành công</string>
+    <string name="data_cleared">Đã xóa tất cả dữ liệu</string>
+    <string name="import_action">Nhập</string>
+    <string name="clear_all_data">Xóa tất cả dữ liệu?</string>
+    <string name="clear_data_warning">Thao tác này sẽ xóa vĩnh viễn toàn bộ lịch sử pin, các phiên và thống kê. Không thể hoàn tác.</string>
+    <string name="delete_all">Xóa tất cả</string>
+    <string name="clear_all_data_action">Xóa tất cả dữ liệu</string>
+    <string name="clear_all_data_action_desc">Xóa toàn bộ dữ liệu pin đã lưu</string>
+    <string name="export_settings">Xuất cài đặt</string>
+    <string name="import_settings_desc">Nhập cài đặt</string>
+    <string name="reset_settings_desc">Đặt lại cài đặt</string>
+    <string name="choose_reset">Chọn nội dung cần đặt lại:</string>
+    <string name="reset_ui_settings">Đặt lại cài đặt giao diện: chỉ đặt lại các cài đặt đang hiển thị</string>
+    <string name="reset_all_settings">Đặt lại tất cả: đặt lại mọi thứ</string>
+    <string name="ui_settings_reset">Đã đặt lại cài đặt giao diện</string>
+    <string name="all_settings_reset">Đã đặt lại mọi cài đặt</string>
+    <string name="auto_start_monitoring">Tự động bắt đầu giám sát</string>
+    <string name="monitoring_interval">Khoảng giám sát</string>
+    <string name="show_persistent_notification">Hiện thông báo thường trực</string>
+    <string name="show_drain_notification">Hiện thông báo tiêu thụ</string>
+    <string name="show_drain_notification_desc">Hiện thống kê tiêu thụ chi tiết trong thông báo (cần Shizuku, Root hoặc ADB)</string>
+    <string name="notification_style">Kiểu thông báo</string>
+    <string name="track_foreground_apps">Theo dõi ứng dụng nền</string>
+    <string name="detailed_stats_interval">Khoảng thống kê chi tiết</string>
+    <string name="detailed_stats_interval_desc">Tần suất thu thập thống kê pin chi tiết qua Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">Cảnh báo pin yếu</string>
+    <string name="low_battery_threshold">Ngưỡng pin yếu</string>
+    <string name="high_battery_alert">Cảnh báo pin đầy</string>
+    <string name="high_battery_alert_desc">Thông báo khi mức sạc đạt ngưỡng</string>
+    <string name="high_battery_threshold">Ngưỡng pin đầy</string>
+    <string name="temperature_warning">Cảnh báo nhiệt độ</string>
+    <string name="temperature_threshold">Ngưỡng nhiệt độ</string>
+    <string name="temperature_threshold_desc">Nhiệt độ cảnh báo theo độ C</string>
+    <string name="high_discharge_alert">Cảnh báo phóng điện cao</string>
+    <string name="discharge_threshold">Ngưỡng phóng điện</string>
+    <string name="discharge_threshold_desc">Cảnh báo khi mức phóng điện vượt quá giá trị này (mA)</string>
+    <string name="charging_complete_alert">Cảnh báo sạc đầy</string>
+    <string name="alert_sound">Âm báo</string>
+    <string name="alert_vibration">Rung cảnh báo</string>
+    <string name="high_temperature">Cảnh báo nhiệt độ cao</string>
+    <string name="high_discharge">Phóng điện cao</string>
+    <string name="chart_time_range">Khoảng thời gian biểu đồ</string>
+    <string name="show_current_ma">Hiện dòng điện theo mA</string>
+    <string name="compact_stats_view">Chế độ thống kê gọn</string>
+    <string name="pure_black_oled">Đen tuyệt đối (OLED)</string>
+    <string name="data_retention">Thời gian lưu dữ liệu</string>
+    <string name="auto_cleanup">Tự động dọn dữ liệu cũ</string>
+    <string name="export_format">Định dạng xuất</string>
+    <string name="include_raw_samples">Bao gồm dữ liệu thô</string>
+    <string name="screen_on">Màn hình bật</string>
+    <string name="screen_off">Màn hình tắt</string>
+    <string name="mobile_signal">Tín hiệu di động</string>
+    <string name="wifi_signal">Tín hiệu Wi-Fi</string>
+    <string name="no_signal_data">Không có dữ liệu tín hiệu</string>
+    <string name="signal_quality">Chất lượng tín hiệu</string>
+    <string name="signal_none">Không có</string>
+    <string name="signal_poor">Kém</string>
+    <string name="signal_moderate">Trung bình</string>
+    <string name="signal_good">Tốt</string>
+    <string name="signal_great">Rất tốt</string>
+    <string name="signal_level">Mức %1$d</string>
+    <string name="mobile_rx">Thu tín hiệu di động</string>
+    <string name="mobile_tx">Phát tín hiệu di động</string>
+    <string name="wifi_rx">Thu tín hiệu Wi-Fi</string>
+    <string name="wifi_tx">Phát tín hiệu Wi-Fi</string>
+    <string name="no_network_data">Không có dữ liệu mạng</string>
+    <string name="kernel_count">Hạt nhân (%1$d)</string>
+    <string name="wakelocks">Wakelock</string>
+    <string name="kernel_wakelocks">Wakelock hạt nhân (gốc)</string>
+    <string name="no_app_wakelocks">Không tìm thấy wakelock ứng dụng</string>
+    <string name="no_kernel_wakelocks">Không tìm thấy wakelock hạt nhân</string>
+    <string name="could_not_read_wakelocks">Không đọc được wakelock hạt nhân.</string>
+    <string name="count_active">Số lượng: %1$d | Đang hoạt động: %2$d</string>
+    <string name="doze_statistics">Thống kê Doze</string>
+    <string name="doze_whitelist">Danh sách cho phép Doze</string>
+    <string name="no_whitelist">Không có dữ liệu danh sách cho phép</string>
+    <string name="no_doze_data">Không có dữ liệu Doze</string>
+    <string name="deep_doze_time">Thời gian trong Doze sâu</string>
+    <string name="deep_doze_count">Số lần Doze sâu</string>
+    <string name="light_doze_time">Thời gian trong Doze nhẹ</string>
+    <string name="light_doze_count">Số lần Doze nhẹ</string>
+    <string name="maintenance_windows">Cửa sổ bảo trì</string>
+    <string name="maintenance_time">Thời gian bảo trì</string>
+    <string name="current_state">Trạng thái hiện tại</string>
+    <string name="doze_state">Trạng thái Doze</string>
+    <string name="light_state">Trạng thái Doze nhẹ</string>
+    <string name="deep_doze_enabled">Đã bật Doze sâu</string>
+    <string name="light_doze_enabled">Đã bật Doze nhẹ</string>
+    <string name="screen">Màn hình</string>
+    <string name="battery_level_label">Mức pin</string>
+    <string name="battery_status">Trạng thái pin</string>
+    <string name="low_power_mode">Chế độ tiết kiệm pin</string>
+    <string name="device_idle_mode">Chế độ nhàn rỗi của thiết bị</string>
+    <string name="no_state_data">Không có dữ liệu trạng thái</string>
+    <string name="whitelisted_apps">Ứng dụng trong danh sách cho phép: %1$d</string>
+    <string name="temporarily_whitelisted">Tạm thời trong danh sách cho phép: %1$d</string>
+    <string name="suspend_blockers">Thành phần chặn treo máy</string>
+    <string name="no_suspend_blockers">Không có thành phần chặn treo máy nào đang hoạt động</string>
+    <string name="no_bluetooth_data">Không có dữ liệu Bluetooth</string>
+    <string name="idle_time">Thời gian nhàn rỗi</string>
+    <string name="rx_time">Thời gian RX</string>
+    <string name="tx_time">Thời gian TX</string>
+    <string name="scan_time">Thời gian quét</string>
+    <string name="system_apps">Ứng dụng hệ thống</string>
+    <string name="no_apps_found">Không tìm thấy ứng dụng</string>
+    <string name="packages_shared_uid">Gói (UID dùng chung %1$d)</string>
+    <string name="process_statistics">Thống kê tiến trình</string>
+    <string name="no_process_data">Không có dữ liệu tiến trình</string>
+    <string name="apps_tracked">Ứng dụng đang theo dõi</string>
+    <string name="power_breakdown">Phân bổ mức tiêu thụ</string>
+    <string name="time_usage">Phân bổ thời gian</string>
+    <string name="cpu_time">Thời gian CPU</string>
+    <string name="wakelock_time">Thời gian wakelock</string>
+    <string name="foreground">Nền</string>
+    <string name="foreground_service">Dịch vụ nền</string>
+    <string name="top">Nền</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Cảm biến</string>
+    <string name="sensor_usage">Mức sử dụng cảm biến</string>
+    <string name="no_sensor_data">Không có dữ liệu cảm biến</string>
+    <string name="no_alarm_data">Không có dữ liệu báo thức</string>
+    <string name="no_job_data">Không có dữ liệu tác vụ</string>
+    <string name="no_sync_data">Không có dữ liệu đồng bộ</string>
+    <string name="wakeups">Số lần đánh thức</string>
+    <string name="screen_time_analysis">Phân tích thời gian màn hình</string>
+    <string name="screen_time_breakdown">Phân bổ thời gian màn hình</string>
+    <string name="time_on_battery">Thời gian chạy bằng pin</string>
+    <string name="screen_on_time">Thời gian màn hình bật</string>
+    <string name="estimated_capacity">Dung lượng ước tính</string>
+    <string name="discharge_breakdown">Phân bổ mức phóng điện</string>
+    <string name="deep_sleep_share">của thời gian tắt màn hình nằm trong ngủ sâu</string>
+    <string name="tracking_active">Đang theo dõi</string>
+    <string name="tracking_paused">Đã tạm dừng theo dõi</string>
+    <string name="reset_session">Đặt lại phiên</string>
+    <string name="drain_rates">Tốc độ tiêu thụ</string>
+    <string name="deep_sleep">Ngủ sâu</string>
+    <string name="dozing">Ngủ gật</string>
+    <string name="drain_rate">Tốc độ tiêu thụ</string>
+    <string name="total_drain">Tổng mức tiêu thụ</string>
+    <string name="activity_breakdown">Phân bổ theo hoạt động</string>
+    <string name="session_summary">Tóm tắt phiên</string>
+    <string name="avg_rate">Tốc độ trung bình</string>
+    <string name="drain_history">Lịch sử tiêu thụ</string>
+    <string name="collecting_data">Đang thu thập dữ liệu…</string>
+    <string name="session_duration">Phiên: %1$s</string>
+    <string name="total_drain_value">Tổng mức tiêu thụ: %1$s</string>
+    <string name="drain_notification_channel_desc">Hiển thị thống kê tiêu thụ pin theo thời gian thực</string>
+    <string name="drain_state_charging">⚡ Đang sạc</string>
+    <string name="drain_state_deep_sleep">😴 Ngủ sâu</string>
+    <string name="drain_state_dozing">💤 Ngủ gật</string>
+    <string name="drain_state_screen_on">📱 Màn hình bật</string>
+    <string name="drain_state_screen_off">🌙 Màn hình tắt</string>
+    <string name="drain_rates_section">━━━ Tốc độ tiêu thụ ━━━</string>
+    <string name="activity_section">━━━ Hoạt động ━━━</string>
+    <string name="session_section">━━━ Phiên ━━━</string>
+    <string name="drain_on_off_sleep">Bật: %1$s • Tắt: %2$s • Ngủ: %3$s</string>
+    <string name="drain_screen_on_line">📱 Màn hình bật: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Màn hình tắt: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Ngủ sâu: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Tỉnh táo: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Hoạt động: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Nhàn rỗi: %1$s (%2$s)</string>
+    <string name="drain_total_line">Tổng: %1$s trong %2$s</string>
+    <string name="drain_average_line">Trung bình: %1$s</string>
+    <string name="tab_overview">Tổng quan</string>
+    <string name="tab_apps">Ứng dụng</string>
+    <string name="tab_wakelocks">Wakelock</string>
+    <string name="tab_network">Mạng</string>
+    <string name="tab_system">Hệ thống</string>
+    <string name="tab_alarms">Báo thức</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • qua %1$s</string>
+    <string name="reset_stats">Đặt lại thống kê</string>
+    <string name="stats_reset_success">Đã đặt lại thống kê</string>
+    <string name="stats_reset_failed">Không thể đặt lại thống kê</string>
+    <string name="no_data_available">Không có dữ liệu</string>
+    <string name="advanced_stats_required">Cần thống kê nâng cao</string>
+    <string name="advanced_stats_desc">Thống kê chi tiết cần một trong số: Shizuku, Root hoặc quyền được cấp qua ADB (vĩnh viễn, không cần dịch vụ).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku chưa chạy. Hãy mở ứng dụng Shizuku (và dịch vụ của nó) trước, rồi chạm Kiểm tra lại.</string>
+    <string name="shizuku_denied">Shizuku đã từ chối ứng dụng này. Hãy mở Shizuku và cấp lại quyền cho BatStats trong Ứng dụng đã cấp quyền.</string>
+    <string name="shizuku_running">Shizuku đang chạy — chạm Yêu cầu Shizuku và chấp thuận lời nhắc.</string>
+    <string name="request_shizuku">Yêu cầu Shizuku</string>
+    <string name="recheck">Kiểm tra lại</string>
+    <string name="troubleshooting">Khắc phục sự cố</string>
+    <string name="troubleshoot_1">– Bật tùy chọn nhà phát triển và gỡ lỗi USB.</string>
+    <string name="troubleshoot_2">– Trên Xiaomi/MIUI/HyperOS/OnePlus: bật cả gỡ lỗi USB (cài đặt bảo mật) hoặc tắt theo dõi quyền rồi khởi động lại.</string>
+    <string name="troubleshoot_3">– Chạy: adb devices, chấp thuận lời nhắc, chạy các lệnh cấp quyền, rồi buộc dừng BatStats hoặc khởi động lại.</string>
+    <string name="troubleshoot_4">– Cấp quyền thất bại với thông báo \"Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?\" Hãy bật các cài đặt bảo mật ở trên.</string>
+    <string name="troubleshoot_5">– Quyền được cấp vẫn giữ cho tới khi gỡ cài đặt. Có thể dùng pm grant qua root (su -c pm grant ...) thay thế.</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Chạy một lần qua ADB; quyền được giữ qua các lần khởi động lại và cập nhật cho tới khi gỡ cài đặt. Không cần giữ Shizuku chạy.</string>
+    <string name="root_only">Tính năng chỉ dành cho Root:</string>
+    <string name="root_access_required">Cần có quyền Root</string>
+    <string name="root_access_desc">Các thống kê này cần quyền Root để đọc thông tin pin ở tầng hạt nhân, bao gồm số chu kỳ, dung lượng thực, wakelock hạt nhân và dữ liệu nhiệt.</string>
+    <string name="root_feature_cycles">Số chu kỳ sạc của pin</string>
+    <string name="root_feature_capacity">Dung lượng thực (định mức so với hiện tại)</string>
+    <string name="root_feature_health">Tỷ lệ tuổi/tình trạng pin</string>
+    <string name="root_feature_wakelocks">Wakelock hạt nhân (gốc)</string>
+    <string name="root_feature_cpu">Trạng thái tần số CPU</string>
+    <string name="root_feature_thermal">Giám sát vùng nhiệt</string>
+    <string name="root_feature_sysfs">Truy cập sysfs trực tiếp</string>
+    <string name="battery_health_kernel">Tình trạng pin (hạt nhân)</string>
+    <string name="no_battery_info">Không đọc được thông tin pin từ /sys</string>
+    <string name="cycles_value">%1$d chu kỳ</string>
+    <string name="cpu_frequency">Tần số CPU</string>
+    <string name="no_cpu_info">Không đọc được thông tin CPU</string>
+    <string name="cluster_n">Cụm %1$d</string>
+    <string name="time_in_state">Thời gian theo trạng thái</string>
+    <string name="thermal_zones">Vùng nhiệt</string>
+    <string name="no_thermal_data">Không đọc được các vùng nhiệt</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d nữa</item>
+        <item quantity="other">+ %1$d nữa</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… và %1$d nữa</item>
+        <item quantity="other">… và %1$d nữa</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d wakelock đang hoạt động</item>
+        <item quantity="other">%1$d wakelock đang hoạt động</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">Wakelock ứng dụng (%1$d)</item>
+        <item quantity="other">Wakelock ứng dụng (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Báo thức (%1$d)</item>
+        <item quantity="other">Báo thức (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Tác vụ (%1$d)</item>
+        <item quantity="other">Tác vụ (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Đồng bộ (%1$d)</item>
+        <item quantity="other">Đồng bộ (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">%1$d wakelock nổi bật nhất theo thời gian</item>
+        <item quantity="other">%1$d wakelock nổi bật nhất theo thời gian</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d gói dùng chung UID này</item>
+        <item quantity="other">%1$d gói dùng chung UID này</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">Đã nhập %1$d cài đặt</item>
+        <item quantity="other">Đã nhập %1$d cài đặt</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 giây</item>
+        <item>10 giây</item>
+        <item>30 giây</item>
+        <item>1 phút</item>
+        <item>5 phút</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Tối giản</item>
+        <item>Gọn</item>
+        <item>Chi tiết</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 phút</item>
+        <item>5 phút</item>
+        <item>15 phút</item>
+        <item>30 phút</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Theo hệ thống</item>
+        <item>Sáng</item>
+        <item>Tối</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 phút</item>
+        <item>1 giờ</item>
+        <item>6 giờ</item>
+        <item>24 giờ</item>
+        <item>7 ngày</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Độ C</item>
+        <item>Độ F</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 tuần</item>
+        <item>1 tháng</item>
+        <item>3 tháng</item>
+        <item>6 tháng</item>
+        <item>1 năm</item>
+        <item>Vĩnh viễn</item>
+    </string-array>
+</resources>
+    

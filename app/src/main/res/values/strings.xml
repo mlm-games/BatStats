@@ -1,61 +1,181 @@
 <resources>
     <string name="app_name" translatable="false">BatStats</string>
 
+    <!-- Generic -->
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="refresh">Refresh</string>
+    <string name="copy">Copy</string>
+    <string name="copy_all">Copy all</string>
+    <string name="app_info">App info</string>
+    <string name="unknown">Unknown</string>
+    <string name="battery_icon_description">Battery icon</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="live">Live</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="time">Time</string>
+    <string name="total">Total</string>
+    <string name="mobile">Mobile</string>
+    <string name="wifi">WiFi</string>
+    <string name="count">Count</string>
+    <string name="active">Active</string>
+    <string name="idle">Idle</string>
+    <string name="awake">Awake</string>
+    <string name="duration">Duration</string>
+    <string name="total_time">Total time</string>
+    <string name="network">Network</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="end">End</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="updated">Updated %1$s</string>
+    <string name="theme">Theme</string>
+    <string name="dynamic_colors">Dynamic Colors</string>
+    <string name="temperature_unit">Temperature Unit</string>
+
+    <!-- Navigation -->
     <string name="alarms">Alarms</string>
     <string name="history">History</string>
     <string name="settings">Settings</string>
-    <string name="data_export_import">Data export/import</string>
+    <string name="data">Data</string>
     <string name="detailed_stats">Detailed Stats</string>
     <string name="drain_statistics">Drain Statistics</string>
     <string name="session_details">Session details</string>
-    <string name="battery_health">Battery Health</string>
+    <string name="summary">Summary</string>
 
+    <!-- Battery state -->
     <string name="monitoring">Monitoring</string>
+    <string name="monitoring_ready">Monitoring ready</string>
+    <string name="start_monitoring">Start monitoring</string>
+    <string name="monitoring_battery">Monitoring battery</string>
+    <string name="tap_to_start">Tap to start battery monitoring</string>
+    <string name="running_foreground">Running (foreground)</string>
+    <string name="stopped">Stopped</string>
     <string name="charge">Charge</string>
     <string name="discharge">Discharge</string>
-    <string name="end">End</string>
-    <string name="back">Back</string>
-    <string name="updated">Updated %1$s</string>
+    <string name="charging">Charging</string>
+    <string name="discharging">Discharging</string>
+    <string name="full">Full</string>
+    <string name="battery_state_charging">Charging %1$d%%</string>
+    <string name="battery_state_discharging">Discharging %1$d%%</string>
+    <string name="battery_at_percent">Battery at %1$d%% — consider unplugging.</string>
+    <string name="charge_limit_reached">Charge limit reached</string>
+    <string name="temperature_high">%1$d °C — cool down the device.</string>
+    <string name="heavy_drain">%1$d mA — heavy drain detected.</string>
+    <string name="current_ma">%1$s mA</string>
 
-    <string name="date_range">Date range</string>
-    <string name="samples">Samples</string>
+    <!-- Battery metrics -->
+    <string name="health">Health</string>
+    <string name="health_good">Good</string>
+    <string name="health_overheat">Overheat</string>
+    <string name="health_dead">Dead</string>
+    <string name="health_over_voltage">Over voltage</string>
+    <string name="health_failed">Failed</string>
+    <string name="health_cold">Cold</string>
+    <string name="design">Design</string>
+    <string name="capacity">Capacity</string>
+    <string name="cycle_count">Cycle Count</string>
+    <string name="current">Current</string>
+    <string name="temperature">Temperature</string>
+    <string name="voltage">Voltage</string>
+    <string name="power">Power</string>
+    <string name="power_usage">Power usage</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Camera</string>
+    <string name="mobile_radio">Mobile radio</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% of battery time</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Drain/hour (screen on)</string>
+    <string name="drain_hour_screen_off">Drain/hour (screen off)</string>
+    <string name="technology">Technology</string>
+    <string name="health_status">Health status</string>
+    <string name="status">Status</string>
+    <string name="current_kernel">Current (kernel)</string>
+    <string name="voltage_kernel">Voltage (kernel)</string>
+    <string name="time_to_empty">Time to empty</string>
+    <string name="time_to_full">Time to full</string>
+    <string name="current_mv">Current (mA)</string>
+    <string name="voltage_mv">Voltage (mV)</string>
+    <string name="temperature_c">Temperature (°C)</string>
+    <string name="current_recent">Current (last 15 minutes)</string>
+
+    <!-- Sessions -->
     <string name="sessions">Sessions</string>
+    <string name="samples">Samples</string>
+    <string name="session_tracking">Session tracking</string>
+    <string name="session_active">%1$s session active • started %2$s</string>
+    <string name="charging_session">Charging Session</string>
+    <string name="discharge_session">Discharge Session</string>
+    <string name="session_state_active">ACTIVE</string>
+    <string name="session_state_ended">Active</string>
+    <string name="search_session_id">Search by session id…</string>
+    <string name="sort_by">Sort: %1$s</string>
+    <string name="sort_power">Power</string>
+    <string name="sort_cpu_time">CPU Time</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Network</string>
+    <string name="sort_foreground">Foreground</string>
+    <string name="start_time">Start: %1$s</string>
+    <string name="end_time">End: %1$s</string>
+    <string name="no_sessions_yet">No sessions yet</string>
+    <string name="no_sessions_yet_desc">Start a session or begin monitoring to see history here.</string>
+    <string name="no_data_points">No data points captured yet.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">%1$s mA avg</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s hours</string>
+
+    <!-- Data export/import -->
+    <string name="data_export_import">Data export/import</string>
+    <string name="date_range">Date range</string>
     <string name="export">Export</string>
     <string name="export_json">Export JSON</string>
     <string name="export_csv_folder">Export CSV (folder)</string>
     <string name="import_string">Import</string>
     <string name="import_json">Import JSON</string>
     <string name="import_csv">Import CSV</string>
+    <string name="csv_import_hint">CSV import: open either battery_samples.csv or charge_sessions.csv</string>
     <string name="from_beginning">From: Beginning</string>
     <string name="from_date">From: %1$s</string>
     <string name="to_date">To: %1$s</string>
     <string name="all">All</string>
     <string name="last_7_days">Last 7 days</string>
     <string name="last_30_days">Last 30 days</string>
+    <string name="export_battery_data">Export Battery Data</string>
+    <string name="export_battery_data_desc">Export battery history to file</string>
 
-    <string name="grant_permission">Grant Permission</string>
-    <string name="no_data_available">No data available</string>
-    <string name="screen_on">Screen On</string>
-    <string name="mobile_signal">Mobile Signal</string>
-    <string name="wifi_signal">WiFi Signal</string>
-    <string name="no_signal_data">No signal data available</string>
-
+    <!-- Settings screen -->
     <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Customize app behavior</string>
+    <string name="category_general">General</string>
+    <string name="category_notifications">Notifications</string>
+    <string name="category_display">Display</string>
+    <string name="category_data">Data &amp; Export</string>
     <string name="reset_settings">Reset Settings</string>
     <string name="reset_ui">Reset UI</string>
     <string name="reset_all">Reset All</string>
-    <string name="cancel">Cancel</string>
     <string name="import_settings">Import Settings</string>
     <string name="paste_json">Paste exported settings JSON:</string>
     <string name="paste_json_hint">Paste JSON here…</string>
     <string name="import_failed">Import failed</string>
-    <string name="settings_imported">settings imported</string>
     <string name="data_cleared">All data cleared</string>
     <string name="import_action">Import</string>
     <string name="clear_all_data">Clear All Data?</string>
     <string name="clear_data_warning">This will permanently delete all battery history, sessions, and statistics. This cannot be undone.</string>
     <string name="delete_all">Delete All</string>
-    <string name="customize_behavior">Customize app behavior</string>
+    <string name="clear_all_data_action">Clear All Data</string>
+    <string name="clear_all_data_action_desc">Delete all stored battery data</string>
     <string name="export_settings">Export settings</string>
     <string name="import_settings_desc">Import settings</string>
     <string name="reset_settings_desc">Reset settings</string>
@@ -65,110 +185,315 @@
     <string name="ui_settings_reset">UI settings reset</string>
     <string name="all_settings_reset">All settings reset</string>
 
+    <!-- Settings: general -->
     <string name="auto_start_monitoring">Auto-start Monitoring</string>
     <string name="monitoring_interval">Monitoring Interval</string>
     <string name="show_persistent_notification">Show Persistent Notification</string>
     <string name="show_drain_notification">Show Drain Stats Notification</string>
+    <string name="show_drain_notification_desc">Show detailed drain statistics in notification (requires Shizuku, Root or ADB)</string>
     <string name="notification_style">Notification Style</string>
     <string name="track_foreground_apps">Track Foreground Apps</string>
+    <string name="detailed_stats_interval">Detailed Stats Interval</string>
+    <string name="detailed_stats_interval_desc">How often to collect detailed battery stats via Shizuku/Root/ADB.</string>
+
+    <!-- Settings: notifications -->
     <string name="low_battery_alert">Low Battery Alert</string>
     <string name="low_battery_threshold">Low Battery Threshold</string>
     <string name="high_battery_alert">High Battery Alert</string>
+    <string name="high_battery_alert_desc">Notify when charging reaches threshold</string>
     <string name="high_battery_threshold">High Battery Threshold</string>
     <string name="temperature_warning">Temperature Warning</string>
     <string name="temperature_threshold">Temperature Threshold</string>
+    <string name="temperature_threshold_desc">Warning temperature in Celsius</string>
     <string name="high_discharge_alert">High Discharge Alert</string>
     <string name="discharge_threshold">Discharge Threshold</string>
+    <string name="discharge_threshold_desc">Alert when discharge exceeds this (mA)</string>
     <string name="charging_complete_alert">Charging Complete Alert</string>
     <string name="alert_sound">Alert Sound</string>
     <string name="alert_vibration">Alert Vibration</string>
-    <string name="theme">Theme</string>
-    <string name="dynamic_colors">Dynamic Colors</string>
+    <string name="high_temperature">High Temperature Alert</string>
+    <string name="high_discharge">High Discharge</string>
+
+    <!-- Settings: display -->
     <string name="chart_time_range">Chart Time Range</string>
     <string name="show_current_ma">Show Current in mA</string>
-    <string name="temperature_unit">Temperature Unit</string>
     <string name="compact_stats_view">Compact Stats View</string>
+    <string name="pure_black_oled">Pure black (OLED)</string>
+
+    <!-- Settings: data -->
     <string name="data_retention">Data Retention</string>
     <string name="auto_cleanup">Auto-cleanup Old Data</string>
     <string name="export_format">Export Format</string>
     <string name="include_raw_samples">Include Raw Samples</string>
 
-    <string name="monitoring_ready">Monitoring ready</string>
-    <string name="start_monitoring">Start monitoring</string>
-    <string name="monitoring_battery">Monitoring battery</string>
-    <string name="tap_to_start">Tap to start battery monitoring</string>
-    <string name="battery_at_percent">Battery at %1$d%% — consider unplugging.</string>
-    <string name="charge_limit_reached">Charge limit reached</string>
-    <string name="temperature_high">%1$d °C — cool down the device.</string>
-    <string name="heavy_drain">%1$d mA — heavy drain detected.</string>
+    <!-- Signal -->
+    <string name="screen_on">Screen On</string>
+    <string name="screen_off">Screen Off</string>
+    <string name="mobile_signal">Mobile Signal</string>
+    <string name="wifi_signal">WiFi Signal</string>
+    <string name="no_signal_data">No signal data available</string>
+    <string name="signal_quality">Signal Quality</string>
+    <string name="signal_none">None</string>
+    <string name="signal_poor">Poor</string>
+    <string name="signal_moderate">Moderate</string>
+    <string name="signal_good">Good</string>
+    <string name="signal_great">Great</string>
+    <string name="signal_level">Level %1$d</string>
+    <string name="mobile_rx">Mobile RX</string>
+    <string name="mobile_tx">Mobile TX</string>
+    <string name="wifi_rx">WiFi RX</string>
+    <string name="wifi_tx">WiFi TX</string>
+    <string name="no_network_data">No network data available</string>
+    <string name="kernel_count">Kernel (%1$d)</string>
 
-    <string name="health">Health</string>
-    <string name="design">Design</string>
-    <string name="capacity">Capacity</string>
-    <string name="cycle_count">Cycle Count</string>
-    <string name="current">Current</string>
-    <string name="temperature">Temperature</string>
-    <string name="voltage">Voltage</string>
-    <string name="power_breakdown">Power Breakdown</string>
-    <string name="time_usage">Time Usage</string>
-    <string name="network">Network</string>
-    <string name="time_in_state">Time in State</string>
-    <string name="cpu_frequency">CPU Frequency</string>
+    <!-- Wakelocks -->
     <string name="wakelocks">Wakelocks</string>
-    <string name="active_wakelocks">Active wake locks: %1$d</string>
-    <string name="app_wakelocks">App wakelocks (%1$d)</string>
     <string name="kernel_wakelocks">Kernel Wakelocks (Native)</string>
     <string name="no_app_wakelocks">No app wakelocks found</string>
     <string name="no_kernel_wakelocks">No kernel wakelocks found</string>
-    <string name="active">Active</string>
-    <string name="total_time">Total time</string>
-    <string name="count">Count</string>
+    <string name="could_not_read_wakelocks">Could not read kernel wakelocks.</string>
+    <string name="count_active">Count: %1$d | Active: %2$d</string>
+
+    <!-- Doze / device idle -->
     <string name="doze_statistics">Doze Statistics</string>
     <string name="doze_whitelist">Doze Whitelist</string>
     <string name="no_whitelist">No whitelist data</string>
     <string name="no_doze_data">No Doze data available</string>
+    <string name="deep_doze_time">Deep Doze time</string>
+    <string name="deep_doze_count">Deep Doze count</string>
+    <string name="light_doze_time">Light Doze time</string>
+    <string name="light_doze_count">Light Doze count</string>
+    <string name="maintenance_windows">Maintenance windows</string>
+    <string name="maintenance_time">Maintenance time</string>
+    <string name="current_state">Current State</string>
+    <string name="doze_state">Doze state</string>
+    <string name="light_state">Light state</string>
+    <string name="deep_doze_enabled">Deep Doze enabled</string>
+    <string name="light_doze_enabled">Light Doze enabled</string>
+    <string name="screen">Screen</string>
+    <string name="battery_level_label">Battery level</string>
+    <string name="battery_status">Battery status</string>
+    <string name="low_power_mode">Low power mode</string>
+    <string name="device_idle_mode">Device idle mode</string>
+    <string name="no_state_data">No state data available</string>
+    <string name="whitelisted_apps">Whitelisted apps: %1$d</string>
+    <string name="temporarily_whitelisted">Temporarily whitelisted: %1$d</string>
     <string name="suspend_blockers">Suspend Blockers</string>
     <string name="no_suspend_blockers">No suspend blockers active</string>
-    <string name="process_statistics">Process Statistics</string>
-    <string name="no_process_data">No process data</string>
-    <string name="sensor_usage">Sensor Usage</string>
-    <string name="no_sensor_data">No sensor data</string>
-    <string name="jobs">Jobs (%1$d)</string>
-    <string name="syncs">Syncs (%1$d)</string>
-    <string name="bluetooth">Bluetooth</string>
+
+    <!-- Bluetooth -->
     <string name="no_bluetooth_data">No Bluetooth data available</string>
-    <string name="signal_quality">Signal Quality</string>
-    <string name="no_network_data">No network data available</string>
-    <string name="thermals">Thermals</string>
-    <string name="thermal_zones">Thermal Zones</string>
-    <string name="no_thermal_data">Could not read thermal zones</string>
-    <string name="root_only">Root-only features:</string>
-    <string name="no_battery_info">Could not read battery info from /sys</string>
-    <string name="no_cpu_info">Could not read CPU info</string>
-    <string name="summary">Summary</string>
-    <string name="screen_time_analysis">Screen Time Analysis</string>
-    <string name="high_temperature">High Temperature Alert</string>
-    <string name="high_temperature_value">High Temperature (%1$s)</string>
-    <string name="high_discharge">High Discharge</string>
-    <string name="high_discharge_value">High Discharge (%1$s)</string>
+    <string name="idle_time">Idle time</string>
+    <string name="rx_time">RX time</string>
+    <string name="tx_time">TX time</string>
+    <string name="scan_time">Scan time</string>
+
+    <!-- Apps / processes -->
     <string name="system_apps">System apps</string>
     <string name="no_apps_found">No apps found</string>
-    <string name="search_session_id">Search by session id…</string>
-    <string name="sort_by">Sort: %1$s</string>
-    <string name="start_time">Start: %1$s</string>
-    <string name="end_time">End: %1$s</string>
-    <string name="threshold">Threshold</string>
+    <string name="packages_shared_uid">Packages (shared UID %1$d)</string>
+    <string name="process_statistics">Process Statistics</string>
+    <string name="no_process_data">No process data</string>
+    <string name="apps_tracked">Apps tracked</string>
+    <string name="power_breakdown">Power Breakdown</string>
+    <string name="time_usage">Time Usage</string>
+    <string name="cpu_time">CPU time</string>
+    <string name="wakelock_time">Wakelock time</string>
+    <string name="foreground">Foreground</string>
+    <string name="foreground_service">Foreground service</string>
+    <string name="top">Top</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Sensors</string>
 
-    <string name="actual_capacity">%1$s actual • %2$s mAh</string>
-    <string name="design_capacity">%1$s design • %2$s mAh</string>
-    <string name="average_current">~%1$d mA avg</string>
-    <string name="battery_level">%1$d%% • %2$s</string>
-    <string name="app_count">%1$d apps</string>
-    <string name="foreground_count">%1$d foreground</string>
-    <string name="charging">Charging</string>
-    <string name="notify_charging_reaches">Notify when the charge reaches</string>
-    <string name="high_temperature_alert">High temperature alert!</string>
-    <string name="notify_temp_exceeds">Notify when temperature exceeds</string>
-    <string name="high_battery_value">High Battery (%)</string>
-    <string name="notify_draining_above"><![CDATA[Notify when draining > %1$d mA]]></string>
+    <!-- Sensor usage -->
+    <string name="sensor_usage">Sensor Usage</string>
+    <string name="no_sensor_data">No sensor data</string>
+
+    <!-- Alarms / jobs / syncs -->
+    <string name="no_alarm_data">No alarm data</string>
+    <string name="no_job_data">No job data</string>
+    <string name="no_sync_data">No sync data</string>
+    <string name="wakeups">Wakeups</string>
+
+    <!-- Screen time -->
+    <string name="screen_time_analysis">Screen Time Analysis</string>
+    <string name="screen_time_breakdown">Screen Time Breakdown</string>
+    <string name="time_on_battery">Time on battery</string>
+    <string name="screen_on_time">Screen on time</string>
+    <string name="estimated_capacity">Estimated capacity</string>
+    <string name="discharge_breakdown">Discharge Breakdown</string>
+    <string name="deep_sleep_share">of screen-off time in deep sleep</string>
+
+    <!-- Drain statistics -->
+    <string name="tracking_active">Tracking active</string>
+    <string name="tracking_paused">Tracking paused</string>
+    <string name="reset_session">Reset Session</string>
+    <string name="drain_rates">Drain Rates</string>
+    <string name="deep_sleep">Deep Sleep</string>
+    <string name="dozing">Dozing</string>
+    <string name="drain_rate">Drain Rate</string>
+    <string name="total_drain">Total Drain</string>
+    <string name="activity_breakdown">Activity Breakdown</string>
+    <string name="session_summary">Session Summary</string>
+    <string name="avg_rate">Avg Rate</string>
+    <string name="drain_history">Drain History</string>
+    <string name="collecting_data">Collecting data…</string>
+    <string name="session_duration">Session: %1$s</string>
+    <string name="total_drain_value">Total drain: %1$s</string>
+    <string name="drain_notification_channel_desc">Shows real-time battery drain statistics</string>
+    <string name="drain_state_charging">⚡ Charging</string>
+    <string name="drain_state_deep_sleep">😴 Deep Sleep</string>
+    <string name="drain_state_dozing">💤 Dozing</string>
+    <string name="drain_state_screen_on">📱 Screen On</string>
+    <string name="drain_state_screen_off">🌙 Screen Off</string>
+    <string name="drain_rates_section">━━━ Drain Rates ━━━</string>
+    <string name="activity_section">━━━ Activity ━━━</string>
+    <string name="session_section">━━━ Session ━━━</string>
+    <string name="drain_on_off_sleep">On: %1$s • Off: %2$s • Sleep: %3$s</string>
+    <string name="drain_screen_on_line">📱 Screen On: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Screen Off: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Deep Sleep: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Awake: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Active: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Idle: %1$s (%2$s)</string>
+    <string name="drain_total_line">Total: %1$s in %2$s</string>
+    <string name="drain_average_line">Average: %1$s</string>
+
+    <!-- Detailed stats -->
+    <string name="tab_overview">Overview</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_wakelocks">Wakelocks</string>
+    <string name="tab_network">Network</string>
+    <string name="tab_system">System</string>
+    <string name="tab_alarms">Alarms</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • via %1$s</string>
+    <string name="reset_stats">Reset stats</string>
+    <string name="stats_reset_success">Stats reset successfully</string>
+    <string name="stats_reset_failed">Failed to reset stats</string>
+    <string name="no_data_available">No data available</string>
+    <string name="advanced_stats_required">Advanced Stats Required</string>
+    <string name="advanced_stats_desc">Detailed stats need one of: Shizuku, Root, or ADB-granted permissions (permanent, no service).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku is not running. Start the Shizuku app (and its service) first, then tap Recheck.</string>
+    <string name="shizuku_denied">Shizuku denied this app. Open Shizuku and re-authorise BatStats under Authorised applications.</string>
+    <string name="shizuku_running">Shizuku is running - tap Request Shizuku and approve the prompt.</string>
+    <string name="request_shizuku">Request Shizuku</string>
+    <string name="recheck">Recheck</string>
+    <string name="troubleshooting">Troubleshooting</string>
+    <string name="troubleshoot_1">- Enable Developer options, enable USB debugging.</string>
+    <string name="troubleshoot_2">- On Xiaomi/MIUI/HyperOS/OnePlus: also enable USB debugging (Security settings) / Disable permission monitoring, then reboot.</string>
+    <string name="troubleshoot_3">- Run: adb devices, accept prompt, run grant commands, then force-stop BatStats or reboot.</string>
+    <string name="troubleshoot_4">- Grant fails with Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS? Enable security settings above.</string>
+    <string name="troubleshoot_5">- Grants persist until uninstall. Use pm grant via root (su -c pm grant ...) as alternative.</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Run once via ADB, survives reboots and updates until uninstall. No need to keep Shizuku running.</string>
+
+    <!-- Root stats -->
+    <string name="root_only">Root-only features:</string>
+    <string name="root_access_required">Root Access Required</string>
+    <string name="root_access_desc">These statistics require root access to read kernel-level battery information, including cycle count, true battery capacity, kernel wakelocks, and thermal data.</string>
+    <string name="root_feature_cycles">Battery cycle count</string>
+    <string name="root_feature_capacity">True capacity (design vs actual)</string>
+    <string name="root_feature_health">Battery age/health percentage</string>
+    <string name="root_feature_wakelocks">Kernel wakelocks (native)</string>
+    <string name="root_feature_cpu">CPU frequency states</string>
+    <string name="root_feature_thermal">Thermal zone monitoring</string>
+    <string name="root_feature_sysfs">Direct sysfs access</string>
+    <string name="battery_health_kernel">Battery Health (Kernel)</string>
+    <string name="no_battery_info">Could not read battery info from /sys</string>
+    <string name="cycles_value">%1$d cycles</string>
+    <string name="cpu_frequency">CPU Frequency</string>
+    <string name="no_cpu_info">Could not read CPU info</string>
+    <string name="cluster_n">Cluster %1$d</string>
+    <string name="time_in_state">Time in State</string>
+    <string name="thermal_zones">Thermal Zones</string>
+    <string name="no_thermal_data">Could not read thermal zones</string>
+
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d more</item>
+        <item quantity="other">+ %1$d more</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">... and %1$d more</item>
+        <item quantity="other">... and %1$d more</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d active wake lock</item>
+        <item quantity="other">%1$d active wake locks</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">App wakelock (%1$d)</item>
+        <item quantity="other">App wakelocks (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarms (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Job (%1$d)</item>
+        <item quantity="other">Jobs (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Sync (%1$d)</item>
+        <item quantity="other">Syncs (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Top %1$d wakelock by time</item>
+        <item quantity="other">Top %1$d wakelocks by time</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d package shares this UID</item>
+        <item quantity="other">%1$d packages share this UID</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">%1$d setting imported</item>
+        <item quantity="other">%1$d settings imported</item>
+    </plurals>
+
+    <string-array name="monitoring_interval_options">
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Minimal</item>
+        <item>Compact</item>
+        <item>Detailed</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>System Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 minutes</item>
+        <item>1 hour</item>
+        <item>6 hours</item>
+        <item>24 hours</item>
+        <item>7 days</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 week</item>
+        <item>1 month</item>
+        <item>3 months</item>
+        <item>6 months</item>
+        <item>1 year</item>
+        <item>Forever</item>
+    </string-array>
 </resources>

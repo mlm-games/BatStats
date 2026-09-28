@@ -26,9 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.R
 import app.batstats.battery.drain.DrainState
 import app.batstats.battery.drain.formatDrainRate
 import app.batstats.battery.drain.formatDuration
@@ -54,9 +56,9 @@ fun DrainStatsScreen(
             LargeTopAppBar(
                 title = {
                     Column {
-                        Text("Drain Statistics")
+                        Text(stringResource(R.string.drain_statistics))
                         Text(
-                            if (isTracking) "Tracking active" else "Tracking paused",
+                            stringResource(if (isTracking) R.string.tracking_active else R.string.tracking_paused),
                             style = MaterialTheme.typography.labelMedium,
                             color = if (isTracking) 
                                 MaterialTheme.colorScheme.primary 
@@ -67,19 +69,19 @@ fun DrainStatsScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back))
                     }
                 },
                 actions = {
                     IconButton(onClick = { vm.resetSession() }) {
-                        Icon(Icons.Outlined.RestartAlt, "Reset Session")
+                        Icon(Icons.Outlined.RestartAlt, stringResource(R.string.reset_session))
                     }
                     IconButton(
                         onClick = { if (isTracking) vm.stopTracking() else vm.startTracking() }
                     ) {
                         Icon(
                             if (isTracking) Icons.Default.Pause else Icons.Default.PlayArrow,
-                            if (isTracking) "Pause" else "Start"
+                            stringResource(if (isTracking) R.string.pause else R.string.start)
                         )
                     }
                 },
@@ -184,11 +186,11 @@ private fun CurrentStateCard(state: DrainState) {
             
             Column(modifier = Modifier.weight(1f)) {
                 val (icon, label, color) = when {
-                    state.isCharging -> Triple(Icons.Default.BatteryChargingFull, "Charging", MaterialTheme.colorScheme.primary)
-                    state.isDeepSleep -> Triple(Icons.Default.NightsStay, "Deep Sleep", Color(0xFF4CAF50))
-                    state.isDozing -> Triple(Icons.Default.BedtimeOff, "Dozing", Color(0xFF9C27B0))
-                    state.isScreenOn -> Triple(Icons.Default.Smartphone, "Screen On", Color(0xFFFF9800))
-                    else -> Triple(Icons.Default.PhonelinkErase, "Screen Off", Color(0xFF2196F3))
+                    state.isCharging -> Triple(Icons.Default.BatteryChargingFull, stringResource(R.string.charging), MaterialTheme.colorScheme.primary)
+                    state.isDeepSleep -> Triple(Icons.Default.NightsStay, stringResource(R.string.deep_sleep), Color(0xFF4CAF50))
+                    state.isDozing -> Triple(Icons.Default.BedtimeOff, stringResource(R.string.dozing), Color(0xFF9C27B0))
+                    state.isScreenOn -> Triple(Icons.Default.Smartphone, stringResource(R.string.screen_on), Color(0xFFFF9800))
+                    else -> Triple(Icons.Default.PhonelinkErase, stringResource(R.string.screen_off), Color(0xFF2196F3))
                 }
                 
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -209,13 +211,16 @@ private fun CurrentStateCard(state: DrainState) {
                 Spacer(Modifier.height(4.dp))
                 
                 Text(
-                    "Session: ${formatDuration(state.totalTimeMs)}",
+                    stringResource(R.string.session_duration, formatDuration(state.totalTimeMs)),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 
                 Text(
-                    "Total drain: ${String.format(Locale.getDefault(), "%.1f mAh", state.totalDrainMah)}",
+                    stringResource(
+                        R.string.total_drain_value,
+                        String.format(Locale.getDefault(), "%.1f mAh", state.totalDrainMah)
+                    ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -232,7 +237,7 @@ private fun DrainRatesCard(state: DrainState) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                "Drain Rates",
+                stringResource(R.string.drain_rates),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -245,25 +250,25 @@ private fun DrainRatesCard(state: DrainState) {
             ) {
                 DrainRateItem(
                     icon = Icons.Outlined.Smartphone,
-                    label = "Screen On",
+                    label = stringResource(R.string.screen_on),
                     rate = state.screenOnDrainRate,
                     color = Color(0xFFFF9800)
                 )
                 DrainRateItem(
                     icon = Icons.Outlined.PhonelinkErase,
-                    label = "Screen Off",
+                    label = stringResource(R.string.screen_off),
                     rate = state.screenOffDrainRate,
                     color = Color(0xFF2196F3)
                 )
                 DrainRateItem(
                     icon = Icons.Outlined.NightsStay,
-                    label = "Deep Sleep",
+                    label = stringResource(R.string.deep_sleep),
                     rate = state.deepSleepDrainRate,
                     color = Color(0xFF4CAF50)
                 )
                 DrainRateItem(
                     icon = Icons.Outlined.WbSunny,
-                    label = "Awake",
+                    label = stringResource(R.string.awake),
                     rate = state.awakeDrainRate,
                     color = Color(0xFFE91E63)
                 )
@@ -316,7 +321,7 @@ private fun ScreenBreakdownCard(state: DrainState) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                "Screen Time Breakdown",
+                stringResource(R.string.screen_time_breakdown),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -326,7 +331,7 @@ private fun ScreenBreakdownCard(state: DrainState) {
             // Screen On
             DrainStatRow(
                 icon = Icons.Outlined.Smartphone,
-                label = "Screen On",
+                label = stringResource(R.string.screen_on),
                 drainRate = state.screenOnDrainRate,
                 drainTotal = state.screenOnDrainMah,
                 time = state.screenOnTimeMs,
@@ -339,7 +344,7 @@ private fun ScreenBreakdownCard(state: DrainState) {
             // Screen Off
             DrainStatRow(
                 icon = Icons.Outlined.PhonelinkErase,
-                label = "Screen Off",
+                label = stringResource(R.string.screen_off),
                 drainRate = state.screenOffDrainRate,
                 drainTotal = state.screenOffDrainMah,
                 time = state.screenOffTimeMs,
@@ -432,7 +437,7 @@ private fun DeepSleepCard(state: DrainState) {
                     )
                     Spacer(Modifier.width(8.dp))
                     Text(
-                        "Deep Sleep",
+                        stringResource(R.string.deep_sleep),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Medium
                     )
@@ -455,7 +460,7 @@ private fun DeepSleepCard(state: DrainState) {
             Spacer(Modifier.height(12.dp))
             
             Text(
-                "of screen-off time in deep sleep",
+                stringResource(R.string.deep_sleep_share),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -485,7 +490,7 @@ private fun DeepSleepCard(state: DrainState) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        "Time",
+                        stringResource(R.string.time),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -497,7 +502,7 @@ private fun DeepSleepCard(state: DrainState) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        "Drain Rate",
+                        stringResource(R.string.drain_rate),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -509,7 +514,7 @@ private fun DeepSleepCard(state: DrainState) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        "Total Drain",
+                        stringResource(R.string.total_drain),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -527,7 +532,7 @@ private fun ActivityBreakdownCard(state: DrainState) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                "Activity Breakdown",
+                stringResource(R.string.activity_breakdown),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -541,7 +546,7 @@ private fun ActivityBreakdownCard(state: DrainState) {
                 // Active
                 ActivityStatItem(
                     icon = Icons.Outlined.FlashOn,
-                    label = "Active",
+                    label = stringResource(R.string.active),
                     drainRate = state.activeDrainRate,
                     time = state.activeTimeMs,
                     drainTotal = state.activeDrainMah,
@@ -551,7 +556,7 @@ private fun ActivityBreakdownCard(state: DrainState) {
                 // Idle
                 ActivityStatItem(
                     icon = Icons.Outlined.Bedtime,
-                    label = "Idle",
+                    label = stringResource(R.string.idle),
                     drainRate = state.idleDrainRate,
                     time = state.idleTimeMs,
                     drainTotal = state.idleDrainMah,
@@ -561,7 +566,7 @@ private fun ActivityBreakdownCard(state: DrainState) {
                 // Awake (Screen Off)
                 ActivityStatItem(
                     icon = Icons.Outlined.WbSunny,
-                    label = "Awake",
+                    label = stringResource(R.string.awake),
                     drainRate = state.awakeDrainRate,
                     time = state.awakeTimeMs,
                     drainTotal = state.awakeDrainMah,
@@ -638,7 +643,7 @@ private fun SessionSummaryCard(state: DrainState) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                "Session Summary",
+                stringResource(R.string.session_summary),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -650,17 +655,17 @@ private fun SessionSummaryCard(state: DrainState) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 SummaryItem(
-                    label = "Duration",
+                    label = stringResource(R.string.duration),
                     value = formatDuration(state.totalTimeMs),
                     icon = Icons.Outlined.Timer
                 )
                 SummaryItem(
-                    label = "Total Drain",
+                    label = stringResource(R.string.total_drain),
                     value = String.format(Locale.getDefault(), "%.1f mAh", state.totalDrainMah),
                     icon = Icons.Outlined.BatteryAlert
                 )
                 SummaryItem(
-                    label = "Avg Rate",
+                    label = stringResource(R.string.avg_rate),
                     value = formatDrainRate(state.averageDrainRate),
                     icon = Icons.Outlined.Speed
                 )
@@ -704,7 +709,7 @@ private fun DrainHistoryCard(snapshots: List<app.batstats.battery.drain.DrainSna
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                "Drain History",
+                stringResource(R.string.drain_history),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Medium
             )
@@ -786,7 +791,7 @@ private fun DrainHistoryCard(snapshots: List<app.batstats.battery.drain.DrainSna
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "Collecting data...",
+                        stringResource(R.string.collecting_data),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

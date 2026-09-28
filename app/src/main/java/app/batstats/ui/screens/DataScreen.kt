@@ -13,8 +13,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import app.batstats.R
 import app.batstats.viewmodel.DataViewModel
 import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
@@ -71,10 +73,10 @@ fun DataScreen(
     Scaffold(
         topBar = {
             LargeTopAppBar(
-                title = { Text("Data export/import") },
+                title = { Text(stringResource(R.string.data_export_import)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
             )
@@ -90,18 +92,18 @@ fun DataScreen(
         ) {
             ElevatedCard {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Date range", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.date_range), style = MaterialTheme.typography.titleMedium)
                     DateRangeRow(from = from, to = to, onFrom = { from = it }, onTo = { to = it })
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         FilterChip(
                             selected = includeSamples,
                             onClick = { includeSamples = !includeSamples },
-                            label = { Text("Samples") }
+                            label = { Text(stringResource(R.string.samples)) }
                         )
                         FilterChip(
                             selected = includeSessions,
                             onClick = { includeSessions = !includeSessions },
-                            label = { Text("Sessions") }
+                            label = { Text(stringResource(R.string.sessions)) }
                         )
                     }
                 }
@@ -114,15 +116,15 @@ fun DataScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Export", style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.export), style = MaterialTheme.typography.titleMedium)
                         Icon(Icons.Outlined.Download, null)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(onClick = { createJson.launch("BatteryExport.json") }, enabled = !isBusy) {
-                            Text("Export JSON")
+                            Text(stringResource(R.string.export_json))
                         }
                         OutlinedButton(onClick = { folderCsv.launch(null) }, enabled = !isBusy) {
-                            Text("Export CSV (folder)")
+                            Text(stringResource(R.string.export_csv_folder))
                         }
                     }
                     AnimatedVisibility(visible = isBusy) {
@@ -138,21 +140,21 @@ fun DataScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Import", style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.import_string), style = MaterialTheme.typography.titleMedium)
                         Icon(Icons.Outlined.Upload, null)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(
                             onClick = { openJson.launch(arrayOf("application/json")) },
                             enabled = !isBusy
-                        ) { Text("Import JSON") }
+                        ) { Text(stringResource(R.string.import_json)) }
                         OutlinedButton(
                             onClick = { openCsv.launch(arrayOf("text/*", "application/octet-stream")) },
                             enabled = !isBusy
-                        ) { Text("Import CSV") }
+                        ) { Text(stringResource(R.string.import_csv)) }
                     }
                     Text(
-                        "CSV import: open either battery_samples.csv or charge_sessions.csv",
+                        stringResource(R.string.csv_import_hint),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -171,12 +173,15 @@ private fun DateRangeRow(from: Long, to: Long, onFrom: (Long) -> Unit, onTo: (Lo
         .format(df)
 
     Column(verticalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.fillMaxWidth()) {
-        Text("From: ${if (from == 0L) "Beginning" else format(from)}")
-        Text("To: ${format(to)}")
+        Text(
+            if (from == 0L) stringResource(R.string.from_beginning)
+            else stringResource(R.string.from_date, format(from))
+        )
+        Text(stringResource(R.string.to_date, format(to)))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton(onClick = { onFrom(0L) }) { Text("All") }
-            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 7L * 24 * 3600000) }) { Text("Last 7 days") }
-            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 30L * 24 * 3600000) }) { Text("Last 30 days") }
+            OutlinedButton(onClick = { onFrom(0L) }) { Text(stringResource(R.string.all)) }
+            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 7L * 24 * 3600000) }) { Text(stringResource(R.string.last_7_days)) }
+            OutlinedButton(onClick = { onFrom(System.currentTimeMillis() - 30L * 24 * 3600000) }) { Text(stringResource(R.string.last_30_days)) }
         }
     }
 }

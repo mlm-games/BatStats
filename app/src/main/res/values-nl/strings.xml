@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BatStats</string>
+    <string name="back">Terug</string>
+    <string name="cancel">Annuleren</string>
+    <string name="dismiss">Sluiten</string>
+    <string name="refresh">Vernieuwen</string>
+    <string name="copy">Kopiëren</string>
+    <string name="copy_all">Alles kopiëren</string>
+    <string name="app_info">App-info</string>
+    <string name="unknown">Onbekend</string>
+    <string name="battery_icon_description">Batterijpictogram</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="on">Aan</string>
+    <string name="off">Uit</string>
+    <string name="live">Live</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="time">Tijd</string>
+    <string name="total">Totaal</string>
+    <string name="mobile">Mobiel</string>
+    <string name="wifi">Wifi</string>
+    <string name="count">Aantal</string>
+    <string name="active">Actief</string>
+    <string name="idle">Inactief</string>
+    <string name="awake">Wakker</string>
+    <string name="duration">Duur</string>
+    <string name="total_time">Totale tijd</string>
+    <string name="network">Netwerk</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="start">Starten</string>
+    <string name="stop">Stoppen</string>
+    <string name="end">Beëindigen</string>
+    <string name="pause">Pauzeren</string>
+    <string name="reset">Herstellen</string>
+    <string name="updated">Bijgewerkt %1$s</string>
+    <string name="theme">Thema</string>
+    <string name="dynamic_colors">Dynamische kleuren</string>
+    <string name="temperature_unit">Temperatuureenheid</string>
+    <string name="alarms">Alarmen</string>
+    <string name="history">Geschiedenis</string>
+    <string name="settings">Instellingen</string>
+    <string name="data">Gegevens</string>
+    <string name="detailed_stats">Gedetailleerde statistieken</string>
+    <string name="drain_statistics">Verbruiksstatistieken</string>
+    <string name="session_details">Sessiedetails</string>
+    <string name="summary">Overzicht</string>
+    <string name="monitoring">Bewaking</string>
+    <string name="monitoring_ready">Bewaking gereed</string>
+    <string name="start_monitoring">Bewaking starten</string>
+    <string name="monitoring_battery">Accubewaking</string>
+    <string name="tap_to_start">Tik om de accubewaking te starten</string>
+    <string name="running_foreground">Draait (achtergrond)</string>
+    <string name="stopped">Gestopt</string>
+    <string name="charge">Laden</string>
+    <string name="discharge">Ontladen</string>
+    <string name="charging">Ladend</string>
+    <string name="discharging">Ontladend</string>
+    <string name="full">Vol</string>
+    <string name="battery_state_charging">Ladend %1$d%%</string>
+    <string name="battery_state_discharging">Ontladend %1$d%%</string>
+    <string name="battery_at_percent">Accu op %1$d%% — overweeg om los te koppelen.</string>
+    <string name="charge_limit_reached">Laadlimiet bereikt</string>
+    <string name="temperature_high">%1$d °C — laat het apparaat afkoelen.</string>
+    <string name="heavy_drain">%1$d mA — hoog verbruik gedetecteerd.</string>
+    <string name="current_ma">%1$s mA</string>
+    <string name="health">Status</string>
+    <string name="health_good">Goed</string>
+    <string name="health_overheat">Oververhit</string>
+    <string name="health_dead">Defect</string>
+    <string name="health_over_voltage">Overspanning</string>
+    <string name="health_failed">Mislukt</string>
+    <string name="health_cold">Koud</string>
+    <string name="design">Nominaal</string>
+    <string name="capacity">Capaciteit</string>
+    <string name="cycle_count">Laadcycli</string>
+    <string name="current">Stroom</string>
+    <string name="temperature">Temperatuur</string>
+    <string name="voltage">Spanning</string>
+    <string name="power">Vermogen</string>
+    <string name="power_usage">Verbruik</string>
+    <string name="cpu">CPU</string>
+    <string name="camera">Camera</string>
+    <string name="mobile_radio">Mobiele radio</string>
+    <string name="wakelock">Wakelock</string>
+    <string name="uid_and_power">UID %1$d • %2$s</string>
+    <string name="rx_tx">↓ %1$s  ↑ %2$s</string>
+    <string name="percent_of_battery_time">%1$s%% van de accutijd</string>
+    <string name="temperature_value">%1$s °C</string>
+    <string name="drain_hour_screen_on">Verbruik/u (scherm aan)</string>
+    <string name="drain_hour_screen_off">Verbruik/u (scherm uit)</string>
+    <string name="technology">Technologie</string>
+    <string name="health_status">Accustatus</string>
+    <string name="status">Status</string>
+    <string name="current_kernel">Stroom (kernel)</string>
+    <string name="voltage_kernel">Spanning (kernel)</string>
+    <string name="time_to_empty">Tijd tot leeg</string>
+    <string name="time_to_full">Tijd tot vol</string>
+    <string name="current_mv">Stroom (mA)</string>
+    <string name="voltage_mv">Spanning (mV)</string>
+    <string name="temperature_c">Temperatuur (°C)</string>
+    <string name="current_recent">Stroom (laatste 15 minuten)</string>
+    <string name="sessions">Sessies</string>
+    <string name="samples">Meetwaarden</string>
+    <string name="session_tracking">Sessiebewaking</string>
+    <string name="session_active">Sessie %1$s actief • gestart %2$s</string>
+    <string name="charging_session">Laadsessie</string>
+    <string name="discharge_session">Ontlaadsessie</string>
+    <string name="session_state_active">ACTIEF</string>
+    <string name="session_state_ended">Actief</string>
+    <string name="search_session_id">Zoeken op sessie-id…</string>
+    <string name="sort_by">Sorteren: %1$s</string>
+    <string name="sort_power">Verbruik</string>
+    <string name="sort_cpu_time">CPU-tijd</string>
+    <string name="sort_wakelock">Wakelock</string>
+    <string name="sort_network">Netwerk</string>
+    <string name="sort_foreground">Achtergrond</string>
+    <string name="start_time">Start: %1$s</string>
+    <string name="end_time">Einde: %1$s</string>
+    <string name="no_sessions_yet">Nog geen sessies</string>
+    <string name="no_sessions_yet_desc">Start een sessie of begin met bewaken om hier de geschiedenis te zien.</string>
+    <string name="no_data_points">Nog geen gegevenspunten vastgelegd.</string>
+    <string name="mah_approx">~%1$s mAh</string>
+    <string name="average_current_ma">gem. ~%1$s mA</string>
+    <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_percent">%1$d%%</string>
+    <string name="hours_value">%1$s uur</string>
+    <string name="data_export_import">Gegevens exporteren/importeren</string>
+    <string name="date_range">Datumbereik</string>
+    <string name="export">Exporteren</string>
+    <string name="export_json">JSON exporteren</string>
+    <string name="export_csv_folder">CSV exporteren (map)</string>
+    <string name="import_string">Importeren</string>
+    <string name="import_json">JSON importeren</string>
+    <string name="import_csv">CSV importeren</string>
+    <string name="csv_import_hint">CSV-import: open battery_samples.csv of charge_sessions.csv</string>
+    <string name="from_beginning">Van: begin</string>
+    <string name="from_date">Van: %1$s</string>
+    <string name="to_date">Tot: %1$s</string>
+    <string name="all">Alles</string>
+    <string name="last_7_days">Afgelopen 7 dagen</string>
+    <string name="last_30_days">Afgelopen 30 dagen</string>
+    <string name="export_battery_data">Accugegevens exporteren</string>
+    <string name="export_battery_data_desc">Accugeschiedenis naar een bestand exporteren</string>
+    <string name="batstats">BatStats</string>
+    <string name="customize_behavior">Appgedrag aanpassen</string>
+    <string name="category_general">Algemeen</string>
+    <string name="category_notifications">Meldingen</string>
+    <string name="category_display">Weergave</string>
+    <string name="category_data">Gegevens en export</string>
+    <string name="reset_settings">Instellingen herstellen</string>
+    <string name="reset_ui">Interface herstellen</string>
+    <string name="reset_all">Alles herstellen</string>
+    <string name="import_settings">Instellingen importeren</string>
+    <string name="paste_json">Plak de geëxporteerde instellingen-JSON:</string>
+    <string name="paste_json_hint">Plak JSON hier…</string>
+    <string name="import_failed">Importeren mislukt</string>
+    <string name="data_cleared">Alle gegevens gewist</string>
+    <string name="import_action">Importeren</string>
+    <string name="clear_all_data">Alle gegevens wissen?</string>
+    <string name="clear_data_warning">Dit verwijdert permanent de volledige accugeschiedenis, sessies en statistieken. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="delete_all">Alles verwijderen</string>
+    <string name="clear_all_data_action">Alle gegevens wissen</string>
+    <string name="clear_all_data_action_desc">Alle opgeslagen accugegevens verwijderen</string>
+    <string name="export_settings">Instellingen exporteren</string>
+    <string name="import_settings_desc">Instellingen importeren</string>
+    <string name="reset_settings_desc">Instellingen herstellen</string>
+    <string name="choose_reset">Kies wat je wilt herstellen:</string>
+    <string name="reset_ui_settings">Interface-instellingen herstellen: herstelt alleen zichtbare instellingen</string>
+    <string name="reset_all_settings">Alles herstellen: herstelt alles</string>
+    <string name="ui_settings_reset">Interface-instellingen hersteld</string>
+    <string name="all_settings_reset">Alle instellingen hersteld</string>
+    <string name="auto_start_monitoring">Bewaking automatisch starten</string>
+    <string name="monitoring_interval">Bewakingsinterval</string>
+    <string name="show_persistent_notification">Persistenter melding tonen</string>
+    <string name="show_drain_notification">Verbruiksmelding tonen</string>
+    <string name="show_drain_notification_desc">Toon gedetailleerde verbruiksstatistieken in de melding (vereist Shizuku, Root of ADB)</string>
+    <string name="notification_style">Meldingsstijl</string>
+    <string name="track_foreground_apps">Apps op de voorgrond volgen</string>
+    <string name="detailed_stats_interval">Interval voor gedetailleerde statistieken</string>
+    <string name="detailed_stats_interval_desc">Hoe vaak gedetailleerde accustatistieken worden opgehaald via Shizuku/Root/ADB.</string>
+    <string name="low_battery_alert">Waarschuwing bij lage accu</string>
+    <string name="low_battery_threshold">Drempel voor lage accu</string>
+    <string name="high_battery_alert">Waarschuwing bij hoge accu</string>
+    <string name="high_battery_alert_desc">Melden wanneer het laden de drempel bereikt</string>
+    <string name="high_battery_threshold">Drempel voor hoge accu</string>
+    <string name="temperature_warning">Temperatuurwaarschuwing</string>
+    <string name="temperature_threshold">Temperatuurdrempel</string>
+    <string name="temperature_threshold_desc">Waarschuwingstemperatuur in graden Celsius</string>
+    <string name="high_discharge_alert">Waarschuwing bij hoog verbruik</string>
+    <string name="discharge_threshold">Verbruiksdrempel</string>
+    <string name="discharge_threshold_desc">Waarschuwen wanneer het verbruik dit overschrijdt (mA)</string>
+    <string name="charging_complete_alert">Waarschuwing bij volledig opgeladen</string>
+    <string name="alert_sound">Waarschuwingsgeluid</string>
+    <string name="alert_vibration">Waarschuwingstrilling</string>
+    <string name="high_temperature">Waarschuwing voor hoge temperatuur</string>
+    <string name="high_discharge">Hoog verbruik</string>
+    <string name="chart_time_range">Tijdsbereik van de grafiek</string>
+    <string name="show_current_ma">Stroom in mA tonen</string>
+    <string name="compact_stats_view">Compacte statistiekweergave</string>
+    <string name="pure_black_oled">Puur zwart (OLED)</string>
+    <string name="data_retention">Bewaren van gegevens</string>
+    <string name="auto_cleanup">Oude gegevens automatisch opschonen</string>
+    <string name="export_format">Exportformaat</string>
+    <string name="include_raw_samples">Ruwe meetwaarden meesturen</string>
+    <string name="screen_on">Scherm aan</string>
+    <string name="screen_off">Scherm uit</string>
+    <string name="mobile_signal">Mobiel signaal</string>
+    <string name="wifi_signal">Wifisignaal</string>
+    <string name="no_signal_data">Geen signaalgegevens beschikbaar</string>
+    <string name="signal_quality">Signaalkwaliteit</string>
+    <string name="signal_none">Geen</string>
+    <string name="signal_poor">Zwak</string>
+    <string name="signal_moderate">Redelijk</string>
+    <string name="signal_good">Goed</string>
+    <string name="signal_great">Uitstekend</string>
+    <string name="signal_level">Niveau %1$d</string>
+    <string name="mobile_rx">Mobiel ontvangen</string>
+    <string name="mobile_tx">Mobiel verzonden</string>
+    <string name="wifi_rx">Wifi ontvangen</string>
+    <string name="wifi_tx">Wifi verzonden</string>
+    <string name="no_network_data">Geen netwerkgegevens beschikbaar</string>
+    <string name="kernel_count">Kernel (%1$d)</string>
+    <string name="wakelocks">Wakelocks</string>
+    <string name="kernel_wakelocks">Kernel-wakelocks (native)</string>
+    <string name="no_app_wakelocks">Geen app-wakelocks gevonden</string>
+    <string name="no_kernel_wakelocks">Geen kernel-wakelocks gevonden</string>
+    <string name="could_not_read_wakelocks">Kernel-wakelocks konden niet worden gelezen.</string>
+    <string name="count_active">Aantal: %1$d | Actief: %2$d</string>
+    <string name="doze_statistics">Doze-statistieken</string>
+    <string name="doze_whitelist">Doze-witte lijst</string>
+    <string name="no_whitelist">Geen gegevens over de witte lijst</string>
+    <string name="no_doze_data">Geen Doze-gegevens beschikbaar</string>
+    <string name="deep_doze_time">Tijd in diepe Doze</string>
+    <string name="deep_doze_count">Aantal diepe Doze</string>
+    <string name="light_doze_time">Tijd in lichte Doze</string>
+    <string name="light_doze_count">Aantal lichte Doze</string>
+    <string name="maintenance_windows">Onderhoudsvensters</string>
+    <string name="maintenance_time">Onderhoudstijd</string>
+    <string name="current_state">Huidige status</string>
+    <string name="doze_state">Doze-status</string>
+    <string name="light_state">Status lichte Doze</string>
+    <string name="deep_doze_enabled">Diepe Doze ingeschakeld</string>
+    <string name="light_doze_enabled">Lichte Doze ingeschakeld</string>
+    <string name="screen">Scherm</string>
+    <string name="battery_level_label">Accuniveau</string>
+    <string name="battery_status">Accustatus</string>
+    <string name="low_power_mode">Energiezuinige modus</string>
+    <string name="device_idle_mode">Inactieve apparaatmodus</string>
+    <string name="no_state_data">Geen statusgegevens beschikbaar</string>
+    <string name="whitelisted_apps">Apps op de witte lijst: %1$d</string>
+    <string name="temporarily_whitelisted">Tijdelijk op witte lijst: %1$d</string>
+    <string name="suspend_blockers">Suspend-blokkades</string>
+    <string name="no_suspend_blockers">Geen actieve suspend-blokkades</string>
+    <string name="no_bluetooth_data">Geen Bluetooth-gegevens beschikbaar</string>
+    <string name="idle_time">Inactieve tijd</string>
+    <string name="rx_time">RX-tijd</string>
+    <string name="tx_time">TX-tijd</string>
+    <string name="scan_time">Scantijd</string>
+    <string name="system_apps">Systeemapps</string>
+    <string name="no_apps_found">Geen apps gevonden</string>
+    <string name="packages_shared_uid">Pakketten (gedeelde UID %1$d)</string>
+    <string name="process_statistics">Processtatistieken</string>
+    <string name="no_process_data">Geen procesgegevens</string>
+    <string name="apps_tracked">Gevolgde apps</string>
+    <string name="power_breakdown">Verdeling van het verbruik</string>
+    <string name="time_usage">Verdeling van de tijd</string>
+    <string name="cpu_time">CPU-tijd</string>
+    <string name="wakelock_time">Wakelock-tijd</string>
+    <string name="foreground">Voorgrond</string>
+    <string name="foreground_service">Voorgronddienst</string>
+    <string name="top">Voorgrond</string>
+    <string name="gps">GPS</string>
+    <string name="sensors">Sensoren</string>
+    <string name="sensor_usage">Sensorgebruik</string>
+    <string name="no_sensor_data">Geen sensorgegevens</string>
+    <string name="no_alarm_data">Geen alarmgegevens</string>
+    <string name="no_job_data">Geen taakgegevens</string>
+    <string name="no_sync_data">Geen synchronisatiegegevens</string>
+    <string name="wakeups">Ontwakingen</string>
+    <string name="screen_time_analysis">Schermtijd analyse</string>
+    <string name="screen_time_breakdown">Verdeling van de schermtijd</string>
+    <string name="time_on_battery">Tijd op accu</string>
+    <string name="screen_on_time">Schermtijd</string>
+    <string name="estimated_capacity">Geschatte capaciteit</string>
+    <string name="discharge_breakdown">Verdeling van het ontladen</string>
+    <string name="deep_sleep_share">van de scherm-uit-tijd in diepe slaap</string>
+    <string name="tracking_active">Volgen actief</string>
+    <string name="tracking_paused">Volgen gepauzeerd</string>
+    <string name="reset_session">Sessie herstellen</string>
+    <string name="drain_rates">Verbruikssnelheden</string>
+    <string name="deep_sleep">Diepe slaap</string>
+    <string name="dozing">Dozing</string>
+    <string name="drain_rate">Verbruikssnelheid</string>
+    <string name="total_drain">Totaal verbruik</string>
+    <string name="activity_breakdown">Verdeling per activiteit</string>
+    <string name="session_summary">Sessieoverzicht</string>
+    <string name="avg_rate">Gem. snelheid</string>
+    <string name="drain_history">Verbruiksgeschiedenis</string>
+    <string name="collecting_data">Gegevens verzamelen…</string>
+    <string name="session_duration">Sessie: %1$s</string>
+    <string name="total_drain_value">Totaal verbruik: %1$s</string>
+    <string name="drain_notification_channel_desc">Toont realtime verbruiksstatistieken van de accu</string>
+    <string name="drain_state_charging">⚡ Ladend</string>
+    <string name="drain_state_deep_sleep">😴 Diepe slaap</string>
+    <string name="drain_state_dozing">💤 Dozing</string>
+    <string name="drain_state_screen_on">📱 Scherm aan</string>
+    <string name="drain_state_screen_off">🌙 Scherm uit</string>
+    <string name="drain_rates_section">━━━ Verbruikssnelheden ━━━</string>
+    <string name="activity_section">━━━ Activiteit ━━━</string>
+    <string name="session_section">━━━ Sessie ━━━</string>
+    <string name="drain_on_off_sleep">Aan: %1$s • Uit: %2$s • Slaap: %3$s</string>
+    <string name="drain_screen_on_line">📱 Scherm aan: %1$s (%2$s)</string>
+    <string name="drain_screen_off_line">🌙 Scherm uit: %1$s (%2$s)</string>
+    <string name="drain_deep_sleep_line">😴 Diepe slaap: %1$s (%2$s) [%3$s]</string>
+    <string name="drain_awake_line">⚡ Wakker: %1$s (%2$s)</string>
+    <string name="drain_active_line">🔥 Actief: %1$s (%2$s)</string>
+    <string name="drain_idle_line">💤 Inactief: %1$s (%2$s)</string>
+    <string name="drain_total_line">Totaal: %1$s in %2$s</string>
+    <string name="drain_average_line">Gemiddeld: %1$s</string>
+    <string name="tab_overview">Overzicht</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_wakelocks">Wakelocks</string>
+    <string name="tab_network">Netwerk</string>
+    <string name="tab_system">Systeem</string>
+    <string name="tab_alarms">Alarmen</string>
+    <string name="tab_root">Root</string>
+    <string name="via_mode"> • via %1$s</string>
+    <string name="reset_stats">Statistieken herstellen</string>
+    <string name="stats_reset_success">Statistieken hersteld</string>
+    <string name="stats_reset_failed">Herstellen van statistieken mislukt</string>
+    <string name="no_data_available">Geen gegevens beschikbaar</string>
+    <string name="advanced_stats_required">Geavanceerde statistieken vereist</string>
+    <string name="advanced_stats_desc">Gedetailleerde statistieken vereisen een van: Shizuku, Root of via ADB verleende rechten (permanent, zonder dienst).</string>
+    <string name="shizuku">Shizuku</string>
+    <string name="adb_dump">ADB DUMP</string>
+    <string name="root">Root</string>
+    <string name="shizuku_not_running">Shizuku draait niet. Start eerst de Shizuku-app (en de dienst) en tik daarna op Opnieuw controleren.</string>
+    <string name="shizuku_denied">Shizuku heeft deze app geweigerd. Open Shizuku en autoriseer BatStats opnieuw onder Geautoriseerde apps.</string>
+    <string name="shizuku_running">Shizuku draait – tik op Shizuku aanvragen en geef de melding goed.</string>
+    <string name="request_shizuku">Shizuku aanvragen</string>
+    <string name="recheck">Opnieuw controleren</string>
+    <string name="troubleshooting">Problemen oplossen</string>
+    <string name="troubleshoot_1">– Schakel ontwikkelaarsopties en USB-foutopsporing in.</string>
+    <string name="troubleshoot_2">– Op Xiaomi/MIUI/HyperOS/OnePlus: schakel ook USB-foutopsporing (beveiligingsinstellingen) in of schakel toezicht op machtigingen uit en herstart.</string>
+    <string name="troubleshoot_3">– Voer uit: adb devices, bevestig de melding, voer de opdrachten uit en stop BatStats geforceerd of herstart.</string>
+    <string name="troubleshoot_4">– Verlenen mislukt met „Neither user 2000 nor current process has GRANT_RUNTIME_PERMISSIONS?“? Schakel de beveiligingsinstellingen hierboven in.</string>
+    <string name="troubleshoot_5">– Verleeningen blijven bestaan tot de app wordt verwijderd. Gebruik als alternatief pm grant via root (su -c pm grant ...).</string>
+    <string name="granted_yes_no">%1$s: %2$s</string>
+    <string name="adb">ADB</string>
+    <string name="adb_desc">Eenmalig via ADB uitvoeren; blijft werken na herstarts en updates tot verwijdering. Shizuku hoeft niet te blijven draaien.</string>
+    <string name="root_only">Functies die alleen met Root werken:</string>
+    <string name="root_access_required">Root-toegang vereist</string>
+    <string name="root_access_desc">Deze statistieken vereisen root-toegang om kernelinformatie over de accu te lezen, waaronder laadcycli, werkelijke capaciteit, kernel-wakelocks en thermische gegevens.</string>
+    <string name="root_feature_cycles">Laadcycli van de accu</string>
+    <string name="root_feature_capacity">Werkelijke capaciteit (nominaal versus actueel)</string>
+    <string name="root_feature_health">Leeftijd/status van de accu in procenten</string>
+    <string name="root_feature_wakelocks">Kernel-wakelocks (native)</string>
+    <string name="root_feature_cpu">CPU-frequentietoestanden</string>
+    <string name="root_feature_thermal">Bewaking van thermische zones</string>
+    <string name="root_feature_sysfs">Rechtstreekse sysfs-toegang</string>
+    <string name="battery_health_kernel">Accustatus (kernel)</string>
+    <string name="no_battery_info">Kon accu-informatie niet uit /sys lezen</string>
+    <string name="cycles_value">%1$d laadcycli</string>
+    <string name="cpu_frequency">CPU-frequentie</string>
+    <string name="no_cpu_info">Kon CPU-informatie niet lezen</string>
+    <string name="cluster_n">Cluster %1$d</string>
+    <string name="time_in_state">Tijd per toestand</string>
+    <string name="thermal_zones">Thermische zones</string>
+    <string name="no_thermal_data">Kon thermische zones niet lezen</string>
+    <plurals name="more_count">
+        <item quantity="one">+ %1$d meer</item>
+        <item quantity="other">+ %1$d meer</item>
+    </plurals>
+    <plurals name="and_more_count">
+        <item quantity="one">… en %1$d meer</item>
+        <item quantity="other">… en %1$d meer</item>
+    </plurals>
+    <plurals name="active_wakelocks_count">
+        <item quantity="one">%1$d actieve wakelock</item>
+        <item quantity="other">%1$d actieve wakelocks</item>
+    </plurals>
+    <plurals name="app_wakelocks_count">
+        <item quantity="one">App-wakelock (%1$d)</item>
+        <item quantity="other">App-wakelocks (%1$d)</item>
+    </plurals>
+    <plurals name="alarms_count_plural">
+        <item quantity="one">Alarm (%1$d)</item>
+        <item quantity="other">Alarmen (%1$d)</item>
+    </plurals>
+    <plurals name="jobs_count">
+        <item quantity="one">Taak (%1$d)</item>
+        <item quantity="other">Taken (%1$d)</item>
+    </plurals>
+    <plurals name="syncs_count">
+        <item quantity="one">Synchronisatie (%1$d)</item>
+        <item quantity="other">Synchronisaties (%1$d)</item>
+    </plurals>
+    <plurals name="top_wakelocks_count">
+        <item quantity="one">Belangrijkste wakelock op tijd: %1$d</item>
+        <item quantity="other">Belangrijkste wakelocks op tijd: %1$d</item>
+    </plurals>
+    <plurals name="packages_share_uid">
+        <item quantity="one">%1$d pakket deelt deze UID</item>
+        <item quantity="other">%1$d pakketten delen deze UID</item>
+    </plurals>
+    <plurals name="settings_imported_count">
+        <item quantity="one">%1$d instelling geïmporteerd</item>
+        <item quantity="other">%1$d instellingen geïmporteerd</item>
+    </plurals>
+    <string-array name="monitoring_interval_options">
+        <item>5 seconden</item>
+        <item>10 seconden</item>
+        <item>30 seconden</item>
+        <item>1 minuut</item>
+        <item>5 minuten</item>
+    </string-array>
+    <string-array name="notification_style_options">
+        <item>Minimaal</item>
+        <item>Compact</item>
+        <item>Gedetailleerd</item>
+    </string-array>
+    <string-array name="detailed_stats_interval_options">
+        <item>1 minuut</item>
+        <item>5 minuten</item>
+        <item>15 minuten</item>
+        <item>30 minuten</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Systeeminstelling</item>
+        <item>Licht</item>
+        <item>Donker</item>
+    </string-array>
+    <string-array name="chart_time_range_options">
+        <item>15 minuten</item>
+        <item>1 uur</item>
+        <item>6 uur</item>
+        <item>24 uur</item>
+        <item>7 dagen</item>
+    </string-array>
+    <string-array name="temperature_unit_options">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+    </string-array>
+    <string-array name="data_retention_options">
+        <item>1 week</item>
+        <item>1 maand</item>
+        <item>3 maanden</item>
+        <item>6 maanden</item>
+        <item>1 jaar</item>
+        <item>Altijd</item>
+    </string-array>
+</resources>
+    

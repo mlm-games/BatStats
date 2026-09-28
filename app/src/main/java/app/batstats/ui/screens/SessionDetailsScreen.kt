@@ -7,6 +7,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Share
@@ -46,7 +47,9 @@ fun SessionDetailsScreen(
         )
     }) { pv ->
         Column(
-            Modifier.padding(pv).fillMaxSize().padding(12.dp),
+            Modifier.padding(pv).fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             val dateTimeFormatter = remember(Locale.getDefault()) {

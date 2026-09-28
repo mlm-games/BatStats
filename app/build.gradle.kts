@@ -185,3 +185,7 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
 }
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}

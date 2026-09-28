@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Кількість глибоких Doze</string>
     <string name="light_doze_time">Час у легкому Doze</string>
     <string name="light_doze_count">Кількість легких Doze</string>
-    <string name="maintenance_windows">Вікна обслуговування</string>
-    <string name="maintenance_time">Час обслуговування</string>
     <string name="current_state">Поточний стан</string>
     <string name="doze_state">Стан Doze</string>
     <string name="light_state">Стан легкого Doze</string>
@@ -471,5 +469,9 @@
         <item>1 рік</item>
         <item>Назавжди</item>
     </string-array>
+    <string name="deep_idling_time">Час глибокого простою</string>
+    <string name="deep_idling_count">Кількість глибоких простоїв</string>
+    <string name="light_idling_time">Час легкого простою</string>
+    <string name="light_idling_count">Кількість легких простоїв</string>
 </resources>
     

@@ -65,6 +65,8 @@
     <string name="full">Full</string>
     <string name="battery_state_charging">Charging %1$d%%</string>
     <string name="battery_state_discharging">Discharging %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Charging, level unknown</string>
+    <string name="battery_state_level_unknown_discharging">Discharging, level unknown</string>
     <string name="battery_at_percent">Battery at %1$d%% — consider unplugging.</string>
     <string name="charge_limit_reached">Charge limit reached</string>
     <string name="temperature_high">%1$d °C — cool down the device.</string>
@@ -133,6 +135,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">%1$s mA avg</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Level unknown • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s hours</string>
 
@@ -263,8 +266,10 @@
     <string name="deep_doze_count">Deep Doze count</string>
     <string name="light_doze_time">Light Doze time</string>
     <string name="light_doze_count">Light Doze count</string>
-    <string name="maintenance_windows">Maintenance windows</string>
-    <string name="maintenance_time">Maintenance time</string>
+    <string name="deep_idling_time">Deep idling time</string>
+    <string name="deep_idling_count">Deep idling count</string>
+    <string name="light_idling_time">Light idling time</string>
+    <string name="light_idling_count">Light idling count</string>
     <string name="current_state">Current State</string>
     <string name="doze_state">Doze state</string>
     <string name="light_state">Light state</string>

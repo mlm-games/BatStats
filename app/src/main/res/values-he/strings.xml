@@ -236,8 +236,6 @@
     <string name="deep_doze_count">מספר פעמים של Doze עמוק</string>
     <string name="light_doze_time">זמן ב־Doze קל</string>
     <string name="light_doze_count">מספר פעמים של Doze קל</string>
-    <string name="maintenance_windows">חלונות תחזוקה</string>
-    <string name="maintenance_time">זמן תחזוקה</string>
     <string name="current_state">מצב נוכחי</string>
     <string name="doze_state">מצב Doze</string>
     <string name="light_state">מצב Doze קל</string>
@@ -471,5 +469,9 @@
         <item>שנה אחת</item>
         <item>לתמיד</item>
     </string-array>
+    <string name="deep_idling_time">זמן צינור עמוק</string>
+    <string name="deep_idling_count">ספירת צינור עמוק</string>
+    <string name="light_idling_time">זמן צינור קל</string>
+    <string name="light_idling_count">ספירת צינור קל</string>
 </resources>
     

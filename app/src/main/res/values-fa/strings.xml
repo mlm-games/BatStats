@@ -236,8 +236,6 @@
     <string name="deep_doze_count">تعداد Doze عمیق</string>
     <string name="light_doze_time">زمان در Doze سبک</string>
     <string name="light_doze_count">تعداد Doze سبک</string>
-    <string name="maintenance_windows">پنجره‌های نگهداری</string>
-    <string name="maintenance_time">زمان نگهداری</string>
     <string name="current_state">وضعیت کنونی</string>
     <string name="doze_state">وضعیت Doze</string>
     <string name="light_state">وضعیت Doze سبک</string>
@@ -451,5 +449,9 @@
         <item>۱ سال</item>
         <item>برای همیشه</item>
     </string-array>
+    <string name="deep_idling_time">زمان بیکاری عمیق</string>
+    <string name="deep_idling_count">شمار بیکاری عمیق</string>
+    <string name="light_idling_time">زمان بیکاری سبک</string>
+    <string name="light_idling_count">شمار بیکاری سبک</string>
 </resources>
     

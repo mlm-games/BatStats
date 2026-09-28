@@ -216,8 +216,10 @@ object BatteryStatsParser {
         val deepIdleCount: Int,
         val lightIdleTimeMs: Long,
         val lightIdleCount: Int,
-        val maintenanceTimeMs: Long? = null,
-        val maintenanceCount: Int? = null
+        val deepIdlingTimeMs: Long,
+        val deepIdlingCount: Int,
+        val lightIdlingTimeMs: Long,
+        val lightIdlingCount: Int
     )
 
     data class CpuFrequencyStats(
@@ -518,14 +520,18 @@ object BatteryStatsParser {
         kernelWakelocks: MutableList<KernelWakelockStats>
     ) {
         val name = parts.getOrNull(4) ?: return
-        val timeMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
-        val count = parts.getOrNull(6)?.toIntOrNull() ?: 0
+        val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
+        val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
+        val currentMs = parts.getOrNull(7)?.toLongOrNull() ?: 0L
+        val maxMs = parts.getOrNull(8)?.toLongOrNull() ?: 0L
 
         kernelWakelocks.add(
             KernelWakelockStats(
                 name = name,
                 count = count,
-                totalTimeMs = timeMs
+                totalTimeMs = timeMs,
+                activeCount = if (currentMs > 0) 1 else 0,
+                maxTimeMs = maxMs
             )
         )
     }
@@ -713,15 +719,22 @@ object BatteryStatsParser {
         )
     }
 
+    /**
+     * `9,0,l,m,...` misc line. Deep idle is index 13/14 and light idle 19/20; the idling sub-timers
+     * that AOSP emits for each mode follow at 15/16 and 21/22. Nothing on this line is a doze
+     * maintenance window, so it is not reported.
+     */
     private fun parseDoze(parts: List<String>): DozeStats? {
         if (parts.size <= 20) return null
 
         val deepTime = parts.getOrNull(13)?.toLongOrNull() ?: return null
         val deepCount = parts.getOrNull(14)?.toIntOrNull() ?: 0
-        val maintTime = parts.getOrNull(15)?.toLongOrNull()
-        val maintCount = parts.getOrNull(16)?.toIntOrNull()
+        val deepIdlingTime = parts.getOrNull(15)?.toLongOrNull() ?: 0L
+        val deepIdlingCount = parts.getOrNull(16)?.toIntOrNull() ?: 0
         val lightTime = parts.getOrNull(19)?.toLongOrNull() ?: 0L
         val lightCount = parts.getOrNull(20)?.toIntOrNull() ?: 0
+        val lightIdlingTime = parts.getOrNull(21)?.toLongOrNull() ?: 0L
+        val lightIdlingCount = parts.getOrNull(22)?.toIntOrNull() ?: 0
 
         if (deepTime == 0L && lightTime == 0L && deepCount == 0 && lightCount == 0) return null
 
@@ -732,8 +745,10 @@ object BatteryStatsParser {
             deepIdleCount = deepCount,
             lightIdleTimeMs = lightTime,
             lightIdleCount = lightCount,
-            maintenanceTimeMs = maintTime,
-            maintenanceCount = maintCount
+            deepIdlingTimeMs = deepIdlingTime,
+            deepIdlingCount = deepIdlingCount,
+            lightIdlingTimeMs = lightIdlingTime,
+            lightIdlingCount = lightIdlingCount
         )
     }
 

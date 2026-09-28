@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Aantal diepe Doze</string>
     <string name="light_doze_time">Tijd in lichte Doze</string>
     <string name="light_doze_count">Aantal lichte Doze</string>
-    <string name="maintenance_windows">Onderhoudsvensters</string>
-    <string name="maintenance_time">Onderhoudstijd</string>
     <string name="current_state">Huidige status</string>
     <string name="doze_state">Doze-status</string>
     <string name="light_state">Status lichte Doze</string>
@@ -451,5 +449,9 @@
         <item>1 jaar</item>
         <item>Altijd</item>
     </string-array>
+    <string name="deep_idling_time">Diepe inactiviteitstijd</string>
+    <string name="deep_idling_count">Aantal diepe inactiviteit</string>
+    <string name="light_idling_time">Lichte inactiviteitstijd</string>
+    <string name="light_idling_count">Aantal lichte inactiviteit</string>
 </resources>
     

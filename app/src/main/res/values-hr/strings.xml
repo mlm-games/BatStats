@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Broj dubokih Dozea</string>
     <string name="light_doze_time">Vrijeme u laganom Dozeu</string>
     <string name="light_doze_count">Broj laganih Dozea</string>
-    <string name="maintenance_windows">Prozori održavanja</string>
-    <string name="maintenance_time">Vrijeme održavanja</string>
     <string name="current_state">Trenutno stanje</string>
     <string name="doze_state">Stanje Dozea</string>
     <string name="light_state">Stanje laganog Dozea</string>
@@ -461,5 +459,9 @@
         <item>1 godina</item>
         <item>Zauvijek</item>
     </string-array>
+    <string name="deep_idling_time">Vrijeme dubokog mirovanja</string>
+    <string name="deep_idling_count">Broj dubokog mirovanja</string>
+    <string name="light_idling_time">Vrijeme laganog mirovanja</string>
+    <string name="light_idling_count">Broj laganog mirovanja</string>
 </resources>
     

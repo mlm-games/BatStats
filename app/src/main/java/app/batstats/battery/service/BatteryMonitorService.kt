@@ -127,11 +127,7 @@ class BatteryMonitorService : Service() {
     }
 
     override fun onTimeout(startId: Int, fgsType: Int) {
-        if (Build.VERSION.SDK_INT >= 35 &&
-            (fgsType and ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE) != 0
-        ) {
-            stopSelf()
-        }
+        stopSelf()
     }
 
     override fun onDestroy() {

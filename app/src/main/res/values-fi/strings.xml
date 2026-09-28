@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Syvien Doze-tilojen määrä</string>
     <string name="light_doze_time">Aika kevyessä Dozessa</string>
     <string name="light_doze_count">Kevyiden Doze-tilojen määrä</string>
-    <string name="maintenance_windows">Ylläpitoikkunat</string>
-    <string name="maintenance_time">Ylläpitoaika</string>
     <string name="current_state">Nykyinen tila</string>
     <string name="doze_state">Doze-tila</string>
     <string name="light_state">Kevyen Dozen tila</string>
@@ -451,5 +449,9 @@
         <item>1 vuosi</item>
         <item>Ikuisesti</item>
     </string-array>
+    <string name="deep_idling_time">Syvä joutenolossaoloaika</string>
+    <string name="deep_idling_count">Syvän joutenolon määrä</string>
+    <string name="light_idling_time">Kevyt joutenolossaoloaika</string>
+    <string name="light_idling_count">Kevyen joutenolon määrä</string>
 </resources>
     

@@ -305,10 +305,12 @@ private fun CircularBatteryIndicator(
         label = "battery_progress"
     )
     val colors = MaterialTheme.colorScheme
-    val stateDesc = stringResource(
-        if (isCharging) R.string.battery_state_charging else R.string.battery_state_discharging,
-        level ?: 0
-    )
+    val stateDesc = when {
+        level == null && isCharging -> stringResource(R.string.battery_state_level_unknown_charging)
+        level == null -> stringResource(R.string.battery_state_level_unknown_discharging)
+        isCharging -> stringResource(R.string.battery_state_charging, level)
+        else -> stringResource(R.string.battery_state_discharging, level)
+    }
 
     Box(
         modifier = modifier.semantics {

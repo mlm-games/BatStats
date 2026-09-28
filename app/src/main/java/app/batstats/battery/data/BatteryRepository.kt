@@ -35,8 +35,10 @@ class BatteryRepository(
     private val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
 
     suspend fun clearAllData() {
+        val wasMonitoring = _isMonitoring.value
         stopSampling()
         withContext(Dispatchers.IO) { db.clearAllTables() }
+        if (wasMonitoring) startSampling()
     }
 
     // Settings flows

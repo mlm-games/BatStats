@@ -236,8 +236,6 @@
     <string name="deep_doze_count">딥 Doze 횟수</string>
     <string name="light_doze_time">라이트 Doze 시간</string>
     <string name="light_doze_count">라이트 Doze 횟수</string>
-    <string name="maintenance_windows">유지 관리 창</string>
-    <string name="maintenance_time">유지 관리 시간</string>
     <string name="current_state">현재 상태</string>
     <string name="doze_state">Doze 상태</string>
     <string name="light_state">라이트 Doze 상태</string>
@@ -451,5 +449,9 @@
         <item>1년</item>
         <item>무제한</item>
     </string-array>
+    <string name="deep_idling_time">심층 유휴 시간</string>
+    <string name="deep_idling_count">심층 유휴 횟수</string>
+    <string name="light_idling_time">경미한 유휴 시간</string>
+    <string name="light_idling_count">경미한 유휴 횟수</string>
 </resources>
     

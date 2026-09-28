@@ -236,8 +236,6 @@
     <string name="deep_doze_count">深度 Doze 次数</string>
     <string name="light_doze_time">轻量 Doze 时长</string>
     <string name="light_doze_count">轻量 Doze 次数</string>
-    <string name="maintenance_windows">维护窗口</string>
-    <string name="maintenance_time">维护时长</string>
     <string name="current_state">当前状态</string>
     <string name="doze_state">Doze 状态</string>
     <string name="light_state">轻量 Doze 状态</string>
@@ -451,5 +449,9 @@
         <item>1 年</item>
         <item>永久</item>
     </string-array>
+    <string name="deep_idling_time">深度静默时间</string>
+    <string name="deep_idling_count">深度静默次数</string>
+    <string name="light_idling_time">浅层静默时间</string>
+    <string name="light_idling_count">浅层静默次数</string>
 </resources>
     

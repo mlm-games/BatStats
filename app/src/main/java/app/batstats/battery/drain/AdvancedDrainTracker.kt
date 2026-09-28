@@ -256,8 +256,7 @@ class AdvancedDrainTracker(
         val previousMah = previous.batteryMah ?: return
         val currentMah = current.batteryMah ?: return
         val drainMah = max(0.0, previousMah - currentMah)
-        if (drainMah > previousMah) return
-        
+
         when {
             current.isScreenOn -> {
                 cumulativeScreenOnDrain += drainMah

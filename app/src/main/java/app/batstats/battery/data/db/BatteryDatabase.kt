@@ -20,6 +20,28 @@ abstract class BatteryDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: BatteryDatabase? = null
 
+        val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `app_energy_stats` (" +
+                        "`bucketStart` INTEGER NOT NULL, " +
+                        "`packageName` TEXT NOT NULL, " +
+                        "`mode` TEXT NOT NULL, " +
+                        "`energyMah` REAL NOT NULL, " +
+                        "`samples` INTEGER NOT NULL, " +
+                        "PRIMARY KEY(`bucketStart`, `packageName`, `mode`))"
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_app_energy_stats_bucketStart` " +
+                        "ON `app_energy_stats` (`bucketStart`)"
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_app_energy_stats_packageName` " +
+                        "ON `app_energy_stats` (`packageName`)"
+                )
+            }
+        }
+
         val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("DELETE FROM app_energy_stats")
@@ -71,7 +93,7 @@ abstract class BatteryDatabase : RoomDatabase() {
                     BatteryDatabase::class.java,
                     "battery.db"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build().also { INSTANCE = it }
             }
     }

@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Cantidad de Doze profundo</string>
     <string name="light_doze_time">Tiempo en Doze ligero</string>
     <string name="light_doze_count">Cantidad de Doze ligero</string>
-    <string name="maintenance_windows">Ventanas de mantenimiento</string>
-    <string name="maintenance_time">Tiempo de mantenimiento</string>
     <string name="current_state">Estado actual</string>
     <string name="doze_state">Estado de Doze</string>
     <string name="light_state">Estado de Doze ligero</string>
@@ -461,5 +459,9 @@
         <item>1 año</item>
         <item>Para siempre</item>
     </string-array>
+    <string name="deep_idling_time">Tiempo de inactividad profunda</string>
+    <string name="deep_idling_count">Recuento de inactividad profunda</string>
+    <string name="light_idling_time">Tiempo de inactividad ligera</string>
+    <string name="light_idling_count">Recuento de inactividad ligera</string>
 </resources>
     

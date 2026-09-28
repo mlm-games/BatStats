@@ -236,8 +236,6 @@
     <string name="deep_doze_count">深い Doze の回数</string>
     <string name="light_doze_time">浅い Doze の時間</string>
     <string name="light_doze_count">浅い Doze の回数</string>
-    <string name="maintenance_windows">メンテナンスウィンドウ</string>
-    <string name="maintenance_time">メンテナンス時間</string>
     <string name="current_state">現在の状態</string>
     <string name="doze_state">Doze の状態</string>
     <string name="light_state">浅い Doze の状態</string>
@@ -451,5 +449,9 @@
         <item>1 年</item>
         <item>無期限</item>
     </string-array>
+    <string name="deep_idling_time">深いアイドル時間</string>
+    <string name="deep_idling_count">深いアイドル回数</string>
+    <string name="light_idling_time">軽いアイドル時間</string>
+    <string name="light_idling_count">軽いアイドル回数</string>
 </resources>
     

@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Počet hlubokých Doze</string>
     <string name="light_doze_time">Čas v lehkém Doze</string>
     <string name="light_doze_count">Počet lehkých Doze</string>
-    <string name="maintenance_windows">Okna údržby</string>
-    <string name="maintenance_time">Čas údržby</string>
     <string name="current_state">Aktuální stav</string>
     <string name="doze_state">Stav Doze</string>
     <string name="light_state">Stav lehkého Doze</string>
@@ -471,5 +469,9 @@
         <item>1 rok</item>
         <item>Navždy</item>
     </string-array>
+    <string name="deep_idling_time">Čas hlubokého nečinnosti</string>
+    <string name="deep_idling_count">Počet hluboké nečinnosti</string>
+    <string name="light_idling_time">Čas lehké nečinnosti</string>
+    <string name="light_idling_count">Počet lehké nečinnosti</string>
 </resources>
     

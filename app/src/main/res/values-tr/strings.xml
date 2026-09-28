@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Derin Doze sayısı</string>
     <string name="light_doze_time">Hafif Doze süresi</string>
     <string name="light_doze_count">Hafif Doze sayısı</string>
-    <string name="maintenance_windows">Bakım pencereleri</string>
-    <string name="maintenance_time">Bakım süresi</string>
     <string name="current_state">Geçerli durum</string>
     <string name="doze_state">Doze durumu</string>
     <string name="light_state">Hafif Doze durumu</string>
@@ -451,5 +449,9 @@
         <item>1 yıl</item>
         <item>Süresiz</item>
     </string-array>
+    <string name="deep_idling_time">Derin boşta kalma süresi</string>
+    <string name="deep_idling_count">Derin boşta kalma sayısı</string>
+    <string name="light_idling_time">Hafif boşta kalma süresi</string>
+    <string name="light_idling_count">Hafif boşta kalma sayısı</string>
 </resources>
     

@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Mély Doze darabszáma</string>
     <string name="light_doze_time">Könnyű Doze ideje</string>
     <string name="light_doze_count">Könnyű Doze darabszáma</string>
-    <string name="maintenance_windows">Karbantartási ablakok</string>
-    <string name="maintenance_time">Karbantartási idő</string>
     <string name="current_state">Jelenlegi állapot</string>
     <string name="doze_state">Doze-állapot</string>
     <string name="light_state">Könnyű Doze-állapot</string>
@@ -451,5 +449,9 @@
         <item>1 év</item>
         <item>Korlátlanul</item>
     </string-array>
+    <string name="deep_idling_time">Mély alvási idő</string>
+    <string name="deep_idling_count">Mély alvás darabszám</string>
+    <string name="light_idling_time">Könnyű alvási idő</string>
+    <string name="light_idling_count">Könnyű alvás darabszám</string>
 </resources>
     

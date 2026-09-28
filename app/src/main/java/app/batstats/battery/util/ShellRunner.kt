@@ -105,14 +105,14 @@ class ShellRunner(
         runDirect(cmd)?.takeIf { it.isNotBlank() && !isErrorOutput(it) }
     }
 
-    private fun runDirect(cmd: String): String? {
-        val result = CommandOutput.run(listOf("sh", "-c", cmd), CMD_TIMEOUT_SEC * 1000)
-        if (!result.successful) {
-            Log.w(TAG, "runDirect failed for: $cmd (${result.error})")
-            return null
+    private fun runDirect(cmd: String): String? =
+        when (val result = CommandOutput.run(listOf("sh", "-c", cmd), CMD_TIMEOUT_SEC * 1000)) {
+            is CommandOutput.Result.Success -> result.output
+            is CommandOutput.Result.Failure -> {
+                Log.w(TAG, "runDirect failed for: $cmd (${result.reason})")
+                null
+            }
         }
-        return result.output
-    }
 
     private fun isErrorOutput(out: String): Boolean =
         out.startsWith("ERROR") || DumpOutput.failure(out) != null

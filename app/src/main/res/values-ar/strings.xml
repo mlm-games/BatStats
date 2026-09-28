@@ -236,8 +236,6 @@
     <string name="deep_doze_count">عدد مرات Doze العميق</string>
     <string name="light_doze_time">مدة Doze الخفيف</string>
     <string name="light_doze_count">عدد مرات Doze الخفيف</string>
-    <string name="maintenance_windows">نوافذ الصيانة</string>
-    <string name="maintenance_time">مدة الصيانة</string>
     <string name="current_state">الحالة الحالية</string>
     <string name="doze_state">حالة Doze</string>
     <string name="light_state">حالة Doze الخفيف</string>
@@ -491,5 +489,9 @@
         <item>سنة واحدة</item>
         <item>إلى الأبد</item>
     </string-array>
+    <string name="deep_idling_time">مدة التهدئة العميقة</string>
+    <string name="deep_idling_count">عدد مرات التهدئة العميقة</string>
+    <string name="light_idling_time">مدة التهدئة الخفيفة</string>
+    <string name="light_idling_count">عدد مرات التهدئة الخفيفة</string>
 </resources>
     

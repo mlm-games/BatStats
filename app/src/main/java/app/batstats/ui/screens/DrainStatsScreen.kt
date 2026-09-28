@@ -718,54 +718,67 @@ private fun DrainHistoryCard(snapshots: List<app.batstats.battery.drain.DrainSna
             Spacer(Modifier.height(16.dp))
             
             AnimatedVisibility(
-                visible = snapshots.isNotEmpty(),
+                visible = snapshots.any { it.batteryLevel != null },
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                val values = snapshots.mapNotNull { it.batteryLevel?.toFloat() }
-                
+                // X positions come from the snapshot index so an unknown reading leaves a gap in
+                // the series instead of shifting every later point left on the time axis.
+                val values = snapshots.map { it.batteryLevel?.toFloat() }
+                val known = values.filterNotNull()
+
                 Canvas(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp)
                 ) {
-                    if (values.isEmpty()) return@Canvas
-                    
-                    val min = values.minOrNull() ?: 0f
-                    val max = values.maxOrNull() ?: 100f
+                    if (known.isEmpty()) return@Canvas
+
+                    val min = known.min()
+                    val max = known.max()
                     val range = (max - min).coerceAtLeast(1f)
-                    
                     val stepX = size.width / (values.size - 1).coerceAtLeast(1)
-                    
-                    // Draw gradient fill
+
+                    fun pointAt(i: Int, v: Float): Offset =
+                        Offset(i * stepX, size.height - ((v - min) / range) * size.height)
+
                     val path = androidx.compose.ui.graphics.Path().apply {
+                        var started = false
                         values.forEachIndexed { i, v ->
-                            val x = i * stepX
-                            val y = size.height - ((v - min) / range) * size.height
-                            if (i == 0) moveTo(x, y) else lineTo(x, y)
+                            if (v == null) {
+                                started = false
+                                return@forEachIndexed
+                            }
+                            val p = pointAt(i, v)
+                            if (started) lineTo(p.x, p.y) else moveTo(p.x, p.y)
+                            started = true
                         }
-                        lineTo(size.width, size.height)
-                        lineTo(0f, size.height)
-                        close()
+                        if (started) {
+                            lineTo(size.width, size.height)
+                            lineTo(0f, size.height)
+                            close()
+                        }
                     }
-                    
-                    drawPath(
-                        path,
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0xFF4CAF50).copy(alpha = 0.3f),
-                                Color.Transparent
+
+                    if (!path.isEmpty) {
+                        drawPath(
+                            path,
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color(0xFF4CAF50).copy(alpha = 0.3f),
+                                    Color.Transparent
+                                )
                             )
                         )
-                    )
-                    
-                    // Draw line
+                    }
+
                     var prev: Offset? = null
                     values.forEachIndexed { i, v ->
-                        val x = i * stepX
-                        val y = size.height - ((v - min) / range) * size.height
-                        val current = Offset(x, y)
-                        
+                        if (v == null) {
+                            prev = null
+                            return@forEachIndexed
+                        }
+                        val current = pointAt(i, v)
                         prev?.let { pr ->
                             drawLine(
                                 color = Color(0xFF4CAF50),
@@ -781,7 +794,7 @@ private fun DrainHistoryCard(snapshots: List<app.batstats.battery.drain.DrainSna
             }
             
             AnimatedVisibility(
-                visible = snapshots.isEmpty(),
+                visible = snapshots.all { it.batteryLevel == null },
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {

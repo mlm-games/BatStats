@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Πλήθος βαθύ Doze</string>
     <string name="light_doze_time">Χρόνος σε ελαφρύ Doze</string>
     <string name="light_doze_count">Πλήθος ελαφρύ Doze</string>
-    <string name="maintenance_windows">Παράθυρα συντήρησης</string>
-    <string name="maintenance_time">Χρόνος συντήρησης</string>
     <string name="current_state">Τρέχουσα κατάσταση</string>
     <string name="doze_state">Κατάσταση Doze</string>
     <string name="light_state">Κατάσταση ελαφρού Doze</string>
@@ -451,5 +449,9 @@
         <item>1 έτος</item>
         <item>Για πάντα</item>
     </string-array>
+    <string name="deep_idling_time">Χρόνος βαθιάς αδράνειας</string>
+    <string name="deep_idling_count">Αριθμός βαθιάς αδράνειας</string>
+    <string name="light_idling_time">Χρόνος ελαφριάς αδράνειας</string>
+    <string name="light_idling_count">Αριθμός ελαφριάς αδράνειας</string>
 </resources>
     

@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Jumlah Doze mendalam</string>
     <string name="light_doze_time">Waktu dalam Doze ringan</string>
     <string name="light_doze_count">Jumlah Doze ringan</string>
-    <string name="maintenance_windows">Jendela pemeliharaan</string>
-    <string name="maintenance_time">Waktu pemeliharaan</string>
     <string name="current_state">Status saat ini</string>
     <string name="doze_state">Status Doze</string>
     <string name="light_state">Status Doze ringan</string>
@@ -451,5 +449,9 @@
         <item>1 tahun</item>
         <item>Selamanya</item>
     </string-array>
+    <string name="deep_idling_time">Waktu tidak aktif mendalam</string>
+    <string name="deep_idling_count">Jumlah tidak aktif mendalam</string>
+    <string name="light_idling_time">Waktu tidak aktif ringan</string>
+    <string name="light_idling_count">Jumlah tidak aktif ringan</string>
 </resources>
     

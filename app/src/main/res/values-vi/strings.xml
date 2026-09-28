@@ -236,8 +236,6 @@
     <string name="deep_doze_count">Số lần Doze sâu</string>
     <string name="light_doze_time">Thời gian trong Doze nhẹ</string>
     <string name="light_doze_count">Số lần Doze nhẹ</string>
-    <string name="maintenance_windows">Cửa sổ bảo trì</string>
-    <string name="maintenance_time">Thời gian bảo trì</string>
     <string name="current_state">Trạng thái hiện tại</string>
     <string name="doze_state">Trạng thái Doze</string>
     <string name="light_state">Trạng thái Doze nhẹ</string>
@@ -451,5 +449,9 @@
         <item>1 năm</item>
         <item>Vĩnh viễn</item>
     </string-array>
+    <string name="deep_idling_time">Thời gian nhàn rỗi sâu</string>
+    <string name="deep_idling_count">Số lần nhàn rỗi sâu</string>
+    <string name="light_idling_time">Thời gian nhàn rỗi nhẹ</string>
+    <string name="light_idling_count">Số lần nhàn rỗi nhẹ</string>
 </resources>
     

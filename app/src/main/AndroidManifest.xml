@@ -37,7 +37,7 @@
             android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="User-started continuous battery monitoring with a persistent live notification; sampling stops when the user stops monitoring." />
+                android:value="To prevent the 6 hour timeout that other service types have." />
         </service>
 
         <receiver

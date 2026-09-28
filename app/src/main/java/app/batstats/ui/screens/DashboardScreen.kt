@@ -159,9 +159,6 @@ fun DashboardScreen(
                     IconButton(onClick = onOpenHistory) {
                         Icon(Icons.Outlined.History, stringResource(R.string.history))
                     }
-                    IconButton(onClick = onOpenAlarms) {
-                        Icon(Icons.Outlined.Notifications, stringResource(R.string.alarms))
-                    }
                     IconButton(onClick = onOpenData) {
                         Icon(Icons.Outlined.CloudDownload, stringResource(R.string.data))
                     }

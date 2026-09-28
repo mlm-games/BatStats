@@ -1,3 +1,8 @@
+## v6.3.0
+
+- Translations
+
+
 ## v6.2.6
 
 - Cleanup old data and show Shared UIDs as System

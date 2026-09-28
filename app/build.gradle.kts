@@ -31,8 +31,8 @@ android {
         applicationId = "org.mlm.batstats"
         minSdk = 26
         targetSdk = 37
-        versionCode = 734
-        versionName = "6.2.6"
+        versionCode = 744
+        versionName = "6.3.0"
 
         androidResources {
             generateLocaleConfig = true

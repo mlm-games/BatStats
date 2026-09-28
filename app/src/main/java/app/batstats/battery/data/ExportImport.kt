@@ -72,7 +72,7 @@ class ExportImportManager(
                     db.batteryDao()
                         .samplesBetween(if (from == 0L) 0L else from, toBound).first()
                         .forEach { s ->
-                            w.appendLine("${s.timestamp},${s.levelPercent},${s.status},${s.plugged},${s.currentNowUa ?: ""},${s.chargeCounterUah ?: ""},${s.voltageMv ?: ""},${s.temperatureDeciC ?: ""},${s.health ?: ""},${s.screenOn}")
+                            w.appendLine("${s.timestamp},${s.levelPercent ?: ""},${s.status},${s.plugged},${s.currentNowUa ?: ""},${s.chargeCounterUah ?: ""},${s.voltageMv ?: ""},${s.temperatureDeciC ?: ""},${s.health ?: ""},${s.screenOn}")
                         }
                 } ?: return@withContext false
 
@@ -115,7 +115,7 @@ class ExportImportManager(
                         val p = line.split(',')
                         val s = BatterySample(
                             timestamp = p[0].toLong(),
-                            levelPercent = p[1].toInt(),
+                            levelPercent = p[1].ifBlank { null }?.toInt(),
                             status = p[2].toInt(),
                             plugged = p[3].toInt(),
                             currentNowUa = p[4].ifBlank { null }?.toLong(),

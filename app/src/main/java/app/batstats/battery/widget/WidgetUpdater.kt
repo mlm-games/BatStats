@@ -68,7 +68,7 @@ object WidgetUpdater {
         val ids = mgr.getAppWidgetIds(ComponentName(ctx, BatteryLevelWidget::class.java))
         val rv = createRemoteViews(ctx).apply {
             setTextViewText(R.id.title, "Battery")
-            setTextViewText(R.id.value, "${s.levelPercent}%")
+            setTextViewText(R.id.value, s.levelPercent?.let { "$it%" } ?: "--")
         }
         ids.forEach { mgr.updateAppWidget(it, rv) }
     }

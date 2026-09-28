@@ -43,6 +43,7 @@ import java.util.Locale
 @Composable
 fun SessionCard(
     session: ChargeSession,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val timeFormatter = remember(Locale.getDefault()) {
@@ -58,7 +59,7 @@ fun SessionCard(
 
     Card(
         modifier = modifier,
-        onClick = {},
+        onClick = onClick,
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (isActive)

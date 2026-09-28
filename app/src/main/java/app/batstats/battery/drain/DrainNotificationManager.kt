@@ -102,7 +102,9 @@ class DrainNotificationManager(
             else -> context.getString(R.string.drain_state_screen_off)
         }
 
-        val title = context.getString(R.string.battery_level, state.batteryLevel, currentStateText)
+        val title = state.batteryLevel
+            ?.let { context.getString(R.string.battery_level, it, currentStateText) }
+            ?: context.getString(R.string.no_data_available) + " • " + currentStateText
 
         val contentText = context.getString(
             R.string.drain_on_off_sleep,

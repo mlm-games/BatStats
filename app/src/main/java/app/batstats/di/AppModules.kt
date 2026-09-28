@@ -10,7 +10,6 @@ import app.batstats.battery.shizuku.BstatsCollector
 import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.battery.util.DetailedStatsCollector
 import app.batstats.battery.util.ShellRunner
-import app.batstats.insights.ForegroundDrainTracker
 import app.batstats.settings.AppSettings
 import app.batstats.settings.AppSettingsSchema
 import app.batstats.viewmodel.DashboardViewModel
@@ -83,7 +82,6 @@ val appModule = module {
 
     single { ExportImportManager(androidContext(), get()) }
     single { BatteryRepository(androidContext(), get(), get(), get()) }
-    single { ForegroundDrainTracker(androidContext(), get(), get<BatteryDatabase>().appEnergyDao()) }
 
     single { AdvancedDrainTracker(androidContext(), get(), get(), get(), get()) }
     single { DrainNotificationManager(androidContext(), get()) }

@@ -9,7 +9,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 
 class ShellRunner(
     private val context: Context,
@@ -107,46 +106,16 @@ class ShellRunner(
     }
 
     private fun runDirect(cmd: String): String? {
-        var process: Process? = null
-        var watchdog: Thread? = null
-        val timedOut = AtomicBoolean(false)
-        return try {
-            val p = ProcessBuilder("sh", "-c", cmd)
-                .redirectErrorStream(true)
-                .start()
-            process = p
-            runCatching { p.outputStream.close() }
-
-            watchdog = Thread {
-                try {
-                    if (!p.waitFor(CMD_TIMEOUT_SEC, TimeUnit.SECONDS)) {
-                        timedOut.set(true)
-                        p.destroyForcibly()
-                    }
-                } catch (_: InterruptedException) {
-                }
-            }.apply {
-                isDaemon = true
-                start()
-            }
-
-            val out = p.inputStream.bufferedReader().use { it.readText() }
-            when {
-                timedOut.get() -> null
-                out.contains("Permission Denial", ignoreCase = true) -> null
-                else -> out
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "runDirect exception", e)
-            null
-        } finally {
-            watchdog?.interrupt()
-            runCatching { process?.destroy() }
+        val result = CommandOutput.run(listOf("sh", "-c", cmd), CMD_TIMEOUT_SEC * 1000)
+        if (!result.successful) {
+            Log.w(TAG, "runDirect failed for: $cmd (${result.error})")
+            return null
         }
+        return result.output
     }
 
     private fun isErrorOutput(out: String): Boolean =
-        out.startsWith("ERROR") || out.startsWith("Permission Denial", ignoreCase = true)
+        out.startsWith("ERROR") || DumpOutput.failure(out) != null
 
     suspend fun detectMode(forceRefresh: Boolean = false): Mode {
         if (!forceRefresh) {

@@ -247,11 +247,16 @@ class AdvancedDrainTracker(
     private fun processSnapshot(current: DrainSnapshot) {
         val previous = lastSnapshot ?: return
         if (current.isCharging || previous.isCharging) return
-        
+
         val timeDelta = current.timestamp - previous.timestamp
         if (timeDelta <= 0) return
-        
-        val drainMah = max(0.0, previous.batteryMah - current.batteryMah)
+
+        // A missing charge reading is not a zero reading: differencing against 0 would report the
+        // whole remaining capacity as drain for this interval.
+        val previousMah = previous.batteryMah ?: return
+        val currentMah = current.batteryMah ?: return
+        val drainMah = max(0.0, previousMah - currentMah)
+        if (drainMah > previousMah) return
         
         when {
             current.isScreenOn -> {
@@ -323,22 +328,22 @@ class AdvancedDrainTracker(
         )
     }
     
-    private fun getBatteryLevel(): Int {
+    private fun getBatteryLevel(): Int? {
         val level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
         if (level in 0..100) return level
 
         val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         val raw = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
         val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
-        return if (raw >= 0 && scale > 0) (raw * 100 / scale) else 0
+        return if (raw >= 0 && scale > 0) (raw * 100 / scale) else null
     }
 
-    private fun getCurrentBatteryMah(): Double {
+    private fun getCurrentBatteryMah(): Double? {
         val chargeCounter = batteryManager.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER)
         return if (chargeCounter > 0) {
             chargeCounter / 1000.0
         } else {
-            (getBatteryLevel() / 100.0) * estimatedCapacityMah
+            getBatteryLevel()?.div(100.0)?.times(estimatedCapacityMah)
         }
     }
     

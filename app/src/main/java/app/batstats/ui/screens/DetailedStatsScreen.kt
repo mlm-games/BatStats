@@ -616,8 +616,8 @@ private fun DozeStatsCard(doze: BatteryStatsParser.DozeStats?) {
             StatRow(R.string.deep_doze_count, "${doze.deepIdleCount}")
             StatRow(R.string.light_doze_time, formatDuration(doze.lightIdleTimeMs))
             StatRow(R.string.light_doze_count, "${doze.lightIdleCount}")
-            StatRow(R.string.maintenance_windows, "${doze.maintenanceCount}")
-            StatRow(R.string.maintenance_time, formatDuration(doze.maintenanceTimeMs))
+            StatRow(R.string.maintenance_windows, doze.maintenanceCount?.toString() ?: stringResource(R.string.no_data_available))
+            StatRow(R.string.maintenance_time, doze.maintenanceTimeMs?.let { formatDuration(it) } ?: stringResource(R.string.no_data_available))
         }
     }
 }
@@ -1554,42 +1554,13 @@ private fun BatteryHealthCard(battery: RootStatsCollector.KernelBatteryInfo?) {
         if (battery == null) {
             Text(stringResource(R.string.no_battery_info), color = MaterialTheme.colorScheme.onSurfaceVariant)
         } else {
-            // Cycle count with visual indicator
             battery.cycleCount?.let { cycles ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column {
-                        Text(stringResource(R.string.cycle_count), style = MaterialTheme.typography.labelMedium)
-                        Text(
-                            stringResource(R.string.cycles_value, cycles),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = when {
-                                cycles < 300 -> MaterialTheme.colorScheme.primary
-                                cycles < 500 -> MaterialTheme.colorScheme.tertiary
-                                else -> MaterialTheme.colorScheme.error
-                            }
-                        )
-                    }
-
-                    // Health indicator
-                    val healthPercent = when {
-                        cycles < 100 -> 100
-                        cycles < 300 -> 90
-                        cycles < 500 -> 75
-                        cycles < 800 -> 60
-                        else -> 40
-                    }
-                    CircularWavyProgressIndicator(
-                        progress = { healthPercent / 100f },
-                        modifier = Modifier.size(48.dp),
-                        trackColor = MaterialTheme.colorScheme.surfaceVariant
-                    )
-                }
-
+                Text(stringResource(R.string.cycle_count), style = MaterialTheme.typography.labelMedium)
+                Text(
+                    stringResource(R.string.cycles_value, cycles),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(Modifier.height(12.dp))
             }
 

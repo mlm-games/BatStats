@@ -14,12 +14,14 @@ import app.batstats.settings.chartTimeRangeMs
 import app.batstats.settings.monitoringIntervalMs
 import io.github.mlmgames.settings.core.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
 class BatteryRepository(
@@ -31,6 +33,11 @@ class BatteryRepository(
     private val batteryDao = db.batteryDao()
     val sessionDao = db.sessionDao()
     private val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+
+    suspend fun clearAllData() {
+        stopSampling()
+        withContext(Dispatchers.IO) { db.clearAllTables() }
+    }
 
     // Settings flows
     val monitoringInterval: Flow<Long> = settingsRepository.flow.map { it.monitoringIntervalMs }
@@ -130,11 +137,12 @@ class BatteryRepository(
     }
 
     suspend fun startSession(type: SessionType) {
+        val startLevel = _realtime.value.level ?: batteryDao.lastSample()?.levelPercent ?: return
         val session = ChargeSession(
             sessionId = java.util.UUID.randomUUID().toString(),
             type = type,
             startTime = System.currentTimeMillis(),
-            startLevel = _realtime.value.level,
+            startLevel = startLevel,
             endTime = null, endLevel = null, deltaUah = null, avgCurrentUa = null, estCapacityMah = null
         )
         sessionDao.upsert(session)
@@ -157,7 +165,7 @@ class BatteryRepository(
     private fun processBatteryState(intent: Intent, persist: Boolean = false) {
         val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        val levelPercent = if (level >= 0 && scale > 0) (level * 100) / scale else 0
+        val levelPercent = if (level >= 0 && scale > 0) (level * 100) / scale else null
 
         val pluggedState = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)
         val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, BatteryManager.BATTERY_STATUS_UNKNOWN)
@@ -224,7 +232,7 @@ class BatteryRepository(
     }
 
     data class Realtime(
-        val level: Int = 0,
+        val level: Int? = null,
         val plugged: Int = 0,
         val currentMa: Int = 0,
         val voltageMv: Int = 0,

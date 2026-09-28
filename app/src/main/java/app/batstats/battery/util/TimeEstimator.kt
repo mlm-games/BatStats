@@ -15,7 +15,7 @@ object TimeEstimator {
 
     fun etaString(sample: BatterySample?): String? {
         sample ?: return null
-        val level = sample.levelPercent
+        val level = sample.levelPercent ?: return null
         val currentMa = ((sample.currentNowUa ?: return null) / 1000.0).roundToInt()
         val cap = 4000 // lightweight, async better: capacityGuessMah(); but avoid suspend here
         return if (sample.plugged != 0 && currentMa > 0) {

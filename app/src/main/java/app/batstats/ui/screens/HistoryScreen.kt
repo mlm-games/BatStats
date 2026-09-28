@@ -109,7 +109,7 @@ fun HistoryScreen(
                     items(sessions, key = { it.sessionId }) { s ->
                         SessionCard(
                             session = s,
-                            modifier = Modifier.clickable { onOpenSession(s.sessionId) }
+                            onClick = { onOpenSession(s.sessionId) }
                         )
                     }
                 }

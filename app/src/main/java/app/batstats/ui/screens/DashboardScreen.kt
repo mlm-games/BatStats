@@ -294,20 +294,20 @@ private fun HeroBatteryCard(
 
 @Composable
 private fun CircularBatteryIndicator(
-    level: Int,
+    level: Int?,
     isCharging: Boolean,
     current: Int,
     modifier: Modifier = Modifier
 ) {
     val progress by animateFloatAsState(
-        targetValue = level / 100f,
+        targetValue = (level ?: 0) / 100f,
         animationSpec = tween(1000, easing = FastOutSlowInEasing),
         label = "battery_progress"
     )
     val colors = MaterialTheme.colorScheme
     val stateDesc = stringResource(
         if (isCharging) R.string.battery_state_charging else R.string.battery_state_discharging,
-        level
+        level ?: 0
     )
 
     Box(
@@ -332,6 +332,7 @@ private fun CircularBatteryIndicator(
             val sweepAngle = progress * 360f
             val arcColors = when {
                 isCharging -> listOf(colors.primary, colors.tertiary)
+                level == null -> listOf(colors.outline, colors.outlineVariant)
                 level < 20 -> listOf(colors.error, colors.errorContainer)
                 else -> listOf(colors.primary, colors.primaryContainer)
             }
@@ -348,13 +349,13 @@ private fun CircularBatteryIndicator(
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "$level",
+                text = level?.toString() ?: "--",
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold
             )
             val statusText = stringResource(
                 when {
-                    isCharging && level >= 100 -> R.string.full
+                    isCharging && level != null && level >= 100 -> R.string.full
                     isCharging -> R.string.charging
                     else -> R.string.discharging
                 }

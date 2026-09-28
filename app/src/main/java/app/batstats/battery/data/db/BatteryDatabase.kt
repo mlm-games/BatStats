@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 @TypeConverters(EnumConverters::class)
 @Database(
     entities = [BatterySample::class, ChargeSession::class, AlarmRule::class, AppEnergyStat::class],
-    version = 3,
+    version = 4,
     exportSchema = true
 )
 abstract class BatteryDatabase : RoomDatabase() {
@@ -26,6 +26,44 @@ abstract class BatteryDatabase : RoomDatabase() {
             }
         }
 
+        // SQLite cannot relax NOT NULL in place, so rebuild the table and carry every row over.
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `battery_samples_new` (" +
+                        "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                        "`timestamp` INTEGER NOT NULL, " +
+                        "`levelPercent` INTEGER, " +
+                        "`status` INTEGER NOT NULL, " +
+                        "`plugged` INTEGER NOT NULL, " +
+                        "`currentNowUa` INTEGER, " +
+                        "`chargeCounterUah` INTEGER, " +
+                        "`voltageMv` INTEGER, " +
+                        "`temperatureDeciC` INTEGER, " +
+                        "`health` INTEGER, " +
+                        "`screenOn` INTEGER NOT NULL)"
+                )
+                db.execSQL(
+                    "INSERT INTO `battery_samples_new` " +
+                        "(`id`,`timestamp`,`levelPercent`,`status`,`plugged`,`currentNowUa`," +
+                        "`chargeCounterUah`,`voltageMv`,`temperatureDeciC`,`health`,`screenOn`) " +
+                        "SELECT `id`,`timestamp`,`levelPercent`,`status`,`plugged`,`currentNowUa`," +
+                        "`chargeCounterUah`,`voltageMv`,`temperatureDeciC`,`health`,`screenOn` " +
+                        "FROM `battery_samples`"
+                )
+                db.execSQL("DROP TABLE `battery_samples`")
+                db.execSQL("ALTER TABLE `battery_samples_new` RENAME TO `battery_samples`")
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_battery_samples_timestamp` " +
+                        "ON `battery_samples` (`timestamp`)"
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_battery_samples_status` " +
+                        "ON `battery_samples` (`status`)"
+                )
+            }
+        }
+
         fun get(context: Context): BatteryDatabase =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
@@ -33,8 +71,7 @@ abstract class BatteryDatabase : RoomDatabase() {
                     BatteryDatabase::class.java,
                     "battery.db"
                 )
-                    .addMigrations(MIGRATION_2_3)
-                    .fallbackToDestructiveMigration(true)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
                     .build().also { INSTANCE = it }
             }
     }

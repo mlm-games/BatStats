@@ -381,7 +381,7 @@ fun BatterySettingsScreen(
                 TextButton(
                     onClick = {
                         scope.launch {
-                            BatteryGraph.db.clearAllTables()
+                            BatteryGraph.repo.clearAllData()
                             snackbarHost.showSnackbar(dataClearedMsg)
                             showClearDataDialog = false
                         }

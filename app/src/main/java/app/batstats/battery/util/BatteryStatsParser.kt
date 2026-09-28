@@ -216,8 +216,8 @@ object BatteryStatsParser {
         val deepIdleCount: Int,
         val lightIdleTimeMs: Long,
         val lightIdleCount: Int,
-        val maintenanceTimeMs: Long,
-        val maintenanceCount: Int
+        val maintenanceTimeMs: Long? = null,
+        val maintenanceCount: Int? = null
     )
 
     data class CpuFrequencyStats(
@@ -565,8 +565,8 @@ object BatteryStatsParser {
         val pkgs = packagesFor(uid, uidToPackages)
         val label = displayNameFor(uid, pkgs)
         val jobName = parts.getOrNull(4) ?: return
-        val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
-        val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
+        val timeMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
+        val count = parts.getOrNull(6)?.toIntOrNull() ?: 0
 
         jobs.add(
             JobStats(
@@ -575,7 +575,9 @@ object BatteryStatsParser {
                 packages = pkgs,
                 jobName = jobName,
                 count = count,
-                totalTimeMs = timeMs
+                totalTimeMs = timeMs,
+                backgroundCount = parts.backgroundCount(8),
+                backgroundTimeMs = parts.backgroundTime(7)
             )
         )
     }
@@ -589,8 +591,8 @@ object BatteryStatsParser {
         val pkgs = packagesFor(uid, uidToPackages)
         val label = displayNameFor(uid, pkgs)
         val authority = parts.getOrNull(4) ?: return
-        val count = parts.getOrNull(5)?.toIntOrNull() ?: 0
-        val timeMs = parts.getOrNull(6)?.toLongOrNull() ?: 0L
+        val timeMs = parts.getOrNull(5)?.toLongOrNull() ?: 0L
+        val count = parts.getOrNull(6)?.toIntOrNull() ?: 0
 
         syncs.add(
             SyncStats(
@@ -599,7 +601,9 @@ object BatteryStatsParser {
                 packages = pkgs,
                 authority = authority,
                 count = count,
-                totalTimeMs = timeMs
+                totalTimeMs = timeMs,
+                backgroundCount = parts.backgroundCount(8),
+                backgroundTimeMs = parts.backgroundTime(7)
             )
         )
     }
@@ -714,8 +718,8 @@ object BatteryStatsParser {
 
         val deepTime = parts.getOrNull(13)?.toLongOrNull() ?: return null
         val deepCount = parts.getOrNull(14)?.toIntOrNull() ?: 0
-        val maintTime = parts.getOrNull(15)?.toLongOrNull() ?: 0L
-        val maintCount = parts.getOrNull(16)?.toIntOrNull() ?: 0
+        val maintTime = parts.getOrNull(15)?.toLongOrNull()
+        val maintCount = parts.getOrNull(16)?.toIntOrNull()
         val lightTime = parts.getOrNull(19)?.toLongOrNull() ?: 0L
         val lightCount = parts.getOrNull(20)?.toIntOrNull() ?: 0
 
@@ -732,6 +736,10 @@ object BatteryStatsParser {
             maintenanceCount = maintCount
         )
     }
+
+    // Job/sync producers emit -1 for an absent sub-timer, which is not a duration or a count.
+    private fun List<String>.backgroundTime(i: Int) = getOrNull(i)?.toLongOrNull()?.takeIf { it >= 0 } ?: 0L
+    private fun List<String>.backgroundCount(i: Int) = getOrNull(i)?.toIntOrNull()?.takeIf { it >= 0 } ?: 0
 
     internal fun splitCheckinLine(line: String): List<String> {
         if ('"' !in line) return line.split(',')

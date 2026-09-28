@@ -13,8 +13,8 @@ data class DrainState(
     val timestamp: Long = System.currentTimeMillis(),
     
     // Current battery level
-    val batteryLevel: Int = 0,
-    val batteryLevelMah: Double = 0.0,
+    val batteryLevel: Int? = null,
+    val batteryLevelMah: Double? = null,
     
     // Device state
     val isScreenOn: Boolean = false,
@@ -79,8 +79,8 @@ data class DrainState(
 @Serializable
 data class DrainSnapshot(
     val timestamp: Long,
-    val batteryLevel: Int,
-    val batteryMah: Double,
+    val batteryLevel: Int?,
+    val batteryMah: Double?,
     val currentMa: Int,
     val isScreenOn: Boolean,
     val isCharging: Boolean,

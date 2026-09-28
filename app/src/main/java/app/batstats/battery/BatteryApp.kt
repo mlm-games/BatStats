@@ -5,7 +5,6 @@ import app.batstats.battery.data.BatteryRepository
 import app.batstats.battery.data.db.BatteryDatabase
 import app.batstats.battery.shizuku.ShizukuBridge
 import app.batstats.di.appModule
-import app.batstats.insights.ForegroundDrainTracker
 import app.batstats.settings.AppSettings
 import io.github.mlmgames.settings.core.SettingsRepository
 import io.github.mlmgames.settings.core.managers.MigrationManager
@@ -47,5 +46,4 @@ object BatteryGraph : KoinComponent {
     val db: BatteryDatabase by inject()
     val repo: BatteryRepository by inject()
     val settings: SettingsRepository<AppSettings> by inject()
-    val drainTracker: ForegroundDrainTracker by inject()
 }

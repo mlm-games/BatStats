@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 data class BatterySample(
     @field:PrimaryKey(autoGenerate = true) val id: Long = 0,
     val timestamp: Long,
-    val levelPercent: Int,                  // 0..100
+    val levelPercent: Int?,                 // 0..100, null when the platform reports no usable level
     val status: Int,                        // BatteryManager status
     val plugged: Int,                       // BatteryManager EXTRA_PLUGGED
     val currentNowUa: Long?,                // microAmps (negative while discharging)

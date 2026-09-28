@@ -144,7 +144,7 @@ private fun CurrentStateCard(state: DrainState) {
                 contentAlignment = Alignment.Center
             ) {
                 val progress by animateFloatAsState(
-                    targetValue = state.batteryLevel / 100f,
+                    targetValue = (state.batteryLevel ?: 0) / 100f,
                     animationSpec = tween(1000),
                     label = "battery_progress"
                 )
@@ -161,6 +161,7 @@ private fun CurrentStateCard(state: DrainState) {
                     
                     drawArc(
                         color = when {
+                            state.batteryLevel == null -> Color.Gray
                             state.batteryLevel < 20 -> Color(0xFFE53935)
                             state.batteryLevel < 50 -> Color(0xFFFF9800)
                             else -> Color(0xFF4CAF50)
@@ -176,7 +177,7 @@ private fun CurrentStateCard(state: DrainState) {
                 }
                 
                 Text(
-                    "${state.batteryLevel}%",
+                    state.batteryLevel?.let { "$it%" } ?: "--",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -721,7 +722,7 @@ private fun DrainHistoryCard(snapshots: List<app.batstats.battery.drain.DrainSna
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
-                val values = snapshots.map { it.batteryLevel.toFloat() }
+                val values = snapshots.mapNotNull { it.batteryLevel?.toFloat() }
                 
                 Canvas(
                     modifier = Modifier

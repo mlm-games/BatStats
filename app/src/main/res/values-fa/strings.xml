@@ -60,6 +60,8 @@
     <string name="full">پر</string>
     <string name="battery_state_charging">در حال شارژ %1$d%%</string>
     <string name="battery_state_discharging">در حال تخلیه %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">در حال شارژ، سطح نامشخص</string>
+    <string name="battery_state_level_unknown_discharging">در حال تخلیه، سطح نامشخص</string>
     <string name="battery_at_percent">باتری %1$d%% — بهتر است شارژر را جدا کنید.</string>
     <string name="charge_limit_reached">به حد شارژ رسید</string>
     <string name="temperature_high">%1$d °C — بگذارید دستگاه خنک شود.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA میانگین</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">سطح نامشخص • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s ساعت</string>
     <string name="data_export_import">برون‌ریزی/درون‌ریزی داده‌ها</string>

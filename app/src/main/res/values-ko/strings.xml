@@ -60,6 +60,8 @@
     <string name="full">완전 충전</string>
     <string name="battery_state_charging">충전 중 %1$d%%</string>
     <string name="battery_state_discharging">방전 중 %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">충전 중, 잔량 알 수 없음</string>
+    <string name="battery_state_level_unknown_discharging">방전 중, 잔량 알 수 없음</string>
     <string name="battery_at_percent">배터리 %1$d%% — 분리하는 것이 좋습니다.</string>
     <string name="charge_limit_reached">충전 한도에 도달했습니다</string>
     <string name="temperature_high">%1$d °C — 기기를 식히세요.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">약 %1$s mAh</string>
     <string name="average_current_ma">평균 %1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">잔량 알 수 없음 • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s 시간</string>
     <string name="data_export_import">데이터 내보내기/가져오기</string>

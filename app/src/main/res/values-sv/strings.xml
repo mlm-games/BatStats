@@ -60,6 +60,8 @@
     <string name="full">Full</string>
     <string name="battery_state_charging">Laddar %1$d%%</string>
     <string name="battery_state_discharging">Laddar ur %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Laddar, nivå okänd</string>
+    <string name="battery_state_level_unknown_discharging">Laddar ur, nivå okänd</string>
     <string name="battery_at_percent">Batteri på %1$d%% – överväg att koppla ur.</string>
     <string name="charge_limit_reached">Laddningsgräns uppnådd</string>
     <string name="temperature_high">%1$d °C – låt enheten svalna.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA i snitt</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Nivå okänd • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s tim</string>
     <string name="data_export_import">Export/import av data</string>

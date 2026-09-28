@@ -60,6 +60,8 @@
     <string name="full">Täynnä</string>
     <string name="battery_state_charging">Ladataan %1$d%%</string>
     <string name="battery_state_discharging">Puretaan %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Ladataan, tuntematon taso</string>
+    <string name="battery_state_level_unknown_discharging">Puretaan, tuntematon taso</string>
     <string name="battery_at_percent">Akku %1$d%% – harkitse irrottamista.</string>
     <string name="charge_limit_reached">Latausraja saavutettu</string>
     <string name="temperature_high">%1$d °C – anna laitteen jäähtyä.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">keskim. ~%1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Tuntematon taso • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s tuntia</string>
     <string name="data_export_import">Tietojen vienti ja tuonti</string>

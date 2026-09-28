@@ -60,6 +60,8 @@
     <string name="full">Piena</string>
     <string name="battery_state_charging">In carica %1$d%%</string>
     <string name="battery_state_discharging">In scarica %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">In carica, livello sconosciuto</string>
+    <string name="battery_state_level_unknown_discharging">In scarica, livello sconosciuto</string>
     <string name="battery_at_percent">Batteria al %1$d%%: valuta di staccarla.</string>
     <string name="charge_limit_reached">Limite di carica raggiunto</string>
     <string name="temperature_high">%1$d °C: lascia raffreddare il dispositivo.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA medi</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Livello sconosciuto • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s ore</string>
     <string name="data_export_import">Esporta/importa dati</string>

@@ -60,6 +60,8 @@
     <string name="full">満充電</string>
     <string name="battery_state_charging">充電中 %1$d%%</string>
     <string name="battery_state_discharging">放電中 %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">充電中、残量不明</string>
+    <string name="battery_state_level_unknown_discharging">放電中、残量不明</string>
     <string name="battery_at_percent">バッテリー残量 %1$d%% — 電源から外すことを検討してください。</string>
     <string name="charge_limit_reached">充電上限に到達しました</string>
     <string name="temperature_high">%1$d °C — 端末を冷やしてください。</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">約 %1$s mAh</string>
     <string name="average_current_ma">平均 %1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">残量不明 • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s 時間</string>
     <string name="data_export_import">データのエクスポート/インポート</string>

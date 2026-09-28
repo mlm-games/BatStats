@@ -60,6 +60,8 @@
     <string name="full">Penuh</string>
     <string name="battery_state_charging">Mengisi daya %1$d%%</string>
     <string name="battery_state_discharging">Mengosongkan daya %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Mengisi daya, tingkat tidak diketahui</string>
+    <string name="battery_state_level_unknown_discharging">Mengosongkan daya, tingkat tidak diketahui</string>
     <string name="battery_at_percent">Baterai %1$d%% — pertimbangkan untuk melepas charger.</string>
     <string name="charge_limit_reached">Batas pengisian tercapai</string>
     <string name="temperature_high">%1$d °C — biarkan perangkat mendingin.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">±%1$s mAh</string>
     <string name="average_current_ma">±%1$s mA rata-rata</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Tingkat tidak diketahui • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s jam</string>
     <string name="data_export_import">Ekspor/impor data</string>

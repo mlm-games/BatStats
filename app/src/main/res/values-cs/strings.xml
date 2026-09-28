@@ -60,6 +60,8 @@
     <string name="full">Plná</string>
     <string name="battery_state_charging">Nabíjí se %1$d%%</string>
     <string name="battery_state_discharging">Vybíjí se %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Nabíjí se, úroveň neznámá</string>
+    <string name="battery_state_level_unknown_discharging">Vybíjí se, úroveň neznámá</string>
     <string name="battery_at_percent">Baterie na %1$d%% — zvažte odpojení.</string>
     <string name="charge_limit_reached">Dosáhla se meze nabíjení</string>
     <string name="temperature_high">%1$d °C — nechte zařízení vychladnout.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">prům. ~%1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Úroveň neznámá • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s h</string>
     <string name="data_export_import">Export a import dat</string>

@@ -60,6 +60,8 @@
     <string name="full">已充满</string>
     <string name="battery_state_charging">正在充电 %1$d%%</string>
     <string name="battery_state_discharging">正在放电 %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">正在充电，电量未知</string>
+    <string name="battery_state_level_unknown_discharging">正在放电，电量未知</string>
     <string name="battery_at_percent">电量 %1$d%% — 建议拔掉充电器。</string>
     <string name="charge_limit_reached">已达充电上限</string>
     <string name="temperature_high">%1$d °C — 请让设备降温。</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">约 %1$s mAh</string>
     <string name="average_current_ma">平均 %1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">电量未知 • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s 小时</string>
     <string name="data_export_import">数据导出/导入</string>

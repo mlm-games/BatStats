@@ -60,6 +60,8 @@
     <string name="full">Повний заряд</string>
     <string name="battery_state_charging">Заряджається %1$d%%</string>
     <string name="battery_state_discharging">Розряджається %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Заряджається, рівень заряду невідомий</string>
+    <string name="battery_state_level_unknown_discharging">Розряджається, рівень заряду невідомий</string>
     <string name="battery_at_percent">Заряд %1$d%% — варто від’єднати зарядку.</string>
     <string name="charge_limit_reached">Досягнуто межі заряду</string>
     <string name="temperature_high">%1$d °C — дайте пристрою охолонути.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s мАгод</string>
     <string name="average_current_ma">~%1$s мА у середньому</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Рівень заряду невідомий • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s год</string>
     <string name="data_export_import">Експорт та імпорт даних</string>

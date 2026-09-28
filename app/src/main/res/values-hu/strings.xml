@@ -60,6 +60,8 @@
     <string name="full">Teljes</string>
     <string name="battery_state_charging">Töltés %1$d%%</string>
     <string name="battery_state_discharging">Merül %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Töltés, ismeretlen szint</string>
+    <string name="battery_state_level_unknown_discharging">Merül, ismeretlen szint</string>
     <string name="battery_at_percent">Az akkumulátor töltöttsége %1$d%% – érdemes leválasztani.</string>
     <string name="charge_limit_reached">A töltési határ elérve</string>
     <string name="temperature_high">%1$d °C – hűtse le az eszközt.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA átlag</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Ismeretlen szint • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s óra</string>
     <string name="data_export_import">Adatok exportálása és importálása</string>

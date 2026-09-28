@@ -60,6 +60,8 @@
     <string name="full">Đầy</string>
     <string name="battery_state_charging">Đang sạc %1$d%%</string>
     <string name="battery_state_discharging">Đang phóng điện %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Đang sạc, mức không rõ</string>
+    <string name="battery_state_level_unknown_discharging">Đang phóng điện, mức không rõ</string>
     <string name="battery_at_percent">Pin còn %1$d%% — nên tháo sạc.</string>
     <string name="charge_limit_reached">Đã đạt giới hạn sạc</string>
     <string name="temperature_high">%1$d °C — hãy để thiết bị nguội.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA trung bình</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Mức không rõ • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s giờ</string>
     <string name="data_export_import">Xuất/nhập dữ liệu</string>

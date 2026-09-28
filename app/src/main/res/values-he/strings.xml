@@ -60,6 +60,8 @@
     <string name="full">מלאה</string>
     <string name="battery_state_charging">בטעינה %1$d%%</string>
     <string name="battery_state_discharging">בפריקה %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">בטעינה, רמה לא ידועה</string>
+    <string name="battery_state_level_unknown_discharging">בפריקה, רמה לא ידועה</string>
     <string name="battery_at_percent">הסוללה ב־%1$d%% — כדאי לנתק את המטען.</string>
     <string name="charge_limit_reached">הוגע למגבלת הטעינה</string>
     <string name="temperature_high">%1$d °C — תנו למכשיר להתקרר.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">ממוצע ~%1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">רמה לא ידועה • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s שעות</string>
     <string name="data_export_import">ייצוא/ייבוא נתונים</string>

@@ -60,6 +60,8 @@
     <string name="full">Полный заряд</string>
     <string name="battery_state_charging">Заряжается %1$d%%</string>
     <string name="battery_state_discharging">Разряжается %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Заряжается, уровень заряда неизвестен</string>
+    <string name="battery_state_level_unknown_discharging">Разряжается, уровень заряда неизвестен</string>
     <string name="battery_at_percent">Заряд %1$d%% — стоит отключить зарядку.</string>
     <string name="charge_limit_reached">Достигнут предел заряда</string>
     <string name="temperature_high">%1$d °C — дайте устройству остыть.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s мАч</string>
     <string name="average_current_ma">~%1$s мА в среднем</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Уровень заряда неизвестен • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s ч</string>
     <string name="data_export_import">Экспорт и импорт данных</string>

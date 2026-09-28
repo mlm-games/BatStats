@@ -60,6 +60,8 @@
     <string name="full">Vol</string>
     <string name="battery_state_charging">Ladend %1$d%%</string>
     <string name="battery_state_discharging">Ontladend %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Ladend, niveau onbekend</string>
+    <string name="battery_state_level_unknown_discharging">Ontladen, niveau onbekend</string>
     <string name="battery_at_percent">Accu op %1$d%% — overweeg om los te koppelen.</string>
     <string name="charge_limit_reached">Laadlimiet bereikt</string>
     <string name="temperature_high">%1$d °C — laat het apparaat afkoelen.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">gem. ~%1$s mA</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Niveau onbekend • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s uur</string>
     <string name="data_export_import">Gegevens exporteren/importeren</string>

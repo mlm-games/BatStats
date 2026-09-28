@@ -60,6 +60,8 @@
     <string name="full">Πλήρης</string>
     <string name="battery_state_charging">Φορτίζει %1$d%%</string>
     <string name="battery_state_discharging">Εκφορτίζεται %1$d%%</string>
+    <string name="battery_state_level_unknown_charging">Φορτίζει, επίπεδο άγνωστο</string>
+    <string name="battery_state_level_unknown_discharging">Εκφορτίζεται, επίπεδο άγνωστο</string>
     <string name="battery_at_percent">Μπαταρία στο %1$d%% — σκεφτείτε να την αποσυνδέσετε.</string>
     <string name="charge_limit_reached">Συμπληρώθηκε το όριο φόρτισης</string>
     <string name="temperature_high">%1$d °C — αφήστε τη συσκευή να κρυώσει.</string>
@@ -124,6 +126,7 @@
     <string name="mah_approx">~%1$s mAh</string>
     <string name="average_current_ma">~%1$s mA μέσο όρο</string>
     <string name="battery_level">%1$d%% • %2$s</string>
+    <string name="battery_level_unknown">Επίπεδο άγνωστο • %1$s</string>
     <string name="battery_percent">%1$d%%</string>
     <string name="hours_value">%1$s ώρες</string>
     <string name="data_export_import">Εξαγωγή/εισαγωγή δεδομένων</string>

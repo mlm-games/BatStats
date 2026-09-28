@@ -1,6 +1,5 @@
 package app.batstats.settings
 
-import app.batstats.R
 import io.github.mlmgames.settings.core.annotations.CategoryDefinition
 import io.github.mlmgames.settings.core.annotations.NoReset
 import io.github.mlmgames.settings.core.annotations.Persisted
@@ -15,7 +14,7 @@ data class AppSettings(
     // GENERAL
     @Setting(
         title = "Auto-start Monitoring",
-        titleRes = R.string.auto_start_monitoring,
+        titleKey = BatStatsSettingsKeys.AUTO_START_MONITORING,
         category = General::class,
         type = Toggle::class,
         key = "auto_start_on_boot"
@@ -24,18 +23,18 @@ data class AppSettings(
 
     @Setting(
         title = "Monitoring Interval",
-        titleRes = R.string.monitoring_interval,
+        titleKey = BatStatsSettingsKeys.MONITORING_INTERVAL,
         category = General::class,
         type = Dropdown::class,
         options = ["5 seconds", "10 seconds", "30 seconds", "1 minute", "5 minutes"],
-        optionsRes = R.array.monitoring_interval_options,
+        optionsKey = BatStatsSettingsKeys.MONITORING_INTERVAL_OPTIONS,
         key = "monitoring_interval_index"
     )
     val monitoringIntervalIndex: Int = 2,
 
     @Setting(
         title = "Show Persistent Notification",
-        titleRes = R.string.show_persistent_notification,
+        titleKey = BatStatsSettingsKeys.SHOW_PERSISTENT_NOTIFICATION,
         category = General::class,
         type = Toggle::class,
         key = "show_notification"
@@ -44,9 +43,9 @@ data class AppSettings(
 
     @Setting(
         title = "Show Drain Stats Notification",
-        titleRes = R.string.show_drain_notification,
+        titleKey = BatStatsSettingsKeys.SHOW_DRAIN_NOTIFICATION,
         description = "Show detailed drain statistics in notification (requires Shizuku, Root or ADB)",
-        descriptionRes = R.string.show_drain_notification_desc,
+        descriptionKey = BatStatsSettingsKeys.SHOW_DRAIN_NOTIFICATION_DESCRIPTION,
         category = General::class,
         type = Toggle::class,
         key = "show_drain_notification"
@@ -55,11 +54,11 @@ data class AppSettings(
 
     @Setting(
         title = "Notification Style",
-        titleRes = R.string.notification_style,
+        titleKey = BatStatsSettingsKeys.NOTIFICATION_STYLE,
         category = General::class,
         type = Dropdown::class,
         options = ["Minimal", "Compact", "Detailed"],
-        optionsRes = R.array.notification_style_options,
+        optionsKey = BatStatsSettingsKeys.NOTIFICATION_STYLE_OPTIONS,
         dependsOn = "showNotification",
         key = "notification_style_index"
     )
@@ -67,7 +66,7 @@ data class AppSettings(
 
     @Setting(
         title = "Track Foreground Apps",
-        titleRes = R.string.track_foreground_apps,
+        titleKey = BatStatsSettingsKeys.TRACK_FOREGROUND_APPS,
         category = General::class,
         type = Toggle::class,
         key = "track_foreground_apps"
@@ -76,13 +75,13 @@ data class AppSettings(
 
     @Setting(
         title = "Detailed Stats Interval",
-        titleRes = R.string.detailed_stats_interval,
+        titleKey = BatStatsSettingsKeys.DETAILED_STATS_INTERVAL,
         description = "How often to collect detailed battery stats via Shizuku/Root/ADB.",
-        descriptionRes = R.string.detailed_stats_interval_desc,
+        descriptionKey = BatStatsSettingsKeys.DETAILED_STATS_INTERVAL_DESCRIPTION,
         category = General::class,
         type = Dropdown::class, // Timepicker might be better later (but does not store in secs)
         options = ["1 minute", "5 minutes", "15 minutes", "30 minutes"],
-        optionsRes = R.array.detailed_stats_interval_options,
+        optionsKey = BatStatsSettingsKeys.DETAILED_STATS_INTERVAL_OPTIONS,
         key = "detailed_stats_interval_index"
     )
     val detailedStatsIntervalIndex: Int = 1,
@@ -90,7 +89,7 @@ data class AppSettings(
     // NOTIFICATIONS & ALARMS
     @Setting(
         title = "Low Battery Alert",
-        titleRes = R.string.low_battery_alert,
+        titleKey = BatStatsSettingsKeys.LOW_BATTERY_ALERT,
         category = Notifications::class,
         type = Toggle::class,
         key = "low_battery_alert_enabled"
@@ -99,7 +98,7 @@ data class AppSettings(
 
     @Setting(
         title = "Low Battery Threshold",
-        titleRes = R.string.low_battery_threshold,
+        titleKey = BatStatsSettingsKeys.LOW_BATTERY_THRESHOLD,
         category = Notifications::class,
         type = Slider::class,
         min = 5f, max = 50f, step = 5f,
@@ -110,9 +109,9 @@ data class AppSettings(
 
     @Setting(
         title = "High Battery Alert",
-        titleRes = R.string.high_battery_alert,
+        titleKey = BatStatsSettingsKeys.HIGH_BATTERY_ALERT,
         description = "Notify when charging reaches threshold",
-        descriptionRes = R.string.high_battery_alert_desc,
+        descriptionKey = BatStatsSettingsKeys.HIGH_BATTERY_ALERT_DESCRIPTION,
         category = Notifications::class,
         type = Toggle::class,
         key = "high_battery_alert_enabled"
@@ -121,7 +120,7 @@ data class AppSettings(
 
     @Setting(
         title = "High Battery Threshold",
-        titleRes = R.string.high_battery_threshold,
+        titleKey = BatStatsSettingsKeys.HIGH_BATTERY_THRESHOLD,
         category = Notifications::class,
         type = Slider::class,
         min = 50f, max = 100f, step = 5f,
@@ -132,7 +131,7 @@ data class AppSettings(
 
     @Setting(
         title = "Temperature Warning",
-        titleRes = R.string.temperature_warning,
+        titleKey = BatStatsSettingsKeys.TEMPERATURE_WARNING,
         category = Notifications::class,
         type = Toggle::class,
         key = "temperature_warning_enabled"
@@ -141,9 +140,9 @@ data class AppSettings(
 
     @Setting(
         title = "Temperature Threshold",
-        titleRes = R.string.temperature_threshold,
+        titleKey = BatStatsSettingsKeys.TEMPERATURE_THRESHOLD,
         description = "Warning temperature in Celsius",
-        descriptionRes = R.string.temperature_threshold_desc,
+        descriptionKey = BatStatsSettingsKeys.TEMPERATURE_THRESHOLD_DESCRIPTION,
         category = Notifications::class,
         type = Slider::class,
         min = 35f, max = 55f, step = 1f,
@@ -154,7 +153,7 @@ data class AppSettings(
 
     @Setting(
         title = "High Discharge Alert",
-        titleRes = R.string.high_discharge_alert,
+        titleKey = BatStatsSettingsKeys.HIGH_DISCHARGE_ALERT,
         category = Notifications::class,
         type = Toggle::class,
         key = "discharge_alert_enabled"
@@ -163,9 +162,9 @@ data class AppSettings(
 
     @Setting(
         title = "Discharge Threshold",
-        titleRes = R.string.discharge_threshold,
+        titleKey = BatStatsSettingsKeys.DISCHARGE_THRESHOLD,
         description = "Alert when discharge exceeds this (mA)",
-        descriptionRes = R.string.discharge_threshold_desc,
+        descriptionKey = BatStatsSettingsKeys.DISCHARGE_THRESHOLD_DESCRIPTION,
         category = Notifications::class,
         type = Slider::class,
         min = 200f, max = 2000f, step = 50f,
@@ -176,7 +175,7 @@ data class AppSettings(
 
     @Setting(
         title = "Charging Complete Alert",
-        titleRes = R.string.charging_complete_alert,
+        titleKey = BatStatsSettingsKeys.CHARGING_COMPLETE_ALERT,
         category = Notifications::class,
         type = Toggle::class,
         key = "charging_complete_alert"
@@ -185,7 +184,7 @@ data class AppSettings(
 
     @Setting(
         title = "Alert Sound",
-        titleRes = R.string.alert_sound,
+        titleKey = BatStatsSettingsKeys.ALERT_SOUND,
         category = Notifications::class,
         type = Toggle::class,
         key = "alert_sound_enabled"
@@ -194,7 +193,7 @@ data class AppSettings(
 
     @Setting(
         title = "Alert Vibration",
-        titleRes = R.string.alert_vibration,
+        titleKey = BatStatsSettingsKeys.ALERT_VIBRATION,
         category = Notifications::class,
         type = Toggle::class,
         key = "alert_vibration_enabled"
@@ -204,18 +203,18 @@ data class AppSettings(
     // DISPLAY
     @Setting(
         title = "Theme",
-        titleRes = R.string.theme,
+        titleKey = BatStatsSettingsKeys.THEME,
         category = Display::class,
         type = Dropdown::class,
         options = ["System Default", "Light", "Dark"],
-        optionsRes = R.array.theme_options,
+        optionsKey = BatStatsSettingsKeys.THEME_OPTIONS,
         key = "theme_index"
     )
     val themeIndex: Int = 0,
 
     @Setting(
         title = "Dynamic Colors",
-        titleRes = R.string.dynamic_colors,
+        titleKey = BatStatsSettingsKeys.DYNAMIC_COLORS,
         category = Display::class,
         type = Toggle::class,
         key = "dynamic_colors"
@@ -224,7 +223,7 @@ data class AppSettings(
 
     @Setting(
         title = "Pure black (OLED)",
-        titleRes = R.string.pure_black_oled,
+        titleKey = BatStatsSettingsKeys.PURE_BLACK_OLED,
         category = Display::class,
         type = Toggle::class,
         key = "oled_black"
@@ -233,18 +232,18 @@ data class AppSettings(
 
     @Setting(
         title = "Chart Time Range",
-        titleRes = R.string.chart_time_range,
+        titleKey = BatStatsSettingsKeys.CHART_TIME_RANGE,
         category = Display::class,
         type = Dropdown::class,
         options = ["15 minutes", "1 hour", "6 hours", "24 hours", "7 days"],
-        optionsRes = R.array.chart_time_range_options,
+        optionsKey = BatStatsSettingsKeys.CHART_TIME_RANGE_OPTIONS,
         key = "chart_time_range_index"
     )
     val chartTimeRangeIndex: Int = 1,
 
     @Setting(
         title = "Show Current in mA",
-        titleRes = R.string.show_current_ma,
+        titleKey = BatStatsSettingsKeys.SHOW_CURRENT_MA,
         category = Display::class,
         type = Toggle::class,
         key = "show_current_in_ma"
@@ -253,18 +252,18 @@ data class AppSettings(
 
     @Setting(
         title = "Temperature Unit",
-        titleRes = R.string.temperature_unit,
+        titleKey = BatStatsSettingsKeys.TEMPERATURE_UNIT,
         category = Display::class,
         type = Dropdown::class,
         options = ["Celsius", "Fahrenheit"],
-        optionsRes = R.array.temperature_unit_options,
+        optionsKey = BatStatsSettingsKeys.TEMPERATURE_UNIT_OPTIONS,
         key = "temperature_unit_index"
     )
     val temperatureUnitIndex: Int = 0,
 
     @Setting(
         title = "Compact Stats View",
-        titleRes = R.string.compact_stats_view,
+        titleKey = BatStatsSettingsKeys.COMPACT_STATS_VIEW,
         category = Display::class,
         type = Toggle::class,
         key = "compact_stats_view"
@@ -274,18 +273,18 @@ data class AppSettings(
     // DATA
     @Setting(
         title = "Data Retention",
-        titleRes = R.string.data_retention,
+        titleKey = BatStatsSettingsKeys.DATA_RETENTION,
         category = Data::class,
         type = Dropdown::class,
         options = ["1 week", "1 month", "3 months", "6 months", "1 year", "Forever"],
-        optionsRes = R.array.data_retention_options,
+        optionsKey = BatStatsSettingsKeys.DATA_RETENTION_OPTIONS,
         key = "data_retention_index"
     )
     val dataRetentionIndex: Int = 2,
 
     @Setting(
         title = "Auto-cleanup Old Data",
-        titleRes = R.string.auto_cleanup,
+        titleKey = BatStatsSettingsKeys.AUTO_CLEANUP,
         category = Data::class,
         type = Toggle::class,
         key = "auto_cleanup_enabled"
@@ -294,7 +293,7 @@ data class AppSettings(
 
     @Setting(
         title = "Export Format",
-        titleRes = R.string.export_format,
+        titleKey = BatStatsSettingsKeys.EXPORT_FORMAT,
         category = Data::class,
         type = Dropdown::class,
         options = ["CSV", "JSON"],
@@ -304,7 +303,7 @@ data class AppSettings(
 
     @Setting(
         title = "Include Raw Samples",
-        titleRes = R.string.include_raw_samples,
+        titleKey = BatStatsSettingsKeys.INCLUDE_RAW_SAMPLES,
         category = Data::class,
         type = Toggle::class,
         key = "export_include_raw_samples"
@@ -338,14 +337,14 @@ val AppSettings.detailedStatsIntervalMs: Long
     }
 
 
-@CategoryDefinition(order = 0, titleRes = R.string.category_general)
+@CategoryDefinition(order = 0, titleKey = BatStatsSettingsKeys.CATEGORY_GENERAL)
 object General
 
-@CategoryDefinition(order = 1, titleRes = R.string.category_notifications)
+@CategoryDefinition(order = 1, titleKey = BatStatsSettingsKeys.CATEGORY_NOTIFICATIONS)
 object Notifications
 
-@CategoryDefinition(order = 2, titleRes = R.string.category_display)
+@CategoryDefinition(order = 2, titleKey = BatStatsSettingsKeys.CATEGORY_DISPLAY)
 object Display
 
-@CategoryDefinition(order = 3, titleRes = R.string.category_data)
+@CategoryDefinition(order = 3, titleKey = BatStatsSettingsKeys.CATEGORY_DATA)
 object Data

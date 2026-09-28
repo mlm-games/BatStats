@@ -12,6 +12,7 @@ import app.batstats.battery.util.DetailedStatsCollector
 import app.batstats.battery.util.ShellRunner
 import app.batstats.settings.AppSettings
 import app.batstats.settings.AppSettingsSchema
+import app.batstats.settings.batStatsStringResourceProvider
 import app.batstats.viewmodel.DashboardViewModel
 import app.batstats.viewmodel.DataViewModel
 import app.batstats.viewmodel.DetailedStatsViewModel
@@ -25,7 +26,6 @@ import io.github.mlmgames.settings.core.backup.SettingsBackupManager
 import io.github.mlmgames.settings.core.datastore.createSettingsDataStore
 import io.github.mlmgames.settings.core.managers.MigrationManager
 import io.github.mlmgames.settings.core.managers.ResetManager
-import io.github.mlmgames.settings.core.resources.AndroidStringResourceProvider
 import io.github.mlmgames.settings.core.resources.StringResourceProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -51,7 +51,7 @@ val appModule = module {
         SettingsRepository(dataStore = get(), schema = AppSettingsSchema)
     }
 
-    single<StringResourceProvider> { AndroidStringResourceProvider(androidContext()) }
+    single<StringResourceProvider> { batStatsStringResourceProvider(androidContext()) }
     single { ResetManager(get(), AppSettingsSchema) }
     single {
         MigrationManager(dataStore = get(), currentVersion = SCHEMA_VERSION).apply {

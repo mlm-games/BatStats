@@ -138,8 +138,18 @@ class BatteryRepository(
         }
     }
 
+    private fun currentLevelPercent(): Int? {
+        val level = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        if (level in 0..100) return level
+
+        val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val raw = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
+        val scale = intent?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
+        return if (raw >= 0 && scale > 0) (raw * 100) / scale else null
+    }
+
     suspend fun startSession(type: SessionType) {
-        val startLevel = _realtime.value.level ?: batteryDao.lastSample()?.levelPercent ?: return
+        val startLevel = currentLevelPercent() ?: batteryDao.lastSample()?.levelPercent ?: return
         val session = ChargeSession(
             sessionId = java.util.UUID.randomUUID().toString(),
             type = type,

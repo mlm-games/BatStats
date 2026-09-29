@@ -226,13 +226,9 @@ fun BatterySettingsScreen(
         val meta = cf.meta!!
         @Suppress("UNCHECKED_CAST")
         val anyField = cf as SettingField<AppSettings, Any?>
-        val index = when (val value = anyField.get(settings)) {
-            is Int -> value
-            is Enum<*> -> value.ordinal
-            else -> 0
-        }
+        val index = anyField.toUiDropdownIndex(settings) ?: 0
 
-        val options = meta.resolvedOptions(stringProvider)
+        val options = meta.dropdownLabels(cf, stringProvider)
         if (options.isNotEmpty()) {
             DropdownSettingDialog(
                 title = meta.resolvedTitle(stringProvider),
@@ -240,7 +236,7 @@ fun BatterySettingsScreen(
                 selectedIndex = index,
                 onDismiss = { showDropdown = false },
                 onOptionSelected = { idx ->
-                    vm.updateSetting(cf.name, idx)
+                    anyField.fromUiDropdownIndex(idx)?.let { vm.updateSetting(cf.name, it) }
                     showDropdown = false
                 }
             )
@@ -424,8 +420,8 @@ private fun RenderSettingField(
         Dropdown::class -> {
             @Suppress("UNCHECKED_CAST")
             val anyField = field as SettingField<AppSettings, Any?>
-            val index = when (val value = anyField.get(settings)) { is Int -> value; is Enum<*> -> value.ordinal; else -> 0 }
-            val options = meta.resolvedOptions(stringProvider)
+            val index = anyField.toUiDropdownIndex(settings) ?: 0
+            val options = meta.dropdownLabels(field, stringProvider)
             if (options.isNotEmpty()) {
                 SettingsItem(
                     title = title,

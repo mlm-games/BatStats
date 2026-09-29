@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Alla inställningar återställda</string>
     <string name="auto_start_monitoring">Starta övervakning automatiskt</string>
     <string name="monitoring_interval">Övervakningsintervall</string>
-    <string name="show_persistent_notification">Visa beständig avisering</string>
     <string name="show_drain_notification">Visa förbrukning avisering</string>
     <string name="show_drain_notification_desc">Visa detaljerad förbrukningstatistik i aviseringen (kräver Shizuku, Root eller ADB)</string>
-    <string name="notification_style">Aviseringsstil</string>
     <string name="track_foreground_apps">Spåra appar i förgrunden</string>
     <string name="detailed_stats_interval">Intervall för detaljerad statistik</string>
     <string name="detailed_stats_interval_desc">Hur ofta detaljerad batteristatistik ska samlas in via Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>30 sekunder</item>
         <item>1 minut</item>
         <item>5 minuter</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimal</item>
-        <item>Kompakt</item>
-        <item>Detaljerad</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minut</item>

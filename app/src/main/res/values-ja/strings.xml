@@ -176,10 +176,8 @@
     <string name="all_settings_reset">すべての設定をリセットしました</string>
     <string name="auto_start_monitoring">監視を自動開始</string>
     <string name="monitoring_interval">監視間隔</string>
-    <string name="show_persistent_notification">常駐通知を表示</string>
     <string name="show_drain_notification">消費統計の通知を表示</string>
     <string name="show_drain_notification_desc">通知に詳細な消費統計を表示します（Shizuku、Root または ADB が必要です）</string>
-    <string name="notification_style">通知スタイル</string>
     <string name="track_foreground_apps">フォアグラウンドのアプリを記録</string>
     <string name="detailed_stats_interval">詳細統計の間隔</string>
     <string name="detailed_stats_interval_desc">Shizuku/Root/ADB を通じて詳細なバッテリー統計を収集する頻度です。</string>
@@ -416,11 +414,6 @@
         <item>30 秒</item>
         <item>1 分</item>
         <item>5 分</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>最小限</item>
-        <item>コンパクト</item>
-        <item>詳細</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 分</item>

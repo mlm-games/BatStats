@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Đã đặt lại mọi cài đặt</string>
     <string name="auto_start_monitoring">Tự động bắt đầu giám sát</string>
     <string name="monitoring_interval">Khoảng giám sát</string>
-    <string name="show_persistent_notification">Hiện thông báo thường trực</string>
     <string name="show_drain_notification">Hiện thông báo tiêu thụ</string>
     <string name="show_drain_notification_desc">Hiện thống kê tiêu thụ chi tiết trong thông báo (cần Shizuku, Root hoặc ADB)</string>
-    <string name="notification_style">Kiểu thông báo</string>
     <string name="track_foreground_apps">Theo dõi ứng dụng nền</string>
     <string name="detailed_stats_interval">Khoảng thống kê chi tiết</string>
     <string name="detailed_stats_interval_desc">Tần suất thu thập thống kê pin chi tiết qua Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>30 giây</item>
         <item>1 phút</item>
         <item>5 phút</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Tối giản</item>
-        <item>Gọn</item>
-        <item>Chi tiết</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 phút</item>

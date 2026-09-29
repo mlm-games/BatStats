@@ -35,13 +35,24 @@ data class AppSettings(
     val monitoringIntervalIndex: Int = 2,
 
     @Setting(
-        title = "Show Persistent Notification",
-        titleKey = BatStatsSettingsKeys.SHOW_PERSISTENT_NOTIFICATION,
+        title = "When Screen Is Off",
+        titleKey = BatStatsSettingsKeys.SCREEN_OFF_SAMPLING,
+        category = General::class,
+        type = Dropdown::class,
+        options = ["Follow interval", "Slow (5 minutes)", "Pause"],
+        optionsKey = BatStatsSettingsKeys.SCREEN_OFF_SAMPLING_OPTIONS,
+        key = "screen_off_sampling_index"
+    )
+    val screenOffSamplingIndex: Int = 0,
+
+    @Setting(
+        title = "Update Widgets",
+        titleKey = BatStatsSettingsKeys.UPDATE_WIDGETS,
         category = General::class,
         type = Toggle::class,
-        key = "show_notification"
+        key = "update_widgets"
     )
-    val showNotification: Boolean = true,
+    val updateWidgets: Boolean = true,
 
     @Setting(
         title = "Show Drain Stats Notification",
@@ -53,18 +64,6 @@ data class AppSettings(
         key = "show_drain_notification"
     )
     val showDrainNotification: Boolean = false,
-
-    @Setting(
-        title = "Notification Style",
-        titleKey = BatStatsSettingsKeys.NOTIFICATION_STYLE,
-        category = General::class,
-        type = Dropdown::class,
-        options = ["Minimal", "Compact", "Detailed"],
-        optionsKey = BatStatsSettingsKeys.NOTIFICATION_STYLE_OPTIONS,
-        dependsOn = "showNotification",
-        key = "notification_style_index"
-    )
-    val notificationStyleIndex: Int = 1,
 
     @Setting(
         title = "Track Foreground Apps",
@@ -342,6 +341,27 @@ val AppSettings.chartTimeRangeMs: Long
     }
 
 val AppSettings.useFahrenheit: Boolean get() = temperatureUnitIndex == 1
+
+enum class ScreenOffMode { FOLLOW, SLOW, PAUSE }
+
+val AppSettings.screenOffMode: ScreenOffMode
+    get() = when (screenOffSamplingIndex) {
+        1 -> ScreenOffMode.SLOW
+        2 -> ScreenOffMode.PAUSE
+        else -> ScreenOffMode.FOLLOW
+    }
+
+private const val DAY_MS = 24 * 60 * 60 * 1000L
+
+val AppSettings.dataRetentionMs: Long?
+    get() = when (dataRetentionIndex) {
+        0 -> 7 * DAY_MS
+        1 -> 30 * DAY_MS
+        2 -> 90 * DAY_MS
+        3 -> 180 * DAY_MS
+        4 -> 365 * DAY_MS
+        else -> null
+    }
 
 val AppSettings.detailedStatsIntervalMs: Long
     get() = when (detailedStatsIntervalIndex) {

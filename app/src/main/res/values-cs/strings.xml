@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Všechna nastavení byla obnovena</string>
     <string name="auto_start_monitoring">Automaticky spouštět sledování</string>
     <string name="monitoring_interval">Interval sledování</string>
-    <string name="show_persistent_notification">Zobrazovat trvalé oznámení</string>
     <string name="show_drain_notification">Zobrazovat oznámení o spotřebě</string>
     <string name="show_drain_notification_desc">Zobrazovat podrobné statistiky spotřeby v oznámení (vyžaduje Shizuku, Root nebo ADB)</string>
-    <string name="notification_style">Styl oznámení</string>
     <string name="track_foreground_apps">Sledovat aplikace v popředí</string>
     <string name="detailed_stats_interval">Interval podrobných statistik</string>
     <string name="detailed_stats_interval_desc">Jak často sbírat podrobné statistiky baterie přes Shizuku/Root/ADB.</string>
@@ -436,11 +434,6 @@
         <item>30 sekund</item>
         <item>1 minuta</item>
         <item>5 minut</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimální</item>
-        <item>Kompaktní</item>
-        <item>Podrobný</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuta</item>

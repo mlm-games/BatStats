@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Alle instellingen hersteld</string>
     <string name="auto_start_monitoring">Bewaking automatisch starten</string>
     <string name="monitoring_interval">Bewakingsinterval</string>
-    <string name="show_persistent_notification">Persistenter melding tonen</string>
     <string name="show_drain_notification">Verbruiksmelding tonen</string>
     <string name="show_drain_notification_desc">Toon gedetailleerde verbruiksstatistieken in de melding (vereist Shizuku, Root of ADB)</string>
-    <string name="notification_style">Meldingsstijl</string>
     <string name="track_foreground_apps">Apps op de voorgrond volgen</string>
     <string name="detailed_stats_interval">Interval voor gedetailleerde statistieken</string>
     <string name="detailed_stats_interval_desc">Hoe vaak gedetailleerde accustatistieken worden opgehaald via Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>30 seconden</item>
         <item>1 minuut</item>
         <item>5 minuten</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimaal</item>
-        <item>Compact</item>
-        <item>Gedetailleerd</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuut</item>

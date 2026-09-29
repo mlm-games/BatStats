@@ -37,6 +37,9 @@ interface SessionDao {
 
     @Query("UPDATE charge_sessions SET endTime=:end, endLevel=:endLevel, deltaUah=:delta, avgCurrentUa=:avg, estCapacityMah=:cap WHERE sessionId=:id")
     suspend fun complete(id: String, end: Long, endLevel: Int?, delta: Long?, avg: Long?, cap: Int?)
+
+    @Query("DELETE FROM charge_sessions WHERE endTime IS NOT NULL AND startTime < :olderThan")
+    suspend fun purgeCompletedBefore(olderThan: Long)
 }
 
 @Dao

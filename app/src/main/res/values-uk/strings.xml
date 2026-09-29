@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Усі налаштування скинуто</string>
     <string name="auto_start_monitoring">Автоматично запускати спостереження</string>
     <string name="monitoring_interval">Інтервал спостереження</string>
-    <string name="show_persistent_notification">Показувати постійне сповіщення</string>
     <string name="show_drain_notification">Показувати сповіщення про витрати</string>
     <string name="show_drain_notification_desc">Показувати детальну статистику витрат у сповіщенні (потрібні Shizuku, Root або ADB)</string>
-    <string name="notification_style">Стиль сповіщень</string>
     <string name="track_foreground_apps">Відстежувати застосунки на передньому плані</string>
     <string name="detailed_stats_interval">Інтервал детальної статистики</string>
     <string name="detailed_stats_interval_desc">Як часто збирати детальну статистику батареї через Shizuku/Root/ADB.</string>
@@ -436,11 +434,6 @@
         <item>30 секунд</item>
         <item>1 хвилина</item>
         <item>5 хвилин</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Мінімальний</item>
-        <item>Компактний</item>
-        <item>Детальний</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 хвилина</item>

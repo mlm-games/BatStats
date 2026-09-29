@@ -18,11 +18,11 @@ object BatStatsSettingsKeys {
 
     const val AUTO_START_MONITORING = "batstats.settings.auto_start_monitoring"
     const val MONITORING_INTERVAL = "batstats.settings.monitoring_interval"
-    const val SHOW_PERSISTENT_NOTIFICATION = "batstats.settings.show_persistent_notification"
+    const val SCREEN_OFF_SAMPLING = "batstats.settings.screen_off_sampling"
+    const val UPDATE_WIDGETS = "batstats.settings.update_widgets"
     const val SHOW_DRAIN_NOTIFICATION = "batstats.settings.show_drain_notification"
     const val SHOW_DRAIN_NOTIFICATION_DESCRIPTION =
         "batstats.settings.show_drain_notification.description"
-    const val NOTIFICATION_STYLE = "batstats.settings.notification_style"
     const val TRACK_FOREGROUND_APPS = "batstats.settings.track_foreground_apps"
     const val DETAILED_STATS_INTERVAL = "batstats.settings.detailed_stats_interval"
     const val DETAILED_STATS_INTERVAL_DESCRIPTION =
@@ -60,7 +60,7 @@ object BatStatsSettingsKeys {
     const val INCLUDE_RAW_SAMPLES = "batstats.settings.include_raw_samples"
 
     const val MONITORING_INTERVAL_OPTIONS = "batstats.settings.monitoring_interval.options"
-    const val NOTIFICATION_STYLE_OPTIONS = "batstats.settings.notification_style.options"
+    const val SCREEN_OFF_SAMPLING_OPTIONS = "batstats.settings.screen_off_sampling.options"
     const val DETAILED_STATS_INTERVAL_OPTIONS =
         "batstats.settings.detailed_stats_interval.options"
     const val THEME_OPTIONS = "batstats.settings.theme.options"

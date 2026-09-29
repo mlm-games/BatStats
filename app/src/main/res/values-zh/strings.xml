@@ -176,10 +176,8 @@
     <string name="all_settings_reset">所有设置已重置</string>
     <string name="auto_start_monitoring">自动启动监测</string>
     <string name="monitoring_interval">监测间隔</string>
-    <string name="show_persistent_notification">显示常驻通知</string>
     <string name="show_drain_notification">显示耗电通知</string>
     <string name="show_drain_notification_desc">在通知中显示详细的耗电统计（需要 Shizuku、Root 或 ADB）</string>
-    <string name="notification_style">通知样式</string>
     <string name="track_foreground_apps">追踪前台应用</string>
     <string name="detailed_stats_interval">详细统计间隔</string>
     <string name="detailed_stats_interval_desc">通过 Shizuku/Root/ADB 采集详细电池统计的频率。</string>
@@ -416,11 +414,6 @@
         <item>30 秒</item>
         <item>1 分钟</item>
         <item>5 分钟</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>极简</item>
-        <item>紧凑</item>
-        <item>详细</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 分钟</item>

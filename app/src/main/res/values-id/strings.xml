@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Semua pengaturan telah diatur ulang</string>
     <string name="auto_start_monitoring">Mulai pemantauan otomatis</string>
     <string name="monitoring_interval">Interval pemantauan</string>
-    <string name="show_persistent_notification">Tampilkan notifikasi permanen</string>
     <string name="show_drain_notification">Tampilkan notifikasi konsumsi</string>
     <string name="show_drain_notification_desc">Tampilkan statistik konsumsi terperinci di notifikasi (memerlukan Shizuku, Root, atau ADB)</string>
-    <string name="notification_style">Gaya notifikasi</string>
     <string name="track_foreground_apps">Lacak aplikasi di latar depan</string>
     <string name="detailed_stats_interval">Interval statistik terperinci</string>
     <string name="detailed_stats_interval_desc">Seberapa sering statistik baterai terperinci dikumpulkan melalui Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>30 detik</item>
         <item>1 menit</item>
         <item>5 menit</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimal</item>
-        <item>Ringkas</item>
-        <item>Rinci</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 menit</item>

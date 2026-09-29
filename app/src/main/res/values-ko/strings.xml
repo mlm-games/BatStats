@@ -176,10 +176,8 @@
     <string name="all_settings_reset">모든 설정을 초기화했습니다</string>
     <string name="auto_start_monitoring">모니터링 자동 시작</string>
     <string name="monitoring_interval">모니터링 간격</string>
-    <string name="show_persistent_notification">지속 알림 표시</string>
     <string name="show_drain_notification">소비 알림 표시</string>
     <string name="show_drain_notification_desc">알림에 상세 소비 통계를 표시합니다(Shizuku, Root 또는 ADB 필요)</string>
-    <string name="notification_style">알림 스타일</string>
     <string name="track_foreground_apps">포그라운드 앱 추적</string>
     <string name="detailed_stats_interval">상세 통계 간격</string>
     <string name="detailed_stats_interval_desc">Shizuku/Root/ADB를 통해 상세 배터리 통계를 수집하는 주기입니다.</string>
@@ -416,11 +414,6 @@
         <item>30초</item>
         <item>1분</item>
         <item>5분</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>최소</item>
-        <item>간결</item>
-        <item>상세</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1분</item>

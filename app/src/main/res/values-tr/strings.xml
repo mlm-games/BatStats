@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Tüm ayarlar sıfırlandı</string>
     <string name="auto_start_monitoring">İzlemeyi otomatik başlat</string>
     <string name="monitoring_interval">İzleme aralığı</string>
-    <string name="show_persistent_notification">Kalıcı bildirim göster</string>
     <string name="show_drain_notification">Tüketim bildirimini göster</string>
     <string name="show_drain_notification_desc">Bildirimde ayrıntılı tüketim istatistiklerini göster (Shizuku, Root veya ADB gerekir)</string>
-    <string name="notification_style">Bildirim stili</string>
     <string name="track_foreground_apps">Ön plan uygulamalarını izle</string>
     <string name="detailed_stats_interval">Ayrıntılı istatistik aralığı</string>
     <string name="detailed_stats_interval_desc">Ayrıntılı pil istatistiklerinin Shizuku/Root/ADB ile ne sıklıkla toplanacağı.</string>
@@ -416,11 +414,6 @@
         <item>30 saniye</item>
         <item>1 dakika</item>
         <item>5 dakika</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Asgari</item>
-        <item>Sıkıştırılmış</item>
-        <item>Ayrıntılı</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 dakika</item>

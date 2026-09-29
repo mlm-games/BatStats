@@ -191,10 +191,10 @@
     <!-- Settings: general -->
     <string name="auto_start_monitoring">Auto-start Monitoring</string>
     <string name="monitoring_interval">Monitoring Interval</string>
-    <string name="show_persistent_notification">Show Persistent Notification</string>
+    <string name="screen_off_sampling">When Screen Is Off</string>
+    <string name="update_widgets">Update Widgets</string>
     <string name="show_drain_notification">Show Drain Stats Notification</string>
     <string name="show_drain_notification_desc">Show detailed drain statistics in notification (requires Shizuku, Root or ADB)</string>
-    <string name="notification_style">Notification Style</string>
     <string name="track_foreground_apps">Track Foreground Apps</string>
     <string name="detailed_stats_interval">Detailed Stats Interval</string>
     <string name="detailed_stats_interval_desc">How often to collect detailed battery stats via Shizuku/Root/ADB.</string>
@@ -212,6 +212,9 @@
     <string name="discharge_threshold">Discharge Threshold</string>
     <string name="discharge_threshold_desc">Alert when discharge exceeds this (mA)</string>
     <string name="charging_complete_alert">Charging Complete Alert</string>
+    <string name="charging_complete">Charging complete</string>
+    <string name="low_battery_text">Battery at %1$d%% — plug in soon.</string>
+    <string name="battery_alerts">Battery alerts</string>
     <string name="alert_sound">Alert Sound</string>
     <string name="alert_vibration">Alert Vibration</string>
     <string name="high_temperature">High Temperature Alert</string>
@@ -466,10 +469,10 @@
         <item>1 minute</item>
         <item>5 minutes</item>
     </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimal</item>
-        <item>Compact</item>
-        <item>Detailed</item>
+    <string-array name="screen_off_sampling_options">
+        <item>Follow interval</item>
+        <item>Slow (5 minutes)</item>
+        <item>Pause</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minute</item>

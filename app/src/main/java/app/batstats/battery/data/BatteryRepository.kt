@@ -9,9 +9,13 @@ import app.batstats.battery.data.db.BatteryDatabase
 import app.batstats.battery.data.db.BatterySample
 import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
+import app.batstats.battery.util.Notifier
 import app.batstats.settings.AppSettings
+import app.batstats.settings.ScreenOffMode
 import app.batstats.settings.chartTimeRangeMs
+import app.batstats.settings.dataRetentionMs
 import app.batstats.settings.monitoringIntervalMs
+import app.batstats.settings.screenOffMode
 import io.github.mlmgames.settings.core.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +27,10 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
+
+private const val SCREEN_OFF_CHECK_MS = 15_000L
+private const val SCREEN_OFF_SLOW_MS = 300_000L
+private const val CLEANUP_INTERVAL_MS = 24 * 60 * 60 * 1000L
 
 class BatteryRepository(
     private val context: Context,
@@ -43,7 +51,6 @@ class BatteryRepository(
 
     // Settings flows
     val monitoringInterval: Flow<Long> = settingsRepository.flow.map { it.monitoringIntervalMs }
-    val showNotification: Flow<Boolean> = settingsRepository.flow.map { it.showNotification }
     val lowBatteryThreshold: Flow<Int> = settingsRepository.flow.map { it.lowBatteryThreshold }
     val highBatteryThreshold: Flow<Int> = settingsRepository.flow.map { it.highBatteryThreshold }
     val temperatureThreshold: Flow<Float> = settingsRepository.flow.map { it.temperatureThreshold }
@@ -57,7 +64,15 @@ class BatteryRepository(
     val isMonitoringFlow: StateFlow<Boolean> = _isMonitoring.asStateFlow()
 
     private var samplingJob: Job? = null
+    private var settingsJob: Job? = null
     private var pendingSampleCount: Long = 0L
+
+    private var alertSettings: AppSettings? = null
+    private var lowFired = false
+    private var highFired = false
+    private var fullFired = false
+    private var tempFired = false
+    private var dischargeFired = false
 
     // Broadcast receiver for immediate system updates
     private val batteryReceiver = object : BroadcastReceiver() {
@@ -101,17 +116,26 @@ class BatteryRepository(
         // to show live current changes. We poll BatteryManager properties.
         samplingJob = scope.launch {
             settingsRepository.flow
-                .map { it.monitoringIntervalMs }
+                .map { it.monitoringIntervalMs to it.screenOffMode }
                 .distinctUntilChanged()
-                .collectLatest { intervalMs ->
+                .collectLatest { (intervalMs, screenOffMode) ->
                     while (isActive) {
+                        if (screenOffMode == ScreenOffMode.PAUSE && !isScreenOn()) {
+                            delay(SCREEN_OFF_CHECK_MS)
+                            continue
+                        }
                         val intent = context.registerReceiver(null, filter)
                         if (intent != null) {
                             processBatteryState(intent, persist = true)
                         }
-                        delay(intervalMs)
+                        val slowScreenOff = screenOffMode == ScreenOffMode.SLOW && !isScreenOn()
+                        delay(if (slowScreenOff) maxOf(intervalMs, SCREEN_OFF_SLOW_MS) else intervalMs)
                     }
                 }
+        }
+
+        settingsJob = scope.launch {
+            settingsRepository.flow.collect { alertSettings = it }
         }
     }
 
@@ -121,6 +145,8 @@ class BatteryRepository(
 
         samplingJob?.cancel()
         samplingJob = null
+        settingsJob?.cancel()
+        settingsJob = null
 
         if (pendingSampleCount > 0) {
             scope.launch {
@@ -221,6 +247,8 @@ class BatteryRepository(
             sample = sample
         )
 
+        evaluateAlerts(levelPercent, temperature, currentNow, pluggedState, status)
+
         // Persist to DB
         if (persist) {
             scope.launch {
@@ -241,6 +269,70 @@ class BatteryRepository(
     private fun isScreenOn(): Boolean {
         val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
         return pm.isInteractive
+    }
+
+    private inline fun fire(active: Boolean, reset: Boolean, fired: Boolean, onFire: () -> Unit): Boolean =
+        when {
+            reset -> false
+            active && !fired -> {
+                onFire()
+                true
+            }
+            else -> fired
+        }
+
+    private fun evaluateAlerts(level: Int?, tempDeciC: Int, currentUa: Long, plugged: Int, status: Int) {
+        val s = alertSettings ?: return
+        val sound = s.alertSoundEnabled
+        val vibrate = s.alertVibrationEnabled
+        val charging = plugged != 0
+        val currentMa = (currentUa / 1000).toInt()
+
+        val lowActive = s.lowBatteryAlertEnabled && !charging && level != null && level <= s.lowBatteryThreshold
+        lowFired = fire(lowActive, !lowActive, lowFired) {
+            level?.let { Notifier.notifyLowBattery(context, it, sound, vibrate) }
+        }
+
+        val highActive = s.highBatteryAlertEnabled && charging && level != null && level >= s.highBatteryThreshold
+        highFired = fire(highActive, !highActive, highFired) {
+            level?.let { Notifier.notifyChargeLimit(context, it, sound, vibrate) }
+        }
+
+        val fullActive = s.chargingCompleteAlert && status == BatteryManager.BATTERY_STATUS_FULL
+        fullFired = fire(fullActive, !fullActive, fullFired) {
+            Notifier.notifyChargingComplete(context, level ?: 100, sound, vibrate)
+        }
+
+        val tempC = tempDeciC / 10f
+        val tempActive = s.temperatureWarningEnabled && tempC >= s.temperatureThreshold
+        tempFired = fire(tempActive, !s.temperatureWarningEnabled || tempC < s.temperatureThreshold - 1f, tempFired) {
+            Notifier.notifyTempHigh(context, tempC.toInt(), sound, vibrate)
+        }
+
+        val drainMa = abs(currentMa)
+        val dischargeActive = s.dischargeAlertEnabled && !charging && drainMa >= s.dischargeCurrentThreshold
+        dischargeFired = fire(
+            dischargeActive,
+            !s.dischargeAlertEnabled || drainMa < s.dischargeCurrentThreshold - 100,
+            dischargeFired
+        ) {
+            Notifier.notifyDischargeHigh(context, drainMa, sound, vibrate)
+        }
+    }
+
+    suspend fun runAutoCleanup() {
+        val s = settingsRepository.flow.first()
+        if (!s.autoCleanupEnabled) return
+        val retentionMs = s.dataRetentionMs ?: return
+        val now = System.currentTimeMillis()
+        if (now - s.lastDataCleanup < CLEANUP_INTERVAL_MS) return
+        val cutoff = now - retentionMs
+        withContext(Dispatchers.IO) {
+            batteryDao.purge(cutoff)
+            db.appEnergyDao().purgeOlderThan(cutoff)
+            sessionDao.purgeCompletedBefore(cutoff)
+        }
+        settingsRepository.update { it.copy(lastDataCleanup = now) }
     }
 
     data class Realtime(

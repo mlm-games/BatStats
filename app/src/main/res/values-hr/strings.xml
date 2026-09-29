@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Sve postavke vraćene</string>
     <string name="auto_start_monitoring">Automatski pokreni nadzor</string>
     <string name="monitoring_interval">Interval nadzora</string>
-    <string name="show_persistent_notification">Prikaži trajnu obavijest</string>
     <string name="show_drain_notification">Prikaži obavijest o potrošnji</string>
     <string name="show_drain_notification_desc">Prikaži detaljnu statistiku potrošnje u obavijesti (zahtijeva Shizuku, Root ili ADB)</string>
-    <string name="notification_style">Stil obavijesti</string>
     <string name="track_foreground_apps">Pratiti aplikacije u prvom planu</string>
     <string name="detailed_stats_interval">Interval detaljne statistike</string>
     <string name="detailed_stats_interval_desc">Koliko često prikupljati detaljnu statistiku baterije putem Shizuku/Root/ADB-a.</string>
@@ -426,11 +424,6 @@
         <item>30 sekundi</item>
         <item>1 minuta</item>
         <item>5 minuta</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimalan</item>
-        <item>Kompaktan</item>
-        <item>Detaljan</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuta</item>

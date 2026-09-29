@@ -14,19 +14,26 @@ import android.util.Log
 import app.batstats.battery.shizuku.BstatsCollector
 import app.batstats.battery.util.Notifier
 import app.batstats.battery.util.ShellRunner
+import app.batstats.battery.data.db.BatterySample
 import app.batstats.battery.widget.WidgetUpdater
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.math.abs
 
 class BatteryMonitorService : Service() {
     companion object {
         private const val TAG = "BatteryMonitorService"
+        private const val PUBLISH_MIN_INTERVAL_MS = 30_000L
+        private const val PUBLISH_CURRENT_DELTA_MA = 25
     }
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -37,6 +44,11 @@ class BatteryMonitorService : Service() {
     private val enhancedCollector: BstatsCollector by inject()
 
     private var useAdvancedNotification = false
+
+    private var lastPushLevel: Int? = null
+    private var lastPushPlugged = 0
+    private var lastPushMa = 0L
+    private var lastPushAt = 0L
 
     private val started = AtomicBoolean(false)
 
@@ -61,6 +73,7 @@ class BatteryMonitorService : Service() {
 
             // Start sampling
             BatteryGraph.repo.startSampling()
+            BatteryGraph.repo.runAutoCleanup()
 
             // Auto-detect drain mode strategy
             if (hasAdvanced) {
@@ -80,8 +93,13 @@ class BatteryMonitorService : Service() {
                     drainNotificationManager.startNotification()
                 }
 
-                if (!enhancedCollector.isRunning()) {
-                    enhancedCollector.start()
+                serviceScope.launch {
+                    BatteryGraph.settings.flow
+                        .map { it.trackForegroundApps }
+                        .distinctUntilChanged()
+                        .collect { track ->
+                            if (track) enhancedCollector.start() else enhancedCollector.stop()
+                        }
                 }
             } else {
                 // No privileged access: advanced statistics are unavailable.
@@ -91,13 +109,19 @@ class BatteryMonitorService : Service() {
             }
 
             // Update notification and widgets
-            BatteryGraph.repo.realtimeFlow.collect { rt ->
-                // Always update widgets
-                rt.sample?.let { WidgetUpdater.push(this@BatteryMonitorService, it) }
+            combine(BatteryGraph.repo.realtimeFlow, BatteryGraph.settings.flow) { rt, s ->
+                rt to s.updateWidgets
+            }.distinctUntilChanged().collect { (rt, updateWidgets) ->
+                val sample = rt.sample
+                val fresh = sample != null && shouldPublish(sample)
+
+                if (updateWidgets && fresh && sample != null) {
+                    WidgetUpdater.push(this@BatteryMonitorService, sample)
+                }
 
                 // Update standard notification if not using advanced
-                if (!useAdvancedNotification || !hasAdvanced) {
-                    val text = if (rt.sample == null)
+                if ((!useAdvancedNotification || !hasAdvanced) && fresh) {
+                    val text = if (sample == null)
                         "Waiting for battery data…"
                     else
                         "Level ${rt.level ?: "--"}% • ${rt.currentMa} mA • ${rt.voltageMv} mV"
@@ -112,6 +136,21 @@ class BatteryMonitorService : Service() {
         }
 
         return START_STICKY
+    }
+
+    private fun shouldPublish(s: BatterySample): Boolean {
+        val now = System.currentTimeMillis()
+        val fresh = s.levelPercent != lastPushLevel ||
+            s.plugged != lastPushPlugged ||
+            abs((s.currentNowUa ?: 0L) / 1000 - lastPushMa) >= PUBLISH_CURRENT_DELTA_MA ||
+            now - lastPushAt >= PUBLISH_MIN_INTERVAL_MS
+        if (fresh) {
+            lastPushLevel = s.levelPercent
+            lastPushPlugged = s.plugged
+            lastPushMa = (s.currentNowUa ?: 0L) / 1000
+            lastPushAt = now
+        }
+        return fresh
     }
 
     private fun goForeground(id: Int, notification: Notification): Boolean = try {

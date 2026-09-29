@@ -88,7 +88,7 @@ val appModule = module {
 
     viewModel { DashboardViewModel(androidApplication(), get(), get()) }
     viewModel { SettingsViewModel(androidContext(), get(), get(), get()) }
-    viewModel { DetailedStatsViewModel(get(), get(), get(), androidContext()) }
+    viewModel { DetailedStatsViewModel(get(), get(), get(), androidContext(), get()) }
     viewModel { HistoryViewModel(get()) }
     viewModel { DataViewModel(get()) }
     viewModel { DrainStatsViewModel(get()) }

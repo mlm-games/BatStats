@@ -176,10 +176,8 @@
     <string name="all_settings_reset">همهٔ تنظیمات بازنشانی شد</string>
     <string name="auto_start_monitoring">شروع خودکار پایش</string>
     <string name="monitoring_interval">بازهٔ پایش</string>
-    <string name="show_persistent_notification">نمایش اعلان ماندگار</string>
     <string name="show_drain_notification">نمایش اعلان مصرف</string>
     <string name="show_drain_notification_desc">نمایش آمار تفصیلی مصرف در اعلان (نیازمند Shizuku، Root یا ADB)</string>
-    <string name="notification_style">سبک اعلان</string>
     <string name="track_foreground_apps">ردیابی برنامه‌های پیش‌زمینه</string>
     <string name="detailed_stats_interval">بازهٔ آمار تفصیلی</string>
     <string name="detailed_stats_interval_desc">دفعات جمع‌آوری آمار تفصیلی باتری از طریق Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>۳۰ ثانیه</item>
         <item>۱ دقیقه</item>
         <item>۵ دقیقه</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>ساده</item>
-        <item>فشرده</item>
-        <item>تفصیلی</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>۱ دقیقه</item>

@@ -34,7 +34,6 @@ class AdvancedDrainTracker(
 ) {
     companion object {
         private const val TAG = "AdvancedDrainTracker"
-        private const val POLL_INTERVAL_MS = 60_000L
         private const val DEEP_SLEEP_THRESHOLD_MS = 30_000L
         private const val SETTINGS_REFRESH_INTERVAL_MS = 60_000L
     }
@@ -122,7 +121,7 @@ class AdvancedDrainTracker(
                 } catch (e: Exception) {
                     Log.e(TAG, "Error in tracking loop", e)
                 }
-                delay(POLL_INTERVAL_MS)
+                delay(detailedStatsIntervalMs)
             }
         }
     }

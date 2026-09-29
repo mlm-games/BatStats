@@ -176,10 +176,8 @@
     <string name="all_settings_reset">أُعيدت جميع الإعدادات</string>
     <string name="auto_start_monitoring">بدء المراقبة تلقائيًا</string>
     <string name="monitoring_interval">الفترة بين عينات المراقبة</string>
-    <string name="show_persistent_notification">إظهار إشعار دائم</string>
     <string name="show_drain_notification">إظهار إشعار الاستهلاك</string>
     <string name="show_drain_notification_desc">إظهار إحصاءات الاستهلاك التفصيلية في الإشعار (يتطلب Shizuku أو Root أو ADB)</string>
-    <string name="notification_style">نمط الإشعار</string>
     <string name="track_foreground_apps">تتبّع التطبيقات في المقدمة</string>
     <string name="detailed_stats_interval">الفترة بين الإحصاءات المفصّلة</string>
     <string name="detailed_stats_interval_desc">كم مرة تُجمع إحصاءات البطارية التفصيلية عبر Shizuku/Root/ADB.</string>
@@ -456,11 +454,6 @@
         <item>30 ثانية</item>
         <item>دقيقة واحدة</item>
         <item>5 دقائق</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>مبسّط</item>
-        <item>مضغوط</item>
-        <item>مفصّل</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>دقيقة واحدة</item>

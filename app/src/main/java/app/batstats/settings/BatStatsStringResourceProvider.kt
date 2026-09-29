@@ -21,11 +21,11 @@ private val settingsResources: Map<String, Int> = mapOf(
 
     BatStatsSettingsKeys.AUTO_START_MONITORING to R.string.auto_start_monitoring,
     BatStatsSettingsKeys.MONITORING_INTERVAL to R.string.monitoring_interval,
-    BatStatsSettingsKeys.SHOW_PERSISTENT_NOTIFICATION to R.string.show_persistent_notification,
+    BatStatsSettingsKeys.SCREEN_OFF_SAMPLING to R.string.screen_off_sampling,
+    BatStatsSettingsKeys.UPDATE_WIDGETS to R.string.update_widgets,
     BatStatsSettingsKeys.SHOW_DRAIN_NOTIFICATION to R.string.show_drain_notification,
     BatStatsSettingsKeys.SHOW_DRAIN_NOTIFICATION_DESCRIPTION to
         R.string.show_drain_notification_desc,
-    BatStatsSettingsKeys.NOTIFICATION_STYLE to R.string.notification_style,
     BatStatsSettingsKeys.TRACK_FOREGROUND_APPS to R.string.track_foreground_apps,
     BatStatsSettingsKeys.DETAILED_STATS_INTERVAL to R.string.detailed_stats_interval,
     BatStatsSettingsKeys.DETAILED_STATS_INTERVAL_DESCRIPTION to
@@ -61,7 +61,7 @@ private val settingsResources: Map<String, Int> = mapOf(
     BatStatsSettingsKeys.INCLUDE_RAW_SAMPLES to R.string.include_raw_samples,
 
     BatStatsSettingsKeys.MONITORING_INTERVAL_OPTIONS to R.array.monitoring_interval_options,
-    BatStatsSettingsKeys.NOTIFICATION_STYLE_OPTIONS to R.array.notification_style_options,
+    BatStatsSettingsKeys.SCREEN_OFF_SAMPLING_OPTIONS to R.array.screen_off_sampling_options,
     BatStatsSettingsKeys.DETAILED_STATS_INTERVAL_OPTIONS to
         R.array.detailed_stats_interval_options,
     BatStatsSettingsKeys.THEME_OPTIONS to R.array.theme_options,

@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Kaikki asetukset palautettu</string>
     <string name="auto_start_monitoring">Valvonta käynnistyy automaattisesti</string>
     <string name="monitoring_interval">Valvontaväli</string>
-    <string name="show_persistent_notification">Näytä pysyvä ilmoitus</string>
     <string name="show_drain_notification">Näytä kulutusilmoitus</string>
     <string name="show_drain_notification_desc">Näytä tarkat kulutustilastot ilmoituksessa (vaatii Shizukun, rootin tai ADB:n)</string>
-    <string name="notification_style">Ilmoitusten tyyli</string>
     <string name="track_foreground_apps">Seuraa etualan sovelluksia</string>
     <string name="detailed_stats_interval">Tarkkojen tilastojen väli</string>
     <string name="detailed_stats_interval_desc">Kuinka usein kerätään tarkat akun tilastot Shizukun/rootin/ADB:n kautta.</string>
@@ -416,11 +414,6 @@
         <item>30 sekuntia</item>
         <item>1 minuutti</item>
         <item>5 minuuttia</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimaalinen</item>
-        <item>Supistettu</item>
-        <item>Tarkka</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuutti</item>

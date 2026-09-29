@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Alle Einstellungen zurückgesetzt</string>
     <string name="auto_start_monitoring">Überwachung automatisch starten</string>
     <string name="monitoring_interval">Überwachungsintervall</string>
-    <string name="show_persistent_notification">Dauerhafte Benachrichtigung anzeigen</string>
     <string name="show_drain_notification">Verbrauchs-Benachrichtigung anzeigen</string>
     <string name="show_drain_notification_desc">Detaillierte Verbrauchsstatistiken in der Benachrichtigung anzeigen (erfordert Shizuku, Root oder ADB)</string>
-    <string name="notification_style">Benachrichtigungsstil</string>
     <string name="track_foreground_apps">Vordergrund-Apps erfassen</string>
     <string name="detailed_stats_interval">Intervall für detaillierte Statistiken</string>
     <string name="detailed_stats_interval_desc">Wie oft detaillierte Akkustatistiken über Shizuku/Root/ADB erfasst werden.</string>
@@ -416,11 +414,6 @@
         <item>30 Sekunden</item>
         <item>1 Minute</item>
         <item>5 Minuten</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimal</item>
-        <item>Kompakt</item>
-        <item>Detailliert</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 Minute</item>

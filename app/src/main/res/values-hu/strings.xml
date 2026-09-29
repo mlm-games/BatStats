@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Az összes beállítás visszaállítva</string>
     <string name="auto_start_monitoring">A figyelés automatikus indítása</string>
     <string name="monitoring_interval">Figyelési időköz</string>
-    <string name="show_persistent_notification">Tartós értesítés megjelenítése</string>
     <string name="show_drain_notification">Fogyasztási értesítés megjelenítése</string>
     <string name="show_drain_notification_desc">Részletes fogyasztási statisztikák megjelenítése az értesítésben (Shizuku, Root vagy ADB szükséges)</string>
-    <string name="notification_style">Értesítés stílusa</string>
     <string name="track_foreground_apps">Előtérben futó alkalmazások követése</string>
     <string name="detailed_stats_interval">Részletes statisztikák időköze</string>
     <string name="detailed_stats_interval_desc">Milyen gyakran gyűjtődjön részletes akkumulátorstatisztika Shizuku/Root/ADB segítségével.</string>
@@ -416,11 +414,6 @@
         <item>30 másodperc</item>
         <item>1 perc</item>
         <item>5 perc</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimális</item>
-        <item>Tömör</item>
-        <item>Részletes</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 perc</item>

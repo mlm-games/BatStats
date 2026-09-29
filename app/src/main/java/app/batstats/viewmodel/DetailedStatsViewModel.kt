@@ -8,17 +8,26 @@ import app.batstats.battery.util.DetailedStatsCollector
 import app.batstats.battery.util.PrivilegeChecker
 import app.batstats.battery.util.RootStatsCollector
 import app.batstats.battery.util.ShellRunner
+import app.batstats.settings.AppSettings
+import app.batstats.settings.detailedStatsIntervalMs
+import io.github.mlmgames.settings.core.SettingsRepository
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class DetailedStatsViewModel(
     private val collector: DetailedStatsCollector,
     private val shizukuBridge: ShizukuBridge,
     private val shellRunner: ShellRunner,
-    private val context: Context
+    private val context: Context,
+    private val settingsRepository: SettingsRepository<AppSettings>
 ) : ViewModel() {
 
     // Forward flows from collector
@@ -65,6 +74,21 @@ class DetailedStatsViewModel(
         }
         viewModelScope.launch {
             shizukuBridge.running.collectLatest { _shizukuRunning.value = it }
+        }
+        viewModelScope.launch {
+            combine(
+                settingsRepository.flow.map { it.detailedStatsIntervalMs }.distinctUntilChanged(),
+                _hasAdvanced
+            ) { interval, advanced -> interval to advanced }
+                .collectLatest { (interval, advanced) ->
+                    if (!advanced) return@collectLatest
+                    val job: Job = collector.startAutoRefresh(interval)
+                    try {
+                        awaitCancellation()
+                    } finally {
+                        job.cancel()
+                    }
+                }
         }
         refresh(forceRefresh = true)
     }

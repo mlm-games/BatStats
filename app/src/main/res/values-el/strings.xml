@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Όλες οι ρυθμίσεις επαναφέρθηκαν</string>
     <string name="auto_start_monitoring">Αυτόματη έναρξη παρακολούθησης</string>
     <string name="monitoring_interval">Διάστημα παρακολούθησης</string>
-    <string name="show_persistent_notification">Εμφάνιση μόνιμης ειδοποίησης</string>
     <string name="show_drain_notification">Εμφάνιση ειδοποίησης κατανάλωσης</string>
     <string name="show_drain_notification_desc">Εμφάνιση αναλυτικών στατιστικών κατανάλωσης στην ειδοποίηση (απαιτεί Shizuku, Root ή ADB)</string>
-    <string name="notification_style">Στυλ ειδοποιήσεων</string>
     <string name="track_foreground_apps">Παρακολούθηση εφαρμογών σε πρώτο πλάνο</string>
     <string name="detailed_stats_interval">Διάστημα αναλυτικών στατιστικών</string>
     <string name="detailed_stats_interval_desc">Πόσο συχνά συλλέγονται αναλυτικά στατιστικά μπαταρίας μέσω Shizuku/Root/ADB.</string>
@@ -416,11 +414,6 @@
         <item>30 δευτερόλεπτα</item>
         <item>1 λεπτό</item>
         <item>5 λεπτά</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Ελάχιστο</item>
-        <item>Συμπυκνωμένο</item>
-        <item>Αναλυτικό</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 λεπτό</item>

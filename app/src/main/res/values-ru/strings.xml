@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Все настройки сброшены</string>
     <string name="auto_start_monitoring">Запускать наблюдение автоматически</string>
     <string name="monitoring_interval">Интервал наблюдения</string>
-    <string name="show_persistent_notification">Показывать постоянное уведомление</string>
     <string name="show_drain_notification">Показывать уведомление о расходе</string>
     <string name="show_drain_notification_desc">Показывать подробную статистику расхода в уведомлении (требуется Shizuku, Root или ADB)</string>
-    <string name="notification_style">Стиль уведомлений</string>
     <string name="track_foreground_apps">Отслеживать приложения на переднем плане</string>
     <string name="detailed_stats_interval">Интервал подробной статистики</string>
     <string name="detailed_stats_interval_desc">Как часто собирать подробную статистику батареи через Shizuku/Root/ADB.</string>
@@ -436,11 +434,6 @@
         <item>30 секунд</item>
         <item>1 минута</item>
         <item>5 минут</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Минимальный</item>
-        <item>Компактный</item>
-        <item>Подробный</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 минута</item>

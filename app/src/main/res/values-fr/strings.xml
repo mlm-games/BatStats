@@ -176,10 +176,8 @@
     <string name="all_settings_reset">Tous les paramètres réinitialisés</string>
     <string name="auto_start_monitoring">Démarrer la surveillance automatiquement</string>
     <string name="monitoring_interval">Intervalle de surveillance</string>
-    <string name="show_persistent_notification">Afficher une notification persistante</string>
     <string name="show_drain_notification">Afficher la notification de consommation</string>
     <string name="show_drain_notification_desc">Afficher les statistiques de consommation détaillées dans la notification (nécessite Shizuku, Root ou ADB)</string>
-    <string name="notification_style">Style de notification</string>
     <string name="track_foreground_apps">Suivre les applications au premier plan</string>
     <string name="detailed_stats_interval">Intervalle des statistiques détaillées</string>
     <string name="detailed_stats_interval_desc">Fréquence de collecte des statistiques de batterie via Shizuku/Root/ADB.</string>
@@ -426,11 +424,6 @@
         <item>30 secondes</item>
         <item>1 minute</item>
         <item>5 minutes</item>
-    </string-array>
-    <string-array name="notification_style_options">
-        <item>Minimal</item>
-        <item>Compact</item>
-        <item>Détaillé</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minute</item>

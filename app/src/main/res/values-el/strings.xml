@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Όλες οι ρυθμίσεις επαναφέρθηκαν</string>
     <string name="auto_start_monitoring">Αυτόματη έναρξη παρακολούθησης</string>
     <string name="monitoring_interval">Διάστημα παρακολούθησης</string>
+    <string name="screen_off_sampling">Όταν η οθόνη είναι σβηστή</string>
+    <string name="update_widgets">Ενημέρωση widget</string>
     <string name="show_drain_notification">Εμφάνιση ειδοποίησης κατανάλωσης</string>
     <string name="show_drain_notification_desc">Εμφάνιση αναλυτικών στατιστικών κατανάλωσης στην ειδοποίηση (απαιτεί Shizuku, Root ή ADB)</string>
     <string name="track_foreground_apps">Παρακολούθηση εφαρμογών σε πρώτο πλάνο</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Όριο εκφόρτισης</string>
     <string name="discharge_threshold_desc">Προειδοποίηση όταν η εκφόρτιση ξεπερνά αυτή την τιμή (mA)</string>
     <string name="charging_complete_alert">Προειδοποίηση ολοκλήρωσης φόρτισης</string>
+    <string name="charging_complete">Η φόρτιση ολοκληρώθηκε</string>
+    <string name="low_battery_text">Μπαταρία %1$d%% — συνδέστε τον φορτιστή σύντομα.</string>
+    <string name="battery_alerts">Ειδοποιήσεις μπαταρίας</string>
     <string name="alert_sound">Ήχος προειδοποίησης</string>
     <string name="alert_vibration">Δόνηση προειδοποίησης</string>
     <string name="high_temperature">Προειδοποίηση υψηλής θερμοκρασίας</string>
@@ -414,6 +419,11 @@
         <item>30 δευτερόλεπτα</item>
         <item>1 λεπτό</item>
         <item>5 λεπτά</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Ακολούθηση διαστήματος</item>
+        <item>Αργά (5 λεπτά)</item>
+        <item>Παύση</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 λεπτό</item>

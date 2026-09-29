@@ -176,6 +176,8 @@
     <string name="all_settings_reset">همهٔ تنظیمات بازنشانی شد</string>
     <string name="auto_start_monitoring">شروع خودکار پایش</string>
     <string name="monitoring_interval">بازهٔ پایش</string>
+    <string name="screen_off_sampling">هنگام خاموش بودن صفحه</string>
+    <string name="update_widgets">به‌روزرسانی ویجت‌ها</string>
     <string name="show_drain_notification">نمایش اعلان مصرف</string>
     <string name="show_drain_notification_desc">نمایش آمار تفصیلی مصرف در اعلان (نیازمند Shizuku، Root یا ADB)</string>
     <string name="track_foreground_apps">ردیابی برنامه‌های پیش‌زمینه</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">آستانهٔ تخلیه</string>
     <string name="discharge_threshold_desc">هنگامی هشدار بده که تخلیه از این مقدار بیشتر شود (mA)</string>
     <string name="charging_complete_alert">هشدار تکمیل شارژ</string>
+    <string name="charging_complete">شارژ کامل شد</string>
+    <string name="low_battery_text">باتری %1$d%% — به‌زودی شارژ کنید.</string>
+    <string name="battery_alerts">هشدارهای باتری</string>
     <string name="alert_sound">صدای هشدار</string>
     <string name="alert_vibration">لرزش هشدار</string>
     <string name="high_temperature">هشدار دمای بالا</string>
@@ -414,6 +419,11 @@
         <item>۳۰ ثانیه</item>
         <item>۱ دقیقه</item>
         <item>۵ دقیقه</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>پیروی از فاصله</item>
+        <item>کند (5 دقیقه)</item>
+        <item>توقف</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>۱ دقیقه</item>

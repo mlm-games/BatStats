@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Alla inställningar återställda</string>
     <string name="auto_start_monitoring">Starta övervakning automatiskt</string>
     <string name="monitoring_interval">Övervakningsintervall</string>
+    <string name="screen_off_sampling">När skärmen är avstängd</string>
+    <string name="update_widgets">Uppdatera widgetar</string>
     <string name="show_drain_notification">Visa förbrukning avisering</string>
     <string name="show_drain_notification_desc">Visa detaljerad förbrukningstatistik i aviseringen (kräver Shizuku, Root eller ADB)</string>
     <string name="track_foreground_apps">Spåra appar i förgrunden</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Urladdningströskel</string>
     <string name="discharge_threshold_desc">Varna när urladdningen överstiger detta (mA)</string>
     <string name="charging_complete_alert">Varning när laddningen är klar</string>
+    <string name="charging_complete">Laddning klar</string>
+    <string name="low_battery_text">Batteri på %1$d%% — koppla in snart.</string>
+    <string name="battery_alerts">Batteriaviseringar</string>
     <string name="alert_sound">Varningsljud</string>
     <string name="alert_vibration">Vibrationsvarning</string>
     <string name="high_temperature">Varning för hög temperatur</string>
@@ -414,6 +419,11 @@
         <item>30 sekunder</item>
         <item>1 minut</item>
         <item>5 minuter</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Följ intervall</item>
+        <item>Långsamt (5 minuter)</item>
+        <item>Pausa</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minut</item>

@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Все настройки сброшены</string>
     <string name="auto_start_monitoring">Запускать наблюдение автоматически</string>
     <string name="monitoring_interval">Интервал наблюдения</string>
+    <string name="screen_off_sampling">Когда экран выключен</string>
+    <string name="update_widgets">Обновлять виджеты</string>
     <string name="show_drain_notification">Показывать уведомление о расходе</string>
     <string name="show_drain_notification_desc">Показывать подробную статистику расхода в уведомлении (требуется Shizuku, Root или ADB)</string>
     <string name="track_foreground_apps">Отслеживать приложения на переднем плане</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Порог разряда</string>
     <string name="discharge_threshold_desc">Оповещать, когда расход превысит это значение (мА)</string>
     <string name="charging_complete_alert">Оповещение о полной зарядке</string>
+    <string name="charging_complete">Зарядка завершена</string>
+    <string name="low_battery_text">Батарея %1$d%% — скоро подключите зарядку.</string>
+    <string name="battery_alerts">Оповещения о батарее</string>
     <string name="alert_sound">Звук оповещения</string>
     <string name="alert_vibration">Вибрация оповещения</string>
     <string name="high_temperature">Оповещение о высокой температуре</string>
@@ -434,6 +439,11 @@
         <item>30 секунд</item>
         <item>1 минута</item>
         <item>5 минут</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Обычный интервал</item>
+        <item>Медленно (5 минут)</item>
+        <item>Пауза</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 минута</item>

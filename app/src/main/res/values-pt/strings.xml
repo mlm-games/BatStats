@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Todas as definições repostas</string>
     <string name="auto_start_monitoring">Iniciar a monitorização automaticamente</string>
     <string name="monitoring_interval">Intervalo de monitorização</string>
+    <string name="screen_off_sampling">Quando a tela estiver desligada</string>
+    <string name="update_widgets">Atualizar widgets</string>
     <string name="show_drain_notification">Mostrar notificação de consumo</string>
     <string name="show_drain_notification_desc">Mostrar estatísticas de consumo detalhadas na notificação (requer Shizuku, Root ou ADB)</string>
     <string name="track_foreground_apps">Acompanhar apps em primeiro plano</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Limiar de descarga</string>
     <string name="discharge_threshold_desc">Alertar quando a descarga ultrapassar este valor (mA)</string>
     <string name="charging_complete_alert">Alerta de carga completa</string>
+    <string name="charging_complete">Carregamento concluído</string>
+    <string name="low_battery_text">Bateria em %1$d%% — conecte em breve.</string>
+    <string name="battery_alerts">Alertas da bateria</string>
     <string name="alert_sound">Som de alerta</string>
     <string name="alert_vibration">Vibração de alerta</string>
     <string name="high_temperature">Alerta de temperatura elevada</string>
@@ -424,6 +429,11 @@
         <item>30 segundos</item>
         <item>1 minuto</item>
         <item>5 minutos</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Seguir intervalo</item>
+        <item>Lento (5 minutos)</item>
+        <item>Pausar</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuto</item>

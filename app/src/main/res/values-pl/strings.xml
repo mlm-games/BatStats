@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Wszystkie ustawienia zresetowane</string>
     <string name="auto_start_monitoring">Automatycznie rozpoczynaj monitorowanie</string>
     <string name="monitoring_interval">Interwał monitorowania</string>
+    <string name="screen_off_sampling">Gdy ekran jest wyłączony</string>
+    <string name="update_widgets">Aktualizuj widżety</string>
     <string name="show_drain_notification">Pokazuj powiadomienie o zużyciu</string>
     <string name="show_drain_notification_desc">Pokazuj szczegółowe statystyki zużycia w powiadomieniu (wymaga Shizuku, Root lub ADB)</string>
     <string name="track_foreground_apps">Śledź aplikacje na pierwszym planie</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Próg rozładowania</string>
     <string name="discharge_threshold_desc">Alarmuj, gdy rozładowanie przekroczy tę wartość (mA)</string>
     <string name="charging_complete_alert">Alert o zakończeniu ładowania</string>
+    <string name="charging_complete">Ładowanie zakończone</string>
+    <string name="low_battery_text">Bateria %1$d%% — wkrótce podłącz do ładowania.</string>
+    <string name="battery_alerts">Alerty baterii</string>
     <string name="alert_sound">Dźwięk alarmu</string>
     <string name="alert_vibration">Wibracja alarmu</string>
     <string name="high_temperature">Alert o wysokiej temperaturze</string>
@@ -434,6 +439,11 @@
         <item>30 sekund</item>
         <item>1 minuta</item>
         <item>5 minut</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Zachowaj interwał</item>
+        <item>Wolno (5 minut)</item>
+        <item>Wstrzymaj</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuta</item>

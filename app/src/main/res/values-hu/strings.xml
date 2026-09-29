@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Az összes beállítás visszaállítva</string>
     <string name="auto_start_monitoring">A figyelés automatikus indítása</string>
     <string name="monitoring_interval">Figyelési időköz</string>
+    <string name="screen_off_sampling">Ha a képernyő ki van kapcsolva</string>
+    <string name="update_widgets">Widgetek frissítése</string>
     <string name="show_drain_notification">Fogyasztási értesítés megjelenítése</string>
     <string name="show_drain_notification_desc">Részletes fogyasztási statisztikák megjelenítése az értesítésben (Shizuku, Root vagy ADB szükséges)</string>
     <string name="track_foreground_apps">Előtérben futó alkalmazások követése</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Merülés küszöbértéke</string>
     <string name="discharge_threshold_desc">Figyelmeztetés, ha a merülés meghaladja ezt (mA)</string>
     <string name="charging_complete_alert">Töltés befejeződött figyelmeztetés</string>
+    <string name="charging_complete">Töltés befejezve</string>
+    <string name="low_battery_text">Akku: %1$d%% — hamarosan csatlakoztassa.</string>
+    <string name="battery_alerts">Akkus riasztások</string>
     <string name="alert_sound">Figyelmeztető hang</string>
     <string name="alert_vibration">Figyelmeztető rezgés</string>
     <string name="high_temperature">Magas hőmérséklet figyelmeztetés</string>
@@ -414,6 +419,11 @@
         <item>30 másodperc</item>
         <item>1 perc</item>
         <item>5 perc</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Intervallum követése</item>
+        <item>Lassú (5 perc)</item>
+        <item>Szüneteltetés</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 perc</item>

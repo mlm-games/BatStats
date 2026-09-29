@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Tüm ayarlar sıfırlandı</string>
     <string name="auto_start_monitoring">İzlemeyi otomatik başlat</string>
     <string name="monitoring_interval">İzleme aralığı</string>
+    <string name="screen_off_sampling">Ekran kapalıyken</string>
+    <string name="update_widgets">Widget\'ları güncelle</string>
     <string name="show_drain_notification">Tüketim bildirimini göster</string>
     <string name="show_drain_notification_desc">Bildirimde ayrıntılı tüketim istatistiklerini göster (Shizuku, Root veya ADB gerekir)</string>
     <string name="track_foreground_apps">Ön plan uygulamalarını izle</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Boşalma eşiği</string>
     <string name="discharge_threshold_desc">Boşalma bu değeri aştığında uyar (mA)</string>
     <string name="charging_complete_alert">Şarj tamamlandı uyarısı</string>
+    <string name="charging_complete">Şarj tamamlandı</string>
+    <string name="low_battery_text">Pil %1$d%% — yakında şarj edin.</string>
+    <string name="battery_alerts">Pil uyarıları</string>
     <string name="alert_sound">Uyarı sesi</string>
     <string name="alert_vibration">Uyarı titreşimi</string>
     <string name="high_temperature">Yüksek sıcaklık uyarısı</string>
@@ -414,6 +419,11 @@
         <item>30 saniye</item>
         <item>1 dakika</item>
         <item>5 dakika</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Aralığı koru</item>
+        <item>Yavaş (5 dakika)</item>
+        <item>Duraklat</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 dakika</item>

@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Alle Einstellungen zurückgesetzt</string>
     <string name="auto_start_monitoring">Überwachung automatisch starten</string>
     <string name="monitoring_interval">Überwachungsintervall</string>
+    <string name="screen_off_sampling">Wenn der Bildschirm aus ist</string>
+    <string name="update_widgets">Widgets aktualisieren</string>
     <string name="show_drain_notification">Verbrauchs-Benachrichtigung anzeigen</string>
     <string name="show_drain_notification_desc">Detaillierte Verbrauchsstatistiken in der Benachrichtigung anzeigen (erfordert Shizuku, Root oder ADB)</string>
     <string name="track_foreground_apps">Vordergrund-Apps erfassen</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Verbrauchsschwellenwert</string>
     <string name="discharge_threshold_desc">Warnen, wenn der Verbrauch diesen Wert überschreitet (mA)</string>
     <string name="charging_complete_alert">Benachrichtigung bei vollständigem Laden</string>
+    <string name="charging_complete">Laden abgeschlossen</string>
+    <string name="low_battery_text">Akku bei %1$d%% — bald anschließen.</string>
+    <string name="battery_alerts">Akku-Warnungen</string>
     <string name="alert_sound">Warnton</string>
     <string name="alert_vibration">Warnvibration</string>
     <string name="high_temperature">Warnung vor hoher Temperatur</string>
@@ -414,6 +419,11 @@
         <item>30 Sekunden</item>
         <item>1 Minute</item>
         <item>5 Minuten</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Intervall beibehalten</item>
+        <item>Verlangsamt (5 Minuten)</item>
+        <item>Pausieren</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 Minute</item>

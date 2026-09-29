@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Tutte le impostazioni sono state reimpostate</string>
     <string name="auto_start_monitoring">Avvia automaticamente il monitoraggio</string>
     <string name="monitoring_interval">Intervallo di monitoraggio</string>
+    <string name="screen_off_sampling">Quando lo schermo è spento</string>
+    <string name="update_widgets">Aggiorna widget</string>
     <string name="show_drain_notification">Mostra notifica sul consumo</string>
     <string name="show_drain_notification_desc">Mostra statistiche di consumo dettagliate nella notifica (richiede Shizuku, Root o ADB)</string>
     <string name="track_foreground_apps">Monitora le app in primo piano</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Soglia di scarica</string>
     <string name="discharge_threshold_desc">Avvisa quando la scarica supera questo valore (mA)</string>
     <string name="charging_complete_alert">Avviso di carica completata</string>
+    <string name="charging_complete">Ricarica completata</string>
+    <string name="low_battery_text">Batteria al %1$d%% — collega presto.</string>
+    <string name="battery_alerts">Avvisi batteria</string>
     <string name="alert_sound">Suono di avviso</string>
     <string name="alert_vibration">Vibrazione di avviso</string>
     <string name="high_temperature">Avviso di temperatura elevata</string>
@@ -424,6 +429,11 @@
         <item>30 secondi</item>
         <item>1 minuto</item>
         <item>5 minuti</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Segui intervallo</item>
+        <item>Lento (5 minuti)</item>
+        <item>Pausa</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuto</item>

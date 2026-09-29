@@ -176,6 +176,8 @@
     <string name="all_settings_reset">所有设置已重置</string>
     <string name="auto_start_monitoring">自动启动监测</string>
     <string name="monitoring_interval">监测间隔</string>
+    <string name="screen_off_sampling">屏幕关闭时</string>
+    <string name="update_widgets">更新小部件</string>
     <string name="show_drain_notification">显示耗电通知</string>
     <string name="show_drain_notification_desc">在通知中显示详细的耗电统计（需要 Shizuku、Root 或 ADB）</string>
     <string name="track_foreground_apps">追踪前台应用</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">放电阈值</string>
     <string name="discharge_threshold_desc">放电超过此值时发出警告 (mA)</string>
     <string name="charging_complete_alert">充电完成提醒</string>
+    <string name="charging_complete">充电完成</string>
+    <string name="low_battery_text">电量 %1$d%% — 请尽快充电。</string>
+    <string name="battery_alerts">电池警报</string>
     <string name="alert_sound">提示音</string>
     <string name="alert_vibration">震动提醒</string>
     <string name="high_temperature">高温警告</string>
@@ -414,6 +419,11 @@
         <item>30 秒</item>
         <item>1 分钟</item>
         <item>5 分钟</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>跟随间隔</item>
+        <item>慢速（5 分钟）</item>
+        <item>暂停</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 分钟</item>

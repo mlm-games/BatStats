@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Đã đặt lại mọi cài đặt</string>
     <string name="auto_start_monitoring">Tự động bắt đầu giám sát</string>
     <string name="monitoring_interval">Khoảng giám sát</string>
+    <string name="screen_off_sampling">Khi màn hình tắt</string>
+    <string name="update_widgets">Cập nhật widget</string>
     <string name="show_drain_notification">Hiện thông báo tiêu thụ</string>
     <string name="show_drain_notification_desc">Hiện thống kê tiêu thụ chi tiết trong thông báo (cần Shizuku, Root hoặc ADB)</string>
     <string name="track_foreground_apps">Theo dõi ứng dụng nền</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Ngưỡng phóng điện</string>
     <string name="discharge_threshold_desc">Cảnh báo khi mức phóng điện vượt quá giá trị này (mA)</string>
     <string name="charging_complete_alert">Cảnh báo sạc đầy</string>
+    <string name="charging_complete">Hoàn tất sạc</string>
+    <string name="low_battery_text">Pin ở %1$d%% — hãy sạc sớm.</string>
+    <string name="battery_alerts">Cảnh báo pin</string>
     <string name="alert_sound">Âm báo</string>
     <string name="alert_vibration">Rung cảnh báo</string>
     <string name="high_temperature">Cảnh báo nhiệt độ cao</string>
@@ -414,6 +419,11 @@
         <item>30 giây</item>
         <item>1 phút</item>
         <item>5 phút</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Theo khoảng thời gian</item>
+        <item>Chậm (5 phút)</item>
+        <item>Tạm dừng</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 phút</item>

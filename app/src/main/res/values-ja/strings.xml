@@ -176,6 +176,8 @@
     <string name="all_settings_reset">すべての設定をリセットしました</string>
     <string name="auto_start_monitoring">監視を自動開始</string>
     <string name="monitoring_interval">監視間隔</string>
+    <string name="screen_off_sampling">画面がオフのとき</string>
+    <string name="update_widgets">ウィジェットを更新</string>
     <string name="show_drain_notification">消費統計の通知を表示</string>
     <string name="show_drain_notification_desc">通知に詳細な消費統計を表示します（Shizuku、Root または ADB が必要です）</string>
     <string name="track_foreground_apps">フォアグラウンドのアプリを記録</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">放電のしきい値</string>
     <string name="discharge_threshold_desc">放電がこの値を超えた場合に警告します (mA)</string>
     <string name="charging_complete_alert">充電完了の警告</string>
+    <string name="charging_complete">充電完了</string>
+    <string name="low_battery_text">バッテリー %1$d%% — まもなく充電してください。</string>
+    <string name="battery_alerts">バッテリー警告</string>
     <string name="alert_sound">警告音</string>
     <string name="alert_vibration">バイブレーション</string>
     <string name="high_temperature">高温警告</string>
@@ -414,6 +419,11 @@
         <item>30 秒</item>
         <item>1 分</item>
         <item>5 分</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>間隔に従う</item>
+        <item>低速（5分）</item>
+        <item>一時停止</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 分</item>

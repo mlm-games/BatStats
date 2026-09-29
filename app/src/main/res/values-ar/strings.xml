@@ -176,6 +176,8 @@
     <string name="all_settings_reset">أُعيدت جميع الإعدادات</string>
     <string name="auto_start_monitoring">بدء المراقبة تلقائيًا</string>
     <string name="monitoring_interval">الفترة بين عينات المراقبة</string>
+    <string name="screen_off_sampling">عند إيقاف الشاشة</string>
+    <string name="update_widgets">تحديث الأدوات</string>
     <string name="show_drain_notification">إظهار إشعار الاستهلاك</string>
     <string name="show_drain_notification_desc">إظهار إحصاءات الاستهلاك التفصيلية في الإشعار (يتطلب Shizuku أو Root أو ADB)</string>
     <string name="track_foreground_apps">تتبّع التطبيقات في المقدمة</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">حد التفريغ</string>
     <string name="discharge_threshold_desc">أبلغ عند تجاوز التفريغ هذه القيمة (mA)</string>
     <string name="charging_complete_alert">تنبيه اكتمال الشحن</string>
+    <string name="charging_complete">اكتمل الشحن</string>
+    <string name="low_battery_text">البطارية %1$d%% — قم بالشحن قريبًا.</string>
+    <string name="battery_alerts">تنبيهات البطارية</string>
     <string name="alert_sound">صوت التنبيه</string>
     <string name="alert_vibration">اهتزاز التنبيه</string>
     <string name="high_temperature">تنبيه ارتفاع الحرارة</string>
@@ -454,6 +459,11 @@
         <item>30 ثانية</item>
         <item>دقيقة واحدة</item>
         <item>5 دقائق</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>متابعة الفاصل</item>
+        <item>بطيء (5 دقائق)</item>
+        <item>إيقاف مؤقت</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>دقيقة واحدة</item>

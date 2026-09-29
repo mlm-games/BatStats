@@ -176,6 +176,8 @@
     <string name="all_settings_reset">모든 설정을 초기화했습니다</string>
     <string name="auto_start_monitoring">모니터링 자동 시작</string>
     <string name="monitoring_interval">모니터링 간격</string>
+    <string name="screen_off_sampling">화면이 꺼져 있을 때</string>
+    <string name="update_widgets">위젯 업데이트</string>
     <string name="show_drain_notification">소비 알림 표시</string>
     <string name="show_drain_notification_desc">알림에 상세 소비 통계를 표시합니다(Shizuku, Root 또는 ADB 필요)</string>
     <string name="track_foreground_apps">포그라운드 앱 추적</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">방전 임계값</string>
     <string name="discharge_threshold_desc">방전이 이 값을 초과하면 경고합니다(mA)</string>
     <string name="charging_complete_alert">충전 완료 알림</string>
+    <string name="charging_complete">충전 완료</string>
+    <string name="low_battery_text">배터리 %1$d%% — 곧 충전기에꽂아 주세요.</string>
+    <string name="battery_alerts">배터리 알림</string>
     <string name="alert_sound">알림음</string>
     <string name="alert_vibration">알림 진동</string>
     <string name="high_temperature">고온 경고</string>
@@ -414,6 +419,11 @@
         <item>30초</item>
         <item>1분</item>
         <item>5분</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>간격 유지</item>
+        <item>느리게 (5분)</item>
+        <item>일시 중지</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1분</item>

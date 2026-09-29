@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Sve postavke vraćene</string>
     <string name="auto_start_monitoring">Automatski pokreni nadzor</string>
     <string name="monitoring_interval">Interval nadzora</string>
+    <string name="screen_off_sampling">Kada je zaslon isključen</string>
+    <string name="update_widgets">Ažuriraj widgete</string>
     <string name="show_drain_notification">Prikaži obavijest o potrošnji</string>
     <string name="show_drain_notification_desc">Prikaži detaljnu statistiku potrošnje u obavijesti (zahtijeva Shizuku, Root ili ADB)</string>
     <string name="track_foreground_apps">Pratiti aplikacije u prvom planu</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Prag potrošnje</string>
     <string name="discharge_threshold_desc">Upozori kad potrošnja premaši ovu vrijednost (mA)</string>
     <string name="charging_complete_alert">Upozorenje o dovršenom punjenju</string>
+    <string name="charging_complete">Punjenje završeno</string>
+    <string name="low_battery_text">Baterija %1$d%% — uskoro spojite na punjač.</string>
+    <string name="battery_alerts">Upozorenja baterije</string>
     <string name="alert_sound">Zvuk upozorenja</string>
     <string name="alert_vibration">Vibracija upozorenja</string>
     <string name="high_temperature">Upozorenje o visokoj temperaturi</string>
@@ -424,6 +429,11 @@
         <item>30 sekundi</item>
         <item>1 minuta</item>
         <item>5 minuta</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Prati interval</item>
+        <item>Sporo (5 minuta)</item>
+        <item>Pauziraj</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuta</item>

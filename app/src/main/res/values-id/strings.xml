@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Semua pengaturan telah diatur ulang</string>
     <string name="auto_start_monitoring">Mulai pemantauan otomatis</string>
     <string name="monitoring_interval">Interval pemantauan</string>
+    <string name="screen_off_sampling">Saat layar mati</string>
+    <string name="update_widgets">Perbarui widget</string>
     <string name="show_drain_notification">Tampilkan notifikasi konsumsi</string>
     <string name="show_drain_notification_desc">Tampilkan statistik konsumsi terperinci di notifikasi (memerlukan Shizuku, Root, atau ADB)</string>
     <string name="track_foreground_apps">Lacak aplikasi di latar depan</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Ambang pengosongan</string>
     <string name="discharge_threshold_desc">Beri tahu saat pengosongan melebihi nilai ini (mA)</string>
     <string name="charging_complete_alert">Peringatan pengisian selesai</string>
+    <string name="charging_complete">Pengisian selesai</string>
+    <string name="low_battery_text">Baterai %1$d%% — segera isi ulang.</string>
+    <string name="battery_alerts">Peringatan baterai</string>
     <string name="alert_sound">Suara peringatan</string>
     <string name="alert_vibration">Getar peringatan</string>
     <string name="high_temperature">Peringatan suhu tinggi</string>
@@ -414,6 +419,11 @@
         <item>30 detik</item>
         <item>1 menit</item>
         <item>5 menit</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Ikuti interval</item>
+        <item>Lambat (5 menit)</item>
+        <item>Jeda</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 menit</item>

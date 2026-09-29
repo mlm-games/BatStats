@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Kaikki asetukset palautettu</string>
     <string name="auto_start_monitoring">Valvonta käynnistyy automaattisesti</string>
     <string name="monitoring_interval">Valvontaväli</string>
+    <string name="screen_off_sampling">Kun näyttö on pois päältä</string>
+    <string name="update_widgets">Päivitä widgetit</string>
     <string name="show_drain_notification">Näytä kulutusilmoitus</string>
     <string name="show_drain_notification_desc">Näytä tarkat kulutustilastot ilmoituksessa (vaatii Shizukun, rootin tai ADB:n)</string>
     <string name="track_foreground_apps">Seuraa etualan sovelluksia</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Purkauksen raja</string>
     <string name="discharge_threshold_desc">Varoita, kun purkaus ylittää tämän (mA)</string>
     <string name="charging_complete_alert">Varahitus latauksen valmistuessa</string>
+    <string name="charging_complete">Lataus valmis</string>
+    <string name="low_battery_text">Akku %1$d%% — liitä latauslähdettä pian.</string>
+    <string name="battery_alerts">Akkuhälytykset</string>
     <string name="alert_sound">Varoitusääni</string>
     <string name="alert_vibration">Varoitusvärinä</string>
     <string name="high_temperature">Korkean lämpötilan varoitus</string>
@@ -414,6 +419,11 @@
         <item>30 sekuntia</item>
         <item>1 minuutti</item>
         <item>5 minuuttia</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Seuraa väliä</item>
+        <item>Hitaasti (5 minuuttia)</item>
+        <item>Keskeytä</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuutti</item>

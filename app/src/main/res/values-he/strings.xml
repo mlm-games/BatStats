@@ -176,6 +176,8 @@
     <string name="all_settings_reset">כל ההגדרות אופסו</string>
     <string name="auto_start_monitoring">התחלת ניטור אוטומטית</string>
     <string name="monitoring_interval">מרווח ניטור</string>
+    <string name="screen_off_sampling">כשהמסך כבוי</string>
+    <string name="update_widgets">עדכון ווידג\'טים</string>
     <string name="show_drain_notification">הצגת התראת צריכה</string>
     <string name="show_drain_notification_desc">הצגת סטטיסטיקת צריכה מפורטת בהתראה (נדרש Shizuku, Root או ADB)</string>
     <string name="track_foreground_apps">מעקב אחרי אפליקציות בחזית</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">סף פריקה</string>
     <string name="discharge_threshold_desc">התראה כאשר הפריקה עוברת את הערך הזה (mA)</string>
     <string name="charging_complete_alert">התראת טעינה הושלמה</string>
+    <string name="charging_complete">הטעינה הושלמה</string>
+    <string name="low_battery_text">הסוללה ב-%1$d%% — חבר בקרוב לטעינה.</string>
+    <string name="battery_alerts">התראות סוללה</string>
     <string name="alert_sound">צליל התראה</string>
     <string name="alert_vibration">רטט התראה</string>
     <string name="high_temperature">התראת טמפרטורה גבוהה</string>
@@ -434,6 +439,11 @@
         <item>30 שניות</item>
         <item>דקה אחת</item>
         <item>5 דקות</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>שמירה על מרווח</item>
+        <item>לאט (5 דקות)</item>
+        <item>השהיה</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>דקה אחת</item>

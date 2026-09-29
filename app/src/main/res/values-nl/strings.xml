@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Alle instellingen hersteld</string>
     <string name="auto_start_monitoring">Bewaking automatisch starten</string>
     <string name="monitoring_interval">Bewakingsinterval</string>
+    <string name="screen_off_sampling">Wanneer het scherm uit is</string>
+    <string name="update_widgets">Widgets bijwerken</string>
     <string name="show_drain_notification">Verbruiksmelding tonen</string>
     <string name="show_drain_notification_desc">Toon gedetailleerde verbruiksstatistieken in de melding (vereist Shizuku, Root of ADB)</string>
     <string name="track_foreground_apps">Apps op de voorgrond volgen</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Verbruiksdrempel</string>
     <string name="discharge_threshold_desc">Waarschuwen wanneer het verbruik dit overschrijdt (mA)</string>
     <string name="charging_complete_alert">Waarschuwing bij volledig opgeladen</string>
+    <string name="charging_complete">Opladen voltooid</string>
+    <string name="low_battery_text">Batterij op %1$d%% — binnenkort opladen.</string>
+    <string name="battery_alerts">Batterijwaarschuwingen</string>
     <string name="alert_sound">Waarschuwingsgeluid</string>
     <string name="alert_vibration">Waarschuwingstrilling</string>
     <string name="high_temperature">Waarschuwing voor hoge temperatuur</string>
@@ -414,6 +419,11 @@
         <item>30 seconden</item>
         <item>1 minuut</item>
         <item>5 minuten</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Interval volgen</item>
+        <item>Langzaam (5 minuten)</item>
+        <item>Pauzeren</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minuut</item>

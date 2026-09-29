@@ -176,6 +176,8 @@
     <string name="all_settings_reset">Tous les paramètres réinitialisés</string>
     <string name="auto_start_monitoring">Démarrer la surveillance automatiquement</string>
     <string name="monitoring_interval">Intervalle de surveillance</string>
+    <string name="screen_off_sampling">Lorsque l\'écran est éteint</string>
+    <string name="update_widgets">Mettre à jour les widgets</string>
     <string name="show_drain_notification">Afficher la notification de consommation</string>
     <string name="show_drain_notification_desc">Afficher les statistiques de consommation détaillées dans la notification (nécessite Shizuku, Root ou ADB)</string>
     <string name="track_foreground_apps">Suivre les applications au premier plan</string>
@@ -193,6 +195,9 @@
     <string name="discharge_threshold">Seuil de décharge</string>
     <string name="discharge_threshold_desc">Alerter lorsque la décharge dépasse cette valeur (mA)</string>
     <string name="charging_complete_alert">Alerte de charge terminée</string>
+    <string name="charging_complete">Charge terminée</string>
+    <string name="low_battery_text">Batterie à %1$d%% — branchez-la bientôt.</string>
+    <string name="battery_alerts">Alertes batterie</string>
     <string name="alert_sound">Son d’alerte</string>
     <string name="alert_vibration">Vibration d’alerte</string>
     <string name="high_temperature">Alerte de température élevée</string>
@@ -424,6 +429,11 @@
         <item>30 secondes</item>
         <item>1 minute</item>
         <item>5 minutes</item>
+    </string-array>
+    <string-array name="screen_off_sampling_options">
+        <item>Suivre l\'intervalle</item>
+        <item>Lent (5 minutes)</item>
+        <item>Pause</item>
     </string-array>
     <string-array name="detailed_stats_interval_options">
         <item>1 minute</item>

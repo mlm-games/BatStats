@@ -1,10 +1,11 @@
 [versions]
+androidxAppCompat = "1.8.0"
 activityCompose = "1.13.0"
 coreKtx = "1.19.1"
 datastorePreferences = "1.2.1"
 androidGradlePlugin = "9.4.1"
 desugar_jdk_libs = "2.1.5"
-kmpSettingsCore = "0.10.3"
+kmpSettingsCore = "0.10.4"
 koinBom = "4.2.2"
 kotlinStdlib = "2.4.20"
 kotlinxCoroutinesAndroid = "1.11.0"
@@ -29,6 +30,7 @@ apkDist = "0.5.2"
 composeBom = "2026.09.01"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppCompat" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom-alpha", version.ref = "composeBom" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }

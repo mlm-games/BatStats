@@ -34,14 +34,6 @@ android {
         versionCode = 764
         versionName = "6.3.2"
 
-        androidResources {
-            generateLocaleConfig = true
-            localeFilters += setOf(
-                "en", "ar", "cs", "de", "el", "es", "es-rES", "es-rUS", "fa", "fi", "fr",
-                "he", "hr", "hu", "id", "it", "ja", "ko", "nl", "pl", "pt", "pt-rBR", "ru",
-                "ru-rRU", "sv", "tr", "uk", "vi", "zh", "zh-rTW"
-            )
-        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -121,6 +113,7 @@ tasks.withType<AbstractArchiveTask>().configureEach {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

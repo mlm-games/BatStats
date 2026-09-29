@@ -4,6 +4,8 @@ import io.github.mlmgames.settings.core.annotations.CategoryDefinition
 import io.github.mlmgames.settings.core.annotations.NoReset
 import io.github.mlmgames.settings.core.annotations.Persisted
 import io.github.mlmgames.settings.core.annotations.Setting
+import io.github.mlmgames.settings.core.locale.AppLanguage
+import io.github.mlmgames.settings.core.resources.SettingsTextKeys
 import io.github.mlmgames.settings.core.types.Dropdown
 import io.github.mlmgames.settings.core.types.Slider
 import io.github.mlmgames.settings.core.types.Toggle
@@ -211,6 +213,16 @@ data class AppSettings(
         key = "theme_index"
     )
     val themeIndex: Int = 0,
+
+    @Setting(
+        title = "Language",
+        titleKey = SettingsTextKeys.LANGUAGE,
+        category = Display::class,
+        type = Dropdown::class,
+        key = "language",
+        languages = ["en", "ar", "cs", "de", "el", "es", "fa", "fi", "fr", "he", "hr", "hu", "id", "it", "ja", "ko", "nl", "pl", "pt", "ru", "sv", "tr", "uk", "vi", "zh-CN", "zh-TW"]
+    )
+    val language: AppLanguage = AppLanguage.System,
 
     @Setting(
         title = "Dynamic Colors",

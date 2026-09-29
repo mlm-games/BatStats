@@ -31,8 +31,8 @@ android {
         applicationId = "org.mlm.batstats"
         minSdk = 26
         targetSdk = 37
-        versionCode = 774
-        versionName = "6.3.3"
+        versionCode = 784
+        versionName = "6.3.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

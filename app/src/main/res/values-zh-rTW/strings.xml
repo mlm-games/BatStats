@@ -206,6 +206,10 @@
     <string name="show_current_ma">以 mA 顯示電流</string>
     <string name="compact_stats_view">精簡統計檢視</string>
     <string name="pure_black_oled">純黑（OLED）</string>
+    <string name="bottom_action_buttons">底部動作列</string>
+    <string name="bottom_action_buttons_desc">將主畫面的操作按鈕顯示在底部列</string>
+    <string name="show_app_names">顯示應用程式名稱</string>
+    <string name="show_app_names_desc">在詳細統計中於套件名稱旁顯示應用程式名稱</string>
     <string name="data_retention">資料保留期限</string>
     <string name="auto_cleanup">自動清除舊資料</string>
     <string name="export_format">匯出格式</string>

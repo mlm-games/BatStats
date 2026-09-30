@@ -206,6 +206,10 @@
     <string name="show_current_ma">Показывать ток в мА</string>
     <string name="compact_stats_view">Компактный вид статистики</string>
     <string name="pure_black_oled">Чёрный (OLED)</string>
+    <string name="bottom_action_buttons">Нижняя панель действий</string>
+    <string name="bottom_action_buttons_desc">Показывать кнопки действий главного экрана на нижней панели</string>
+    <string name="show_app_names">Показывать названия приложений</string>
+    <string name="show_app_names_desc">Показывать названия приложений рядом с именами пакетов в подробной статистике</string>
     <string name="data_retention">Хранение данных</string>
     <string name="auto_cleanup">Автоочистка старых данных</string>
     <string name="export_format">Формат экспорта</string>

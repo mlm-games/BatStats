@@ -206,6 +206,10 @@
     <string name="show_current_ma">Hiện dòng điện theo mA</string>
     <string name="compact_stats_view">Chế độ thống kê gọn</string>
     <string name="pure_black_oled">Đen tuyệt đối (OLED)</string>
+    <string name="bottom_action_buttons">Thanh hành động ở dưới</string>
+    <string name="bottom_action_buttons_desc">Hiển thị các nút hành động của màn hình chính trên thanh dưới</string>
+    <string name="show_app_names">Hiển thị tên ứng dụng</string>
+    <string name="show_app_names_desc">Hiển thị tên ứng dụng bên cạnh tên gói trong thống kê chi tiết</string>
     <string name="data_retention">Thời gian lưu dữ liệu</string>
     <string name="auto_cleanup">Tự động dọn dữ liệu cũ</string>
     <string name="export_format">Định dạng xuất</string>

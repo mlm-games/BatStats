@@ -40,7 +40,11 @@ import app.batstats.R
 import app.batstats.battery.util.BatteryStatsParser
 import app.batstats.battery.util.RootStatsCollector
 import app.batstats.battery.util.ShellRunner
+import app.batstats.ui.LocalShowAppNames
+import app.batstats.ui.rememberAppLabel
+import app.batstats.ui.rememberAppLabelLine
 import app.batstats.viewmodel.DetailedStatsViewModel
+import app.batstats.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
@@ -52,8 +56,10 @@ import java.util.*
 @Composable
 fun DetailedStatsScreen(
     onBack: () -> Unit,
-    vm: DetailedStatsViewModel = koinViewModel()
+    vm: DetailedStatsViewModel = koinViewModel(),
+    settingsVm: SettingsViewModel = koinViewModel()
 ) {
+    val settings by settingsVm.settings.collectAsStateWithLifecycle()
     val snapshot by vm.snapshot.collectAsStateWithLifecycle()
     val deviceIdle by vm.deviceIdle.collectAsStateWithLifecycle()
     val powerManager by vm.powerManager.collectAsStateWithLifecycle()
@@ -189,18 +195,20 @@ fun DetailedStatsScreen(
                 HorizontalDivider()
 
                 // Pager content
-                HorizontalPager(
-                    state = pagerState,
-                    modifier = Modifier.fillMaxSize()
-                ) { page ->
-                    when (page) {
-                        0 -> OverviewTab(snapshot, deviceIdle, powerManager)
-                        1 -> AppsTab(snapshot?.apps ?: emptyList())
-                        2 -> WakelocksTab(snapshot?.wakelocks ?: emptyList(), snapshot?.kernelWakelocks ?: emptyList())
-                        3 -> NetworkTab(snapshot?.network ?: emptyList())
-                        4 -> AlarmsJobsTab(snapshot?.alarms ?: emptyList(), snapshot?.jobs ?: emptyList(), snapshot?.syncs ?: emptyList())
-                        5 -> SystemTab(snapshot, deviceIdle, powerManager)
-                        6 -> RootTab(hasRoot, kernelBattery, onRefresh = { vm.refreshRootStats() })
+                CompositionLocalProvider(LocalShowAppNames provides settings.showAppNames) {
+                    HorizontalPager(
+                        state = pagerState,
+                        modifier = Modifier.fillMaxSize()
+                    ) { page ->
+                        when (page) {
+                            0 -> OverviewTab(snapshot, deviceIdle, powerManager)
+                            1 -> AppsTab(snapshot?.apps ?: emptyList())
+                            2 -> WakelocksTab(snapshot?.wakelocks ?: emptyList(), snapshot?.kernelWakelocks ?: emptyList())
+                            3 -> NetworkTab(snapshot?.network ?: emptyList())
+                            4 -> AlarmsJobsTab(snapshot?.alarms ?: emptyList(), snapshot?.jobs ?: emptyList(), snapshot?.syncs ?: emptyList())
+                            5 -> SystemTab(snapshot, deviceIdle, powerManager)
+                            6 -> RootTab(hasRoot, kernelBattery, onRefresh = { vm.refreshRootStats() })
+                        }
                     }
                 }
             }
@@ -812,12 +820,29 @@ private fun AppStatsCard(rank: Int, app: BatteryStatsParser.AppPowerStats) {
                 Spacer(Modifier.width(12.dp))
 
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        app.packageName,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    val appLabel = rememberAppLabel(app.packageName)
+                    if (appLabel != null) {
+                        Text(
+                            appLabel,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Text(
+                            app.packageName,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    } else {
+                        Text(
+                            app.packageName,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                     Text(
                         stringResource(
                             R.string.uid_and_power,
@@ -982,7 +1007,7 @@ private fun WakelockCard(wl: BatteryStatsParser.WakelockStats) {
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        wl.packageName,
+                        rememberAppLabelLine(wl.packageName),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -1106,12 +1131,29 @@ private enum class NetworkSortOption(val titleRes: Int) {
 private fun NetworkCard(net: BatteryStatsParser.NetworkStats) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                net.packageName,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            val netLabel = rememberAppLabel(net.packageName)
+            if (netLabel != null) {
+                Text(
+                    netLabel,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    net.packageName,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            } else {
+                Text(
+                    net.packageName,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
 
             Spacer(Modifier.height(8.dp))
 
@@ -1221,7 +1263,7 @@ private fun AlarmCard(alarm: BatteryStatsParser.AlarmStats) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(alarm.tag, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(alarm.packageName, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(rememberAppLabelLine(alarm.packageName), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(8.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 StatColumn(R.string.count, "${alarm.count}")
@@ -1237,7 +1279,7 @@ private fun JobCard(job: BatteryStatsParser.JobStats) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(job.jobName, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(job.packageName, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(rememberAppLabelLine(job.packageName), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(8.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 StatColumn(R.string.count, "${job.count}")
@@ -1252,7 +1294,7 @@ private fun SyncCard(sync: BatteryStatsParser.SyncStats) {
     ElevatedCard(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(sync.authority, style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(sync.packageName, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(rememberAppLabelLine(sync.packageName), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(8.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 StatColumn(R.string.count, "${sync.count}")
@@ -1282,13 +1324,32 @@ private fun SystemTab(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                proc.processName,
-                                modifier = Modifier.weight(1f),
-                                style = MaterialTheme.typography.bodySmall,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
+                            val procLabel = rememberAppLabel(proc.processName)
+                            if (procLabel != null) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        procLabel,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                    Text(
+                                        proc.processName,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            } else {
+                                Text(
+                                    proc.processName,
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
                             Text(
                                 formatDuration(proc.userTimeMs + proc.systemTimeMs),
                                 style = MaterialTheme.typography.bodySmall
@@ -1318,7 +1379,7 @@ private fun SystemTab(
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Text(
-                                    sensor.packageName,
+                                    rememberAppLabelLine(sensor.packageName),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     maxLines = 1,

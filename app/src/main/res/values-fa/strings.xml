@@ -206,6 +206,10 @@
     <string name="show_current_ma">نمایش جریان بر حسب mA</string>
     <string name="compact_stats_view">نمای فشردهٔ آمار</string>
     <string name="pure_black_oled">سیاهی کامل (OLED)</string>
+    <string name="bottom_action_buttons">نوار اقدام پایین</string>
+    <string name="bottom_action_buttons_desc">نمایش دکمه‌های اقدام صفحه اصلی در نوار پایینی</string>
+    <string name="show_app_names">نمایش نام برنامه‌ها</string>
+    <string name="show_app_names_desc">نمایش نام برنامه‌ها در کنار نام بسته‌ها در آمار تفصیلی</string>
     <string name="data_retention">نگهداری داده‌ها</string>
     <string name="auto_cleanup">پاک‌سازی خودکار داده‌های قدیمی</string>
     <string name="export_format">قالب برون‌ریزی</string>

@@ -206,6 +206,10 @@
     <string name="show_current_ma">Prikaži struju u mA</string>
     <string name="compact_stats_view">Kompaktni prikaz statistike</string>
     <string name="pure_black_oled">Čisto crna (OLED)</string>
+    <string name="bottom_action_buttons">Donja traka radnji</string>
+    <string name="bottom_action_buttons_desc">Prikaži gumbe radnje početnog zaslona u donjoj traci</string>
+    <string name="show_app_names">Prikaži nazive aplikacija</string>
+    <string name="show_app_names_desc">Prikaži nazive aplikacija uz nazive paketa u detaljnoj statistici</string>
     <string name="data_retention">Čuvanje podataka</string>
     <string name="auto_cleanup">Automatski briši stare podatke</string>
     <string name="export_format">Format izvoza</string>

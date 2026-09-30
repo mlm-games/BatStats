@@ -206,6 +206,10 @@
     <string name="show_current_ma">Visa strömmen i mA</string>
     <string name="compact_stats_view">Kompakt statistikvy</string>
     <string name="pure_black_oled">Ren svart (OLED)</string>
+    <string name="bottom_action_buttons">Nedre åtgärdsfält</string>
+    <string name="bottom_action_buttons_desc">Visa åtgärdsknapparna på startskärmen i ett nedre fält</string>
+    <string name="show_app_names">Visa appnamn</string>
+    <string name="show_app_names_desc">Visa appnamn bredvid paketnamn i detaljerad statistik</string>
     <string name="data_retention">Datalagring</string>
     <string name="auto_cleanup">Rensa gamla data automatiskt</string>
     <string name="export_format">Exportformat</string>

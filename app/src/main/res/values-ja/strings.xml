@@ -206,6 +206,10 @@
     <string name="show_current_ma">電流を mA で表示</string>
     <string name="compact_stats_view">コンパクトな統計表示</string>
     <string name="pure_black_oled">純黒 (OLED)</string>
+    <string name="bottom_action_buttons">下部アクションバー</string>
+    <string name="bottom_action_buttons_desc">ホーム画面のアクションボタンを下部バーに表示</string>
+    <string name="show_app_names">アプリ名を表示</string>
+    <string name="show_app_names_desc">詳細統計でパッケージ名と並べてアプリ名を表示</string>
     <string name="data_retention">データ保持期間</string>
     <string name="auto_cleanup">古いデータを自動削除</string>
     <string name="export_format">エクスポート形式</string>

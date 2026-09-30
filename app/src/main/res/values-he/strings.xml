@@ -206,6 +206,10 @@
     <string name="show_current_ma">הצגת הזרם ב־mA</string>
     <string name="compact_stats_view">תצוגת סטטיסטיקה מצומצמת</string>
     <string name="pure_black_oled">שחור מלא (OLED)</string>
+    <string name="bottom_action_buttons">שורת פעולות תחתונה</string>
+    <string name="bottom_action_buttons_desc">הצג את כפתורי הפעולה של מסך הבית בשורה תחתונה</string>
+    <string name="show_app_names">הצגת שמות אפליקציות</string>
+    <string name="show_app_names_desc">הצג שמות אפליקציות לצד שמות חבילות בסטטיסטיקות מפורטות</string>
     <string name="data_retention">שמירת נתונים</string>
     <string name="auto_cleanup">ניקוי אוטומטי של נתונים ישנים</string>
     <string name="export_format">פורמט ייצוא</string>

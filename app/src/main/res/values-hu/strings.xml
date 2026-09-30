@@ -206,6 +206,10 @@
     <string name="show_current_ma">Az áram megjelenítése mA-ban</string>
     <string name="compact_stats_view">Tömör statisztikanezet</string>
     <string name="pure_black_oled">Tiszta fekete (OLED)</string>
+    <string name="bottom_action_buttons">Alsó akciósáv</string>
+    <string name="bottom_action_buttons_desc">A kezdőképernyő gombjainak megjelenítése alsó sávon</string>
+    <string name="show_app_names">Alkalmazásnevek megjelenítése</string>
+    <string name="show_app_names_desc">Alkalmazásnevek megjelenítése a csomagnevek mellett a részletes statisztikákban</string>
     <string name="data_retention">Adatmegőrzés</string>
     <string name="auto_cleanup">Régi adatok automatikus törlése</string>
     <string name="export_format">Exportálási formátum</string>

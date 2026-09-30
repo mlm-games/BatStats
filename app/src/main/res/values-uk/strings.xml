@@ -206,6 +206,10 @@
     <string name="show_current_ma">Показувати струм у мА</string>
     <string name="compact_stats_view">Компактний вигляд статистики</string>
     <string name="pure_black_oled">Чорний (OLED)</string>
+    <string name="bottom_action_buttons">Нижня панель дій</string>
+    <string name="bottom_action_buttons_desc">Показувати кнопки дій головного екрана на нижній панелі</string>
+    <string name="show_app_names">Показувати назви застосунків</string>
+    <string name="show_app_names_desc">Показувати назви застосунків поряд із іменами пакетів у детальній статистиці</string>
     <string name="data_retention">Зберігання даних</string>
     <string name="auto_cleanup">Автоматично очищати старі дані</string>
     <string name="export_format">Формат експорту</string>

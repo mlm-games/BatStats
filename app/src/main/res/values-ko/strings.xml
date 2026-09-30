@@ -206,6 +206,10 @@
     <string name="show_current_ma">전류를 mA로 표시</string>
     <string name="compact_stats_view">간결한 통계 보기</string>
     <string name="pure_black_oled">순수 검정 (OLED)</string>
+    <string name="bottom_action_buttons">하단 작업 표시줄</string>
+    <string name="bottom_action_buttons_desc">홈 화면의 작업 버튼을 하단 표시줄에 표시</string>
+    <string name="show_app_names">앱 이름 표시</string>
+    <string name="show_app_names_desc">상세 통계에서 패키지 이름 옆에 앱 이름 표시</string>
     <string name="data_retention">데이터 보존 기간</string>
     <string name="auto_cleanup">오래된 데이터 자동 정리</string>
     <string name="export_format">내보내기 형식</string>

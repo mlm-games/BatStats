@@ -206,6 +206,10 @@
     <string name="show_current_ma">إظهار التيار بالمللي أمبير</string>
     <string name="compact_stats_view">عرض إحصاءات مضغوط</string>
     <string name="pure_black_oled">أسود صافٍ (OLED)</string>
+    <string name="bottom_action_buttons">شريط الإجراءات السفلي</string>
+    <string name="bottom_action_buttons_desc">عرض أزرار إجراءات الشاشة الرئيسية في شريط سفلي</string>
+    <string name="show_app_names">عرض أسماء التطبيقات</string>
+    <string name="show_app_names_desc">عرض أسماء التطبيقات بجانب أسماء الحزم في الإحصاءات التفصيلية</string>
     <string name="data_retention">مدة الاحتفاظ بالبيانات</string>
     <string name="auto_cleanup">تنظيف البيانات القديمة تلقائيًا</string>
     <string name="export_format">صيغة التصدير</string>

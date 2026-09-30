@@ -206,6 +206,10 @@
     <string name="show_current_ma">Tampilkan arus dalam mA</string>
     <string name="compact_stats_view">Tampilan statistik ringkas</string>
     <string name="pure_black_oled">Hitam pekat (OLED)</string>
+    <string name="bottom_action_buttons">Bilah aksi di bawah</string>
+    <string name="bottom_action_buttons_desc">Tampilkan tombol aksi layar beranda di bilah bawah</string>
+    <string name="show_app_names">Tampilkan nama aplikasi</string>
+    <string name="show_app_names_desc">Tampilkan nama aplikasi di samping nama paket dalam statistik terperinci</string>
     <string name="data_retention">Retensi data</string>
     <string name="auto_cleanup">Bersihkan data lama secara otomatis</string>
     <string name="export_format">Format ekspor</string>

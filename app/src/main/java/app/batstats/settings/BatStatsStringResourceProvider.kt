@@ -54,6 +54,11 @@ private val settingsResources: Map<String, Int> = mapOf(
     BatStatsSettingsKeys.SHOW_CURRENT_MA to R.string.show_current_ma,
     BatStatsSettingsKeys.TEMPERATURE_UNIT to R.string.temperature_unit,
     BatStatsSettingsKeys.COMPACT_STATS_VIEW to R.string.compact_stats_view,
+    BatStatsSettingsKeys.BOTTOM_ACTION_BUTTONS to R.string.bottom_action_buttons,
+    BatStatsSettingsKeys.BOTTOM_ACTION_BUTTONS_DESCRIPTION to
+        R.string.bottom_action_buttons_desc,
+    BatStatsSettingsKeys.SHOW_APP_NAMES to R.string.show_app_names,
+    BatStatsSettingsKeys.SHOW_APP_NAMES_DESCRIPTION to R.string.show_app_names_desc,
 
     BatStatsSettingsKeys.DATA_RETENTION to R.string.data_retention,
     BatStatsSettingsKeys.AUTO_CLEANUP to R.string.auto_cleanup,

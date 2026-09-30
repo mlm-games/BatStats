@@ -206,6 +206,10 @@
     <string name="show_current_ma">Näytä virta mA:ssa</string>
     <string name="compact_stats_view">Supistettu tilastonäkymä</string>
     <string name="pure_black_oled">Täysi musta (OLED)</string>
+    <string name="bottom_action_buttons">Alareunan toimintopalkki</string>
+    <string name="bottom_action_buttons_desc">Näytä kotinäytön toimintopainikkeet alapalkissa</string>
+    <string name="show_app_names">Näytä sovellusten nimet</string>
+    <string name="show_app_names_desc">Näytä sovellusten nimet pakettien nimien yhteydessä yksityiskohtaisissa tilastoissa</string>
     <string name="data_retention">Tietojen säilytys</string>
     <string name="auto_cleanup">Siivoa vanhat tiedot automaattisesti</string>
     <string name="export_format">Vientimuoto</string>

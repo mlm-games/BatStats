@@ -206,6 +206,10 @@
     <string name="show_current_ma">Afficher l’intensité en mA</string>
     <string name="compact_stats_view">Vue des statistiques compacte</string>
     <string name="pure_black_oled">Noir absolu (OLED)</string>
+    <string name="bottom_action_buttons">Barre d’actions en bas</string>
+    <string name="bottom_action_buttons_desc">Afficher les boutons d’action de l’écran d’accueil dans une barre inférieure</string>
+    <string name="show_app_names">Afficher les noms des applications</string>
+    <string name="show_app_names_desc">Afficher les noms des applications à côté des noms de paquets dans les statistiques détaillées</string>
     <string name="data_retention">Conservation des données</string>
     <string name="auto_cleanup">Nettoyer automatiquement les anciennes données</string>
     <string name="export_format">Format d’export</string>

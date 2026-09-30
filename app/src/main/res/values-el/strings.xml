@@ -206,6 +206,10 @@
     <string name="show_current_ma">Εμφάνιση ρεύματος σε mA</string>
     <string name="compact_stats_view">Συμπυκνωμένη προβολή στατιστικών</string>
     <string name="pure_black_oled">Απόλυτο μαύρο (OLED)</string>
+    <string name="bottom_action_buttons">Κάτω γραμμή ενεργειών</string>
+    <string name="bottom_action_buttons_desc">Εμφάνιση των κουμπιών ενεργειών της αρχικής οθόνης σε κάτω γραμμή</string>
+    <string name="show_app_names">Εμφάνιση ονομάτων εφαρμογών</string>
+    <string name="show_app_names_desc">Εμφάνιση ονομάτων εφαρμογών δίπλα στα ονόματα πακέτων στις αναλυτικές στατιστικές</string>
     <string name="data_retention">Διατήρηση δεδομένων</string>
     <string name="auto_cleanup">Αυτόματος καθαρισμός παλιών δεδομένων</string>
     <string name="export_format">Μορφή εξαγωγής</string>

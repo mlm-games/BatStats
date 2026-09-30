@@ -220,63 +220,65 @@ fun BatterySettingsScreen(
         }
     }
 
-    // Dropdown Dialog
-    val cf = currentField
-    if (showDropdown && cf?.meta != null) {
-        val meta = cf.meta!!
-        @Suppress("UNCHECKED_CAST")
-        val anyField = cf as SettingField<AppSettings, Any?>
-        val index = anyField.toUiDropdownIndex(settings) ?: 0
+    ProvideStringResources(stringProvider) {
+        // Dropdown Dialog
+        val cf = currentField
+        if (showDropdown && cf?.meta != null) {
+            val meta = cf.meta!!
+            @Suppress("UNCHECKED_CAST")
+            val anyField = cf as SettingField<AppSettings, Any?>
+            val index = anyField.toUiDropdownIndex(settings) ?: 0
 
-        val options = meta.dropdownLabels(cf, stringProvider)
-        if (options.isNotEmpty()) {
-            DropdownSettingDialog(
+            val options = meta.dropdownLabels(cf, stringProvider)
+            if (options.isNotEmpty()) {
+                DropdownSettingDialog(
+                    title = meta.resolvedTitle(stringProvider),
+                    options = options,
+                    selectedIndex = index,
+                    onDismiss = { showDropdown = false },
+                    onOptionSelected = { idx ->
+                        anyField.fromUiDropdownIndex(idx)?.let { vm.updateSetting(cf.name, it) }
+                        showDropdown = false
+                    }
+                )
+            } else {
+                showDropdown = false
+            }
+        }
+
+        // Slider Dialog
+        if (showSlider && cf?.meta != null) {
+            val meta = cf.meta!!
+            @Suppress("UNCHECKED_CAST")
+            val anyField = cf as SettingField<AppSettings, Any?>
+            val value = anyField.get(settings)
+
+            val currentVal = when (value) {
+                is Float -> value
+                is Int -> value.toFloat()
+                is Long -> value.toFloat()
+                is Double -> value.toFloat()
+                else -> 0f
+            }
+
+            SliderSettingDialog(
                 title = meta.resolvedTitle(stringProvider),
-                options = options,
-                selectedIndex = index,
-                onDismiss = { showDropdown = false },
-                onOptionSelected = { idx ->
-                    anyField.fromUiDropdownIndex(idx)?.let { vm.updateSetting(cf.name, it) }
-                    showDropdown = false
+                currentValue = currentVal,
+                min = meta.min,
+                max = meta.max,
+                step = meta.step,
+                onDismiss = { showSlider = false },
+                onValueSelected = { v ->
+                    when (value) {
+                        is Float -> vm.updateSetting(cf.name, v)
+                        is Int -> vm.updateSetting(cf.name, v.toInt())
+                        is Long -> vm.updateSetting(cf.name, v.toLong())
+                        is Double -> vm.updateSetting(cf.name, v.toDouble())
+                    }
+                    showSlider = false
                 }
             )
-        } else {
-            showDropdown = false
         }
-    }
-
-    // Slider Dialog
-    if (showSlider && cf?.meta != null) {
-        val meta = cf.meta!!
-        @Suppress("UNCHECKED_CAST")
-        val anyField = cf as SettingField<AppSettings, Any?>
-        val value = anyField.get(settings)
-
-        val currentVal = when (value) {
-            is Float -> value
-            is Int -> value.toFloat()
-            is Long -> value.toFloat()
-            is Double -> value.toFloat()
-            else -> 0f
-        }
-
-        SliderSettingDialog(
-            title = meta.resolvedTitle(stringProvider),
-            currentValue = currentVal,
-            min = meta.min,
-            max = meta.max,
-            step = meta.step,
-            onDismiss = { showSlider = false },
-            onValueSelected = { v ->
-                when (value) {
-                    is Float -> vm.updateSetting(cf.name, v)
-                    is Int -> vm.updateSetting(cf.name, v.toInt())
-                    is Long -> vm.updateSetting(cf.name, v.toLong())
-                    is Double -> vm.updateSetting(cf.name, v.toDouble())
-                }
-                showSlider = false
-            }
-        )
     }
 
     // Reset Dialog

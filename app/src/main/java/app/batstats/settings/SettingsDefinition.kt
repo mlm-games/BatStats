@@ -281,6 +281,28 @@ data class AppSettings(
     )
     val compactStatsView: Boolean = false,
 
+    @Setting(
+        title = "Bottom Action Bar",
+        titleKey = BatStatsSettingsKeys.BOTTOM_ACTION_BUTTONS,
+        description = "Show the home screen action buttons in a bottom bar",
+        descriptionKey = BatStatsSettingsKeys.BOTTOM_ACTION_BUTTONS_DESCRIPTION,
+        category = Display::class,
+        type = Toggle::class,
+        key = "bottom_action_buttons"
+    )
+    val bottomActionButtons: Boolean = false,
+
+    @Setting(
+        title = "Show App Names",
+        titleKey = BatStatsSettingsKeys.SHOW_APP_NAMES,
+        description = "Show app names alongside package names in detailed statistics",
+        descriptionKey = BatStatsSettingsKeys.SHOW_APP_NAMES_DESCRIPTION,
+        category = Display::class,
+        type = Toggle::class,
+        key = "show_app_names"
+    )
+    val showAppNames: Boolean = true,
+
     // DATA
     @Setting(
         title = "Data Retention",

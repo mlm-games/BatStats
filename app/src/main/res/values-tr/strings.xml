@@ -206,6 +206,10 @@
     <string name="show_current_ma">Akımı mA olarak göster</string>
     <string name="compact_stats_view">Sıkıştırılmış istatistik görünümü</string>
     <string name="pure_black_oled">Tam siyah (OLED)</string>
+    <string name="bottom_action_buttons">Alt eylem çubuğu</string>
+    <string name="bottom_action_buttons_desc">Ana ekran eylem düğmelerini alt çubukta göster</string>
+    <string name="show_app_names">Uygulama adlarını göster</string>
+    <string name="show_app_names_desc">Ayrıntılı istatistiklerde paket adlarının yanında uygulama adlarını göster</string>
     <string name="data_retention">Veri saklama süresi</string>
     <string name="auto_cleanup">Eski verileri otomatik temizle</string>
     <string name="export_format">Dışa aktarma biçimi</string>

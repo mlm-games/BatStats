@@ -53,6 +53,11 @@ object BatStatsSettingsKeys {
     const val SHOW_CURRENT_MA = "batstats.settings.show_current_ma"
     const val TEMPERATURE_UNIT = "batstats.settings.temperature_unit"
     const val COMPACT_STATS_VIEW = "batstats.settings.compact_stats_view"
+    const val BOTTOM_ACTION_BUTTONS = "batstats.settings.bottom_action_buttons"
+    const val BOTTOM_ACTION_BUTTONS_DESCRIPTION =
+        "batstats.settings.bottom_action_buttons.description"
+    const val SHOW_APP_NAMES = "batstats.settings.show_app_names"
+    const val SHOW_APP_NAMES_DESCRIPTION = "batstats.settings.show_app_names.description"
 
     const val DATA_RETENTION = "batstats.settings.data_retention"
     const val AUTO_CLEANUP = "batstats.settings.auto_cleanup"

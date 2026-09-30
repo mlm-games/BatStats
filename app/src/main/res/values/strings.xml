@@ -225,6 +225,10 @@
     <string name="show_current_ma">Show Current in mA</string>
     <string name="compact_stats_view">Compact Stats View</string>
     <string name="pure_black_oled">Pure black (OLED)</string>
+    <string name="bottom_action_buttons">Bottom Action Bar</string>
+    <string name="bottom_action_buttons_desc">Show the home screen action buttons in a bottom bar</string>
+    <string name="show_app_names">Show App Names</string>
+    <string name="show_app_names_desc">Show app names alongside package names in detailed statistics</string>
 
     <!-- Settings: data -->
     <string name="data_retention">Data Retention</string>

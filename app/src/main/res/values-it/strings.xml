@@ -206,6 +206,10 @@
     <string name="show_current_ma">Mostra la corrente in mA</string>
     <string name="compact_stats_view">Visione compatta delle statistiche</string>
     <string name="pure_black_oled">Nero totale (OLED)</string>
+    <string name="bottom_action_buttons">Barra azioni in basso</string>
+    <string name="bottom_action_buttons_desc">Mostra i pulsanti azione della schermata principale in una barra inferiore</string>
+    <string name="show_app_names">Mostra i nomi delle app</string>
+    <string name="show_app_names_desc">Mostra i nomi delle app accanto ai nomi dei pacchetti nelle statistiche dettagliate</string>
     <string name="data_retention">Conservazione dei dati</string>
     <string name="auto_cleanup">Pulizia automatica dei dati vecchi</string>
     <string name="export_format">Formato di esportazione</string>

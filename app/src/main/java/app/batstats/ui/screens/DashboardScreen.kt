@@ -21,6 +21,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,6 +34,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ShowChart
 import androidx.compose.material.icons.filled.ArrowDownward
@@ -58,16 +60,22 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FlexibleBottomAppBar
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TooltipAnchorPosition
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -95,6 +103,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.batstats.R
 import app.batstats.battery.data.BatteryRepository
@@ -102,11 +111,33 @@ import app.batstats.battery.data.db.ChargeSession
 import app.batstats.battery.data.db.SessionType
 import app.batstats.battery.util.TimeEstimator
 import app.batstats.viewmodel.DashboardViewModel
+import app.batstats.viewmodel.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+
+private data class HomeAction(
+    val icon: ImageVector,
+    val labelRes: Int,
+    val onClick: () -> Unit
+)
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HomeActionButton(action: HomeAction) {
+    val label = stringResource(action.labelRes)
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
+        tooltip = { PlainTooltip { Text(label) } },
+        state = rememberTooltipState()
+    ) {
+        IconButton(onClick = action.onClick) {
+            Icon(action.icon, label)
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,11 +148,23 @@ fun DashboardScreen(
     onOpenData: () -> Unit,
     onOpenDetailedStats: () -> Unit,
     onOpenDrainStats: () -> Unit,
-    vm: DashboardViewModel = koinViewModel()
+    vm: DashboardViewModel = koinViewModel(),
+    settingsVm: SettingsViewModel = koinViewModel()
 ) {
     val rt by vm.realtime.collectAsStateWithLifecycle()
     val session by vm.activeSession.collectAsStateWithLifecycle()
     val isMonitoring by vm.isMonitoring.collectAsStateWithLifecycle()
+    val settings by settingsVm.settings.collectAsStateWithLifecycle()
+
+    val homeActions = remember(onOpenHistory, onOpenData, onOpenDrainStats, onOpenDetailedStats, onOpenSettings) {
+        listOf(
+            HomeAction(Icons.Outlined.History, R.string.history, onOpenHistory),
+            HomeAction(Icons.Outlined.CloudDownload, R.string.data, onOpenData),
+            HomeAction(Icons.AutoMirrored.Outlined.ShowChart, R.string.drain_statistics, onOpenDrainStats),
+            HomeAction(Icons.Outlined.Analytics, R.string.detailed_stats, onOpenDetailedStats),
+            HomeAction(Icons.Outlined.Settings, R.string.settings, onOpenSettings)
+        )
+    }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -138,7 +181,13 @@ fun DashboardScreen(
                     Column {
                         Text(
                             stringResource(R.string.batstats),
-                            style = MaterialTheme.typography.headlineMedium
+                            style = MaterialTheme.typography.headlineMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            autoSize = TextAutoSize.StepBased(
+                                minFontSize = 12.sp,
+                                maxFontSize = MaterialTheme.typography.headlineMedium.fontSize
+                            )
                         )
                         AnimatedVisibility(visible = rt.sample != null) {
                             val ts = rt.sample?.timestamp ?: System.currentTimeMillis()
@@ -156,24 +205,22 @@ fun DashboardScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onOpenHistory) {
-                        Icon(Icons.Outlined.History, stringResource(R.string.history))
-                    }
-                    IconButton(onClick = onOpenData) {
-                        Icon(Icons.Outlined.CloudDownload, stringResource(R.string.data))
-                    }
-                    IconButton(onClick = onOpenDrainStats) {
-                        Icon(Icons.AutoMirrored.Outlined.ShowChart, stringResource(R.string.drain_statistics))
-                    }
-                    IconButton(onClick = onOpenDetailedStats) {
-                        Icon(Icons.Outlined.Analytics, stringResource(R.string.detailed_stats))
-                    }
-                    IconButton(onClick = onOpenSettings) {
-                        Icon(Icons.Outlined.Settings, stringResource(R.string.settings))
+                    if (!settings.bottomActionButtons) {
+                        homeActions.forEach { HomeActionButton(it) }
                     }
                 },
                 scrollBehavior = scrollBehavior
             )
+        },
+        bottomBar = {
+            if (settings.bottomActionButtons) {
+                FlexibleBottomAppBar(
+                    contentPadding = PaddingValues(horizontal = 0.dp),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    homeActions.forEach { HomeActionButton(it) }
+                }
+            }
         },
         containerColor = MaterialTheme.colorScheme.surface
     ) { pv ->

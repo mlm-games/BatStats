@@ -206,6 +206,10 @@
     <string name="show_current_ma">Stroom in mA tonen</string>
     <string name="compact_stats_view">Compacte statistiekweergave</string>
     <string name="pure_black_oled">Puur zwart (OLED)</string>
+    <string name="bottom_action_buttons">Onderste actiebalk</string>
+    <string name="bottom_action_buttons_desc">Actieknoppen van het startscherm in een onderste balk weergeven</string>
+    <string name="show_app_names">App-namen weergeven</string>
+    <string name="show_app_names_desc">App-namen naast pakketnamen weergeven in gedetailleerde statistieken</string>
     <string name="data_retention">Bewaren van gegevens</string>
     <string name="auto_cleanup">Oude gegevens automatisch opschonen</string>
     <string name="export_format">Exportformaat</string>

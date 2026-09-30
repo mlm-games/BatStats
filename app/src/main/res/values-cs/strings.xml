@@ -206,6 +206,10 @@
     <string name="show_current_ma">Zobrazovat proud v mA</string>
     <string name="compact_stats_view">Kompaktní zobrazení statistik</string>
     <string name="pure_black_oled">Čistá černá (OLED)</string>
+    <string name="bottom_action_buttons">Spodní lišta akcí</string>
+    <string name="bottom_action_buttons_desc">Zobrazit akční tlačítka domovské obrazovky ve spodní liště</string>
+    <string name="show_app_names">Zobrazit názvy aplikací</string>
+    <string name="show_app_names_desc">Zobrazit názvy aplikací vedle názvů balíčků v podrobných statistikách</string>
     <string name="data_retention">Retence dat</string>
     <string name="auto_cleanup">Automaticky čistit stará data</string>
     <string name="export_format">Formát exportu</string>

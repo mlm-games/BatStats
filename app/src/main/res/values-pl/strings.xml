@@ -206,6 +206,10 @@
     <string name="show_current_ma">Pokazuj prąd w mA</string>
     <string name="compact_stats_view">Zwarty widok statystyk</string>
     <string name="pure_black_oled">Czysta czerń (OLED)</string>
+    <string name="bottom_action_buttons">Dolny pasek akcji</string>
+    <string name="bottom_action_buttons_desc">Wyświetlaj przyciski akcji ekranu głównego na dolnym pasku</string>
+    <string name="show_app_names">Pokazuj nazwy aplikacji</string>
+    <string name="show_app_names_desc">Pokazuj nazwy aplikacji obok nazw pakietów w szczegółowych statystykach</string>
     <string name="data_retention">Przechowywanie danych</string>
     <string name="auto_cleanup">Automatycznie usuwaj stare dane</string>
     <string name="export_format">Format eksportu</string>

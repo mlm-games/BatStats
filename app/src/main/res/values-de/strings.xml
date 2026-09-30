@@ -206,6 +206,10 @@
     <string name="show_current_ma">Stromstärke in mA anzeigen</string>
     <string name="compact_stats_view">Kompakte Statistikansicht</string>
     <string name="pure_black_oled">Reines Schwarz (OLED)</string>
+    <string name="bottom_action_buttons">Untere Aktionsleiste</string>
+    <string name="bottom_action_buttons_desc">Aktions-Schaltflächen des Startbildschirms in einer unteren Leiste anzeigen</string>
+    <string name="show_app_names">App-Namen anzeigen</string>
+    <string name="show_app_names_desc">App-Namen neben Paketnamen in den detaillierten Statistiken anzeigen</string>
     <string name="data_retention">Datenaufbewahrung</string>
     <string name="auto_cleanup">Alte Daten automatisch löschen</string>
     <string name="export_format">Exportformat</string>

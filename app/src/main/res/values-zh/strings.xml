@@ -206,6 +206,10 @@
     <string name="show_current_ma">以 mA 显示电流</string>
     <string name="compact_stats_view">紧凑统计视图</string>
     <string name="pure_black_oled">纯黑（OLED）</string>
+    <string name="bottom_action_buttons">底部操作栏</string>
+    <string name="bottom_action_buttons_desc">将主屏幕的操作按钮显示在底部栏</string>
+    <string name="show_app_names">显示应用名称</string>
+    <string name="show_app_names_desc">在详细统计中在包名旁显示应用名称</string>
     <string name="data_retention">数据保留期限</string>
     <string name="auto_cleanup">自动清理旧数据</string>
     <string name="export_format">导出格式</string>

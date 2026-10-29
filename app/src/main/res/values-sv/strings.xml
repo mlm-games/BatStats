@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • via %1$s</string>
     <string name="reset_stats">Återställ statistik</string>
+    <string name="more_actions">Fler åtgärder</string>
+    <string name="reset_stats_warning">Rensar Androids batteristatistikhistorik för alla appar. Det går inte att ångra.</string>
     <string name="stats_reset_success">Statistiken återställdes</string>
     <string name="stats_reset_failed">Kunde inte återställa statistiken</string>
     <string name="no_data_available">Inga data tillgängliga</string>

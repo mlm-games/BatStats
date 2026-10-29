@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • mediante %1$s</string>
     <string name="reset_stats">Restablecer estadísticas</string>
+    <string name="more_actions">Más acciones</string>
+    <string name="reset_stats_warning">Borra el historial de estadísticas de batería de Android para todas las aplicaciones. No se puede deshacer.</string>
     <string name="stats_reset_success">Estadísticas restablecidas</string>
     <string name="stats_reset_failed">No se han podido restablecer las estadísticas</string>
     <string name="no_data_available">No hay datos disponibles</string>

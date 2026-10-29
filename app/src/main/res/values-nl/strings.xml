@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • via %1$s</string>
     <string name="reset_stats">Statistieken herstellen</string>
+    <string name="more_actions">Meer acties</string>
+    <string name="reset_stats_warning">Wist de batterijstatistiekgeschiedenis van Android voor alle apps. Dit kan niet ongedaan worden gemaakt.</string>
     <string name="stats_reset_success">Statistieken hersteld</string>
     <string name="stats_reset_failed">Herstellen van statistieken mislukt</string>
     <string name="no_data_available">Geen gegevens beschikbaar</string>

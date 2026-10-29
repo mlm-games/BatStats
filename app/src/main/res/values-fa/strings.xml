@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • از طریق %1$s</string>
     <string name="reset_stats">بازنشانی آمار</string>
+    <string name="more_actions">اقدامات بیشتر</string>
+    <string name="reset_stats_warning">تاریخچه آمار باتری Android را برای همه برنامه‌ها پاک می‌کند. قابل بازگشت نیست.</string>
     <string name="stats_reset_success">آمار بازنشانی شد</string>
     <string name="stats_reset_failed">بازنشانی آمار ناموفق بود</string>
     <string name="no_data_available">داده‌ای در دسترس نیست</string>

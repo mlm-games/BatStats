@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • %1$s 経由</string>
     <string name="reset_stats">統計をリセット</string>
+    <string name="more_actions">その他の操作</string>
+    <string name="reset_stats_warning">すべてのアプリの Android バッテリー統計履歴を消去します。元に戻せません。</string>
     <string name="stats_reset_success">統計をリセットしました</string>
     <string name="stats_reset_failed">統計をリセットできませんでした</string>
     <string name="no_data_available">データがありません</string>

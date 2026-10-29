@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • через %1$s</string>
     <string name="reset_stats">Скинути статистику</string>
+    <string name="more_actions">Більше дій</string>
+    <string name="reset_stats_warning">Видаляє історію статистики батареї Android для всіх застосунків. Скасувати це неможливо.</string>
     <string name="stats_reset_success">Статистику скинуто</string>
     <string name="stats_reset_failed">Не вдалося скинути статистику</string>
     <string name="no_data_available">Немає даних</string>

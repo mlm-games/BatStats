@@ -80,6 +80,8 @@ fun DetailedStatsScreen(
     val snackbarHost = remember { SnackbarHostState() }
     val statsResetSuccessMsg = stringResource(R.string.stats_reset_success)
     val statsResetFailedMsg = stringResource(R.string.stats_reset_failed)
+    var showActionsMenu by remember { mutableStateOf(false) }
+    var showResetConfirm by remember { mutableStateOf(false) }
 
     val tabs = remember {
         listOf(
@@ -141,17 +143,23 @@ fun DetailedStatsScreen(
                             Icon(Icons.Outlined.Refresh, stringResource(R.string.refresh))
                         }
                     }
-                    IconButton(onClick = {
-                        scope.launch {
-                            if (vm.resetStats()) {
-                                snackbarHost.showSnackbar(statsResetSuccessMsg)
-                                vm.refresh()
-                            } else {
-                                snackbarHost.showSnackbar(statsResetFailedMsg)
-                            }
+                    Box {
+                        IconButton(onClick = { showActionsMenu = true }) {
+                            Icon(Icons.Default.MoreVert, stringResource(R.string.more_actions))
                         }
-                    }) {
-                        Icon(Icons.Outlined.RestartAlt, stringResource(R.string.reset_stats))
+                        DropdownMenu(
+                            expanded = showActionsMenu,
+                            onDismissRequest = { showActionsMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.reset_stats)) },
+                                leadingIcon = { Icon(Icons.Outlined.RestartAlt, null) },
+                                onClick = {
+                                    showActionsMenu = false
+                                    showResetConfirm = true
+                                }
+                            )
+                        }
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -250,6 +258,36 @@ fun DetailedStatsScreen(
                 }
             }
         }
+    }
+
+    if (showResetConfirm) {
+        AlertDialog(
+            onDismissRequest = { showResetConfirm = false },
+            icon = { Icon(Icons.Outlined.RestartAlt, null, tint = MaterialTheme.colorScheme.error) },
+            title = { Text(stringResource(R.string.reset_stats)) },
+            text = { Text(stringResource(R.string.reset_stats_warning)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showResetConfirm = false
+                        scope.launch {
+                            if (vm.resetStats()) {
+                                snackbarHost.showSnackbar(statsResetSuccessMsg)
+                                vm.refresh()
+                            } else {
+                                snackbarHost.showSnackbar(statsResetFailedMsg)
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) { Text(stringResource(R.string.reset_stats)) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showResetConfirm = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
     }
 }
 

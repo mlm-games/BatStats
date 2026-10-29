@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • tramite %1$s</string>
     <string name="reset_stats">Reimposta le statistiche</string>
+    <string name="more_actions">Altre azioni</string>
+    <string name="reset_stats_warning">Cancella la cronologia delle statistiche della batteria di Android per tutte le app. Non può essere annullato.</string>
     <string name="stats_reset_success">Statistiche reimpostate</string>
     <string name="stats_reset_failed">Impossibile reimpostare le statistiche</string>
     <string name="no_data_available">Nessun dato disponibile</string>

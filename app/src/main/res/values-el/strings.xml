@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • μέσω %1$s</string>
     <string name="reset_stats">Επαναφορά στατιστικών</string>
+    <string name="more_actions">Περισσότερες ενέργειες</string>
+    <string name="reset_stats_warning">Διαγράφει το ιστορικό στατιστικών μπαταρίας του Android για όλες τις εφαρμογές. Δεν αναιρείται.</string>
     <string name="stats_reset_success">Οι στατιστικές επαναφέρθηκαν</string>
     <string name="stats_reset_failed">Η επαναφορά των στατιστικών απέτυχε</string>
     <string name="no_data_available">Δεν υπάρχουν διαθέσιμα δεδομένα</string>

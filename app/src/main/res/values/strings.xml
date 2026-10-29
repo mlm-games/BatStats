@@ -381,6 +381,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • via %1$s</string>
     <string name="reset_stats">Reset stats</string>
+    <string name="more_actions">More actions</string>
+    <string name="reset_stats_warning">Clears the battery stats history Android keeps for all apps. Cannot be undone.</string>
     <string name="stats_reset_success">Stats reset successfully</string>
     <string name="stats_reset_failed">Failed to reset stats</string>
     <string name="no_data_available">No data available</string>

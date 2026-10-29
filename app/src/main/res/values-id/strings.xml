@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • melalui %1$s</string>
     <string name="reset_stats">Atur ulang statistik</string>
+    <string name="more_actions">Tindakan lainnya</string>
+    <string name="reset_stats_warning">Menghapus riwayat statistik baterai Android untuk semua aplikasi. Tidak dapat dibatalkan.</string>
     <string name="stats_reset_success">Statistik berhasil diatur ulang</string>
     <string name="stats_reset_failed">Gagal mengatur ulang statistik</string>
     <string name="no_data_available">Tidak ada data</string>

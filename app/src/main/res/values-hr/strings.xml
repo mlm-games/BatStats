@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • putem %1$s</string>
     <string name="reset_stats">Ponovno postavi statistiku</string>
+    <string name="more_actions">Više radnji</string>
+    <string name="reset_stats_warning">Briše povijest statistike baterije Androida za sve aplikacije. Nije moguće poništiti.</string>
     <string name="stats_reset_success">Statistika je ponovno postavljena</string>
     <string name="stats_reset_failed">Ponovno postavljanje statistike nije uspjelo</string>
     <string name="no_data_available">Nema dostupnih podataka</string>

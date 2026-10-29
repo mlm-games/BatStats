@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • %1$s 경유</string>
     <string name="reset_stats">통계 초기화</string>
+    <string name="more_actions">추가 작업</string>
+    <string name="reset_stats_warning">모든 앱의 Android 배터리 통계 기록을 지웁니다. 되돌릴 수 없습니다.</string>
     <string name="stats_reset_success">통계를 초기화했습니다</string>
     <string name="stats_reset_failed">통계를 초기화하지 못했습니다</string>
     <string name="no_data_available">데이터가 없습니다</string>

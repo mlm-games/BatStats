@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> • 透過 %1$s</string>
     <string name="reset_stats">重設統計</string>
+    <string name="more_actions">更多操作</string>
+    <string name="reset_stats_warning">清除所有應用程式的 Android 電池統計記錄，此操作無法復原。</string>
     <string name="stats_reset_success">統計已重設</string>
     <string name="stats_reset_failed">重設統計失敗</string>
     <string name="no_data_available">沒有資料</string>

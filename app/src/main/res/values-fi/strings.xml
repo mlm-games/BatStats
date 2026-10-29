@@ -336,6 +336,8 @@
     <string name="tab_root">Root</string>
     <string name="via_mode"> •:n kautta %1$s</string>
     <string name="reset_stats">Nollaa tilastot</string>
+    <string name="more_actions">Lisää toimintoja</string>
+    <string name="reset_stats_warning">Tyhjentää Androidin akkutilastojen historian kaikilta sovelluksilta. Tätä ei voi kumota.</string>
     <string name="stats_reset_success">Tilastot nollattu</string>
     <string name="stats_reset_failed">Tilastojen nollaaminen epäonnistui</string>
     <string name="no_data_available">Tietoja ei ole saatavilla</string>

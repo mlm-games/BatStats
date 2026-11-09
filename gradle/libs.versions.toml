@@ -27,7 +27,7 @@ animation = "1.11.4"
 shizuku = "13.1.5"
 documentfile = "1.1.0"
 apkDist = "0.5.3"
-composeBom = "2026.10.01"
+composeBom = "2026.11.00"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppCompat" }

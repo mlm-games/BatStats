@@ -1,3 +1,8 @@
+## v6.3.7
+
+- fix: #48 reset stats confirmation
+
+
 ## v6.3.6
 
 - No user-facing changes were mentioned since previous release
